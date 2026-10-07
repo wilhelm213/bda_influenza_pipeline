@@ -1,0 +1,20 @@
+{
+  "run_id": "run_20260922T021945Z",
+  "skala": "kecil",
+  "k": 8,
+  "mapreduce": {
+    "aplikasi": "application_1790042040111_0003",
+    "detik": 42.4,
+    "map_tasks": 15,
+    "reduce_tasks": 6,
+    "map_output_records": 2964548,
+    "combine_output_records": 265159,
+    "reduce_output_records": 56171
+  },
+  "spark": {
+    "aplikasi": "application_1790042040111_0004",
+    "detik": 65.7,
+    "k_mer_unik": 56171
+  },
+  "hasil_identik": true
+}

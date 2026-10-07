@@ -1,0 +1,52 @@
+# ── kredensial: jangan pernah masuk repositori ──────────────────────
+nb/bda_secret.json
+docker/.env
+docker/mysql-init.sql
+*.key
+*.pem
+
+# ── data mentah dan turunan: besar dan dapat dibangun ulang ─────────
+# lake/ berisi 254 MB unduhan NCBI; jalankan notebook 01 untuk membangunnya.
+lake/
+stage/
+features/
+graph/
+graph2/
+models/*.parquet
+spark_tmp/
+audit/
+ckpt/
+
+# ── keluaran sementara ──────────────────────────────────────────────
+*.log
+*.tmp
+spark-warehouse/
+derby.log
+metastore_db/
+
+# ── cache Python dan Jupyter ────────────────────────────────────────
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.pytest_cache/
+.venv/
+venv/
+
+# ── cadangan dan berkas kerja ───────────────────────────────────────
+nb_backup_*/
+*.bak
+*.bak.*
+~$*
+
+# ── berkas sistem ───────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── materi kuliah: hak cipta dosen, bukan karya sendiri ────────────
+bigdata analytics/
+assignment 1/
+
+# ── berkas kerja pribadi ────────────────────────────────────────────
+New folder/
+*.docx

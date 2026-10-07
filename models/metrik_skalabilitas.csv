@@ -1,0 +1,11 @@
+jalur,fraksi,n_latih,detik,f1_makro,delta_ram_gb,throughput_baris_per_detik,catatan
+Spark MLlib,0.01,7251.0,75.58,0.9989,-0.77,95.0,
+scikit-learn 1 node,0.01,7251.0,31.69,1.0,0.3,228.0,
+Spark MLlib,0.05,35854.0,69.12,0.9999,-0.7,518.0,
+scikit-learn 1 node,0.05,35854.0,211.12,0.9999,-0.1,169.0,
+Spark MLlib,0.25,178783.0,165.77,0.9998,1.33,1078.0,
+scikit-learn 1 node,0.25,,,,,,Py4JJavaError
+Spark MLlib,0.5,356839.0,269.49,0.9998,1.17,1324.0,
+scikit-learn 1 node,0.5,,,,,,Py4JJavaError
+Spark MLlib,1.0,713440.0,495.5,0.9998,-1.77,1439.0,
+scikit-learn 1 node,1.0,,,,,,Py4JJavaError

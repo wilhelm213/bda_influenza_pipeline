@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diagram Arsitektur — Pipeline Influenza A</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;600&display=swap">
+<style>
+  :root{
+    --ground:#ffffff;--ink:#101713;--ink-2:#4b5650;--ink-3:#7c8781;
+    --rule:#cfd8d2;--accent:#0d6e63;--accent-soft:#e2efec;
+    --alt:#8a4b16;--alt-soft:#f6eee4;
+    --sans:"IBM Plex Sans",system-ui,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--sans);line-height:1.6}
+  .wrap{max-width:960px;margin:0 auto;padding:32px 24px 80px}
+  h1{font-size:26px;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--ink-2);margin:0 0 6px}
+  .hint{font-size:13px;color:var(--ink-3);font-family:var(--mono);margin:0 0 30px}
+  h2{font-size:18px;margin:44px 0 4px}
+  .cap{font-size:13.5px;color:var(--ink-2);margin:0 0 14px;max-width:72ch}
+  figure{margin:0 0 10px;border:1px solid var(--rule);background:#fff;padding:14px}
+  svg{display:block;width:100%;height:auto}
+  .ket{font-size:13px;color:var(--ink-2);margin:10px 0 0}
+  .ket b{color:var(--ink)}
+  @media print{
+    .hint{display:none}
+    figure{border:none;padding:0;break-inside:avoid}
+    h2{break-after:avoid}
+  }</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Diagram Arsitektur</h1>
+<p class="sub">Pipeline Big Data untuk Surveilans Genomik Influenza A</p>
+<p class="hint">Buka di peramban lalu Ctrl+P → Save as PDF, atau tangkap layar tiap diagram untuk disisipkan ke laporan.</p>
+
+<h2>Gambar 1 — Arsitektur Berlapis</h2>
+<p class="cap">
+  Tujuh lapisan, dari sumber data sampai penyajian. Tiap lapisan hanya
+  bergantung pada lapisan di bawahnya.
+</p>
+<figure>
+<svg viewBox="0 0 900 600" role="img" aria-label="Diagram arsitektur berlapis tujuh lapisan">
+  <defs>
+    <marker id="pnh" markerWidth="9" markerHeight="9" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 z" fill="#7c8781"/>
+    </marker>
+  </defs>
+  <style>
+    .band{fill:#f6f8f6;stroke:#cfd8d2;stroke-width:1}
+    .bandA{fill:#e2efec;stroke:#0d6e63;stroke-width:1.5}
+    .lbl{font-family:var(--mono);font-size:10.5px;fill:#0d6e63;letter-spacing:.08em;font-weight:500}
+    .lbl2{font-family:var(--sans);font-size:12.5px;fill:#101713;font-weight:600}
+    .chip{fill:#ffffff;stroke:#cfd8d2;stroke-width:1}
+    .chipA{fill:#ffffff;stroke:#0d6e63;stroke-width:1.5}
+    .ctx{font-family:var(--sans);font-size:12px;fill:#101713}
+    .cts{font-family:var(--mono);font-size:10px;fill:#101713}
+    .ar{stroke:#7c8781;stroke-width:1.4;marker-end:url(#pnh)}</style>
+
+  
+  <rect class="band" x="40" y="20" width="820" height="58" rx="3"/>
+  <text class="lbl" x="54" y="43">SUMBER</text>
+  <text class="lbl2" x="54" y="60">Data</text>
+  <rect class="chip" x="210" y="34" width="312" height="30" rx="3"/>
+  <text class="ctx" x="224" y="54">NCBI E-utilities &#8212; FASTA</text>
+  <rect class="chip" x="536" y="34" width="312" height="30" rx="3"/>
+  <text class="ctx" x="550" y="54">NCBI Virus vvsearch2 &#8212; CSV</text>
+  <line class="ar" x1="450" y1="78" x2="450" y2="90"/>
+
+  
+  <rect class="band" x="40" y="92" width="820" height="58" rx="3"/>
+  <text class="lbl" x="54" y="115">INGESTION</text>
+  <text class="lbl2" x="54" y="132">Notebook 01</text>
+  <rect class="chip" x="210" y="106" width="312" height="30" rx="3"/>
+  <text class="ctx" x="224" y="126">42 partisi &#183; pecah per bulan &gt; 60.000</text>
+  <rect class="chip" x="536" y="106" width="312" height="30" rx="3"/>
+  <text class="ctx" x="550" y="126">idempoten &#183; batas laju 3 req/detik</text>
+  <line class="ar" x1="450" y1="150" x2="450" y2="162"/>
+
+  
+  <rect class="bandA" x="40" y="164" width="820" height="88" rx="3"/>
+  <text class="lbl" x="54" y="190">STORAGE</text>
+  <text class="lbl2" x="54" y="207">HDFS</text>
+  <text class="cts" x="54" y="224">replikasi 2</text>
+  <text class="cts" x="54" y="238">blok 128 MB</text>
+  <rect class="chipA" x="210" y="180" width="203" height="56" rx="3"/>
+  <text class="ctx" x="224" y="202">Zona bronze</text>
+  <text class="cts" x="224" y="220">apa adanya &#183; 530 MB</text>
+  <rect class="chipA" x="427" y="180" width="203" height="56" rx="3"/>
+  <text class="ctx" x="441" y="202">Zona silver</text>
+  <text class="cts" x="441" y="220">Parquet &#183; 888 MB</text>
+  <rect class="chipA" x="644" y="180" width="204" height="56" rx="3"/>
+  <text class="ctx" x="658" y="202">Zona gold</text>
+  <text class="cts" x="658" y="220">teragregasi</text>
+  <line class="ar" x1="450" y1="252" x2="450" y2="264"/>
+
+  
+  <rect class="bandA" x="40" y="266" width="820" height="52" rx="3"/>
+  <text class="lbl" x="54" y="290">RESOURCE</text>
+  <text class="lbl2" x="54" y="307">YARN</text>
+  <rect class="chipA" x="210" y="278" width="638" height="28" rx="3"/>
+  <text class="ctx" x="224" y="297">ResourceManager + 3 NodeManager &#160;&#183;&#160; 12 vCore &#160;&#183;&#160; 18.432 MB</text>
+  <line class="ar" x1="450" y1="318" x2="450" y2="330"/>
+
+  
+  <rect class="band" x="40" y="332" width="820" height="66" rx="3"/>
+  <text class="lbl" x="54" y="358">PROCESSING</text>
+  <text class="lbl2" x="54" y="375">Notebook 03</text>
+  <rect class="chip" x="210" y="346" width="312" height="38" rx="3"/>
+  <text class="ctx" x="224" y="364">MapReduce &#8212; Hadoop Streaming</text>
+  <text class="cts" x="224" y="378">mapper &amp; reducer awk</text>
+  <rect class="chip" x="536" y="346" width="312" height="38" rx="3"/>
+  <text class="ctx" x="550" y="364">Apache Spark 3.5.9</text>
+  <text class="cts" x="550" y="378">DataFrame &#183; Spark SQL &#183; MLlib</text>
+  <line class="ar" x1="450" y1="398" x2="450" y2="410"/>
+
+  
+  <rect class="band" x="40" y="412" width="820" height="66" rx="3"/>
+  <text class="lbl" x="54" y="438">ANALYTICS</text>
+  <text class="lbl2" x="54" y="455">Notebook 04&#8211;06</text>
+  <rect class="chip" x="210" y="426" width="203" height="38" rx="3"/>
+  <text class="ctx" x="224" y="444">Fitur <tspan font-style="italic">k</tspan>-mer</text>
+  <text class="cts" x="224" y="458">alignment-free</text>
+  <rect class="chip" x="427" y="426" width="203" height="38" rx="3"/>
+  <text class="ctx" x="441" y="444">Machine learning</text>
+  <text class="cts" x="441" y="458">segmen &#183; subtipe</text>
+  <rect class="chip" x="644" y="426" width="204" height="38" rx="3"/>
+  <text class="ctx" x="658" y="444">Graph analytics</text>
+  <text class="cts" x="658" y="458">MinHash LSH</text>
+  <line class="ar" x1="450" y1="478" x2="450" y2="490"/>
+
+  
+  <rect class="band" x="40" y="492" width="820" height="66" rx="3"/>
+  <text class="lbl" x="54" y="518">SERVING</text>
+  <text class="lbl2" x="54" y="535">Notebook 07</text>
+  <rect class="chip" x="210" y="506" width="203" height="38" rx="3"/>
+  <text class="ctx" x="224" y="524">MySQL</text>
+  <text class="cts" x="224" y="538">skema bintang</text>
+  <rect class="chip" x="427" y="506" width="203" height="38" rx="3"/>
+  <text class="ctx" x="441" y="524">Neo4j</text>
+  <text class="cts" x="441" y="538">property graph</text>
+  <rect class="chip" x="644" y="506" width="204" height="38" rx="3"/>
+  <text class="ctx" x="658" y="524">Dashboard</text>
+  <text class="cts" x="658" y="538">Plotly mandiri</text>
+
+  <text class="cts" x="40" y="578">Lapisan bergaris tebal = komponen inti Hadoop yang menjadi fondasi seluruh lapisan di atasnya.</text>
+</svg>
+</figure>
+<p class="ket">
+  <b>Cara membacanya.</b> Dua lapisan bergaris tebal &#8212; HDFS dan YARN &#8212;
+  adalah fondasi Hadoop. Semua yang di atasnya berjalan di atas keduanya:
+  MapReduce dan Spark sama-sama menyubmit ke YARN, dan keduanya membaca dari HDFS.
+</p>
+
+<h2>Gambar 2 — Topologi Klaster</h2>
+<p class="cap">
+  Wujud fisiknya: sembilan container Docker pada satu jaringan terisolasi,
+  ditambah MySQL yang berjalan di luar klaster.
+</p>
+<figure>
+<svg viewBox="0 0 900 470" role="img" aria-label="Diagram topologi klaster Docker">
+  <style>
+    .out{fill:none;stroke:#7c8781;stroke-width:1.4;stroke-dasharray:6 4}
+    .grp{fill:#f6f8f6;stroke:#0d6e63;stroke-width:1.3}
+    .box{fill:#ffffff;stroke:#cfd8d2;stroke-width:1}
+    .boxA{fill:#e2efec;stroke:#0d6e63;stroke-width:1.4}
+    .boxH{fill:#f6eee4;stroke:#8a4b16;stroke-width:1.3;stroke-dasharray:4 3}
+    .gl{font-family:var(--mono);font-size:10.5px;fill:#0d6e63;letter-spacing:.08em;font-weight:500}
+    .ol{font-family:var(--mono);font-size:10.5px;fill:#101713;letter-spacing:.08em}
+    .bt{font-family:var(--sans);font-size:11.5px;fill:#101713}
+    .bs{font-family:var(--mono);font-size:9.5px;fill:#101713}
+    .ln{stroke:#7c8781;stroke-width:1.2}
+    .lnA{stroke:#0d6e63;stroke-width:1.5}</style>
+
+  
+  <rect class="out" x="30" y="46" width="700" height="386" rx="4"/>
+  <text class="ol" x="42" y="38">KLASTER DOCKER &#8212; jaringan bda</text>
+
+  
+  <rect class="grp" x="52" y="76" width="322" height="148" rx="3"/>
+  <text class="gl" x="64" y="96">HDFS</text>
+  <rect class="boxA" x="70" y="106" width="150" height="38" rx="3"/>
+  <text class="bt" x="80" y="123">bda-namenode</text>
+  <text class="bs" x="80" y="136">9870 &#183; 8020</text>
+  <rect class="box" x="70" y="160" width="88" height="44" rx="3"/>
+  <text class="bt" x="78" y="180">datanode1</text>
+  <text class="bs" x="78" y="194">2 GB</text>
+  <rect class="box" x="166" y="160" width="88" height="44" rx="3"/>
+  <text class="bt" x="174" y="180">datanode2</text>
+  <text class="bs" x="174" y="194">2 GB</text>
+  <rect class="box" x="262" y="160" width="88" height="44" rx="3"/>
+  <text class="bt" x="270" y="180">datanode3</text>
+  <text class="bs" x="270" y="194">2 GB</text>
+
+  
+  <rect class="grp" x="394" y="76" width="312" height="148" rx="3"/>
+  <text class="gl" x="406" y="96">YARN</text>
+  <rect class="boxA" x="412" y="106" width="170" height="38" rx="3"/>
+  <text class="bt" x="422" y="123">bda-resourcemanager</text>
+  <text class="bs" x="422" y="136">8088</text>
+  <rect class="box" x="412" y="160" width="88" height="44" rx="3"/>
+  <text class="bt" x="420" y="180">nodemgr1</text>
+  <text class="bs" x="420" y="194">7 GB &#183; 4 vCore</text>
+  <rect class="box" x="508" y="160" width="88" height="44" rx="3"/>
+  <text class="bt" x="516" y="180">nodemgr2</text>
+  <text class="bs" x="516" y="194">7 GB &#183; 4 vCore</text>
+  <rect class="box" x="604" y="160" width="88" height="44" rx="3"/>
+  <text class="bt" x="612" y="180">nodemgr3</text>
+  <text class="bs" x="612" y="194">7 GB &#183; 4 vCore</text>
+
+  
+  <rect class="boxA" x="52" y="256" width="322" height="56" rx="3"/>
+  <text class="bt" x="64" y="277">bda-jupyter &#8212; gateway node</text>
+  <text class="bs" x="64" y="293">driver Spark &#183; klien Hadoop &#183; 8888 &#183; 4040</text>
+  <text class="bs" x="64" y="305">tempat job disubmit, bukan tempat job dieksekusi</text>
+
+  
+  <rect class="boxA" x="394" y="256" width="312" height="56" rx="3"/>
+  <text class="bt" x="406" y="277">bda-neo4j</text>
+  <text class="bs" x="406" y="293">graph database &#183; Cypher + GDS</text>
+  <text class="bs" x="406" y="305">7474 browser &#183; 7687 bolt</text>
+
+  
+  <rect class="boxH" x="762" y="106" width="118" height="70" rx="3"/>
+  <text class="bt" x="772" y="128">MySQL</text>
+  <text class="bs" x="772" y="143">Windows host</text>
+  <text class="bs" x="772" y="156">bukan di dalam</text>
+  <text class="bs" x="772" y="168">klaster</text>
+
+  
+  <line class="lnA" x1="213" y1="256" x2="213" y2="224"/>
+  <line class="lnA" x1="550" y1="256" x2="550" y2="224"/>
+  <line class="ln" x1="374" y1="284" x2="394" y2="284"/>
+  <line class="ln" x1="706" y1="141" x2="762" y2="141"/>
+  <text class="bs" x="712" y="134">JDBC</text>
+  <text class="bs" x="704" y="155">host.docker.internal</text>
+
+  <text class="bs" x="42" y="352">Jupyter menyubmit ke YARN; YARN mengalokasikan container di NodeManager; NodeManager membaca dan menulis ke HDFS.</text>
+  <text class="bs" x="42" y="368">Penulisan ke MySQL terjadi di executor, bukan di driver &#8212; karena itu NodeManager harus menjangkau host.docker.internal.</text>
+  <text class="bs" x="42" y="392">Profil alternatif: Spark Standalone (spark-master + 3 worker) menggantikan YARN. Keduanya tidak muat bersamaan</text>
+  <text class="bs" x="42" y="406">dalam batas RAM WSL 48 GB, sehingga hanya satu profil aktif pada satu waktu.</text>
+</svg>
+</figure>
+<p class="ket">
+  <b>Catatan.</b> Kotak bergaris putus-putus di kanan menegaskan bahwa MySQL
+  berada <b>di luar</b> klaster, pada host Windows. Konsekuensinya ada pada
+  jaringan: container harus menjangkaunya lewat <code>host.docker.internal</code>,
+  bukan <code>127.0.0.1</code> yang di dalam container menunjuk ke container itu sendiri.
+</p>
+
+<h2>Gambar 3 — Aliran Data Antar Zona</h2>
+<p class="cap">
+  Perjalanan satu sekuens dari arsip NCBI sampai menjadi keluaran dashboard,
+  beserta volume pada tiap tahapnya.
+</p>
+<figure>
+<svg viewBox="0 0 900 340" role="img" aria-label="Diagram aliran data antar zona">
+  <defs>
+    <marker id="pn2" markerWidth="9" markerHeight="9" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 z" fill="#0d6e63"/>
+    </marker>
+  </defs>
+  <style>
+    .zn{fill:#ffffff;stroke:#0d6e63;stroke-width:1.4}
+    .zt{font-family:var(--sans);font-size:12.5px;fill:#101713;font-weight:600}
+    .zs{font-family:var(--mono);font-size:10px;fill:#101713}
+    .zv{font-family:var(--mono);font-size:11px;fill:#0d6e63;font-weight:500}
+    .fa{stroke:#0d6e63;stroke-width:1.6;marker-end:url(#pn2);fill:none}
+    .fl{font-family:var(--mono);font-size:9.5px;fill:#101713}</style>
+
+  <rect class="zn" x="30" y="60" width="150" height="86" rx="3"/>
+  <text class="zt" x="44" y="84">NCBI</text>
+  <text class="zs" x="44" y="100">dua layanan</text>
+  <text class="zv" x="44" y="122">1.627.536</text>
+  <text class="zs" x="44" y="136">sekuens</text>
+
+  <path class="fa" d="M180,103 L218,103"/>
+  <text class="fl" x="182" y="96">unduh</text>
+
+  <rect class="zn" x="222" y="60" width="150" height="86" rx="3"/>
+  <text class="zt" x="236" y="84">Bronze</text>
+  <text class="zs" x="236" y="100">HDFS, apa adanya</text>
+  <text class="zv" x="236" y="122">530 MB</text>
+  <text class="zs" x="236" y="136">201 berkas</text>
+
+  <path class="fa" d="M372,103 L410,103"/>
+  <text class="fl" x="368" y="96">gerbang mutu</text>
+
+  <rect class="zn" x="414" y="60" width="150" height="86" rx="3"/>
+  <text class="zt" x="428" y="84">Silver</text>
+  <text class="zs" x="428" y="100">Parquet, 26 kolom</text>
+  <text class="zv" x="428" y="122">1.586.912</text>
+  <text class="zs" x="428" y="136">lolos 97,5%</text>
+
+  <path class="fa" d="M564,103 L602,103"/>
+  <text class="fl" x="566" y="96"><tspan font-style="italic">k</tspan>-mer</text>
+
+  <rect class="zn" x="606" y="60" width="150" height="86" rx="3"/>
+  <text class="zt" x="620" y="84">Fitur</text>
+  <text class="zs" x="620" y="100">vektor jarang</text>
+  <text class="zv" x="620" y="122">892.344</text>
+  <text class="zs" x="620" y="136">&#215; 65.536 dimensi</text>
+
+  <path class="fa" d="M489,146 L489,196"/>
+  <path class="fa" d="M681,146 L681,196"/>
+
+  <rect class="zn" x="414" y="200" width="150" height="76" rx="3"/>
+  <text class="zt" x="428" y="224">Gold &#8594; MySQL</text>
+  <text class="zs" x="428" y="240">skema bintang</text>
+  <text class="zs" x="428" y="256">teragregasi, kecil</text>
+
+  <rect class="zn" x="606" y="200" width="150" height="76" rx="3"/>
+  <text class="zt" x="620" y="224">Graf &#8594; Neo4j</text>
+  <text class="zs" x="620" y="240">property graph</text>
+  <text class="zs" x="620" y="256">lintasan &#183; sentralitas</text>
+
+  <path class="fa" d="M564,238 L602,238"/>
+
+  <rect class="zn" x="30" y="200" width="330" height="76" rx="3" style="stroke-dasharray:4 3"/>
+  <text class="zt" x="44" y="224">Keluaran untuk pengambil keputusan</text>
+  <text class="zs" x="44" y="242">dashboard interaktif &#183; tabel mart &#183; daftar kandidat reassortant</text>
+  <text class="zs" x="44" y="258">tiga insight: geografi-waktu, machine learning, graph analytics</text>
+
+  <path class="fa" d="M414,238 L364,238"/>
+
+  <text class="zs" x="30" y="312">Zona bronze tidak pernah diubah. Bila terjadi kesalahan pada tahap mana pun di hilir, seluruh proses dapat</text>
+  <text class="zs" x="30" y="326">diulang dari sana tanpa mengunduh ulang dari NCBI &#8212; itulah gunanya memisahkan zona.</text>
+</svg>
+</figure>
+<p class="ket">
+  <b>Angka yang menonjol.</b> Sumbernya 530 MB terkompresi, tetapi turunannya
+  38,6 GB di zona fitur. Sumber kecil, turunan besar &#8212; pola yang khas pada
+  rekayasa fitur genomik, dan alasan penyimpanan harus dirancang untuk turunan,
+  bukan untuk sumbernya.
+</p>
+
+</div>
+</body>
+</html>

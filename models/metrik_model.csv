@@ -1,0 +1,10 @@
+tugas,algoritma,kelas,f1_makro,akurasi,log_loss,log_loss_acak,hamming_loss,detik_latih
+A: segmen (8 kelas),LogisticRegression,8,0.9998,0.9998,0.0017,2.0794,0.0002,583.0
+A: segmen (8 kelas),RandomForest,8,0.9977,0.9977,0.0906,2.0794,0.0023,1802.6
+A: segmen (8 kelas),NaiveBayes,8,0.9997,0.9997,0.0103,2.0794,0.0003,13.8
+B1: subtipe dari HA+NA,LogisticRegression,21,0.9654,0.9658,0.1143,3.0445,0.0342,325.0
+B1: subtipe dari HA+NA,RandomForest,21,0.89,0.9004,0.4569,3.0445,0.0996,4333.9
+B1: subtipe dari HA+NA,NaiveBayes,21,0.8795,0.8725,2.3188,3.0445,0.1275,5.9
+B2: subtipe dari segmen internal,LogisticRegression,21,0.8678,0.8705,0.4355,3.0445,0.1295,779.6
+B2: subtipe dari segmen internal,RandomForest,21,0.6292,0.6747,1.0615,3.0445,0.3253,8231.2
+B2: subtipe dari segmen internal,NaiveBayes,21,0.7651,0.7566,3.3654,3.0445,0.2434,12.9

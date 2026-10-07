@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<!--
+  Menjadikan YARN sebagai kerangka eksekusi MapReduce.
+
+  Nilai bawaannya "local", yang menjalankan job di dalam satu JVM klien
+  tanpa menyentuh klaster sama sekali. Job tetap selesai dan hasilnya
+  benar, sehingga kekeliruan ini mudah luput — tetapi tidak ada satu pun
+  container YARN yang dibuat, dan tidak ada apa pun yang muncul di
+  ResourceManager. Baris pertama di bawah inilah yang membedakan
+  "memakai MapReduce" dari "memakai MapReduce di atas YARN".
+-->
+<configuration>
+
+  <property>
+    <name>mapreduce.framework.name</name>
+    <value>yarn</value>
+  </property>
+
+  <!--
+    Tanpa ketiga baris ini, container map, reduce, dan ApplicationMaster
+    tidak menemukan pustaka MapReduce dan gagal dengan ClassNotFound.
+  -->
+  <property>
+    <name>yarn.app.mapreduce.am.env</name>
+    <value>HADOOP_MAPRED_HOME=${HADOOP_HOME}</value>
+  </property>
+
+  <property>
+    <name>mapreduce.map.env</name>
+    <value>HADOOP_MAPRED_HOME=${HADOOP_HOME}</value>
+  </property>
+
+  <property>
+    <name>mapreduce.reduce.env</name>
+    <value>HADOOP_MAPRED_HOME=${HADOOP_HOME}</value>
+  </property>
+
+  <!-- Dibatasi agar muat di NodeManager 7 GB tanpa mengantre. -->
+  <property>
+    <name>mapreduce.map.memory.mb</name>
+    <value>1536</value>
+  </property>
+
+  <property>
+    <name>mapreduce.reduce.memory.mb</name>
+    <value>2048</value>
+  </property>
+
+  <property>
+    <name>yarn.app.mapreduce.am.resource.mb</name>
+    <value>1536</value>
+  </property>
+
+</configuration>

@@ -1,0 +1,13 @@
+{
+  "run_id": "run_20260922T025250Z",
+  "k": 8,
+  "tugas_A_f1_terbaik": 0.9998,
+  "tugas_A_log_loss_terbaik": 0.0017,
+  "tugas_B1_f1_terbaik": 0.9654,
+  "tugas_B1_log_loss_terbaik": 0.1143,
+  "tugas_B2_f1_terbaik": 0.8678,
+  "tugas_B2_log_loss_terbaik": 0.4355,
+  "log_loss_acak_A": 2.0794,
+  "log_loss_acak_B": 3.0445,
+  "selisih_B1_B2": 0.09760000000000002
+}

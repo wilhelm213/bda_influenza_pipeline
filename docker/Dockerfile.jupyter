@@ -1,0 +1,66 @@
+
+FROM apache/spark:3.5.9-scala2.12-java11-python3-r-ubuntu
+
+USER root
+
+ENV SPARK_HOME=/opt/spark \
+    PATH=/opt/spark/bin:/opt/spark/sbin:$PATH \
+    PYTHONUNBUFFERED=1 \
+    PYTHONIOENCODING=utf-8
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        python3-pip curl procps less nano ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN pip3 install --no-cache-dir --upgrade pip setuptools wheel
+
+RUN pip3 install --no-cache-dir \
+        pyspark==3.5.9 \
+        jupyterlab notebook ipywidgets \
+        pandas numpy scipy scikit-learn pyarrow \
+        matplotlib seaborn plotly \
+        requests biopython networkx psutil \
+        pymysql sqlalchemy \
+        graphframes-py
+
+ARG MYSQL_J=8.4.0
+ARG GF=0.8.4-spark3.5-s_2.12
+RUN curl -fsSL -o $SPARK_HOME/jars/mysql-connector-j-${MYSQL_J}.jar \
+      https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/${MYSQL_J}/mysql-connector-j-${MYSQL_J}.jar \
+ && curl -fsSL -o $SPARK_HOME/jars/graphframes-${GF}.jar \
+      https://repos.spark-packages.org/graphframes/graphframes/${GF}/graphframes-${GF}.jar
+
+# ────────────────────── klien Hadoop ──────────────────────
+# Container ini berperan sebagai gateway node: tempat job disubmit, bukan
+# tempat job dieksekusi. Image Spark membawa pustaka Hadoop secukupnya
+# untuk membaca HDFS, tetapi TIDAK membawa perintah `hadoop`, `yarn`,
+# `mapred`, maupun hadoop-streaming.jar -- padahal ketiganya yang
+# dipakai menyubmit job MapReduce ke YARN.
+#
+# Distribusi penuh dipasang di sini supaya notebook bisa menjalankan
+# MapReduce langsung, tanpa perlu docker exec ke container lain.
+ARG HADOOP_VERSION=3.3.6
+ENV HADOOP_HOME=/opt/hadoop \
+    HADOOP_CONF_DIR=/opt/hadoop-conf
+RUN curl -fsSL -o /tmp/hadoop.tgz \
+      "https://archive.apache.org/dist/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz" \
+ && mkdir -p /opt/hadoop \
+ && tar -xzf /tmp/hadoop.tgz -C /opt/hadoop --strip-components=1 \
+ && rm -f /tmp/hadoop.tgz \
+ # Dokumentasi dan pustaka sumber tidak dipakai klien; membuangnya
+ # memangkas image sekitar 400 MB.
+ && rm -rf /opt/hadoop/share/doc /opt/hadoop/share/hadoop/*/sources \
+ && mkdir -p /opt/hadoop-conf
+ENV PATH=/opt/hadoop/bin:$PATH
+
+
+# ────────────────────── driver Neo4j ──────────────────────
+# HARUS di paling bawah. Docker menyusun cache secara berurutan: satu
+# instruksi baru membatalkan cache SELURUH instruksi di bawahnya. Versi
+# pertama menaruh baris ini sebelum blok Hadoop, sehingga Hadoop 700 MB
+# ikut terunduh ulang setiap kali -- pemborosan yang seluruhnya bisa
+# dihindari hanya dengan menaruhnya di akhir.
+RUN pip3 install --no-cache-dir neo4j==5.28.1
+
+WORKDIR /workspace/nb
+EXPOSE 8888 4040 4041

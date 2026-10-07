@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<!--
+  Alamat ResourceManager dari sisi klien. Keempat port di bawah punya
+  peran berbeda dan semuanya diperlukan:
+
+    8032  klien mengirim aplikasi baru
+    8030  ApplicationMaster meminta container ke penjadwal
+    8031  NodeManager melapor hidup ke ResourceManager
+    8088  antarmuka web dan REST API
+-->
+<configuration>
+
+  <property>
+    <name>yarn.resourcemanager.hostname</name>
+    <value>resourcemanager</value>
+  </property>
+
+  <property>
+    <name>yarn.resourcemanager.address</name>
+    <value>resourcemanager:8032</value>
+  </property>
+
+  <property>
+    <name>yarn.resourcemanager.scheduler.address</name>
+    <value>resourcemanager:8030</value>
+  </property>
+
+  <property>
+    <name>yarn.resourcemanager.resource-tracker.address</name>
+    <value>resourcemanager:8031</value>
+  </property>
+
+  <property>
+    <name>yarn.resourcemanager.webapp.address</name>
+    <value>resourcemanager:8088</value>
+  </property>
+
+  <!--
+    YARN menghitung pemakaian memori virtual, bukan hanya memori fisik.
+    JVM di dalam container Docker rutin memesan ruang alamat virtual jauh
+    melebihi yang dipakai, sehingga pemeriksaan ini membunuh container
+    yang sebenarnya sehat dengan pesan "running beyond virtual memory
+    limits". Dimatikan; batas memori fisik tetap berlaku.
+  -->
+  <property>
+    <name>yarn.nodemanager.vmem-check-enabled</name>
+    <value>false</value>
+  </property>
+
+</configuration>

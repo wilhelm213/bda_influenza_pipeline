@@ -1,0 +1,345 @@
+# Klaster Hadoop + Spark untuk proyek BDA Influenza A
+name: bda-influenza
+
+x-hadoop-env: &hadoop-env
+  CORE-SITE.XML_fs.defaultFS: hdfs://namenode:8020
+  CORE-SITE.XML_hadoop.tmp.dir: /hadoop/tmp
+  HDFS-SITE.XML_dfs.namenode.name.dir: /hadoop/dfs/name
+  HDFS-SITE.XML_dfs.datanode.data.dir: /hadoop/dfs/data
+  HDFS-SITE.XML_dfs.replication: "2"
+  HDFS-SITE.XML_dfs.permissions.enabled: "false"
+  HDFS-SITE.XML_dfs.namenode.datanode.registration.ip-hostname-check: "false"
+  HDFS-SITE.XML_dfs.blocksize: "134217728"
+
+# Konfigurasi YARN dan MapReduce, dipakai ResourceManager dan seluruh
+# NodeManager. Image apache/hadoop menerjemahkan variabel berpola
+# NAMA-BERKAS.XML_<properti> menjadi berkas konfigurasi sungguhan saat
+# container dinyalakan.
+x-yarn-env: &yarn-env
+  YARN-SITE.XML_yarn.resourcemanager.hostname: resourcemanager
+  YARN-SITE.XML_yarn.nodemanager.aux-services: mapreduce_shuffle
+
+  # Anggaran sumber daya per NodeManager. Angka ini harus lebih kecil
+  # daripada mem_limit container-nya; kalau disamakan, YARN akan
+  # menjadwalkan container sampai batas dan Docker membunuh prosesnya
+  # dengan OOMKilled yang sulit dilacak.
+  # Diturunkan dari 7168 untuk memberi ruang bagi Neo4j. RAM WSL 48 GB dan
+  # profil yarn sebelumnya sudah memakai 46 GB, sehingga tidak ada sisa
+  # sama sekali. Kapasitas klaster turun dari 21,5 GB ke 18 GB -- masih
+  # jauh di atas kebutuhan job di sini, yang memakai 3 executor x 3 GB.
+  YARN-SITE.XML_yarn.nodemanager.resource.memory-mb: "6144"
+  YARN-SITE.XML_yarn.nodemanager.resource.cpu-vcores: "4"
+  YARN-SITE.XML_yarn.scheduler.maximum-allocation-mb: "6144"
+  YARN-SITE.XML_yarn.scheduler.minimum-allocation-mb: "512"
+
+  # YARN ikut menghitung memori VIRTUAL, bukan hanya fisik. JVM di dalam
+  # Docker rutin memesan ruang alamat virtual jauh melebihi yang dipakai,
+  # sehingga pemeriksaan ini membunuh container yang sebenarnya sehat
+  # dengan pesan "running beyond virtual memory limits". Batas memori
+  # fisik tetap berlaku.
+  YARN-SITE.XML_yarn.nodemanager.vmem-check-enabled: "false"
+
+  # MapReduce berjalan DI ATAS YARN. Nilai bawaannya "local", yang
+  # menjalankan job di satu JVM klien tanpa menyentuh klaster -- job tetap
+  # selesai dan hasilnya benar, tapi tidak ada satu pun container YARN
+  # yang dibuat dan tidak ada apa pun yang muncul di ResourceManager.
+  MAPRED-SITE.XML_mapreduce.framework.name: yarn
+  MAPRED-SITE.XML_mapreduce.map.memory.mb: "1536"
+  MAPRED-SITE.XML_mapreduce.reduce.memory.mb: "2048"
+  MAPRED-SITE.XML_yarn.app.mapreduce.am.resource.mb: "1536"
+  MAPRED-SITE.XML_yarn.app.mapreduce.am.env: HADOOP_MAPRED_HOME=/opt/hadoop
+  MAPRED-SITE.XML_mapreduce.map.env: HADOOP_MAPRED_HOME=/opt/hadoop
+  MAPRED-SITE.XML_mapreduce.reduce.env: HADOOP_MAPRED_HOME=/opt/hadoop
+
+services:
+
+  # ────────────────────────────── HDFS ──────────────────────────────
+  namenode:
+    image: apache/hadoop:3.3.6
+    container_name: bda-namenode
+    hostname: namenode
+    user: root
+    command:
+      - bash
+      - -c
+      - |
+        if [ ! -d /hadoop/dfs/name/current ]; then
+          echo "=== namenode belum diformat, memformat sekarang ==="
+          hdfs namenode -format -force -nonInteractive
+        else
+          echo "=== namenode sudah diformat, langsung dijalankan ==="
+        fi
+        exec hdfs namenode
+    environment:
+      <<: *hadoop-env
+      HADOOP_HEAPSIZE_MAX: 1536m
+    ports:
+      - "9870:9870"
+      - "8020:8020"
+    volumes:
+      - nn:/hadoop/dfs/name
+      - ./bootstrap:/bootstrap:ro
+    mem_limit: 2g
+    healthcheck:
+      test: ["CMD-SHELL", "hdfs dfsadmin -report >/dev/null 2>&1 || exit 1"]
+      interval: 20s
+      timeout: 15s
+      retries: 12
+      start_period: 40s
+    networks: [bda]
+
+  datanode1:
+    image: apache/hadoop:3.3.6
+    container_name: bda-datanode1
+    hostname: datanode1
+    user: root
+    command: ["hdfs", "datanode"]
+    environment:
+      <<: *hadoop-env
+      HADOOP_HEAPSIZE_MAX: 1536m
+    volumes: [dn1:/hadoop/dfs/data]
+    mem_limit: 2g
+    depends_on: [namenode]
+    networks: [bda]
+
+  datanode2:
+    image: apache/hadoop:3.3.6
+    container_name: bda-datanode2
+    hostname: datanode2
+    user: root
+    command: ["hdfs", "datanode"]
+    environment:
+      <<: *hadoop-env
+      HADOOP_HEAPSIZE_MAX: 1536m
+    volumes: [dn2:/hadoop/dfs/data]
+    mem_limit: 2g
+    depends_on: [namenode]
+    networks: [bda]
+
+  datanode3:
+    image: apache/hadoop:3.3.6
+    container_name: bda-datanode3
+    hostname: datanode3
+    user: root
+    command: ["hdfs", "datanode"]
+    environment:
+      <<: *hadoop-env
+      HADOOP_HEAPSIZE_MAX: 1536m
+    volumes: [dn3:/hadoop/dfs/data]
+    mem_limit: 2g
+    depends_on: [namenode]
+    networks: [bda]
+
+  # ──────────────────────── YARN ────────────────────────
+  # Profil "yarn". RAM WSL hanya 48 GB, sedangkan YARN dan Spark
+  # Standalone masing-masing meminta sekitar 25 GB untuk pekerjanya --
+  # keduanya tidak muat bersamaan. Profil membuat pilihannya eksplisit:
+  #
+  #   docker compose --profile yarn up -d         HDFS + YARN + jupyter
+  #   docker compose --profile standalone up -d   HDFS + Spark Standalone + jupyter
+  #
+  # Service tanpa profil (namenode, datanode, jupyter) selalu ikut naik.
+  resourcemanager:
+    image: apache/hadoop:3.3.6
+    container_name: bda-resourcemanager
+    hostname: resourcemanager
+    user: root
+    profiles: ["yarn"]
+    command: ["yarn", "resourcemanager"]
+    environment:
+      <<: [*hadoop-env, *yarn-env]
+      HADOOP_HEAPSIZE_MAX: 1024m
+    ports:
+      - "8088:8088"     # antarmuka web dan REST API YARN
+    volumes:
+      - "./hadoop-conf:/opt/hadoop-conf:ro"
+    mem_limit: 2g
+    depends_on: [namenode]
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:8088/ws/v1/cluster/info >/dev/null || exit 1"]
+      interval: 20s
+      timeout: 10s
+      retries: 12
+      start_period: 30s
+    networks: [bda]
+
+  nodemanager1: &nodemanager
+    image: apache/hadoop:3.3.6
+    container_name: bda-nodemanager1
+    hostname: nodemanager1
+    user: root
+    profiles: ["yarn"]
+    command: ["yarn", "nodemanager"]
+    environment:
+      <<: [*hadoop-env, *yarn-env]
+      HADOOP_HEAPSIZE_MAX: 1024m
+    # Harus lebih besar daripada yarn.nodemanager.resource.memory-mb (6144),
+    # karena angka itu hanya menghitung container YARN -- di luar itu masih
+    # ada JVM NodeManager sendiri. Kalau disamakan, Docker membunuh
+    # prosesnya dengan OOMKilled yang sulit dilacak.
+    mem_limit: 7g
+    depends_on: [resourcemanager]
+    networks: [bda]
+
+  nodemanager2:
+    <<: *nodemanager
+    container_name: bda-nodemanager2
+    hostname: nodemanager2
+
+  nodemanager3:
+    <<: *nodemanager
+    container_name: bda-nodemanager3
+    hostname: nodemanager3
+
+  # ─────────────────── Spark Standalone ───────────────────
+  spark-master:
+    image: bda-jupyter:3.5.9
+    container_name: bda-spark-master
+    profiles: ["standalone"]
+    hostname: spark-master
+    user: root
+    command: >
+      /opt/spark/bin/spark-class org.apache.spark.deploy.master.Master
+      --host spark-master --port 7077 --webui-port 8080
+    environment:
+      SPARK_NO_DAEMONIZE: "true"
+    ports:
+      - "8080:8080"
+      - "7077:7077"
+    mem_limit: 1g
+    depends_on: [namenode]
+    networks: [bda]
+
+  spark-worker1: &worker
+    profiles: ["standalone"]
+    # Image jupyter, bukan image Spark polos. Alasannya bukan kenyamanan:
+    # setiap Python UDF menyalakan proses Python worker DI EXECUTOR, dan
+    # untuk merekonstruksi kolom bertipe VectorUDT proses itu meng-import
+    # pyspark.ml, yang menarik numpy. Image Spark polos tidak membawa numpy,
+    # sehingga notebook 03 (ukur kejarangan) dan 04 (probabilitas kelas)
+    # gagal dengan ModuleNotFoundError yang menyesatkan -- kelihatan seperti
+    # bug kode, padahal executor-nya yang kekurangan pustaka.
+    # bda-jupyter dibangun FROM image Spark yang sama, jadi /opt/spark utuh
+    # dan versi Python driver maupun executor sama-sama 3.10.12.
+    image: bda-jupyter:3.5.9
+    container_name: bda-spark-worker1
+    hostname: spark-worker1
+    user: root
+    command: >
+      /opt/spark/bin/spark-class org.apache.spark.deploy.worker.Worker
+      spark://spark-master:7077 --webui-port 8081
+    environment:
+      SPARK_NO_DAEMONIZE: "true"
+      SPARK_WORKER_CORES: "4"
+      SPARK_WORKER_MEMORY: "7g"
+    ports: ["8081:8081"]
+    mem_limit: 8g
+    depends_on: [spark-master]
+    networks: [bda]
+
+  spark-worker2:
+    <<: *worker
+    container_name: bda-spark-worker2
+    hostname: spark-worker2
+    ports: ["8082:8081"]
+
+  spark-worker3:
+    <<: *worker
+    container_name: bda-spark-worker3
+    hostname: spark-worker3
+    ports: ["8083:8081"]
+
+  # ─────────────────────── Neo4j ───────────────────────
+  # Basis data graf. Tanpa profil, jadi selalu ikut naik pada profil mana
+  # pun -- notebook 06 memakainya di kedua mode.
+  #
+  # Pembagian perannya: Spark MEMBANGUN grafnya (MinHash LSH, komponen
+  # terhubung) karena itu pekerjaan berskala besar yang menuntut klaster;
+  # Neo4j MENYIMPAN dan MENGANALISISNYA, karena kueri lintasan dan
+  # sentralitas jauh lebih ringkas dinyatakan dalam Cypher daripada
+  # sebagai rantai join Spark.
+  neo4j:
+    image: neo4j:5.26-community
+    container_name: bda-neo4j
+    hostname: neo4j
+    environment:
+      NEO4J_AUTH: "neo4j/${NEO4J_PASSWORD:?NEO4J_PASSWORD belum diset -- salin docker/.env.contoh menjadi docker/.env lalu isi}"
+      # Heap untuk kueri, page cache untuk graf yang dipeta ke memori.
+      # Graf di sini kecil -- sekitar 2 juta tepi setelah dibatasi -- jadi
+      # 1 GB masing-masing sudah lapang.
+      NEO4J_server_memory_heap_initial__size: 1G
+      NEO4J_server_memory_heap_max__size: 1G
+      NEO4J_server_memory_pagecache_size: 1G
+      # Graph Data Science menyediakan PageRank, Louvain, dan komponen
+      # terhubung sebagai prosedur Cypher. Plugin diunduh saat container
+      # pertama kali dinyalakan, jadi butuh koneksi internet sekali.
+      NEO4J_PLUGINS: '["graph-data-science"]'
+      NEO4J_dbms_security_procedures_unrestricted: "gds.*"
+      NEO4J_dbms_security_procedures_allowlist: "gds.*"
+    ports:
+      - "7474:7474"     # Neo4j Browser
+      - "7687:7687"     # protokol Bolt, dipakai driver Python
+    volumes:
+      - neo4j_data:/data
+      - neo4j_logs:/logs
+    mem_limit: 3g
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:7474 >/dev/null 2>&1 || exit 1"]
+      interval: 20s
+      timeout: 10s
+      retries: 15
+      start_period: 60s
+    networks: [bda]
+
+  jupyter:
+    build:
+      context: .
+      dockerfile: Dockerfile.jupyter
+    image: bda-jupyter:3.5.9
+    container_name: bda-jupyter
+    hostname: jupyter
+    user: root
+    working_dir: /workspace/nb
+    environment:
+      BDA_MODE: klaster
+      BDA_HDFS: hdfs://namenode:8020
+      # Disetel lewat .env atau baris perintah supaya profil yang sedang
+      # dipakai menentukan penjadwalnya:
+      #   standalone -> spark://spark-master:7077   (bawaan)
+      #   yarn       -> yarn
+      BDA_SPARK_MASTER: "${BDA_SPARK_MASTER:-spark://spark-master:7077}"
+      # Container ini adalah gateway node: klien Hadoop lengkap ada di
+      # dalamnya, dan konfigurasinya dibaca dari folder yang di-mount.
+      HADOOP_CONF_DIR: /opt/hadoop-conf
+      HADOOP_HOME: /opt/hadoop
+      PYSPARK_PYTHON: python3
+      PYSPARK_DRIVER_PYTHON: python3
+      JUPYTER_TOKEN: bda
+    ports:
+      - "8888:8888"     # JupyterLab
+      - "4040:4040"     # Spark UI aplikasi
+      - "4041:4041"
+    volumes:
+      - "D:/BDA:/workspace"
+      - "./hadoop-conf:/opt/hadoop-conf:ro"
+    mem_limit: 12g
+    # spark-master sengaja TIDAK dicantumkan: service itu hidup hanya di
+    # profil standalone, dan menyebutnya di sini membuat profil yarn
+    # gagal naik karena merujuk service yang tidak aktif.
+    depends_on: [namenode]
+    command: >
+      jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root
+      --ServerApp.root_dir=/workspace
+    networks: [bda]
+
+volumes:
+  nn:
+  dn1:
+  dn2:
+  dn3:
+  neo4j_data:
+  neo4j_logs:
+
+networks:
+  bda:
+    driver: bridge

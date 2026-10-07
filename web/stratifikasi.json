@@ -1,0 +1,340 @@
+{
+ "populasi": {
+  "terskor": 892344,
+  "dianalisis": 892344,
+  "kandidat": 1990
+ },
+ "kasar": [
+  {
+   "kelas_inang": "unggas",
+   "n": 202269,
+   "k": 483,
+   "pangsa_pop": 22.667155267475323,
+   "pangsa_kand": 24.271356783919597,
+   "laju": 0.23879091704611186,
+   "pengayaan": 1.0707720707567618
+  },
+  {
+   "kelas_inang": "babi",
+   "n": 116627,
+   "k": 1120,
+   "pangsa_pop": 13.06973543835113,
+   "pangsa_kand": 56.28140703517588,
+   "laju": 0.9603265110137447,
+   "pengayaan": 4.306239196703764
+  },
+  {
+   "kelas_inang": "manusia",
+   "n": 445956,
+   "k": 162,
+   "pangsa_pop": 49.97579408837847,
+   "pangsa_kand": 8.140703517587939,
+   "laju": 0.03632645373086134,
+   "pengayaan": 0.1628929297890037
+  },
+  {
+   "kelas_inang": "lain",
+   "n": 127492,
+   "k": 225,
+   "pangsa_pop": 14.287315205795075,
+   "pangsa_kand": 11.306532663316583,
+   "laju": 0.176481661594453,
+   "pengayaan": 0.7913686021801032
+  }
+ ],
+ "cmh": {
+  "strata": 17,
+  "or": 10.86107755571759,
+  "ci_lo": 9.690147927401485,
+  "ci_hi": 12.173498955340039,
+  "chi2": 2555.6724813626215,
+  "p": 0.0
+ },
+ "per_strata": [
+  {
+   "wil": "Africa",
+   "dekade": 2010,
+   "n_babi": 118.0,
+   "a": 0.0,
+   "n_bukan": 10059.0,
+   "c": 3.0,
+   "laju_babi": 0.0,
+   "laju_bukan": 0.0298,
+   "or_strata": 0.0
+  },
+  {
+   "wil": "Asia",
+   "dekade": 1990,
+   "n_babi": 458.0,
+   "a": 0.0,
+   "n_bukan": 1947.0,
+   "c": 4.0,
+   "laju_babi": 0.0,
+   "laju_bukan": 0.2054,
+   "or_strata": 0.0
+  },
+  {
+   "wil": "Asia",
+   "dekade": 2000,
+   "n_babi": 3195.0,
+   "a": 24.0,
+   "n_bukan": 44170.0,
+   "c": 71.0,
+   "laju_babi": 0.7512,
+   "laju_bukan": 0.1607,
+   "or_strata": 4.7009
+  },
+  {
+   "wil": "Asia",
+   "dekade": 2010,
+   "n_babi": 5254.0,
+   "a": 95.0,
+   "n_bukan": 94923.0,
+   "c": 256.0,
+   "laju_babi": 1.8081,
+   "laju_bukan": 0.2697,
+   "or_strata": 6.8095
+  },
+  {
+   "wil": "Asia",
+   "dekade": 2020,
+   "n_babi": 1082.0,
+   "a": 19.0,
+   "n_bukan": 25225.0,
+   "c": 79.0,
+   "laju_babi": 1.756,
+   "laju_bukan": 0.3132,
+   "or_strata": 5.6893
+  },
+  {
+   "wil": "Europe",
+   "dekade": 1990,
+   "n_babi": 593.0,
+   "a": 2.0,
+   "n_bukan": 1825.0,
+   "c": 1.0,
+   "laju_babi": 0.3373,
+   "laju_bukan": 0.0548,
+   "or_strata": 6.1726
+  },
+  {
+   "wil": "Europe",
+   "dekade": 2000,
+   "n_babi": 3783.0,
+   "a": 49.0,
+   "n_bukan": 15998.0,
+   "c": 6.0,
+   "laju_babi": 1.2953,
+   "laju_bukan": 0.0375,
+   "or_strata": 34.9763
+  },
+  {
+   "wil": "Europe",
+   "dekade": 2010,
+   "n_babi": 14828.0,
+   "a": 240.0,
+   "n_bukan": 16774.0,
+   "c": 27.0,
+   "laju_babi": 1.6186,
+   "laju_bukan": 0.161,
+   "or_strata": 10.2044
+  },
+  {
+   "wil": "Europe",
+   "dekade": 2020,
+   "n_babi": 7280.0,
+   "a": 109.0,
+   "n_bukan": 21249.0,
+   "c": 3.0,
+   "laju_babi": 1.4973,
+   "laju_bukan": 0.0141,
+   "or_strata": 107.6472
+  },
+  {
+   "wil": "North America",
+   "dekade": 1990,
+   "n_babi": 57.0,
+   "a": 0.0,
+   "n_bukan": 7509.0,
+   "c": 9.0,
+   "laju_babi": 0.0,
+   "laju_bukan": 0.1199,
+   "or_strata": 0.0
+  },
+  {
+   "wil": "North America",
+   "dekade": 2000,
+   "n_babi": 5446.0,
+   "a": 49.0,
+   "n_bukan": 51973.0,
+   "c": 59.0,
+   "laju_babi": 0.8997,
+   "laju_bukan": 0.1135,
+   "or_strata": 7.9887
+  },
+  {
+   "wil": "North America",
+   "dekade": 2010,
+   "n_babi": 38516.0,
+   "a": 244.0,
+   "n_bukan": 140183.0,
+   "c": 95.0,
+   "laju_babi": 0.6335,
+   "laju_bukan": 0.0678,
+   "or_strata": 9.4013
+  },
+  {
+   "wil": "North America",
+   "dekade": 2020,
+   "n_babi": 29528.0,
+   "a": 205.0,
+   "n_bukan": 254310.0,
+   "c": 105.0,
+   "laju_babi": 0.6943,
+   "laju_bukan": 0.0413,
+   "or_strata": 16.9255
+  },
+  {
+   "wil": "Oceania",
+   "dekade": 2010,
+   "n_babi": 233.0,
+   "a": 2.0,
+   "n_bukan": 17872.0,
+   "c": 16.0,
+   "laju_babi": 0.8584,
+   "laju_bukan": 0.0895,
+   "or_strata": 9.6623
+  },
+  {
+   "wil": "South America",
+   "dekade": 2000,
+   "n_babi": 61.0,
+   "a": 0.0,
+   "n_bukan": 2075.0,
+   "c": 4.0,
+   "laju_babi": 0.0,
+   "laju_bukan": 0.1928,
+   "or_strata": 0.0
+  },
+  {
+   "wil": "South America",
+   "dekade": 2010,
+   "n_babi": 2467.0,
+   "a": 60.0,
+   "n_bukan": 7398.0,
+   "c": 15.0,
+   "laju_babi": 2.4321,
+   "laju_bukan": 0.2028,
+   "or_strata": 12.2692
+  },
+  {
+   "wil": "South America",
+   "dekade": 2020,
+   "n_babi": 931.0,
+   "a": 14.0,
+   "n_bukan": 5147.0,
+   "c": 11.0,
+   "laju_babi": 1.5038,
+   "laju_bukan": 0.2137,
+   "or_strata": 7.1284
+  }
+ ],
+ "logit": [
+  {
+   "peubah": "kelas_inang_babi",
+   "koef": 2.91143,
+   "OR": 18.38308
+  },
+  {
+   "peubah": "kelas_inang_lain",
+   "koef": -0.18213,
+   "OR": 0.8335
+  },
+  {
+   "peubah": "kelas_inang_unggas",
+   "koef": 0.35242,
+   "OR": 1.42251
+  },
+  {
+   "peubah": "wil_Africa",
+   "koef": -0.65916,
+   "OR": 0.51729
+  },
+  {
+   "peubah": "wil_Antarctica",
+   "koef": -0.02351,
+   "OR": 0.97677
+  },
+  {
+   "peubah": "wil_Europe",
+   "koef": -0.51169,
+   "OR": 0.59948
+  },
+  {
+   "peubah": "wil_North America",
+   "koef": -1.13939,
+   "OR": 0.32002
+  },
+  {
+   "peubah": "wil_Oceania",
+   "koef": -0.73351,
+   "OR": 0.48022
+  },
+  {
+   "peubah": "wil_South America",
+   "koef": -0.11092,
+   "OR": 0.89501
+  },
+  {
+   "peubah": "wil_tidak tercatat",
+   "koef": -0.00795,
+   "OR": 0.99208
+  },
+  {
+   "peubah": "sub_grup_H1N1",
+   "koef": -1.6461,
+   "OR": 0.1928
+  },
+  {
+   "peubah": "sub_grup_H1N2",
+   "koef": -0.92272,
+   "OR": 0.39744
+  },
+  {
+   "peubah": "sub_grup_H3N2",
+   "koef": -1.16612,
+   "OR": 0.31157
+  },
+  {
+   "peubah": "sub_grup_H5N1",
+   "koef": -1.42533,
+   "OR": 0.24043
+  },
+  {
+   "peubah": "sub_grup_H7N9",
+   "koef": 1.16188,
+   "OR": 3.19594
+  },
+  {
+   "peubah": "sub_grup_H9N2",
+   "koef": -1.35069,
+   "OR": 0.25906
+  },
+  {
+   "peubah": "dekade_1990",
+   "koef": -0.34097,
+   "OR": 0.71108
+  },
+  {
+   "peubah": "dekade_2000",
+   "koef": -0.08325,
+   "OR": 0.92012
+  },
+  {
+   "peubah": "dekade_2010",
+   "koef": 0.04591,
+   "OR": 1.04698
+  }
+ ],
+ "logit_babi_or": 18.383084536212664
+}

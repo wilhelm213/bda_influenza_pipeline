@@ -1,0 +1,276 @@
+{
+ "tahap": 5000,
+ "galur_layak": 3230,
+ "derajat": {
+  "median": 7.0,
+  "p75": 9.0
+ },
+ "kuantil_skor": {
+  "p50": 2.5,
+  "p90": 15.0,
+  "p95": 21.0,
+  "p99": 37.0
+ },
+ "ambang": {
+  "dukungan": 1,
+  "derajat_min": 7.0
+ },
+ "kandidat": 697,
+ "pengayaan_babi": {
+  "populasi": 16.254,
+  "kandidat": 21.09,
+  "pengayaan": 1.298
+ },
+ "contoh": [
+  {
+   "galur": "A/duck/Ilan/18WB0125-26-30-E1/2018",
+   "ki": "S_7_AB243423",
+   "kj": "S_8_CY033360",
+   "si": 7,
+   "sj": 8,
+   "dukungan": 1,
+   "derajat_min": 148,
+   "skor": 148.0
+  },
+  {
+   "galur": "A/mallard/Ohio/11OS2045/2011",
+   "ki": "S_7_CY017846",
+   "kj": "S_8_CY033360",
+   "si": 7,
+   "sj": 8,
+   "dukungan": 1,
+   "derajat_min": 123,
+   "skor": 123.0
+  },
+  {
+   "galur": "A/Victoria/92/2012",
+   "ki": "S_3_AB911608",
+   "kj": "S_7_AB441991",
+   "si": 3,
+   "sj": 7,
+   "dukungan": 1,
+   "derajat_min": 94,
+   "skor": 94.0
+  },
+  {
+   "galur": "A/Cambodia/NHRCC00011/2009",
+   "ki": "S_7_AB911612",
+   "kj": "S_8_AB442001",
+   "si": 7,
+   "sj": 8,
+   "dukungan": 1,
+   "derajat_min": 76,
+   "skor": 76.0
+  },
+  {
+   "galur": "A/chicken/Jilin/SD001/2014",
+   "ki": "S_7_AB243423",
+   "kj": "S_8_CY146952",
+   "si": 7,
+   "sj": 8,
+   "dukungan": 1,
+   "derajat_min": 70,
+   "skor": 70.0
+  },
+  {
+   "galur": "A/mallard/Wisconsin/10OS2524/2010",
+   "ki": "S_7_CY021166",
+   "kj": "S_8_CY097297",
+   "si": 7,
+   "sj": 8,
+   "dukungan": 1,
+   "derajat_min": 67,
+   "skor": 67.0
+  },
+  {
+   "galur": "A/American wigeon/California/HKWF1174/2007(H6N1)",
+   "ki": "S_7_CY021166",
+   "kj": "S_8_CY033360",
+   "si": 7,
+   "sj": 8,
+   "dukungan": 1,
+   "derajat_min": 67,
+   "skor": 67.0
+  },
+  {
+   "galur": "A/gadwall/Illinois/3860/2009",
+   "ki": "S_7_CY021166",
+   "kj": "S_8_CY039790",
+   "si": 7,
+   "sj": 8,
+   "dukungan": 1,
+   "derajat_min": 67,
+   "skor": 67.0
+  },
+  {
+   "galur": "A/mallard/Wisconsin/11OS3407/2011",
+   "ki": "S_3_CY096647",
+   "kj": "S_7_CY017846",
+   "si": 3,
+   "sj": 7,
+   "dukungan": 1,
+   "derajat_min": 59,
+   "skor": 59.0
+  },
+  {
+   "galur": "A/mallard/Wisconsin/10OS3868/2010",
+   "ki": "S_3_CY096647",
+   "kj": "S_8_CY045315",
+   "si": 3,
+   "sj": 8,
+   "dukungan": 1,
+   "derajat_min": 50,
+   "skor": 50.0
+  },
+  {
+   "galur": "A/blue-winged teal/Ohio/12OS2123/2012",
+   "ki": "S_2_CY079314",
+   "kj": "S_3_CY094322",
+   "si": 2,
+   "sj": 3,
+   "dukungan": 1,
+   "derajat_min": 49,
+   "skor": 49.0
+  },
+  {
+   "galur": "A/mallard/Illinois/11OS5564/2011",
+   "ki": "S_2_CY079314",
+   "kj": "S_5_CY097296",
+   "si": 2,
+   "sj": 5,
+   "dukungan": 1,
+   "derajat_min": 49,
+   "skor": 49.0
+  },
+  {
+   "galur": "A/American green-winged teal/USA/IZ21_0828/2021",
+   "ki": "S_7_OM965791",
+   "kj": "S_8_CY036771",
+   "si": 7,
+   "sj": 8,
+   "dukungan": 1,
+   "derajat_min": 49,
+   "skor": 49.0
+  },
+  {
+   "galur": "A/mallard/Maryland/13OS0772/2013",
+   "ki": "S_2_CY079314",
+   "kj": "S_8_CY039790",
+   "si": 2,
+   "sj": 8,
+   "dukungan": 1,
+   "derajat_min": 49,
+   "skor": 49.0
+  },
+  {
+   "galur": "A/American green-winged teal/Wisconsin/12OS3031/2012",
+   "ki": "S_2_CY079314",
+   "kj": "S_5_CY139380",
+   "si": 2,
+   "sj": 5,
+   "dukungan": 1,
+   "derajat_min": 46,
+   "skor": 46.0
+  },
+  {
+   "galur": "A/blue-winged teal/Ohio/13OS1410/2013",
+   "ki": "S_5_CY139380",
+   "kj": "S_8_CY036771",
+   "si": 5,
+   "sj": 8,
+   "dukungan": 1,
+   "derajat_min": 46,
+   "skor": 46.0
+  },
+  {
+   "galur": "A/blue-winged teal/Ohio/12OS2229/2012",
+   "ki": "S_5_CY077161",
+   "kj": "S_8_CY097297",
+   "si": 5,
+   "sj": 8,
+   "dukungan": 1,
+   "derajat_min": 46,
+   "skor": 46.0
+  },
+  {
+   "galur": "A/northern pintail/Wisconsin/12OS3076/2012",
+   "ki": "S_5_CY139380",
+   "kj": "S_8_CY039790",
+   "si": 5,
+   "sj": 8,
+   "dukungan": 1,
+   "derajat_min": 46,
+   "skor": 46.0
+  },
+  {
+   "galur": "A/blue-winged teal/Texas/UGAI14-3659/2014",
+   "ki": "S_3_CY094322",
+   "kj": "S_5_CY139380",
+   "si": 3,
+   "sj": 5,
+   "dukungan": 1,
+   "derajat_min": 46,
+   "skor": 46.0
+  },
+  {
+   "galur": "A/black scoter/Wisconsin/11OS4260/2011",
+   "ki": "S_6_CY097178",
+   "kj": "S_8_CY033360",
+   "si": 6,
+   "sj": 8,
+   "dukungan": 1,
+   "derajat_min": 45,
+   "skor": 45.0
+  },
+  {
+   "galur": "A/mallard/Illinois/10OS2677/2010",
+   "ki": "S_6_CY097178",
+   "kj": "S_8_CY097297",
+   "si": 6,
+   "sj": 8,
+   "dukungan": 1,
+   "derajat_min": 45,
+   "skor": 45.0
+  },
+  {
+   "galur": "A/mallard/Minnesota/Sg-00902/2008",
+   "ki": "S_6_CY097178",
+   "kj": "S_8_CY045315",
+   "si": 6,
+   "sj": 8,
+   "dukungan": 1,
+   "derajat_min": 45,
+   "skor": 45.0
+  },
+  {
+   "galur": "A/mallard/Illinois/3974/2009",
+   "ki": "S_5_CY077161",
+   "kj": "S_6_CY097178",
+   "si": 5,
+   "sj": 6,
+   "dukungan": 1,
+   "derajat_min": 45,
+   "skor": 45.0
+  },
+  {
+   "galur": "A/California/VRDL364/2009",
+   "ki": "S_3_AB441952",
+   "kj": "S_8_AB911613",
+   "si": 3,
+   "sj": 8,
+   "dukungan": 1,
+   "derajat_min": 45,
+   "skor": 45.0
+  },
+  {
+   "galur": "A/mallard/Louisiana/476670-4/2007",
+   "ki": "S_6_CY097178",
+   "kj": "S_8_CY036771",
+   "si": 6,
+   "sj": 8,
+   "dukungan": 1,
+   "derajat_min": 45,
+   "skor": 45.0
+  }
+ ]
+}

@@ -1,0 +1,1053 @@
+<title>Atlas Genom Influenza A</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+
+:root{
+  --ground:#eef1f2; --surface:#ffffff; --surface2:#f5f7f8;
+  --ink:#121a1d; --ink2:#3f5055; --ink3:#6c8087;
+  --rule:#d3dcdf; --rule2:#e4eaec;
+  --akos:#0b7f8c; --akos-soft:#d6ecee; --akos-ink:#065a64;
+  --waspada:#a86a06; --waspada-soft:#faeccd;
+  --siaga:#a8324a; --siaga-soft:#f8dbe1;
+
+  --d1:#2a78d6; --d2:#eb6834; --d3:#1baf7a; --d4:#eda100;
+  --d5:#e87ba4; --d6:#008300; --d7:#4a3aa7; --d8:#e34948;
+
+  --sq1:#cde2fb; --sq2:#9ec5f4; --sq3:#6da7ec;
+  --sq4:#3987e5; --sq5:#256abf; --sq6:#104281;
+  --disp:"Archivo","Archivo Narrow","Helvetica Neue",Arial,sans-serif;
+  --body:"Public Sans","Helvetica Neue",Arial,sans-serif;
+  --mono:"JetBrains Mono","SFMono-Regular",Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#0d1315; --surface:#141c1f; --surface2:#1a2428;
+  --ink:#e8eef0; --ink2:#a8bcc2; --ink3:#7b9199;
+  --rule:#273439; --rule2:#1f2b2f;
+  --akos:#3fb8c4; --akos-soft:#113036; --akos-ink:#6fd3dd;
+  --waspada:#d9a43f; --waspada-soft:#33280f;
+  --siaga:#e0738c; --siaga-soft:#351a21;
+  --d1:#3987e5; --d2:#d95926; --d3:#199e70; --d4:#c98500;
+  --d5:#d55181; --d6:#008300; --d7:#9085e9; --d8:#e66767;
+  --sq1:#0d366b; --sq2:#184f95; --sq3:#256abf;
+  --sq4:#3987e5; --sq5:#6da7ec; --sq6:#9ec5f4;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --ground:#0d1315; --surface:#141c1f; --surface2:#1a2428;
+  --ink:#e8eef0; --ink2:#a8bcc2; --ink3:#7b9199;
+  --rule:#273439; --rule2:#1f2b2f;
+  --akos:#3fb8c4; --akos-soft:#113036; --akos-ink:#6fd3dd;
+  --waspada:#d9a43f; --waspada-soft:#33280f;
+  --siaga:#e0738c; --siaga-soft:#351a21;
+  --d1:#3987e5; --d2:#d95926; --d3:#199e70; --d4:#c98500;
+  --d5:#d55181; --d6:#008300; --d7:#9085e9; --d8:#e66767;
+  --sq1:#0d366b; --sq2:#184f95; --sq3:#256abf;
+  --sq4:#3987e5; --sq5:#6da7ec; --sq6:#9ec5f4;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--ground);color:var(--ink);font-family:var(--body);
+  font-size:15px;line-height:1.6;margin:0;-webkit-font-smoothing:antialiased}
+
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;
+  background:var(--surface);border-bottom:1px solid var(--rule)}
+.tw{max-width:1180px;margin:0 auto;padding:0 16px}
+.brand{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
+  padding-block:13px 11px}
+.brand h1{font-family:var(--disp);font-size:18px;font-weight:700;margin:0;
+  letter-spacing:-.015em}
+.brand .sub{font-family:var(--mono);font-size:10.5px;color:var(--ink3);
+  letter-spacing:.07em;text-transform:uppercase}
+nav.tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.tabs::-webkit-scrollbar{display:none}
+nav.tabs button{appearance:none;background:none;border:0;cursor:pointer;
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;
+  text-transform:uppercase;color:var(--ink3);padding:9px 13px 11px;
+  border-bottom:2px solid transparent;white-space:nowrap}
+nav.tabs button:hover{color:var(--ink2)}
+nav.tabs button[aria-selected="true"]{color:var(--akos-ink);
+  border-bottom-color:var(--akos)}
+nav.tabs button:focus-visible{outline:2px solid var(--akos);outline-offset:-2px}
+
+main{max-width:1180px;margin:0 auto;padding:0 16px;padding-block:26px 56px}
+.lede{max-width:65ch;margin:0 0 24px}
+.lede h2{font-family:var(--disp);font-size:25px;font-weight:700;margin:0 0 7px;
+  letter-spacing:-.02em;text-wrap:balance}
+.lede p{margin:0;color:var(--ink2)}
+h3.sec{font-family:var(--mono);font-size:11px;font-weight:500;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--ink3);
+  margin:34px 0 13px;padding-bottom:7px;border-bottom:1px solid var(--rule)}
+
+.strip{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);
+  grid-template-columns:repeat(auto-fit,minmax(142px,1fr))}
+.strip div{background:var(--surface);padding:13px 14px;min-width:0}
+.strip .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink3);display:block;margin-bottom:5px}
+
+.strip .v{font-family:var(--body);font-size:21px;font-weight:600;
+  letter-spacing:-.01em;display:block}
+.strip .n{font-size:11.5px;color:var(--ink3);display:block;margin-top:2px}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(310px,1fr))}
+.grid.w2{grid-template-columns:repeat(auto-fit,minmax(430px,1fr))}
+.card{background:var(--surface);border:1px solid var(--rule);padding:15px 16px 17px;
+  min-width:0}
+.card h4{font-family:var(--disp);font-size:14.5px;font-weight:600;margin:0 0 3px}
+.card .cap{font-size:12.5px;color:var(--ink3);margin:0 0 13px;line-height:1.5}
+.card.span{grid-column:1/-1}
+
+.ins{border-left:3px solid var(--akos);background:var(--akos-soft);
+  padding:12px 15px;margin:14px 0 0}
+.ins.w{border-left-color:var(--waspada);background:var(--waspada-soft)}
+.ins.s{border-left-color:var(--siaga);background:var(--siaga-soft)}
+.ins b{font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;
+  text-transform:uppercase;display:block;margin-bottom:4px;color:var(--ink2)}
+.ins p{margin:0;font-size:13.5px;color:var(--ink);line-height:1.55}
+.ins p+p{margin-top:7px}
+
+.hb{display:grid;grid-template-columns:minmax(72px,auto) 1fr minmax(52px,auto);
+  gap:5px 9px;align-items:center;font-size:12.5px}
+.hb .l{color:var(--ink2);text-align:right;overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.hb .t{background:var(--surface2);height:15px;position:relative;min-width:0}
+.hb .t i{position:absolute;inset:0 auto 0 0;background:var(--akos);display:block}
+.hb .v{font-family:var(--mono);font-size:11.5px;color:var(--ink2);
+  font-variant-numeric:tabular-nums;text-align:right}
+.hb.alt .t i{background:var(--d2)}
+.hb.warn .t i{background:var(--waspada)}
+
+.pb{display:flex;height:22px;border:1px solid var(--rule);overflow:hidden}
+.pb span{display:block;min-width:0}
+.lg{display:flex;flex-wrap:wrap;gap:6px 15px;margin-top:11px;font-size:12px}
+.lg div{display:flex;align-items:center;gap:6px;min-width:0}
+.lg i{width:9px;height:9px;flex:none;display:block}
+.lg b{font-family:var(--mono);font-size:11px;font-variant-numeric:tabular-nums;
+  color:var(--ink2);font-weight:400}
+
+.mx{overflow-x:auto}
+.mx table{border-collapse:collapse;font-size:12px;min-width:100%}
+.mx th{font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--ink3);font-weight:500;padding:5px 7px;
+  text-align:center;white-space:nowrap}
+.mx th.rh{text-align:right}
+.mx td{padding:0;border:1px solid var(--surface)}
+.mx td span{display:block;padding:7px 8px;text-align:center;
+  background:var(--surface2);
+  font-family:var(--mono);font-size:11px;font-variant-numeric:tabular-nums;
+  color:var(--ink)}
+
+.tw2{overflow-x:auto;margin-top:4px}
+table.dt{border-collapse:collapse;width:100%;font-size:12.5px;min-width:460px}
+table.dt th{font-family:var(--mono);font-size:9.5px;letter-spacing:.07em;
+  text-transform:uppercase;color:var(--ink3);font-weight:500;text-align:left;
+  padding:7px 9px;border-bottom:1px solid var(--rule);white-space:nowrap}
+table.dt td{padding:6px 9px;border-bottom:1px solid var(--rule2);
+  vertical-align:top}
+table.dt td.n{font-family:var(--mono);font-variant-numeric:tabular-nums;
+  text-align:right;white-space:nowrap}
+table.dt tbody tr:hover{background:var(--surface2)}
+code{font-family:var(--mono);font-size:.88em;background:var(--surface2);
+  padding:1px 4px}
+
+svg.ch{display:block;width:100%;height:auto;max-width:100%}
+svg.ch .grid{stroke:var(--rule2);stroke-width:1}
+svg.ch .axis{stroke:var(--rule);stroke-width:1}
+svg.ch .tk{font-family:var(--mono);font-size:9.5px;fill:var(--ink3)}
+svg.ch .ln{fill:none;stroke:var(--akos);stroke-width:2;
+  stroke-linejoin:round;stroke-linecap:round}
+svg.ch .ar{fill:var(--akos);opacity:.13}
+svg.ch .dot{fill:var(--akos)}
+svg.ch .vb{fill:var(--akos);opacity:.78}
+svg.ch .lb{font-family:var(--mono);font-size:10px;fill:var(--ink2);
+  font-weight:500}
+
+#tip{position:fixed;z-index:90;pointer-events:none;opacity:0;
+  transition:opacity .09s;background:var(--surface);color:var(--ink);
+  border:1px solid var(--rule);box-shadow:0 2px 10px rgba(0,0,0,.18);
+  padding:7px 10px;font-size:12px;max-width:260px;line-height:1.45}
+#tip b{font-family:var(--mono);font-size:11px;font-variant-numeric:tabular-nums}
+#tip .tl{display:block;font-family:var(--mono);font-size:9.5px;
+  letter-spacing:.07em;text-transform:uppercase;color:var(--ink3);
+  margin-bottom:2px}
+.hb .t,.mx td span,svg.ch .vb,svg.ch .nd,svg.ch .lay,.pb span,.gb rect{cursor:default}
+
+svg.ch .lay{stroke:var(--surface);stroke-width:2}
+.pb span+span{border-left:2px solid var(--surface)}
+svg.ch .nd{stroke:var(--surface);stroke-width:2}
+svg.ch .eg{fill:none;stroke:var(--ink3);opacity:.42}
+svg.ch .rim{fill:none;stroke:var(--rule2);stroke-width:1}
+svg.ch .sl{font-family:var(--mono);font-size:10px;font-weight:500}
+
+footer{border-top:1px solid var(--rule);margin-top:40px;padding-block:20px 8px;
+  font-size:12.5px;color:var(--ink3);max-width:65ch}
+footer p{margin:0 0 8px}
+@media (max-width:560px){
+  .lede h2{font-size:21px}
+  .strip .v{font-size:18px}
+  .hb{grid-template-columns:minmax(58px,auto) 1fr minmax(46px,auto)}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;
+  animation:none!important}}</style>
+
+<header class="top">
+  <div class="tw">
+    <div class="brand">
+      <h1>Atlas Genom Influenza A</h1>
+      <span class="sub">1.586.912 sekuens &middot; 172 negara &middot; 1902&ndash;2026</span>
+    </div>
+    <nav class="tabs" role="tablist" id="nav"></nav>
+  </div>
+</header>
+
+<main id="main"></main>
+
+<script>
+const D = __DATA__;
+const SEG = {1:"PB2",2:"PB1",3:"PA",4:"HA",5:"NP",6:"NA",7:"M",8:"NS"};
+const DC = ["--d1","--d2","--d3","--d4","--d5","--d6","--d7","--d8"];
+const NS = "http://www.w3.org/2000/svg";
+
+const nf = new Intl.NumberFormat("id-ID");
+const f = n => (n===null||n===undefined||isNaN(n)) ? "&ndash;" : nf.format(n);
+const f1 = n => nf.format(Math.round(n*10)/10);
+const f2 = n => nf.format(Math.round(n*100)/100);
+const pct = (a,b) => f2(100*a/b)+"%";
+
+const esc = s => String(s===null||s===undefined?"":s)
+  .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+  .replace(/"/g,"&quot;");
+
+function mk(n,a){const e=document.createElementNS(NS,n);
+  for(const k in a) e.setAttribute(k,a[k]); return e;}
+function frame(w,h){const s=document.createElementNS(NS,"svg");
+  s.setAttribute("viewBox","0 0 "+w+" "+h);
+  s.setAttribute("preserveAspectRatio","xMidYMid meet");
+  s.setAttribute("class","ch"); s.setAttribute("role","img"); return s;}
+function txt(s,x,y,c,anc){const t=mk("text",{x:x,y:y,class:c||"tk"});
+  if(anc) t.setAttribute("text-anchor",anc); t.textContent=s; return t;}
+function nice(mx){
+  if(mx<=0) return 1; const p=Math.pow(10,Math.floor(Math.log10(mx)));
+  const r=mx/p; const m=r<=1?1:r<=2?2:r<=2.5?2.5:r<=5?5:10; return m*p;}
+
+function chLine(host,pts,o){
+  o=o||{}; const W=760,H=o.h||250,L=56,R=14,T=14,B=32;
+  const s=frame(W,H);
+  const xs=pts.map(p=>p[0]), ys=pts.map(p=>p[1]);
+  const x0=Math.min(...xs), x1=Math.max(...xs);
+  const y1=nice(Math.max(...ys)), y0=0;
+  const X=v=>L+(W-L-R)*((v-x0)/((x1-x0)||1));
+  const Y=v=>H-B-(H-T-B)*((v-y0)/((y1-y0)||1));
+  for(let i=0;i<=4;i++){const v=y0+(y1-y0)*i/4, y=Y(v);
+    s.appendChild(mk("line",{x1:L,x2:W-R,y1:y,y2:y,class:"grid"}));
+    s.appendChild(txt(o.yf?o.yf(v):f(v),L-7,y+3.4,"tk","end"));}
+  s.appendChild(mk("line",{x1:L,x2:W-R,y1:H-B,y2:H-B,class:"axis"}));
+  const step=Math.max(1,Math.ceil(pts.length/7));
+  pts.forEach((p,i)=>{ if(i%step && i!==pts.length-1) return;
+    s.appendChild(txt(p[0],X(p[0]),H-B+15,"tk","middle"));});
+  let d="",a="M"+X(x0)+" "+(H-B);
+  pts.forEach((p,i)=>{d+=(i?" L":"M")+X(p[0])+" "+Y(p[1]);
+    a+=" L"+X(p[0])+" "+Y(p[1]);});
+  a+=" L"+X(x1)+" "+(H-B)+" Z";
+  if(o.area!==false) s.appendChild(mk("path",{d:a,class:"ar"}));
+  s.appendChild(mk("path",{d:d,class:"ln"}));
+  const lp=pts[pts.length-1];
+  s.appendChild(mk("circle",{cx:X(lp[0]),cy:Y(lp[1]),r:3.4,class:"dot"}));
+  s.appendChild(txt((o.ef?o.ef(lp[1]):f(lp[1])),X(lp[0])-6,Y(lp[1])-9,"lb","end"));
+  host.appendChild(s);
+}
+
+function chVBar(host,pts,o){
+  o=o||{}; const W=760,H=o.h||220,L=52,R=12,T=14,B=32;
+  const s=frame(W,H);
+  const y1=nice(Math.max(...pts.map(p=>p[1])));
+  const bw=(W-L-R)/pts.length;
+  const Y=v=>H-B-(H-T-B)*(v/(y1||1));
+  for(let i=0;i<=4;i++){const v=y1*i/4,y=Y(v);
+    s.appendChild(mk("line",{x1:L,x2:W-R,y1:y,y2:y,class:"grid"}));
+    s.appendChild(txt(o.yf?o.yf(v):f(v),L-7,y+3.4,"tk","end"));}
+  s.appendChild(mk("line",{x1:L,x2:W-R,y1:H-B,y2:H-B,class:"axis"}));
+  pts.forEach((p,i)=>{
+    const x=L+i*bw, h=Math.max(1,(H-B)-Y(p[1]));
+    const rc=mk("rect",{x:x+bw*0.14,y:Y(p[1]),width:bw*0.72,height:h,
+      class:"vb"});
+    s.appendChild(rc);
+    bindTip(rc,'<span class="tl">'+(o.judul||"nilai")+"</span>"+esc(p[0])+
+      ": <b>"+(o.tf?o.tf(p[1]):f(p[1]))+"</b>");
+    if(pts.length<=16 || i%2===0)
+      s.appendChild(txt(p[0],x+bw/2,H-B+15,"tk","middle"));});
+  host.appendChild(s);
+}
+
+function chStack(host,rows,keys,o){
+  o=o||{}; const W=760,H=o.h||265,L=56,R=14,T=14,B=42;
+  const s=frame(W,H);
+  const xs=[...new Set(rows.map(r=>r.x))].sort((a,b)=>a-b);
+  const m={}; xs.forEach(x=>m[x]={});
+  rows.forEach(r=>{m[r.x][r.k]=(m[r.x][r.k]||0)+r.v;});
+  const tot=xs.map(x=>keys.reduce((a,k)=>a+(m[x][k]||0),0));
+  const y1=nice(Math.max(...tot));
+  const X=v=>L+(W-L-R)*((v-xs[0])/((xs[xs.length-1]-xs[0])||1));
+  const Y=v=>H-B-(H-T-B)*(v/(y1||1));
+  for(let i=0;i<=4;i++){const v=y1*i/4,y=Y(v);
+    s.appendChild(mk("line",{x1:L,x2:W-R,y1:y,y2:y,class:"grid"}));
+    s.appendChild(txt(o.yf?o.yf(v):f(v),L-7,y+3.4,"tk","end"));}
+  s.appendChild(mk("line",{x1:L,x2:W-R,y1:H-B,y2:H-B,class:"axis"}));
+  const base={}; xs.forEach(x=>base[x]=0);
+  keys.forEach((k,ki)=>{
+    let up="",dn="";
+    xs.forEach((x,i)=>{const v=base[x]+(m[x][k]||0);
+      up+=(i?" L":"M")+X(x)+" "+Y(v);});
+    for(let i=xs.length-1;i>=0;i--){const x=xs[i];
+      dn+=" L"+X(x)+" "+Y(base[x]);}
+    const ly=mk("path",{d:up+dn+" Z",class:"lay",
+      fill:"var("+DC[ki%DC.length]+")","fill-opacity":.9});
+    s.appendChild(ly);
+    const tot_k=xs.reduce((a,x)=>a+(m[x][k]||0),0);
+    bindTip(ly,'<span class="tl">'+(o.judul||"seri")+"</span>"+esc(k)+
+      "<br><b>"+f(tot_k)+"</b> sekuens pada seluruh rentang");
+    xs.forEach(x=>{base[x]+=(m[x][k]||0);});});
+  const step=Math.max(1,Math.ceil(xs.length/8));
+  xs.forEach((x,i)=>{ if(i%step && i!==xs.length-1) return;
+    s.appendChild(txt(x,X(x),H-B+15,"tk","middle"));});
+  host.appendChild(s);
+  const lg=document.createElement("div"); lg.className="lg";
+  lg.innerHTML=keys.map((k,i)=>'<div><i style="background:var('+
+    DC[i%DC.length]+')"></i>'+esc(k)+"</div>").join("");
+  host.appendChild(lg);
+}
+
+function hbars(host,rows,o){
+  o=o||{}; const mx=o.max||Math.max(...rows.map(r=>r[1]));
+  const d=document.createElement("div");
+  d.className="hb"+(o.tone?" "+o.tone:"");
+  d.innerHTML=rows.map(r=>'<span class="l" title="'+esc(r[0])+'">'+esc(r[0])+
+    '</span><span class="t"><i style="width:'+(100*r[1]/(mx||1)).toFixed(2)+
+    '%"></i></span><span class="v">'+(o.vf?o.vf(r[1]):f(r[1]))+"</span>").join("");
+  host.appendChild(d);
+  const trk=d.querySelectorAll(".t");
+  rows.forEach((r,i)=>{ if(trk[i]) bindTip(trk[i],
+    '<span class="tl">'+(o.judul||"nilai")+"</span>"+esc(r[0])+": <b>"+
+    (o.vf?o.vf(r[1]):f(r[1]))+"</b>"+
+    (o.pt?"<br>"+pct(r[1],o.pt)+" dari total":""));});
+}
+
+function propbar(host,rows){
+  const tot=rows.reduce((a,r)=>a+r[1],0);
+  const b=document.createElement("div"); b.className="pb";
+  b.innerHTML=rows.map((r,i)=>'<span style="width:'+(100*r[1]/tot).toFixed(3)+
+    '%;background:var('+DC[i%DC.length]+')" title="'+esc(r[0])+'"></span>').join("");
+  host.appendChild(b);
+  const lg=document.createElement("div"); lg.className="lg";
+  lg.innerHTML=rows.map((r,i)=>'<div><i style="background:var('+DC[i%DC.length]+
+    ')"></i>'+esc(r[0])+" <b>"+pct(r[1],tot)+"</b></div>").join("");
+  host.appendChild(lg);
+}
+
+function matrix(host,ys,xs,get,o){
+  o=o||{}; let mx=0;
+  ys.forEach(y=>xs.forEach(x=>{const v=get(y,x); if(v>mx) mx=v;}));
+  let h='<div class="mx"><table><thead><tr><th></th>'+
+    xs.map(x=>"<th>"+esc(o.xl?o.xl(x):x)+"</th>").join("")+"</tr></thead><tbody>";
+  ys.forEach(y=>{h+='<tr><th class="rh">'+esc(o.yl?o.yl(y):y)+"</th>";
+    xs.forEach(x=>{const v=get(y,x);
+
+      const k=v?Math.min(6,1+Math.floor(6*Math.sqrt(v/mx)-1e-9)):0;
+      const bg=k?"var(--sq"+k+")":"var(--surface2)";
+      const fg=k>=4?"#ffffff":"var(--ink)";
+      h+='<td><span data-t="'+esc((o.yl?o.yl(y):y)+" / "+(o.xl?o.xl(x):x)+
+        " = "+(v?f(v):"0"))+'" style="background:'+bg+";color:"+fg+'">'+
+        (v?f(v):"")+"</span></td>";});
+    h+="</tr>";});
+  host.innerHTML+=h+"</tbody></table></div>";
+  host.querySelectorAll(".mx td span[data-t]").forEach(el=>{
+    bindTip(el,'<span class="tl">'+(o.judul||"nilai")+"</span>"+
+      esc(el.getAttribute("data-t")));});
+}
+
+const tip=document.createElement("div"); tip.id="tip";
+document.body.appendChild(tip);
+function bindTip(el,html){
+  el.addEventListener("mouseenter",()=>{tip.innerHTML=html;tip.style.opacity="1";});
+  el.addEventListener("mousemove",e=>{
+    const w=tip.offsetWidth||180, h=tip.offsetHeight||40;
+    let x=e.clientX+14, y=e.clientY-h-10;
+    if(x+w>innerWidth-8) x=e.clientX-w-14;
+    if(y<8) y=e.clientY+16;
+    tip.style.left=x+"px"; tip.style.top=y+"px";});
+  el.addEventListener("mouseleave",()=>{tip.style.opacity="0";});
+}
+
+function chNetwork(host,tepi,o){
+  o=o||{}; const W=760,H=530,CX=380,CY=258,R=176;
+  const s=frame(W,H);
+  const simpul={};
+  tepi.forEach(e=>{[["src",e.seg_src],["dst",e.seg_dst]].forEach(([k,sg])=>{
+    const id=e[k];
+    if(!simpul[id]) simpul[id]={id:id,seg:sg,deg:0,bobot:0};
+    simpul[id].deg++; simpul[id].bobot+=e.n_galur;});});
+  const segs=[...new Set(Object.values(simpul).map(n=>n.seg))].sort((a,b)=>a-b);
+  const per={}; segs.forEach(g=>per[g]=Object.values(simpul)
+    .filter(n=>n.seg===g).sort((a,b)=>a.id<b.id?-1:1));
+  const lebar=360/segs.length;
+  segs.forEach((g,gi)=>{
+    const arr=per[g], c=gi*lebar-90+lebar/2;
+    arr.forEach((n,i)=>{
+      const sp=lebar*0.52;
+      const a=(arr.length===1?c:c-sp/2+sp*i/(arr.length-1))*Math.PI/180;
+      n.x=CX+R*Math.cos(a); n.y=CY+R*Math.sin(a); n.a=a;});});
+  s.appendChild(mk("circle",{cx:CX,cy:CY,r:R,class:"rim"}));
+  const bmax=Math.max(...tepi.map(e=>e.n_galur));
+  tepi.forEach(e=>{
+    const a=simpul[e.src], b=simpul[e.dst];
+    const qx=CX+(a.x+b.x-2*CX)*0.22, qy=CY+(a.y+b.y-2*CY)*0.22;
+    const p=mk("path",{d:"M"+a.x+" "+a.y+" Q"+qx+" "+qy+" "+b.x+" "+b.y,
+      class:"eg","stroke-width":(1+3.4*e.n_galur/bmax).toFixed(2)});
+    s.appendChild(p);
+    bindTip(p,'<span class="tl">tepi co-occurs</span>'+esc(e.src)+" &harr; "+
+      esc(e.dst)+"<br><b>"+f(e.n_galur)+"</b> galur berbagi kedua klaster");});
+  Object.values(simpul).forEach(n=>{
+    const r=4.6+2.6*Math.sqrt(n.deg);
+    const c=mk("circle",{cx:n.x,cy:n.y,r:r,class:"nd",
+      fill:"var("+DC[(n.seg-1)%DC.length]+")"});
+    s.appendChild(c);
+    bindTip(c,'<span class="tl">klaster segmen '+n.seg+" "+(SEG[n.seg]||"")+
+      '</span>'+esc(n.id)+"<br><b>"+n.deg+"</b> tepi &middot; <b>"+
+      f(n.bobot)+"</b> galur terkumpul");});
+  segs.forEach((g,gi)=>{
+    const a=(gi*lebar-90+lebar/2)*Math.PI/180, rr=R+30;
+    const x=CX+rr*Math.cos(a), y=CY+rr*Math.sin(a);
+    const tt=txt(g+" "+(SEG[g]||""),x,y+3.4,"sl","middle");
+    tt.setAttribute("fill","var("+DC[(g-1)%DC.length]+")");
+    s.appendChild(tt);});
+  host.appendChild(s);
+  const lg=document.createElement("div"); lg.className="lg";
+  lg.innerHTML=segs.map(g=>'<div><i style="background:var('+
+    DC[(g-1)%DC.length]+')"></i>Segmen '+g+" "+(SEG[g]||"")+" <b>"+
+    per[g].length+" klaster</b></div>").join("");
+  host.appendChild(lg);
+}
+
+function chGroup(host,kat,seri,o){
+  o=o||{}; const W=760,H=o.h||250,L=56,R=14,T=14,B=38;
+  const s=frame(W,H);
+  const y1=nice(Math.max(...seri.flatMap(sr=>sr.v)));
+  const Y=v=>H-B-(H-T-B)*(v/(y1||1));
+  const gw=(W-L-R)/kat.length, bw=Math.min(34,(gw*0.74)/seri.length);
+  for(let i=0;i<=4;i++){const v=y1*i/4,y=Y(v);
+    s.appendChild(mk("line",{x1:L,x2:W-R,y1:y,y2:y,class:"grid"}));
+    s.appendChild(txt(o.yf?o.yf(v):f(v),L-7,y+3.4,"tk","end"));}
+  s.appendChild(mk("line",{x1:L,x2:W-R,y1:H-B,y2:H-B,class:"axis"}));
+  kat.forEach((k,i)=>{
+    const x0=L+i*gw+(gw-bw*seri.length)/2;
+    seri.forEach((sr,j)=>{
+      const v=sr.v[i], h=Math.max(1,(H-B)-Y(v));
+      const r=mk("rect",{x:x0+j*bw,y:Y(v),width:Math.max(2,bw-2),height:h,
+        fill:"var("+DC[j%DC.length]+")"});
+      s.appendChild(r);
+      bindTip(r,'<span class="tl">'+esc(k)+"</span>"+esc(sr.n)+": <b>"+
+        (o.tf?o.tf(v):f(v))+"</b>");});
+    s.appendChild(txt(k,L+i*gw+gw/2,H-B+15,"tk","middle"));});
+  host.appendChild(s);
+
+  if(seri.length>1){
+    const lg=document.createElement("div"); lg.className="lg";
+    lg.innerHTML=seri.map((sr,j)=>'<div><i style="background:var('+
+      DC[j%DC.length]+')"></i>'+esc(sr.n)+"</div>").join("");
+    host.appendChild(lg);
+  }
+}
+
+function table(host,cols,rows){
+  const h='<div class="tw2"><table class="dt"><thead><tr>'+
+    cols.map(c=>"<th"+(c.n?' style="text-align:right"':"")+">"+esc(c.t)+
+      "</th>").join("")+"</tr></thead><tbody>"+
+    rows.map(r=>"<tr>"+cols.map(c=>'<td'+(c.n?' class="n"':"")+">"+
+      (c.h?c.h(r):esc(r[c.k]))+"</td>").join("")+"</tr>").join("")+
+    "</tbody></table></div>";
+  host.innerHTML+=h;
+}
+
+function card(parent,title,cap,span){
+  const c=document.createElement("div");
+  c.className="card"+(span?" span":"");
+  c.innerHTML="<h4>"+title+"</h4>"+(cap?'<p class="cap">'+cap+"</p>":"");
+  parent.appendChild(c); return c;
+}
+function ins(parent,kind,label,html){
+  const d=document.createElement("div");
+  d.className="ins"+(kind?" "+kind:"");
+  d.innerHTML="<b>"+label+"</b>"+html;
+  parent.appendChild(d); return d;
+}
+function strip(parent,items){
+  const d=document.createElement("div"); d.className="strip";
+  d.innerHTML=items.map(i=>"<div><span class='k'>"+i[0]+
+    "</span><span class='v'>"+i[1]+"</span>"+
+    (i[2]?"<span class='n'>"+i[2]+"</span>":"")+"</div>").join("");
+  parent.appendChild(d);
+}
+function sec(parent,t){const h=document.createElement("h3");
+  h.className="sec"; h.textContent=t; parent.appendChild(h);}
+function grid(parent,w2){const d=document.createElement("div");
+  d.className="grid"+(w2?" w2":""); parent.appendChild(d); return d;}
+function lede(parent,h,p){const d=document.createElement("div");
+  d.className="lede"; d.innerHTML="<h2>"+h+"</h2><p>"+p+"</p>";
+  parent.appendChild(d);}
+
+const R=D.ringkas, J=D.jeda, B=D.babi, KD=D.kd;
+const unik=R.sekuens_unik, redun=R.sekuens-unik;
+
+function pgArsip(m){
+  lede(m,"Arsip yang diukur, bukan diperkirakan",
+    "Seluruh angka pada halaman ini dihitung dari "+f(R.sekuens)+
+    " rekaman sekuens Influenza A yang diturunkan dari NCBI dan diproses "+
+    "lewat HDFS, YARN, MapReduce, dan Spark &mdash; bukan dari cuplikan contoh.");
+  strip(m,[
+    ["Sekuens",f(R.sekuens),"rekaman arsip"],
+    ["Sekuens unik",f(unik),pct(unik,R.sekuens)+" dari arsip"],
+    ["Galur",f(R.galur),"isolat berbeda"],
+    ["Basa",f2(R.basa_total/1e9)+" Gb",f(R.basa_total)+" nukleotida"],
+    ["Negara",f(R.negara),"yurisdiksi"],
+    ["Subtipe",f(R.subtipe),"kombinasi HA/NA"],
+    ["Inang",f(R.inang),"spesies tercatat"],
+    ["Rentang",R.tahun_min+"&ndash;"+R.tahun_maks,"tahun koleksi"],
+  ]);
+
+  sec(m,"Pertumbuhan arsip");
+  let g=grid(m,true);
+  let c=card(g,"Sekuens dirilis per tahun",
+    "Tahun rilis NCBI. Deret 2026 masih berjalan saat data ditarik.");
+  chLine(c,D.rilis,{});
+  const r25=(D.rilis.find(p=>p[0]===2025)||[0,0])[1];
+  const r15=(D.rilis.find(p=>p[0]===2015)||[0,0])[1];
+  ins(c,"","Percepatan",
+    "<p>Rilis tahun 2025 sendiri mencapai <b>"+f(r25)+"</b> sekuens, atau "+
+    f1(r25/(r15||1))+"&times; volume tahun 2015. Arsip tidak hanya besar; "+
+    "laju pertambahannya yang menuntut pemrosesan terdistribusi.</p>");
+
+  c=card(g,"Sekuens menurut tahun koleksi",
+    "Kapan sampel diambil, bukan kapan dipublikasikan. Tahun terakhir "+
+    "belum genap sehingga tampak menurun.");
+  chLine(c,D.koleksi.filter(p=>p[0]>=1990),{});
+
+  sec(m,"Redundansi");
+  g=grid(m,true);
+  c=card(g,"Berapa kali satu sekuens identik muncul",
+    "Dihitung dari sidik SHA-1 atas untai basa, bukan dari nomor akses.");
+  hbars(c,D.dup.map(r=>[r.ember,r.count]),{tone:"warn",judul:"rekaman",pt:R.sekuens});
+  ins(c,"w","Beban penyimpanan",
+    "<p>Arsip memuat <b>"+f(R.sekuens)+"</b> rekaman tetapi hanya <b>"+
+    f(unik)+"</b> untai basa yang berbeda. Artinya <b>"+pct(redun,R.sekuens)+
+    "</b> isinya duplikat persis &mdash; "+f(redun)+" rekaman tidak menambah "+
+    "informasi sekuens apa pun.</p><p>Deduplikasi dilakukan di zona silver "+
+    "sebelum ekstraksi fitur, sehingga pemodelan bekerja pada "+f(unik)+
+    " wakil unik dan bukan pada "+f(R.sekuens)+" salinan.</p>");
+
+  c=card(g,"Platform yang menjalankannya",
+    "Spesifikasi klaster yang menghasilkan seluruh angka di situs ini.");
+  table(c,[{t:"Komponen",k:"a"},{t:"Konfigurasi",k:"b"}],[
+    {a:"HDFS",b:"3 DataNode, replikasi 2, blok 128 MB"},
+    {a:"YARN",b:"1 ResourceManager, 3 NodeManager, 12 vCore, 18.432 MB"},
+    {a:"MapReduce",b:"Hadoop Streaming, mapper dan reducer awk"},
+    {a:"Spark",b:"3.5.9 di atas YARN, Spark SQL dan MLlib"},
+    {a:"Neo4j",b:"5.26 Community, Graph Data Science"},
+    {a:"Zona fitur",b:"38,7 GB vektor k-mer jarang di HDFS"},
+  ]);
+  ins(c,"s","Batas yang harus dinyatakan",
+    "<p>Sembilan container berjalan pada <b>satu mesin fisik</b>, sehingga "+
+    "lalu lintas antar node tidak pernah melewati jaringan. Angka kinerja di "+
+    "bawah sah sebagai perbandingan relatif antar mesin pemrosesan, tetapi "+
+    "tidak dapat digeneralisasi ke klaster produksi.</p>");
+
+  sec(m,"Waktu tahap terukur");
+  c=card(m,"Tahap pipeline terlama",
+    "Durasi maksimum per tahap dari jejak audit JSONL lintas semua eksekusi. "+
+    "Satuan menit, karena tahap terberat melewati dua jam.");
+  hbars(c,D.kinerja.map(r=>[r.tahap.length>34?r.tahap.slice(0,33)+"\u2026":r.tahap,
+    r.detik/60]),{judul:"durasi tahap",vf:v=>f1(v)+" m"});
+  const tmax=D.kinerja[0];
+  ins(c,"","Di mana waktunya habis",
+    "<p>Tahap terberat adalah <b>"+esc(tmax.tahap)+"</b> pada "+
+    f1(tmax.detik/60)+" menit, atau "+f1(tmax.detik/3600)+" jam. Ekstraksi "+
+    "fitur dan pengunduhan arsip mendominasi; tahap graf dan agregasi hanya "+
+    "pecahan kecil dari keseluruhan.</p>");
+}
+
+function pgMutu(m){
+  lede(m,"Seberapa cepat dan seberapa bersih arsip ini",
+    "Surveilans bernilai hanya bila datanya tiba cukup cepat dan cukup "+
+    "terpercaya untuk dipakai mengambil keputusan. Dua hal itu diukur di sini.");
+  strip(m,[
+    ["Jeda rata-rata",f2(J.rata)+" thn","koleksi ke rilis"],
+    ["Jeda median",f(J.median)+" thn","separuh lebih cepat"],
+    ["Jeda persentil 90",f(J.p90)+" thn","ekor lambat"],
+    ["Diukur atas",f(J.n),"sekuens bertanggal"],
+    ["Presisi hari",pct(D.presisi[0].count,R.sekuens),"tanggal lengkap"],
+    ["Untai bersih",pct((D.ambigu.find(a=>a.ember==="0 (bersih)")||{count:0}).count,R.sekuens),"tanpa basa ambigu"],
+  ]);
+
+  sec(m,"Ketepatan waktu pelaporan");
+  let c=card(m,"Jeda koleksi ke rilis menyusut tajam",
+    "Rata-rata selisih tahun rilis dan tahun koleksi, dikelompokkan menurut "+
+    "tahun koleksi. Nilai makin kecil berarti pelaporan makin cepat. "+
+    "Tahun 2026 dikeluarkan: sampel yang dikoleksi dan dirilis pada tahun "+
+    "yang sama selalu berjeda nol, sehingga menyertakannya akan menghasilkan "+
+    "penurunan palsu.");
+  chLine(c,D.jeda_tren.filter(r=>r[0]<=2025).map(r=>[r[0],r[1]]),
+    {yf:v=>f2(v),ef:v=>f2(v)+" thn",h:270});
+  const t19=(D.jeda_tren.find(r=>r[0]===2019)||[0,0])[1];
+  const t25=(D.jeda_tren.find(r=>r[0]===2025)||[0,0])[1];
+  ins(c,"","Temuan utama halaman ini",
+    "<p>Sampel yang dikoleksi pada 2019 butuh rata-rata <b>"+f2(t19)+
+    " tahun</b> untuk sampai ke arsip publik. Untuk sampel 2025 angkanya "+
+    "turun ke <b>"+f2(t25)+" tahun</b> &mdash; percepatan sekitar <b>"+
+    f1(t19/(t25||1))+"&times;</b>.</p><p>Ini mengubah apa yang mungkin "+
+    "dilakukan. Pada jeda dua tahun, analisis arsip bersifat retrospektif. "+
+    "Pada jeda di bawah setengah tahun, arsip yang sama mulai dapat dipakai "+
+    "untuk pemantauan yang mendekati waktu berjalan &mdash; dan itu justru "+
+    "yang menuntut pipeline berskala besar seperti ini.</p>");
+
+  let g=grid(m,true);
+  c=card(g,"Sebaran jeda","Berapa banyak sekuens pada tiap selisih tahun.");
+  chVBar(c,D.jeda_seb.filter(r=>r[0]<=15),{});
+
+  c=card(g,"Presisi tanggal koleksi",
+    "Seberapa halus tanggal yang tercatat. Hanya presisi hari yang memungkinkan analisis musiman.");
+  propbar(c,D.presisi.map(r=>[r.presisi_tanggal===null?"tidak tercatat":r.presisi_tanggal,r.count]));
+  const tdk=(D.presisi.find(p=>p.presisi_tanggal==="tidak_ada")||{count:0}).count;
+  const thn=(D.presisi.find(p=>p.presisi_tanggal==="tahun")||{count:0}).count;
+  ins(c,"w","Batas analisis musiman",
+    "<p><b>"+f(tdk+thn)+"</b> sekuens ("+pct(tdk+thn,R.sekuens)+
+    ") tidak punya tanggal yang lebih halus dari tahun. Setiap analisis "+
+    "musiman &mdash; dan komposisi vaksin bergantung padanya &mdash; harus "+
+    "mengeluarkan rekaman ini, bukan mengasumsikan tanggalnya.</p>");
+
+  sec(m,"Mutu dan provenans label");
+  g=grid(m,true);
+  c=card(g,"Asal label subtipe",
+    "Apakah subtipe diambil dari metadata terstruktur, disarikan dari baris defline, atau tidak diketahui.");
+  propbar(c,D.sumber_sub.map(r=>[r.subtipe_sumber,r.count]));
+  const dfl=(D.sumber_sub.find(s=>s.subtipe_sumber==="defline")||{count:0}).count;
+  ins(c,"","Mengapa provenans dicatat",
+    "<p><b>"+f(dfl)+"</b> label subtipe hanya ada karena disarikan dari teks "+
+    "deskripsi dengan ekspresi reguler, bukan dari bidang metadata. Label "+
+    "seperti ini lebih rapuh, dan membedakannya memungkinkan analisis hilir "+
+    "memilih tingkat kepercayaan yang dipakai.</p>");
+
+  c=card(g,"Kelengkapan sekuens",
+    "Penanda complete atau partial dari NCBI.");
+  propbar(c,D.kelengkapan.map(r=>[r.kelengkapan===null?"tidak tercatat":r.kelengkapan,r.count]));
+  const cpl=(D.kelengkapan.find(k=>k.kelengkapan==="complete")||{count:0}).count;
+  ins(c,"s","Konsekuensi untuk metode",
+    "<p>Hanya <b>"+f(cpl)+"</b> sekuens ("+pct(cpl,R.sekuens)+
+    ") bertanda <i>complete</i>. Menyaring hanya yang lengkap akan membuang "+
+    "lebih dari 99% arsip.</p><p>Inilah alasan metodis memilih pendekatan "+
+    "<i>alignment-free</i> berbasis k-mer: ia tetap bekerja pada sekuens "+
+    "sebagian, sedangkan penjajaran menuntut wilayah yang sebanding.</p>");
+
+  g=grid(m,true);
+  c=card(g,"Basa ambigu per sekuens",
+    "Persentase posisi bukan A, C, G, atau T.");
+  hbars(c,D.ambigu.sort((a,b)=>b.count-a.count).map(r=>[r.ember,r.count]));
+
+  c=card(g,"Bidang metadata yang kosong",
+    "Jumlah rekaman tanpa nilai pada tiap bidang kunci.");
+  hbars(c,D.rongga.map(r=>[r.kolom,r.kosong]),{tone:"warn"});
+  const sg=(D.rongga.find(r=>r.kolom==="segmen")||{kosong:0}).kosong;
+  ins(c,"w","Rongga yang paling mengganggu",
+    "<p><b>"+f(sg)+"</b> sekuens tidak dapat dipetakan ke satu pun dari "+
+    "delapan segmen, baik dari metadata maupun dari defline. Rekaman ini "+
+    "dikeluarkan dari seluruh analisis per segmen, dan jumlahnya dilaporkan "+
+    "alih-alih disembunyikan.</p>");
+}
+
+function pgRagam(m){
+  const usa=(D.negara.find(n=>n.negara==="USA")||{count:0}).count;
+  const na=(D.wilayah.find(w=>w.wilayah==="North America")||{count:0}).count;
+  const af=(D.wilayah.find(w=>w.wilayah==="Africa")||{count:0}).count;
+  const hs=(D.inang.find(i=>i.inang==="Homo sapiens")||{count:0}).count;
+  lede(m,"Keragaman arsip, dan di mana ia buta",
+    "Arsip ini mencakup "+f(R.subtipe)+" subtipe dan "+f(R.inang)+
+    " spesies inang. Tetapi cakupan itu sangat tidak merata, dan "+
+    "ketidakmerataannya sendiri adalah temuan yang perlu dinyatakan.");
+  strip(m,[
+    ["Subtipe",f(R.subtipe),"kombinasi HA/NA"],
+    ["Spesies inang",f(R.inang),"tercatat"],
+    ["Negara",f(R.negara),"yurisdiksi"],
+    ["Pangsa AS",pct(usa,R.sekuens),f(usa)+" sekuens"],
+    ["Pangsa Afrika",pct(af,R.sekuens),f(af)+" sekuens"],
+    ["Pangsa manusia",pct(hs,R.sekuens),f(hs)+" sekuens"],
+  ]);
+
+  sec(m,"Komposisi subtipe");
+  let g=grid(m,true);
+  let c=card(g,"Dua puluh subtipe teratas","Seluruh arsip, menurut jumlah sekuens.");
+  hbars(c,D.subtipe.map(r=>[r.subtipe,r.count]),{judul:"sekuens",pt:R.sekuens});
+  const s3=D.subtipe[0], s1=D.subtipe[1];
+  ins(c,"","Pemusatan",
+    "<p>"+esc(s3.subtipe)+" dan "+esc(s1.subtipe)+" sendiri menyumbang <b>"+
+    pct(s3.count+s1.count,R.sekuens)+"</b> dari arsip, padahal tercatat "+
+    f(R.subtipe)+" subtipe berbeda. Ekor panjangnya sangat tipis: subtipe "+
+    "peringkat dua puluh hanya punya "+f(D.subtipe[19].count)+" sekuens.</p>");
+
+  c=card(g,"Subtipe sepanjang waktu",
+    "Delapan subtipe teratas menurut tahun koleksi, 1990 ke atas.");
+  const kunciSub=D.subtipe.slice(0,8).map(r=>r.subtipe);
+  chStack(c,D.sub_tahun.map(r=>({x:r.tahun_koleksi,k:r.subtipe,v:r.count})),
+    kunciSub,{});
+
+  sec(m,"Geografi");
+  g=grid(m,true);
+  c=card(g,"Dua puluh lima negara teratas","Jumlah sekuens menurut negara asal.");
+  hbars(c,D.negara.map(r=>[r.negara,r.count]),{judul:"sekuens",pt:R.sekuens});
+  ins(c,"s","Titik buta surveilans",
+    "<p>Amerika Serikat menyumbang <b>"+pct(usa,R.sekuens)+"</b> arsip dan "+
+    "Amerika Utara <b>"+pct(na,R.sekuens)+"</b>, sementara seluruh Afrika "+
+    "hanya <b>"+pct(af,R.sekuens)+"</b> dengan "+f(af)+" sekuens.</p>"+
+    "<p>Ini hampir pasti mencerminkan kapasitas sekuensing, bukan sebaran "+
+    "virusnya. Setiap kesimpulan global dari arsip ini mewarisi bias "+
+    "tersebut, dan model apa pun yang dilatih di atasnya akan paling lemah "+
+    "justru di wilayah dengan data paling sedikit.</p>");
+
+  c=card(g,"Wilayah sepanjang waktu","Tahun koleksi 1995 ke atas.");
+  const kunciWil=D.wilayah.filter(w=>w.wilayah).slice(0,6).map(w=>w.wilayah);
+  chStack(c,D.wil_tahun.filter(r=>r.wilayah).map(r=>
+    ({x:r.tahun_koleksi,k:r.wilayah,v:r.count})),kunciWil,{});
+
+  sec(m,"Inang");
+  g=grid(m,true);
+  c=card(g,"Lima belas inang teratas","Nama spesies sebagaimana tercatat.");
+  hbars(c,D.inang.map(r=>[r.inang,r.count]),{tone:"alt",judul:"sekuens",pt:R.sekuens});
+  ins(c,"","Mengapa inang penting di sini",
+    "<p>Babi menyumbang "+f2(100*B.arsip_babi/B.arsip_total)+"% arsip dan "+
+    "unggas "+f2(100*B.arsip_unggas/B.arsip_total)+"%. Pangsa dasar ini "+
+    "menjadi pembanding pada halaman reassortment: tanpanya, pemusatan "+
+    "kandidat pada satu inang tidak bisa dibedakan dari sekadar banyaknya "+
+    "sampel inang tersebut.</p>");
+
+  c=card(g,"Inang terhadap subtipe",
+    "Enam inang teratas terhadap enam subtipe teratas. Warna makin pekat berarti makin banyak sekuens.");
+  const ih=[...new Set(D.inang_sub.map(r=>r.inang))].slice(0,6);
+  const is=[...new Set(D.inang_sub.map(r=>r.subtipe))].slice(0,6);
+  const im={}; D.inang_sub.forEach(r=>{im[r.inang+"|"+r.subtipe]=r.count;});
+  matrix(c,ih,is,(y,x)=>im[y+"|"+x]||0,{});
+
+  sec(m,"Struktur per segmen");
+  c=card(m,"Delapan segmen genom",
+    "Panjang, GC, dan keragaman subtipe per segmen. Segmen 4 adalah HA dan segmen 6 adalah NA &mdash; keduanya menentukan penamaan subtipe.");
+  table(c,[
+    {t:"Seg",k:"segmen",h:r=>r.segmen+" &middot; "+(SEG[r.segmen]||"")},
+    {t:"Sekuens",k:"n",n:1,h:r=>f(r.n)},
+    {t:"Pangsa",k:"p",n:1,h:r=>pct(r.n,R.sekuens)},
+    {t:"Panjang rata",k:"panjang_rata",n:1,h:r=>f1(r.panjang_rata)+" nt"},
+    {t:"GC",k:"gc_rata",n:1,h:r=>f2(r.gc_rata)+"%"},
+    {t:"Ambigu rata",k:"ambigu_rata",n:1,h:r=>f2(r.ambigu_rata*100)+"%"},
+    {t:"Subtipe",k:"subtipe_unik",n:1,h:r=>f(r.subtipe_unik)},
+  ],D.segmen);
+
+  let g2=grid(m,true);
+  let c2=card(g2,"Jumlah sekuens per segmen",
+    "Persentase pada tooltip dihitung terhadap seluruh arsip.");
+  hbars(c2,D.segmen.map(r=>[r.segmen+" "+(SEG[r.segmen]||""),r.n]),
+    {judul:"sekuens",pt:R.sekuens});
+  c2=card(g2,"Panjang rata-rata dan kandungan GC",
+    "Dua ukuran berbeda satuan, jadi disajikan sebagai dua skala terpisah "+
+    "alih-alih dipaksa ke satu sumbu ganda.");
+  chGroup(c2,D.segmen.map(r=>r.segmen+" "+(SEG[r.segmen]||"")),
+    [{n:"panjang (nt)",v:D.segmen.map(r=>r.panjang_rata)}],
+    {judul:"panjang",tf:v=>f1(v)+" nt",h:200});
+  chGroup(c2,D.segmen.map(r=>r.segmen+" "+(SEG[r.segmen]||"")),
+    [{n:"GC (%)",v:D.segmen.map(r=>r.gc_rata)}],
+    {judul:"GC",tf:v=>f2(v)+"%",yf:v=>f1(v)+"%",h:180});
+
+  const seg4=D.segmen.find(s=>s.segmen===4), rata=D.segmen.reduce((a,s)=>a+s.n,0)/8;
+  ins(c,"w","Bias sekuensing ke arah HA",
+    "<p>Segmen 4 (HA) punya <b>"+f(seg4.n)+"</b> sekuens, sekitar <b>"+
+    f2(seg4.n/rata)+"&times;</b> rata-rata delapan segmen. Penyebabnya bukan "+
+    "biologis: HA adalah sasaran antibodi utama dan penentu subtipe, sehingga "+
+    "laboratorium mengurutkannya lebih sering daripada segmen internal.</p>"+
+    "<p>Akibatnya genom utuh delapan segmen jauh lebih langka daripada "+
+    "kesan yang diberikan jumlah total &mdash; dan analisis reassortment "+
+    "justru menuntut genom utuh.</p>");
+}
+
+function pgGraf(m){
+  const simpul=D.klaster_seg.reduce((a,r)=>a+r.simpul,0);
+  const klaster=D.klaster_seg.reduce((a,r)=>a+r.klaster,0);
+  const uk=D.klaster_uk.reduce((o,r)=>(o[r.ember]=r.count,o),{});
+  lede(m,"Arsip sebagai graf, bukan sebagai tabel",
+    "Alih-alih membandingkan setiap pasangan sekuens, MinHash LSH hanya "+
+    "memeriksa pasangan yang berpeluang mirip. Hasilnya graf kemiripan per "+
+    "segmen, lalu komponen terhubungnya menjadi klaster.");
+  strip(m,[
+    ["Tepi kemiripan",f(D.graf_tepi),"lintas 8 segmen"],
+    ["Simpul",f(simpul),"sekuens dalam graf"],
+    ["Klaster",f(klaster),"komponen terhubung"],
+    ["Kemiripan min",f2(D.graf_seg[0].kemiripan_min),"ambang Jaccard"],
+    ["Klaster kecil",f(uk["2 - 5"]||0),"ukuran 2 sampai 5"],
+    ["Klaster besar",f(uk["> 100"]||0),"lebih dari 100 simpul"],
+  ]);
+  ins(m,"s","Baca angka di halaman ini dengan hati-hati",
+    "<p>Graf dibangun atas <b>sampel maksimum 2.500 simpul per segmen</b>, "+
+    "bukan atas "+f(R.sekuens)+" sekuens arsip. Struktur klasternya terbaca, "+
+    "tetapi <b>angka absolutnya berlaku untuk sampel</b>, bukan untuk arsip "+
+    "penuh. Menaikkannya ke arsip penuh adalah pekerjaan rekayasa yang belum "+
+    "selesai, dan dinyatakan di sini alih-alih dikaburkan.</p>");
+
+  sec(m,"Tepi per segmen");
+  let g=grid(m,true);
+  let c=card(g,"Tepi kemiripan per segmen",
+    "Jumlah pasangan yang melewati ambang, per segmen.");
+  hbars(c,D.graf_seg.map(r=>[r.segmen+" "+(SEG[r.segmen]||""),r.tepi]),{judul:"tepi",pt:D.graf_tepi});
+  const mn=D.graf_seg.reduce((a,b)=>a.tepi<b.tepi?a:b);
+  const mx=D.graf_seg.reduce((a,b)=>a.tepi>b.tepi?a:b);
+  ins(c,"","Kerapatan tidak seragam",
+    "<p>Pada jumlah simpul yang sebanding, segmen "+mx.segmen+" ("+
+    SEG[mx.segmen]+") menghasilkan <b>"+f(mx.tepi)+"</b> tepi sementara "+
+    "segmen "+mn.segmen+" ("+SEG[mn.segmen]+") hanya <b>"+f(mn.tepi)+
+    "</b> &mdash; selisih "+f1(mx.tepi/(mn.tepi||1))+"&times;.</p>"+
+    "<p>Segmen internal lebih lestari sehingga banyak sekuensnya saling "+
+    "melewati ambang kemiripan. HA justru paling beragam, dan itu konsisten "+
+    "dengan tekanan seleksi imun yang bekerja padanya.</p>");
+
+  c=card(g,"Simpul dan klaster per segmen",
+    "Dua seri pada satu skala hitungan: berapa sekuens masuk graf, dan "+
+    "menjadi berapa komponen terhubung.");
+  chGroup(c,D.klaster_seg.map(r=>r.segmen+" "+(SEG[r.segmen]||"")),
+    [{n:"simpul",v:D.klaster_seg.map(r=>r.simpul)},
+     {n:"klaster",v:D.klaster_seg.map(r=>r.klaster)}],{judul:"segmen"});
+  const rk=D.klaster_seg.map(r=>r.simpul/r.klaster);
+  ins(c,"","Kepadatan klaster",
+    "<p>Rata-rata simpul per klaster berkisar <b>"+f2(Math.min(...rk))+
+    "</b> sampai <b>"+f2(Math.max(...rk))+"</b>. Segmen dengan nisbah "+
+    "tertinggi berarti sekuensnya lebih sering saling terhubung, yakni "+
+    "lebih lestari.</p>");
+
+  sec(m,"Bentuk klaster");
+  g=grid(m,true);
+  c=card(g,"Sebaran ukuran klaster","Berapa banyak klaster pada tiap rentang ukuran.");
+  hbars(c,D.klaster_uk.sort((a,b)=>b.count-a.count).map(r=>[r.ember,r.count]),
+    {tone:"alt"});
+  ins(c,"","Ekor panjang yang tajam",
+    "<p><b>"+f(uk["2 - 5"]||0)+"</b> klaster hanya berisi dua sampai lima "+
+    "sekuens, sementara <b>"+f(uk["> 100"]||0)+"</b> klaster melampaui 100 "+
+    "simpul. Sebaran semacam ini khas populasi virus: banyak varian jarang, "+
+    "sedikit galur yang beredar luas.</p>");
+
+  c=card(g,"Dua belas klaster terbesar",
+    "Pengenal klaster memuat nomor segmennya, misalnya S_4 untuk HA.");
+  hbars(c,D.klaster_top.map(r=>[r.lineage_id.replace(/^S_/,"seg "),r.count]),
+    {judul:"ukuran klaster",tone:"alt"});
+
+  sec(m,"Catatan metode");
+  c=card(m,"Mengapa LSH, dan apa yang ditukar",
+    "Pilihan parameter beserta konsekuensinya.");
+  c.innerHTML+="<p style='margin:0 0 10px;color:var(--ink2);font-size:13.5px'>"+
+    "Membandingkan seluruh pasangan pada 2.500 simpul menuntut sekitar "+
+    f(2500*2499/2)+" perbandingan per segmen. MinHash LSH menyingkat itu "+
+    "dengan hanya memeriksa pasangan yang jatuh pada keranjang hash yang sama. "+
+    "Ambang jarak Jaccard 0,12 tidak dipilih dengan menebak, melainkan dari "+
+    "sapuan terukur: pada 0,05 graf terlalu renggang untuk membentuk klaster "+
+    "bermakna, pada 0,25 jumlah tepi meledak sampai menghabiskan ruang disk."+
+    "</p>";
+  ins(c,"w","Istilah yang sengaja dihindari",
+    "<p>Klaster di sini <b>bukan</b> garis keturunan filogenetik. Ia adalah "+
+    "komponen terhubung pada graf kemiripan k-mer. Keduanya sering berkaitan, "+
+    "tetapi menyebutnya <i>lineage</i> akan mengeklaim lebih dari yang "+
+    "dibuktikan metode ini.</p>");
+}
+
+function pgReasort(m){
+  lede(m,"Kandidat reassortment, dan bukti bahwa sinyalnya nyata",
+    "Kandidat ditandai ketika subtipe yang diprediksi dari komposisi k-mer "+
+    "berbeda dari subtipe yang tercatat, pada keyakinan tinggi. Pertanyaan "+
+    "pentingnya: apakah itu sinyal biologis, atau sekadar galat metadata?");
+  strip(m,[
+    ["Kandidat",f(KD.baris),"sekuens tertandai"],
+    ["Galur",f(KD.galur),"isolat berbeda"],
+    ["Keyakinan rata",f2(KD.keyakinan_rata),"probabilitas model"],
+    ["Keyakinan tinggi",f((D.kd_yakin.find(k=>k.ember===">= 0,90")||{count:0}).count),"di atas 0,90"],
+    ["Tepi co-occurs",f(D.co_total),"pasangan klaster"],
+    ["Pengayaan babi",f2(B.pengayaan_babi)+"&times;","terhadap pangsa arsip"],
+  ]);
+
+  sec(m,"Jaringan klaster lintas segmen");
+
+  const EDG = (D.co_semua && D.co_semua.length) ? D.co_semua : D.co_top;
+  const penuh = EDG.length >= D.co_total;
+  let cN=card(m,penuh ? "Seluruh "+f(EDG.length)+" tepi co-occurs sebagai jaringan"
+                      : f(EDG.length)+" tepi co-occurs terkuat sebagai jaringan",
+    "Tiap simpul adalah satu klaster kemiripan; tiap tepi berarti kedua "+
+    "klaster itu hadir pada galur yang sama. Simpul dikelompokkan per "+
+    "segmen di sekeliling lingkaran, ukurannya mengikuti jumlah tepi, dan "+
+    "ketebalan tepi mengikuti jumlah galur. Arahkan kursor untuk rinciannya.",
+    true);
+  chNetwork(cN,EDG,{});
+  const drj={}; EDG.forEach(e=>{drj[e.src]=(drj[e.src]||0)+1;
+    drj[e.dst]=(drj[e.dst]||0)+1;});
+  const pusat=Object.entries(drj).sort((a,b)=>b[1]-a[1])[0];
+  ins(cN,"","Bentuk jaringannya",
+    "<p>"+(penuh?"Seluruh ":"")+f(EDG.length)+" tepi menautkan <b>"+Object.keys(drj).length+
+    "</b> klaster yang tersebar di <b>seluruh delapan segmen</b> &mdash; "+
+    "bukan terkumpul pada satu atau dua segmen saja. Simpul paling terhubung "+
+    "adalah <code>"+esc(pusat[0])+"</code> dengan "+pusat[1]+" tepi.</p>"+
+    "<p>Pola menyebar seperti ini memang yang diharapkan dari reassortment: "+
+    "peristiwanya menukar segmen antar galur, sehingga jejaknya muncul "+
+    "serentak di banyak segmen, tidak terpusat di satu tempat.</p>");
+
+  let gM=grid(m,true);
+  let cM=card(gM,"Intensitas pasangan segmen",
+    "Jumlah galur yang menautkan klaster dari dua segmen berbeda. Matriks "+
+    "dibuat simetris agar mudah dibaca dua arah.");
+  const SG=[1,2,3,4,5,6,7,8];
+  const pm={}; D.co_pasang.forEach(r=>{
+    pm[r.seg_src+"|"+r.seg_dst]=r.galur; pm[r.seg_dst+"|"+r.seg_src]=r.galur;});
+  matrix(cM,SG,SG,(y,x)=>y===x?0:(pm[y+"|"+x]||0),
+    {xl:v=>v+" "+(SEG[v]||""),yl:v=>v+" "+(SEG[v]||""),judul:"galur berbagi"});
+
+  cM=card(gM,"Pasangan segmen teratas","Diurutkan menurut jumlah galur.");
+  hbars(cM,D.co_pasang.slice(0,12).map(r=>[
+    (SEG[r.seg_src]||r.seg_src)+" \u2013 "+(SEG[r.seg_dst]||r.seg_dst),r.galur]),
+    {judul:"galur berbagi"});
+
+  sec(m,"Uji validasi: inang");
+  let c=card(m,"Kandidat memusat pada babi, dan menyusut pada manusia",
+    "Pangsa tiap inang di arsip dibandingkan dengan pangsanya di antara kandidat. Inang tidak pernah dipakai sebagai fitur model.");
+  const rows=[
+    ["Babi (Sus)",B.pangsa_arsip_babi,B.pangsa_kd_babi,B.pengayaan_babi],
+    ["Unggas",B.pangsa_arsip_unggas,B.pangsa_kd_unggas,B.pengayaan_unggas],
+    ["Manusia",B.pangsa_arsip_manusia,B.pangsa_kd_manusia,B.pengayaan_manusia],
+  ];
+  chGroup(c,rows.map(r=>r[0]),
+    [{n:"pangsa arsip (%)",v:rows.map(r=>r[1])},
+     {n:"pangsa kandidat (%)",v:rows.map(r=>r[2])}],
+    {judul:"pangsa inang",tf:v=>f2(v)+"%",yf:v=>f1(v)+"%",h:235});
+  table(c,[{t:"Inang",k:"0",h:r=>r[0]},
+    {t:"Pangsa arsip",k:"1",n:1,h:r=>f2(r[1])+"%"},
+    {t:"Pangsa kandidat",k:"2",n:1,h:r=>f2(r[2])+"%"},
+    {t:"Pengayaan",k:"3",n:1,h:r=>"<b>"+f2(r[3])+"&times;</b>"}],rows);
+  ins(c,"","Mengapa ini penting",
+    "<p>Model hanya melihat komposisi k-mer. Ia tidak pernah diberi tahu "+
+    "spesies inang. Namun kandidatnya memusat <b>"+f2(B.pengayaan_babi)+
+    "&times;</b> pada babi dan menyusut menjadi <b>"+f2(B.pengayaan_manusia)+
+    "&times;</b> pada manusia.</p>"+
+    "<p>Babi sudah lama dikenal sebagai <i>mixing vessel</i> influenza: "+
+    "salurannya menerima virus unggas maupun manusia, sehingga reassortment "+
+    "lebih sering terjadi di sana. Pipeline ini menemukan ulang pola itu "+
+    "tanpa pernah diberi petunjuk tentangnya.</p>"+
+    "<p>Itu juga menjawab keberatan paling serius. Galat metadata akan "+
+    "tersebar kurang lebih merata di seluruh inang; ia tidak akan memusat "+
+    "hampir enam kali pada satu spesies dan menyusut tujuh kali pada "+
+    "spesies lain.</p>");
+
+  sec(m,"Sebaran kandidat");
+  let g=grid(m,true);
+  c=card(g,"Kandidat menurut inang","Dua belas inang teratas di antara kandidat.");
+  hbars(c,D.kd_inang.map(r=>[r.inang,r.count]),{tone:"warn",judul:"kandidat",pt:KD.baris});
+
+  c=card(g,"Kandidat menurut wilayah","Jumlah sekuens kandidat per wilayah.");
+  hbars(c,D.kd_wil.filter(r=>r.wilayah).map(r=>[r.wilayah,r.count]),{tone:"alt",judul:"kandidat",pt:KD.baris});
+  const kna=(D.kd_wil.find(r=>r.wilayah==="North America")||{count:0}).count;
+  const kas=(D.kd_wil.find(r=>r.wilayah==="Asia")||{count:0}).count;
+  const na=(D.wilayah.find(w=>w.wilayah==="North America")||{count:0}).count;
+  const as=(D.wilayah.find(w=>w.wilayah==="Asia")||{count:0}).count;
+  ins(c,"","Asia melebihi pangsanya",
+    "<p>Amerika Utara memuat "+pct(na,R.sekuens)+" arsip dan "+
+    pct(kna,KD.baris)+" kandidat. Asia memuat "+pct(as,R.sekuens)+
+    " arsip tetapi <b>"+pct(kas,KD.baris)+"</b> kandidat &mdash; sekitar "+
+    f2((kas/KD.baris)/(as/R.sekuens))+"&times; pangsanya.</p>");
+
+  g=grid(m,true);
+  c=card(g,"Kandidat menurut tahun koleksi","Sebaran temporal.");
+  chVBar(c,D.kd_tahun.filter(r=>r.tahun_koleksi>=2000)
+    .map(r=>[r.tahun_koleksi,r.count]),{});
+
+  c=card(g,"Keyakinan model pada kandidat",
+    "Hanya prediksi berkeyakinan tinggi yang ditandai sebagai kandidat.");
+  hbars(c,D.kd_yakin.map(r=>[r.ember,r.count]));
+
+  sec(m,"Pola ketidaksesuaian subtipe");
+  c=card(m,"Subtipe tercatat terhadap subtipe terprediksi",
+    "Dua puluh lima pasangan teratas. Baris adalah label arsip, kolom adalah dugaan model dari komposisi k-mer.");
+  const ky=[...new Set(D.kd_silang.map(r=>r.subtipe_kelas))];
+  const kx=[...new Set(D.kd_silang.map(r=>r.prediksi_subtipe))];
+  const km={}; D.kd_silang.forEach(r=>{
+    km[r.subtipe_kelas+"|"+r.prediksi_subtipe]=r.count;});
+  matrix(c,ky,kx,(y,x)=>km[y+"|"+x]||0,{judul:"sekuens kandidat"});
+  table(c,[{t:"Tercatat",k:"subtipe_kelas"},
+    {t:"Terprediksi",k:"prediksi_subtipe"},
+    {t:"Sekuens",k:"count",n:1,h:r=>f(r.count)}],D.kd_silang);
+  ins(c,"","Pola yang masuk akal secara biologis",
+    "<p>Ketidaksesuaian terbanyak melibatkan H1N1, H1N2, dan H3N2 &mdash; "+
+    "persis subtipe yang beredar pada babi dan yang paling sering "+
+    "ber-reassortment satu dengan lainnya. Model tidak mengacak kesalahan; "+
+    "kesalahannya jatuh pada pasangan yang memang saling bertukar segmen "+
+    "di alam.</p>");
+
+  sec(m,"Kandidat berkeyakinan tertinggi");
+  c=card(m,"Dua puluh lima kandidat teratas",
+    "Diurutkan menurut keyakinan model. Ini daftar untuk ditindaklanjuti, bukan kesimpulan.");
+  table(c,[
+    {t:"Akses",k:"accession",h:r=>"<code>"+esc(r.accession)+"</code>"},
+    {t:"Galur",k:"galur"},
+    {t:"Seg",k:"segmen",n:1,h:r=>r.segmen+" "+(SEG[r.segmen]||"")},
+    {t:"Tercatat",k:"subtipe_kelas"},
+    {t:"Terprediksi",k:"prediksi_subtipe"},
+    {t:"Keyakinan",k:"keyakinan",n:1,h:r=>f2(r.keyakinan)},
+    {t:"Negara",k:"negara"},
+    {t:"Tahun",k:"tahun_koleksi",n:1},
+    {t:"Inang",k:"inang"},
+  ],D.kd_top);
+  ins(c,"s","Apa yang belum dibuktikan",
+    "<p>Ini <b>kandidat</b>, bukan peristiwa reassortment yang "+
+    "terkonfirmasi. Konfirmasi menuntut analisis filogenetik per segmen "+
+    "untuk memastikan segmen-segmen satu galur memang berasal dari garis "+
+    "keturunan yang berbeda &mdash; dan itu belum dikerjakan.</p>"+
+    "<p>Pengayaan pada babi memberi keyakinan bahwa sebagian besar sinyal "+
+    "ini biologis, tetapi tiap kandidat tetap harus diuji satu per satu.</p>");
+}
+
+const PAGES=[
+  ["arsip","Arsip",pgArsip],
+  ["mutu","Mutu & Waktu",pgMutu],
+  ["ragam","Keragaman",pgRagam],
+  ["graf","Graf",pgGraf],
+  ["reasort","Reassortment",pgReasort],
+];
+const main=document.getElementById("main"), nav=document.getElementById("nav");
+const panes={};
+PAGES.forEach(([id,label,fn])=>{
+  const b=document.createElement("button");
+  b.textContent=label; b.id="tab-"+id;
+  b.setAttribute("role","tab"); b.setAttribute("aria-controls","pane-"+id);
+  b.onclick=()=>{ if(location.hash!=="#"+id) location.hash=id; else show(id); };
+  nav.appendChild(b);
+  const p=document.createElement("section");
+  p.id="pane-"+id; p.setAttribute("role","tabpanel");
+  p.setAttribute("aria-labelledby","tab-"+id);
+  main.appendChild(p); panes[id]=p;
+  fn(p);
+});
+
+const FOOT='<p><b>Sumber data.</b> NCBI Influenza Virus Database, '+
+  f(R.sekuens)+' rekaman ditarik dan diproses melalui HDFS, YARN, MapReduce, '+
+  'Spark, dan Neo4j. Setiap angka di situs ini dihitung dari zona data lake, '+
+  'bukan disalin dari literatur.</p>'+
+  '<p><b>Batas.</b> Graf kemiripan dan kandidat reassortment dibangun atas '+
+  'sampel, dan kinerja diukur pada satu mesin fisik. Keduanya dinyatakan di '+
+  'halaman yang bersangkutan.</p>';
+PAGES.forEach(([id])=>{ const ft=document.createElement("footer");
+  ft.innerHTML=FOOT; panes[id].appendChild(ft); });
+
+function show(id){
+  if(!panes[id]) id=PAGES[0][0];
+  PAGES.forEach(([p])=>{
+    panes[p].hidden=(p!==id);
+    const b=document.getElementById("tab-"+p);
+    b.setAttribute("aria-selected",p===id?"true":"false");
+  });
+  window.scrollTo(0,0);
+}
+const tok=()=>(location.hash||"").replace(/^#/,"").replace(/[^A-Za-z0-9._~-]/g,"");
+window.addEventListener("hashchange",()=>show(tok()));
+show(tok());</script>

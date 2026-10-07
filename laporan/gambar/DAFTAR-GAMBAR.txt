@@ -1,0 +1,14 @@
+Daftar gambar laporan Assignment II
+==================================================
+
+01-pertumbuhan-rilis.png           Sekuens dirilis NCBI per tahun
+02-jeda-pelaporan.png              Jeda koleksi ke rilis menurut tahun koleksi
+03-subtipe-teratas.png             Dua belas subtipe teratas
+04-inang-teratas.png               Sepuluh spesies inang teratas
+05-tepi-per-segmen.png             Tepi kemiripan per segmen
+06-skalabilitas-waktu.png          Waktu pelatihan terhadap fraksi data
+07-skalabilitas-throughput.png     Throughput pelatihan dalam baris per detik
+08-f1-per-algoritma.png            F1 makro per tugas dan algoritma
+09-waktu-latih.png                 Waktu pelatihan per tugas dan algoritma
+10-kandidat-per-wilayah.png        Kandidat reassortment menurut wilayah
+11-kandidat-per-inang.png          Delapan inang teratas di antara kandidat
