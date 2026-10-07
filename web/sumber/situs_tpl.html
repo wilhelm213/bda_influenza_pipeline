@@ -64,13 +64,15 @@ header.top{background:var(--surface);border-bottom:1px solid var(--rule)}
 .peta div.kunci b{color:var(--akos-ink)}
 .petacap{font-family:var(--mono);font-size:10px;color:var(--ink3);
   margin:5px 0 0;letter-spacing:.02em}
-.beranda{display:inline-flex;align-items:center;gap:7px;
-  font-family:var(--mono);font-size:11.5px;color:var(--akos-ink);
-  background:var(--akos-soft);border:1px solid var(--akos);
-  text-decoration:none;padding:6px 12px;margin:14px 0 0}
-.beranda:hover{background:var(--akos);color:var(--surface)}
-.beranda:focus-visible{outline:2px solid var(--akos);outline-offset:2px}
-.beranda span{font-size:14px;line-height:1}
+.beranda{display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--num);font-size:13px;font-weight:600;letter-spacing:.01em;
+  color:var(--surface);background:var(--akos);border:0;
+  text-decoration:none;padding:9px 16px 9px 13px;margin:0 0 16px;
+  box-shadow:0 1px 0 rgba(0,0,0,.18)}
+.beranda:hover{background:var(--akos-ink)}
+.beranda:active{transform:translateY(1px)}
+.beranda:focus-visible{outline:3px solid var(--akos);outline-offset:2px}
+.beranda svg{width:15px;height:15px;flex:none;display:block}
 .idrow{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap;
   padding:18px 0 4px}
 .idrow h1{font-family:var(--disp);font-size:20px;font-weight:700;margin:0;
@@ -251,12 +253,12 @@ footer p{margin:0 0 9px}
 
 <header class="top">
   <div class="tw">
+    <a class="beranda" href="../index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>Kembali ke beranda</a>
     <div class="peta" id="peta" aria-hidden="true"></div>
     <p class="petacap">Delapan segmen genom Influenza A, lebar menurut
       panjang sebenarnya. HA dan NA bersorot: hanya keduanya yang
       menentukan penamaan subtipe &mdash; dan itulah sebabnya reassortment
       pada segmen internal bisa lolos tanpa mengubah nama subtipe.</p>
-    <a class="beranda" href="../index.html"><span aria-hidden="true">&larr;</span> Beranda proyek</a>
     <div class="idrow">
       <h1>Atlas Genom Influenza A</h1>
       <span class="meta">1.586.912 sekuens &middot; 172 negara &middot;
