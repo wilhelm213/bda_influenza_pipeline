@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Pipeline Big Data surveilans genomik Influenza A: 1.586.912 sekuens NCBI diproses dengan Hadoop, YARN, MapReduce, Spark, dan Neo4j.">
+<title>Pipeline Genom Influenza A</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Instrument+Sans:wght@500;600&display=swap">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+html{color-scheme:light}
+:root{padding-top:env(safe-area-inset-top,0px);
+      padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0}
+img{max-width:100%}
+:root{
+  --ground:#e9ece4; --surface:#fbfcf9; --surface2:#f1f4ec;
+  --ink:#10140d; --ink2:#3d4738; --ink3:#6c7865;
+  --rule:#cdd4c4; --rule2:#e0e5d7;
+  --akos:#1d5c3a; --akos-soft:#dfeee5; --akos-ink:#154a2d;
+  --bA:#1f7d3c; --bC:#2060bd; --bG:#8f5c00; --bT:#b8332e;
+  --disp:"JetBrains Mono","SFMono-Regular",Consolas,monospace;
+  --body:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --num:"Instrument Sans","Helvetica Neue",Arial,sans-serif;
+  --mono:"JetBrains Mono","SFMono-Regular",Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#0a0c08; --surface:#14180f; --surface2:#1b2015;
+  --ink:#e6ebe0; --ink2:#a9b5a0; --ink3:#7b876f;
+  --rule:#2b3324; --rule2:#1f2619;
+  --akos:#6fc295; --akos-soft:#15291d; --akos-ink:#8ed4ac;
+  --bA:#58c47f; --bC:#6aa8ea; --bG:#e0a33a; --bT:#ea6f6a;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --ground:#0a0c08; --surface:#14180f; --surface2:#1b2015;
+  --ink:#e6ebe0; --ink2:#a9b5a0; --ink3:#7b876f;
+  --rule:#2b3324; --rule2:#1f2619;
+  --akos:#6fc295; --akos-soft:#15291d; --akos-ink:#8ed4ac;
+  --bA:#58c47f; --bC:#6aa8ea; --bG:#e0a33a; --bT:#ea6f6a;
+  color-scheme:dark;
+}
+body{background:var(--ground);color:var(--ink);font-family:var(--body);
+  font-size:17px;line-height:1.68}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px;padding-block:0 60px}
+
+header{background:var(--surface);border-bottom:1px solid var(--rule)}
+header .in{max-width:860px;margin:0 auto;padding:0 20px;padding-block:22px 20px}
+.peta{display:flex;gap:2px;margin-bottom:14px}
+.peta div{height:26px;background:var(--surface2);border:1px solid var(--rule2);
+  border-bottom:2px solid var(--rule);display:flex;align-items:center;
+  justify-content:center;min-width:0}
+.peta div.kunci{border-bottom-color:var(--akos);background:var(--akos-soft)}
+.peta b{font-family:var(--mono);font-size:9.5px;font-weight:500;color:var(--ink2)}
+.peta div.kunci b{color:var(--akos-ink)}
+.baris{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap}
+h1{font-family:var(--disp);font-size:22px;font-weight:700;margin:0;
+  letter-spacing:-.03em;line-height:1.2}
+.kop{font-family:var(--mono);font-size:10.5px;color:var(--ink3);
+  flex:1;min-width:150px;line-height:1.55}
+.tema{appearance:none;background:none;color:var(--ink3);
+  border:1px solid var(--rule);cursor:pointer;font-family:var(--mono);
+  font-size:10.5px;padding:5px 10px;white-space:nowrap}
+.tema:hover{color:var(--ink);border-color:var(--ink3)}
+.tema:focus-visible{outline:2px solid var(--akos);outline-offset:1px}
+
+.lede{max-width:66ch;margin:28px 0 0;font-size:18px;color:var(--ink2)}
+h2{font-family:var(--disp);font-size:14px;font-weight:500;color:var(--ink2);
+  letter-spacing:.02em;margin:40px 0 14px;display:flex;align-items:center;
+  gap:10px}
+h2::before{content:"";width:2px;height:13px;background:var(--akos);flex:none}
+h2::after{content:"";flex:1;height:1px;background:var(--rule)}
+
+.kartu{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+a.k{background:var(--surface);padding:16px 18px 18px;text-decoration:none;
+  color:inherit;display:block;min-width:0}
+a.k:hover{background:var(--surface2)}
+a.k:focus-visible{outline:2px solid var(--akos);outline-offset:-2px}
+a.k .t{font-family:var(--disp);font-size:14.5px;font-weight:700;
+  color:var(--akos-ink);display:block;margin-bottom:4px}
+a.k .d{font-size:14.5px;color:var(--ink3);line-height:1.5;display:block}
+
+.angka{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.angka div{background:var(--surface);padding:13px 16px 14px;min-width:0}
+.angka .k{font-family:var(--mono);font-size:9.5px;color:var(--ink3);
+  display:block;margin-bottom:4px}
+.angka .v{font-family:var(--num);font-size:21px;font-weight:600;display:block;
+  line-height:1.15}
+.angka .n{font-size:13px;color:var(--ink3);display:block;margin-top:2px}
+
+table{border-collapse:collapse;width:100%;font-size:14.5px;
+  font-family:var(--num);margin:4px 0 0}
+th{font-family:var(--mono);font-size:9.5px;color:var(--ink3);font-weight:500;
+  text-align:left;padding:8px 12px 8px 0;border-bottom:1px solid var(--rule)}
+td{padding:8px 12px 8px 0;border-bottom:1px solid var(--rule2)}
+td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+code{font-family:var(--mono);font-size:.85em;color:var(--ink2);
+  background:var(--surface2);padding:1px 5px}
+pre{background:var(--surface);border:1px solid var(--rule2);padding:14px 16px;
+  overflow-x:auto;font-family:var(--mono);font-size:13px;line-height:1.6;
+  color:var(--ink2);margin:4px 0 0}
+p{margin:0 0 14px;max-width:68ch}
+footer{border-top:1px solid var(--rule);margin-top:44px;padding-top:20px;
+  font-size:14px;color:var(--ink3);max-width:68ch}
+@media (max-width:560px){
+  h1{font-size:18px}
+  .peta b{font-size:8px}
+  .angka div{padding:11px 13px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header>
+  <div class="in">
+    <div class="peta" aria-hidden="true">
+      <div style="flex:0 0 17.23%"><b>PB2</b></div>
+      <div style="flex:0 0 17.23%"><b>PB1</b></div>
+      <div style="flex:0 0 16.43%"><b>PA</b></div>
+      <div class="kunci" style="flex:0 0 13.09%"><b>HA</b></div>
+      <div style="flex:0 0 11.52%"><b>NP</b></div>
+      <div class="kunci" style="flex:0 0 10.40%"><b>NA</b></div>
+      <div style="flex:0 0 7.56%"><b>M</b></div>
+      <div style="flex:0 0 6.55%"><b>NS</b></div>
+    </div>
+    <div class="baris">
+      <h1>Pipeline Genom Influenza A</h1>
+      <span class="kop">COMP8035041 &middot; Big Data Analytics<br>
+        Magister Teknik Informatika &middot; BINUS Graduate Program</span>
+      <button class="tema" id="tema" type="button"
+        aria-label="Ganti tema tampilan">tema: sistem</button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <p class="lede">Pipeline menyeluruh atas <b>1.586.912 sekuens</b> genom
+    Influenza A dari NCBI: dari pengambilan data, penyimpanan di HDFS,
+    pemrosesan dengan MapReduce dan Spark di atas YARN, klasifikasi dengan
+    Spark MLlib, sampai <i>graph analytics</i> di Neo4j.</p>
+
+  <h2>Jelajahi</h2>
+  <div class="kartu">
+    <a class="k" href="web/">
+      <span class="t">Atlas interaktif &rarr;</span>
+      <span class="d">Dashboard lima halaman: arsip, mutu dan ketepatan waktu,
+        keragaman, graf kemiripan, dan reassortment. Lima diagram jaringan.</span>
+    </a>
+    <a class="k" href="https://github.com/wilhelm213/bda_influenza_pipeline">
+      <span class="t">Kode sumber &rarr;</span>
+      <span class="d">Delapan notebook pipeline, Docker Compose, konfigurasi
+        Hadoop, dan skrip analisis lanjutan.</span>
+    </a>
+  </div>
+
+  <h2>Angka utama</h2>
+  <div class="angka">
+    <div><span class="k">Sekuens</span><span class="v">1.586.912</span>
+      <span class="n">dari 172 negara</span></div>
+    <div><span class="k">Wakil unik</span><span class="v">893.599</span>
+      <span class="n">43,69% duplikat</span></div>
+    <div><span class="k">Basa</span><span class="v">2,57 Gb</span>
+      <span class="n">nukleotida</span></div>
+    <div><span class="k">Tepi graf</span><span class="v">358.212</span>
+      <span class="n">8 segmen</span></div>
+    <div><span class="k">Kandidat</span><span class="v">1.990</span>
+      <span class="n">reassortment</span></div>
+    <div><span class="k">Spesies inang</span><span class="v">601</span>
+      <span class="n">tercatat</span></div>
+  </div>
+
+  <h2>Temuan</h2>
+  <table>
+    <thead><tr><th>Hasil</th><th class="n">Nilai</th></tr></thead>
+    <tbody>
+      <tr><td>Klasifikasi segmen, F1 makro</td><td class="n">0,9998</td></tr>
+      <tr><td>Subtipe dari HA dan NA</td><td class="n">0,9654</td></tr>
+      <tr><td>Subtipe dari segmen internal saja</td><td class="n">0,8678</td></tr>
+      <tr><td>MapReduce vs Spark, komputasi identik</td>
+          <td class="n">42,4 s vs 65,7 s</td></tr>
+      <tr><td>scikit-learn satu node</td>
+          <td class="n">gagal dari 25% data</td></tr>
+      <tr><td>Pengayaan kandidat pada babi, OR Mantel-Haenszel</td>
+          <td class="n">10,86</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Menjalankan sendiri</h2>
+  <p>Kredensial tidak ikut repositori. Siapkan dua berkas lebih dulu, lalu
+    nyalakan klaster:</p>
+  <pre>cp docker/.env.contoh docker/.env
+cp docker/mysql-init.sql.contoh docker/mysql-init.sql
+cd docker &amp;&amp; docker compose --profile yarn up -d</pre>
+  <p style="margin-top:14px">Jalankan notebook <code>00_setup.ipynb</code>
+    sekali; ia membuat <code>nb/bda_secret.json</code> dari contoh dan
+    memberi tahu bidang mana yang perlu diisi. Zona data tidak ikut
+    repositori karena berukuran ratusan megabita dan dapat dibangun ulang
+    dengan menjalankan notebook 01 sampai 06 berurutan.</p>
+
+  <footer>
+    <p>Sumber data: NCBI Influenza Virus Database. Seluruh angka dihitung
+      dari zona data lake proyek ini, bukan disalin dari literatur.</p>
+    <p>Graf kemiripan dan kandidat reassortment dibangun atas sampel maksimum
+      2.500 simpul per segmen. Pengukuran kinerja dilakukan pada satu mesin
+      fisik, sehingga perbandingan relatif antar mesin pemrosesan sah tetapi
+      angkanya tidak dapat digeneralisasi ke klaster produksi.</p>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var b=document.getElementById("tema"), urut=["sistem","terang","gelap"];
+  function baca(){ try{ return localStorage.getItem("tema-bda")||"sistem"; }
+    catch(e){ return "sistem"; } }
+  function terap(v){
+    var r=document.documentElement;
+    if(v==="terang") r.setAttribute("data-theme","light");
+    else if(v==="gelap") r.setAttribute("data-theme","dark");
+    else r.removeAttribute("data-theme");
+    b.textContent="tema: "+v;
+  }
+  var kini=baca(); terap(kini);
+  b.addEventListener("click",function(){
+    kini=urut[(urut.indexOf(kini)+1)%urut.length];
+    try{ localStorage.setItem("tema-bda",kini); }catch(e){}
+    terap(kini);
+  });
+})();
+</script>
+</body>
+</html>
