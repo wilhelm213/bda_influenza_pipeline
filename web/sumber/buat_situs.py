@@ -7,6 +7,7 @@ import re
 SP = os.path.dirname(os.path.abspath(__file__))
 ins = json.load(io.open(os.path.join(SP, "insight.json"), encoding="utf-8"))
 babi = json.load(io.open(os.path.join(SP, "babi.json"), encoding="utf-8"))
+st_ = json.load(io.open(r"D:\BDA\web\stratifikasi.json", encoding="utf-8"))
 
 tahap = {}
 for f in glob.glob(r"D:\BDA\audit\*.jsonl"):
@@ -69,13 +70,21 @@ D = {
     "kd_top": ins["kandidat_teratas"],
     "babi": babi,
     "kinerja": kinerja,
+    "strat": {
+        "populasi": st_["populasi"], "cmh": st_["cmh"],
+        "logit_babi_or": st_["logit_babi_or"],
+        "per_strata": [r for r in st_["per_strata"]
+                       if float(r["n_babi"]) >= 30],
+    },
 }
 
 pg = os.path.join(SP, "graf.json")
 if os.path.exists(pg):
     g = json.load(io.open(pg, encoding="utf-8"))
-    D["co_semua"] = g.get("co_semua")
-    D["sub_klaster"] = g.get("sub_klaster")
+    for k in ("co_semua", "sub_klaster", "sentralitas", "sentralitas_n",
+              "sentral_derajat", "geo_sentral", "geo_tepi", "geo_tepi_n",
+              "kandidat_silang_graf", "kandidat_silang_graf_n"):
+        D[k] = g.get(k)
     print("graf penuh disertakan: %d tepi co-occurs" % len(D["co_semua"] or []))
 else:
     print("graf.json belum ada -- dashboard memakai 20 tepi terkuat")

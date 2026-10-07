@@ -1,31 +1,33 @@
 <title>Atlas Genom Influenza A</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Instrument+Sans:wght@500;600&display=swap">
 <style>
 
 :root{
-  --ground:#eef1f2; --surface:#ffffff; --surface2:#f5f7f8;
-  --ink:#121a1d; --ink2:#3f5055; --ink3:#6c8087;
-  --rule:#d3dcdf; --rule2:#e4eaec;
-  --akos:#0b7f8c; --akos-soft:#d6ecee; --akos-ink:#065a64;
-  --waspada:#a86a06; --waspada-soft:#faeccd;
-  --siaga:#a8324a; --siaga-soft:#f8dbe1;
+  --ground:#e9ece4; --surface:#fbfcf9; --surface2:#f1f4ec;
+  --ink:#10140d; --ink2:#3d4738; --ink3:#6c7865;
+  --rule:#cdd4c4; --rule2:#e0e5d7;
+  --akos:#1d5c3a; --akos-soft:#dfeee5; --akos-ink:#154a2d;
+  --waspada:#8f5c00; --waspada-soft:#f7ecd6;
+  --siaga:#9c2b32; --siaga-soft:#f7dedf;
+  --bA:#1f7d3c; --bC:#2060bd; --bG:#8f5c00; --bT:#b8332e;
 
   --d1:#2a78d6; --d2:#eb6834; --d3:#1baf7a; --d4:#eda100;
   --d5:#e87ba4; --d6:#008300; --d7:#4a3aa7; --d8:#e34948;
-
   --sq1:#cde2fb; --sq2:#9ec5f4; --sq3:#6da7ec;
   --sq4:#3987e5; --sq5:#256abf; --sq6:#104281;
-  --disp:"Archivo","Archivo Narrow","Helvetica Neue",Arial,sans-serif;
-  --body:"Public Sans","Helvetica Neue",Arial,sans-serif;
+  --disp:"JetBrains Mono","SFMono-Regular",Consolas,monospace;
+  --body:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --num:"Instrument Sans","Helvetica Neue",Arial,sans-serif;
   --mono:"JetBrains Mono","SFMono-Regular",Consolas,monospace;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --ground:#0d1315; --surface:#141c1f; --surface2:#1a2428;
-  --ink:#e8eef0; --ink2:#a8bcc2; --ink3:#7b9199;
-  --rule:#273439; --rule2:#1f2b2f;
-  --akos:#3fb8c4; --akos-soft:#113036; --akos-ink:#6fd3dd;
-  --waspada:#d9a43f; --waspada-soft:#33280f;
-  --siaga:#e0738c; --siaga-soft:#351a21;
+  --ground:#0a0c08; --surface:#14180f; --surface2:#1b2015;
+  --ink:#e6ebe0; --ink2:#a9b5a0; --ink3:#7b876f;
+  --rule:#2b3324; --rule2:#1f2619;
+  --akos:#6fc295; --akos-soft:#15291d; --akos-ink:#8ed4ac;
+  --waspada:#d9a43f; --waspada-soft:#2e2510;
+  --siaga:#e0737c; --siaga-soft:#301618;
+  --bA:#58c47f; --bC:#6aa8ea; --bG:#e0a33a; --bT:#ea6f6a;
   --d1:#3987e5; --d2:#d95926; --d3:#199e70; --d4:#c98500;
   --d5:#d55181; --d6:#008300; --d7:#9085e9; --d8:#e66767;
   --sq1:#0d366b; --sq2:#184f95; --sq3:#256abf;
@@ -33,12 +35,13 @@
   color-scheme:dark;
 }}
 :root[data-theme="dark"]{
-  --ground:#0d1315; --surface:#141c1f; --surface2:#1a2428;
-  --ink:#e8eef0; --ink2:#a8bcc2; --ink3:#7b9199;
-  --rule:#273439; --rule2:#1f2b2f;
-  --akos:#3fb8c4; --akos-soft:#113036; --akos-ink:#6fd3dd;
-  --waspada:#d9a43f; --waspada-soft:#33280f;
-  --siaga:#e0738c; --siaga-soft:#351a21;
+  --ground:#0a0c08; --surface:#14180f; --surface2:#1b2015;
+  --ink:#e6ebe0; --ink2:#a9b5a0; --ink3:#7b876f;
+  --rule:#2b3324; --rule2:#1f2619;
+  --akos:#6fc295; --akos-soft:#15291d; --akos-ink:#8ed4ac;
+  --waspada:#d9a43f; --waspada-soft:#2e2510;
+  --siaga:#e0737c; --siaga-soft:#301618;
+  --bA:#58c47f; --bC:#6aa8ea; --bG:#e0a33a; --bT:#ea6f6a;
   --d1:#3987e5; --d2:#d95926; --d3:#199e70; --d4:#c98500;
   --d5:#d55181; --d6:#008300; --d7:#9085e9; --d8:#e66767;
   --sq1:#0d366b; --sq2:#184f95; --sq3:#256abf;
@@ -47,88 +50,142 @@
 }
 *{box-sizing:border-box}
 body{background:var(--ground);color:var(--ink);font-family:var(--body);
-  font-size:15px;line-height:1.6;margin:0;-webkit-font-smoothing:antialiased}
+  font-size:16px;line-height:1.62;margin:0;-webkit-font-smoothing:antialiased}
+.tw{max-width:1120px;margin:0 auto;padding:0 20px}
 
-header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;
-  background:var(--surface);border-bottom:1px solid var(--rule)}
-.tw{max-width:1180px;margin:0 auto;padding:0 16px}
-.brand{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
-  padding-block:13px 11px}
-.brand h1{font-family:var(--disp);font-size:18px;font-weight:700;margin:0;
-  letter-spacing:-.015em}
-.brand .sub{font-family:var(--mono);font-size:10.5px;color:var(--ink3);
-  letter-spacing:.07em;text-transform:uppercase}
-nav.tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
-nav.tabs::-webkit-scrollbar{display:none}
-nav.tabs button{appearance:none;background:none;border:0;cursor:pointer;
-  font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;
-  text-transform:uppercase;color:var(--ink3);padding:9px 13px 11px;
-  border-bottom:2px solid transparent;white-space:nowrap}
-nav.tabs button:hover{color:var(--ink2)}
-nav.tabs button[aria-selected="true"]{color:var(--akos-ink);
-  border-bottom-color:var(--akos)}
-nav.tabs button:focus-visible{outline:2px solid var(--akos);outline-offset:-2px}
+header.top{background:var(--surface);border-bottom:1px solid var(--rule)}
+.peta{display:flex;gap:2px;align-items:stretch;padding-top:16px}
+.peta div{position:relative;height:30px;background:var(--surface2);
+  border:1px solid var(--rule2);border-bottom:2px solid var(--rule);
+  min-width:0;display:flex;align-items:center;justify-content:center}
+.peta div.kunci{border-bottom-color:var(--akos);background:var(--akos-soft)}
+.peta b{font-family:var(--mono);font-size:10px;font-weight:500;
+  color:var(--ink2);letter-spacing:.02em}
+.peta div.kunci b{color:var(--akos-ink)}
+.petacap{font-family:var(--mono);font-size:10px;color:var(--ink3);
+  margin:5px 0 0;letter-spacing:.02em}
+.beranda{display:inline-flex;align-items:center;gap:6px;
+  font-family:var(--mono);font-size:10.5px;color:var(--ink3);
+  text-decoration:none;padding:4px 0;margin-bottom:2px}
+.beranda:hover{color:var(--akos-ink)}
+.beranda:focus-visible{outline:2px solid var(--akos);outline-offset:2px}
+.beranda span{font-size:13px;line-height:1}
+.idrow{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap;
+  padding:18px 0 4px}
+.idrow h1{font-family:var(--disp);font-size:20px;font-weight:700;margin:0;
+  letter-spacing:-.03em;line-height:1.15}
+.idrow .meta{font-family:var(--mono);font-size:11px;color:var(--ink3);
+  flex:1;min-width:140px}
+.tema{appearance:none;background:none;color:var(--ink3);
+  border:1px solid var(--rule);cursor:pointer;font-family:var(--mono);
+  font-size:10.5px;padding:5px 9px;white-space:nowrap}
+.tema:hover{color:var(--ink);border-color:var(--ink3)}
+.tema:focus-visible{outline:2px solid var(--akos);outline-offset:1px}
 
-main{max-width:1180px;margin:0 auto;padding:0 16px;padding-block:26px 56px}
-.lede{max-width:65ch;margin:0 0 24px}
-.lede h2{font-family:var(--disp);font-size:25px;font-weight:700;margin:0 0 7px;
-  letter-spacing:-.02em;text-wrap:balance}
-.lede p{margin:0;color:var(--ink2)}
-h3.sec{font-family:var(--mono);font-size:11px;font-weight:500;
-  letter-spacing:.11em;text-transform:uppercase;color:var(--ink3);
-  margin:34px 0 13px;padding-bottom:7px;border-bottom:1px solid var(--rule)}
+.seqbox{border-top:1px solid var(--rule2);padding:11px 0 13px}
+.seqlab{font-family:var(--mono);font-size:10px;color:var(--ink3);
+  margin-bottom:5px;letter-spacing:.02em}
+.seqwrap{position:relative;overflow:hidden;height:21px}
+.seq{font-family:var(--mono);font-size:13px;line-height:21px;
+  letter-spacing:.055em;white-space:nowrap;position:relative;z-index:2}
+.seq i{font-style:normal}
+.seq .A{color:var(--bA)} .seq .C{color:var(--bC)}
+.seq .G{color:var(--bG)} .seq .T{color:var(--bT)}
+.kmer{position:absolute;top:0;height:21px;z-index:1;
+  background:var(--akos-soft);border-left:1px solid var(--akos);
+  border-right:1px solid var(--akos)}
+@media (prefers-reduced-motion:no-preference){
+  .kmer{animation:geser 24s steps(40) infinite}
+}
+@keyframes geser{from{transform:translateX(0)}
+  to{transform:translateX(var(--jarak,320px))}}
 
-.strip{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);
-  grid-template-columns:repeat(auto-fit,minmax(142px,1fr))}
-.strip div{background:var(--surface);padding:13px 14px;min-width:0}
-.strip .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;
-  text-transform:uppercase;color:var(--ink3);display:block;margin-bottom:5px}
+nav.tracks{display:flex;gap:0;overflow-x:auto;scrollbar-width:none;
+  border-top:1px solid var(--rule2)}
+nav.tracks::-webkit-scrollbar{display:none}
+nav.tracks button{appearance:none;background:none;border:0;cursor:pointer;
+  font-family:var(--mono);font-size:11.5px;color:var(--ink3);
+  padding:11px 15px 12px;white-space:nowrap;position:relative;
+  border-right:1px solid var(--rule2)}
+nav.tracks button:first-child{padding-left:0}
+nav.tracks button:hover{color:var(--ink2);background:var(--surface2)}
+nav.tracks button[aria-selected="true"]{color:var(--ink);font-weight:500}
+nav.tracks button[aria-selected="true"]::after{content:"";position:absolute;
+  left:0;right:0;bottom:0;height:2px;background:var(--akos)}
+nav.tracks button:first-child[aria-selected="true"]::after{left:0}
+nav.tracks button:focus-visible{outline:2px solid var(--akos);
+  outline-offset:-2px}
 
-.strip .v{font-family:var(--body);font-size:21px;font-weight:600;
-  letter-spacing:-.01em;display:block}
-.strip .n{font-size:11.5px;color:var(--ink3);display:block;margin-top:2px}
+main{max-width:1120px;margin:0 auto;padding:0 20px;padding-block:28px 60px}
+.lede{max-width:66ch;margin:0 0 26px}
+.lede h2{font-family:var(--disp);font-size:24px;font-weight:700;margin:0 0 9px;
+  letter-spacing:-.035em;line-height:1.2;text-wrap:balance}
+.lede p{margin:0;color:var(--ink2);font-size:16.5px}
 
-.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(310px,1fr))}
-.grid.w2{grid-template-columns:repeat(auto-fit,minmax(430px,1fr))}
-.card{background:var(--surface);border:1px solid var(--rule);padding:15px 16px 17px;
-  min-width:0}
-.card h4{font-family:var(--disp);font-size:14.5px;font-weight:600;margin:0 0 3px}
-.card .cap{font-size:12.5px;color:var(--ink3);margin:0 0 13px;line-height:1.5}
+h3.sec{display:flex;align-items:center;gap:10px;margin:40px 0 16px;
+  font-family:var(--mono);font-size:11.5px;font-weight:500;color:var(--ink2);
+  letter-spacing:.02em}
+h3.sec::before{content:"";width:2px;height:13px;background:var(--akos);
+  flex:none}
+h3.sec::after{content:"";flex:1;height:1px;background:var(--rule)}
+
+.card{background:none;border:0;border-top:1px solid var(--rule);
+  padding:17px 0 20px;min-width:0}
+.card:first-of-type{border-top:0;padding-top:4px}
+.card h4{font-family:var(--disp);font-size:14px;font-weight:700;margin:0 0 4px;
+  letter-spacing:-.02em}
+.card .cap{font-size:14.5px;color:var(--ink3);margin:0 0 15px;line-height:1.55;
+  max-width:74ch}
+.grid{display:grid;gap:0 30px;grid-template-columns:repeat(auto-fit,minmax(330px,1fr))}
+.grid.w2{grid-template-columns:repeat(auto-fit,minmax(450px,1fr))}
+.grid>.card{border-top:1px solid var(--rule)}
+.grid>.card:first-of-type{border-top:1px solid var(--rule);padding-top:17px}
 .card.span{grid-column:1/-1}
 
-.ins{border-left:3px solid var(--akos);background:var(--akos-soft);
-  padding:12px 15px;margin:14px 0 0}
+.strip{display:grid;gap:0;grid-template-columns:repeat(auto-fit,minmax(138px,1fr));
+  border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.strip div{padding:12px 16px 13px;min-width:0;border-left:1px solid var(--rule2)}
+.strip div:first-child{border-left:0;padding-left:0}
+.strip .k{font-family:var(--mono);font-size:10px;color:var(--ink3);
+  display:block;margin-bottom:4px;letter-spacing:.02em}
+.strip .v{font-family:var(--num);font-size:22px;font-weight:600;
+  letter-spacing:-.015em;display:block;line-height:1.15}
+.strip .n{font-size:13px;color:var(--ink3);display:block;margin-top:2px;
+  line-height:1.4}
+
+.ins{border-left:2px solid var(--akos);background:var(--akos-soft);
+  padding:13px 16px;margin:16px 0 0;max-width:76ch}
 .ins.w{border-left-color:var(--waspada);background:var(--waspada-soft)}
 .ins.s{border-left-color:var(--siaga);background:var(--siaga-soft)}
-.ins b{font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;
-  text-transform:uppercase;display:block;margin-bottom:4px;color:var(--ink2)}
-.ins p{margin:0;font-size:13.5px;color:var(--ink);line-height:1.55}
-.ins p+p{margin-top:7px}
+.ins b{font-family:var(--mono);font-size:10px;letter-spacing:.02em;
+  display:block;margin-bottom:5px;color:var(--ink2);font-weight:500}
+.ins p{margin:0;font-size:14.5px;color:var(--ink);line-height:1.6}
+.ins p+p{margin-top:9px}
 
-.hb{display:grid;grid-template-columns:minmax(72px,auto) 1fr minmax(52px,auto);
-  gap:5px 9px;align-items:center;font-size:12.5px}
+.hb{display:grid;grid-template-columns:minmax(74px,auto) 1fr minmax(54px,auto);
+  gap:5px 10px;align-items:center;font-size:13.5px}
 .hb .l{color:var(--ink2);text-align:right;overflow:hidden;
-  text-overflow:ellipsis;white-space:nowrap;min-width:0}
-.hb .t{background:var(--surface2);height:15px;position:relative;min-width:0}
+  text-overflow:ellipsis;white-space:nowrap;min-width:0;font-size:13px}
+.hb .t{background:var(--surface2);height:14px;position:relative;min-width:0}
 .hb .t i{position:absolute;inset:0 auto 0 0;background:var(--akos);display:block}
 .hb .v{font-family:var(--mono);font-size:11.5px;color:var(--ink2);
   font-variant-numeric:tabular-nums;text-align:right}
 .hb.alt .t i{background:var(--d2)}
 .hb.warn .t i{background:var(--waspada)}
 
-.pb{display:flex;height:22px;border:1px solid var(--rule);overflow:hidden}
+.pb{display:flex;height:20px;border:1px solid var(--rule);overflow:hidden}
 .pb span{display:block;min-width:0}
-.lg{display:flex;flex-wrap:wrap;gap:6px 15px;margin-top:11px;font-size:12px}
-.lg div{display:flex;align-items:center;gap:6px;min-width:0}
+.pb span+span{border-left:2px solid var(--surface)}
+.lg{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:12px;font-size:13px}
+.lg div{display:flex;align-items:center;gap:6px;min-width:0;color:var(--ink2)}
 .lg i{width:9px;height:9px;flex:none;display:block}
 .lg b{font-family:var(--mono);font-size:11px;font-variant-numeric:tabular-nums;
   color:var(--ink2);font-weight:400}
 
 .mx{overflow-x:auto}
 .mx table{border-collapse:collapse;font-size:12px;min-width:100%}
-.mx th{font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;
-  text-transform:uppercase;color:var(--ink3);font-weight:500;padding:5px 7px;
-  text-align:center;white-space:nowrap}
+.mx th{font-family:var(--mono);font-size:10px;color:var(--ink3);
+  font-weight:500;padding:5px 7px;text-align:center;white-space:nowrap}
 .mx th.rh{text-align:right}
 .mx td{padding:0;border:1px solid var(--surface)}
 .mx td span{display:block;padding:7px 8px;text-align:center;
@@ -137,17 +194,16 @@ h3.sec{font-family:var(--mono);font-size:11px;font-weight:500;
   color:var(--ink)}
 
 .tw2{overflow-x:auto;margin-top:4px}
-table.dt{border-collapse:collapse;width:100%;font-size:12.5px;min-width:460px}
-table.dt th{font-family:var(--mono);font-size:9.5px;letter-spacing:.07em;
-  text-transform:uppercase;color:var(--ink3);font-weight:500;text-align:left;
-  padding:7px 9px;border-bottom:1px solid var(--rule);white-space:nowrap}
-table.dt td{padding:6px 9px;border-bottom:1px solid var(--rule2);
+table.dt{border-collapse:collapse;width:100%;font-size:13.5px;min-width:460px}
+table.dt th{font-family:var(--mono);font-size:10px;color:var(--ink3);
+  font-weight:500;text-align:left;padding:7px 10px 7px 0;
+  border-bottom:1px solid var(--rule);white-space:nowrap}
+table.dt td{padding:7px 10px 7px 0;border-bottom:1px solid var(--rule2);
   vertical-align:top}
 table.dt td.n{font-family:var(--mono);font-variant-numeric:tabular-nums;
-  text-align:right;white-space:nowrap}
+  text-align:right;white-space:nowrap;font-size:12.5px}
 table.dt tbody tr:hover{background:var(--surface2)}
-code{font-family:var(--mono);font-size:.88em;background:var(--surface2);
-  padding:1px 4px}
+code{font-family:var(--mono);font-size:.86em;color:var(--ink2)}
 
 svg.ch{display:block;width:100%;height:auto;max-width:100%}
 svg.ch .grid{stroke:var(--rule2);stroke-width:1}
@@ -155,47 +211,66 @@ svg.ch .axis{stroke:var(--rule);stroke-width:1}
 svg.ch .tk{font-family:var(--mono);font-size:9.5px;fill:var(--ink3)}
 svg.ch .ln{fill:none;stroke:var(--akos);stroke-width:2;
   stroke-linejoin:round;stroke-linecap:round}
-svg.ch .ar{fill:var(--akos);opacity:.13}
+svg.ch .ar{fill:var(--akos);opacity:.12}
 svg.ch .dot{fill:var(--akos)}
-svg.ch .vb{fill:var(--akos);opacity:.78}
+svg.ch .vb{fill:var(--akos);opacity:.8}
 svg.ch .lb{font-family:var(--mono);font-size:10px;fill:var(--ink2);
   font-weight:500}
-
-#tip{position:fixed;z-index:90;pointer-events:none;opacity:0;
-  transition:opacity .09s;background:var(--surface);color:var(--ink);
-  border:1px solid var(--rule);box-shadow:0 2px 10px rgba(0,0,0,.18);
-  padding:7px 10px;font-size:12px;max-width:260px;line-height:1.45}
-#tip b{font-family:var(--mono);font-size:11px;font-variant-numeric:tabular-nums}
-#tip .tl{display:block;font-family:var(--mono);font-size:9.5px;
-  letter-spacing:.07em;text-transform:uppercase;color:var(--ink3);
-  margin-bottom:2px}
-.hb .t,.mx td span,svg.ch .vb,svg.ch .nd,svg.ch .lay,.pb span,.gb rect{cursor:default}
-
 svg.ch .lay{stroke:var(--surface);stroke-width:2}
-.pb span+span{border-left:2px solid var(--surface)}
 svg.ch .nd{stroke:var(--surface);stroke-width:2}
-svg.ch .eg{fill:none;stroke:var(--ink3);opacity:.42}
+svg.ch .eg{fill:none;stroke:var(--ink3);opacity:.4}
 svg.ch .rim{fill:none;stroke:var(--rule2);stroke-width:1}
 svg.ch .sl{font-family:var(--mono);font-size:10px;font-weight:500}
 
-footer{border-top:1px solid var(--rule);margin-top:40px;padding-block:20px 8px;
-  font-size:12.5px;color:var(--ink3);max-width:65ch}
-footer p{margin:0 0 8px}
+#tip{position:fixed;z-index:90;pointer-events:none;opacity:0;
+  transition:opacity .09s;background:var(--surface);color:var(--ink);
+  border:1px solid var(--ink3);padding:8px 11px;font-size:13px;
+  max-width:270px;line-height:1.45;font-family:var(--body)}
+#tip b{font-family:var(--mono);font-size:11.5px;
+  font-variant-numeric:tabular-nums}
+#tip .tl{display:block;font-family:var(--mono);font-size:10px;
+  color:var(--ink3);margin-bottom:3px}
+.hb .t,.mx td span,svg.ch .vb,svg.ch .nd,svg.ch .lay,.pb span{cursor:default}
+
+footer{border-top:1px solid var(--rule);margin-top:44px;padding-block:22px 8px;
+  font-size:13.5px;color:var(--ink3);max-width:68ch}
+footer p{margin:0 0 9px}
 @media (max-width:560px){
-  .lede h2{font-size:21px}
-  .strip .v{font-size:18px}
+  .lede h2{font-size:20px}
+  .idrow h1{font-size:17px}
+  .strip .v{font-size:19px}
+  .strip div{padding:11px 12px;border-left:0;border-top:1px solid var(--rule2)}
+  .strip div:first-child{border-top:0}
   .hb{grid-template-columns:minmax(58px,auto) 1fr minmax(46px,auto)}
+  .peta b{font-size:8.5px}
+  .grid{gap:0}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;
   animation:none!important}}</style>
 
 <header class="top">
   <div class="tw">
-    <div class="brand">
+    <div class="peta" id="peta" aria-hidden="true"></div>
+    <p class="petacap">Delapan segmen genom Influenza A, lebar menurut
+      panjang sebenarnya. HA dan NA bersorot: hanya keduanya yang
+      menentukan penamaan subtipe &mdash; dan itulah sebabnya reassortment
+      pada segmen internal bisa lolos tanpa mengubah nama subtipe.</p>
+    <a class="beranda" href="../index.html"><span aria-hidden="true">&larr;</span> Beranda proyek</a>
+    <div class="idrow">
       <h1>Atlas Genom Influenza A</h1>
-      <span class="sub">1.586.912 sekuens &middot; 172 negara &middot; 1902&ndash;2026</span>
+      <span class="meta">1.586.912 sekuens &middot; 172 negara &middot;
+        1902&ndash;2026</span>
+      <button class="tema" id="tema" type="button"
+        aria-label="Ganti tema tampilan">tema: sistem</button>
     </div>
-    <nav class="tabs" role="tablist" id="nav"></nav>
+    <div class="seqbox">
+      <div class="seqlab" id="seqlab"></div>
+      <div class="seqwrap">
+        <div class="kmer" id="kmer"></div>
+        <div class="seq" id="seq"></div>
+      </div>
+    </div>
+    <nav class="tracks" role="tablist" id="nav"></nav>
   </div>
 </header>
 
@@ -425,6 +500,47 @@ function chNetwork(host,tepi,o){
     DC[(g-1)%DC.length]+')"></i>Segmen '+g+" "+(SEG[g]||"")+" <b>"+
     per[g].length+" klaster</b></div>").join("");
   host.appendChild(lg);
+}
+
+function chNetSimple(host,tepi,o){
+  o=o||{}; const W=760,H=o.h||470,CX=380,CY=o.cy||228,R=o.r||168;
+  const s=frame(W,H);
+  const nd={};
+  tepi.forEach(e=>{[e.src,e.dst].forEach(k=>{
+    if(!nd[k]) nd[k]={id:k,deg:0,w:0};
+    nd[k].deg++; nd[k].w+=(o.wf?o.wf(e):1);});});
+  const arr=Object.values(nd).sort((a,b)=>b.deg-a.deg);
+
+  const urut=[]; arr.forEach((n,i)=>{ if(i%2) urut.push(n); else urut.unshift(n); });
+  const dmax=Math.max(...arr.map(n=>n.deg));
+  urut.forEach((n,i)=>{
+    const a=(i/urut.length)*2*Math.PI-Math.PI/2;
+    n.x=CX+R*Math.cos(a); n.y=CY+R*Math.sin(a); n.a=a;});
+  s.appendChild(mk("circle",{cx:CX,cy:CY,r:R,class:"rim"}));
+  const wmax=Math.max(...tepi.map(e=>o.wf?o.wf(e):1));
+  tepi.forEach(e=>{
+    const a=nd[e.src], b=nd[e.dst];
+    const qx=CX+(a.x+b.x-2*CX)*0.18, qy=CY+(a.y+b.y-2*CY)*0.18;
+    const w=o.wf?o.wf(e):1;
+    const p=mk("path",{d:"M"+a.x+" "+a.y+" Q"+qx+" "+qy+" "+b.x+" "+b.y,
+      class:"eg","stroke-width":(0.7+2.6*w/wmax).toFixed(2)});
+    s.appendChild(p);
+    bindTip(p,'<span class="tl">'+(o.judul||"tepi")+"</span>"+esc(e.src)+
+      " &harr; "+esc(e.dst)+(o.et?"<br>"+o.et(e):""));});
+  urut.forEach(n=>{
+    const k=Math.min(6,1+Math.floor(6*Math.sqrt(n.deg/dmax)-1e-9));
+    const c=mk("circle",{cx:n.x,cy:n.y,r:(3.4+2.4*Math.sqrt(n.deg)).toFixed(2),
+      class:"nd",fill:"var(--sq"+Math.max(2,k)+")"});
+    s.appendChild(c);
+    bindTip(c,'<span class="tl">simpul</span>'+esc(n.id)+"<br><b>"+n.deg+
+      "</b> tepi");});
+
+  arr.slice(0,o.nlab||8).forEach(n=>{
+    const rr=R+Math.max(16,(o.lr||26));
+    const x=CX+rr*Math.cos(n.a), y=CY+rr*Math.sin(n.a);
+    const anc=Math.cos(n.a)>0.25?"start":(Math.cos(n.a)<-0.25?"end":"middle");
+    s.appendChild(txt((o.lab?o.lab(n.id):n.id),x,y+3.2,"sl",anc));});
+  host.appendChild(s);
 }
 
 function chGroup(host,kat,seri,o){
@@ -839,6 +955,46 @@ function pgGraf(m){
   hbars(c,D.klaster_top.map(r=>[r.lineage_id.replace(/^S_/,"seg "),r.count]),
     {judul:"ukuran klaster",tone:"alt"});
 
+  if(D.sub_klaster && D.sub_klaster.tepi && D.sub_klaster.tepi.length){
+    sec(m,"Satu klaster dilihat dari dalam");
+    const SK=D.sub_klaster;
+    let cK=card(m,"Subgraf kemiripan klaster "+esc(SK.lineage_id),
+      "Segmen "+SK.segmen+" ("+(SEG[SK.segmen]||"")+"), "+f(SK.simpul)+
+      " sekuens, "+f(SK.tepi.length)+" tepi terkuat. Sebaran ukuran klaster "+
+      "hanya memberi angka; bentuk internalnya baru terbaca di sini. Warna "+
+      "simpul mengikuti derajat.",true);
+    chNetSimple(cK,SK.tepi,{judul:"tepi kemiripan",nlab:0,
+      wf:e=>Number(e.kemiripan)||1,
+      et:e=>"kemiripan <b>"+f2(Number(e.kemiripan))+"</b>"});
+    const dg={}; SK.tepi.forEach(e=>{dg[e.src]=(dg[e.src]||0)+1;
+      dg[e.dst]=(dg[e.dst]||0)+1;});
+    const dv=Object.values(dg);
+    ins(cK,"","Rapat, bukan berantai",
+      "<p>Derajat rata-rata di dalam klaster ini <b>"+
+      f1(dv.reduce((a,b)=>a+b,0)/dv.length)+"</b> dari maksimum "+
+      f(Math.max(...dv))+". Klaster bukan rantai panjang yang tersambung "+
+      "tipis, melainkan gumpalan rapat &mdash; artinya ambang kemiripan "+
+      "0,88 memang memisahkan kelompok yang nyata, bukan sekadar "+
+      "memotong rangkaian berkesinambungan.</p>");
+  }
+
+  if(D.sentralitas && D.sentralitas.length){
+    sec(m,"Sentralitas klaster");
+    let gC=grid(m,true);
+    let cC=card(gC,"Klaster paling sentral menurut PageRank",
+      "Dihitung atas "+f(D.sentralitas_n)+" klaster. Skor tinggi berarti "+
+      "klaster itu banyak berpasangan dengan klaster yang juga banyak "+
+      "berpasangan.");
+    hbars(cC,D.sentralitas.slice(0,15).map(r=>
+      [String(r.id).replace(/^S_/,"seg "),Number(r.skor)]),
+      {judul:"PageRank",vf:v=>v.toExponential(2)});
+    cC=card(gC,"Sebaran derajat klaster",
+      "Berapa banyak klaster punya tiap derajat.");
+    if(D.sentral_derajat && D.sentral_derajat.length)
+      hbars(cC,D.sentral_derajat.map(r=>["derajat "+r.derajat,r.count]),
+        {judul:"klaster",tone:"alt"});
+  }
+
   sec(m,"Catatan metode");
   c=card(m,"Mengapa LSH, dan apa yang ditukar",
     "Pilihan parameter beserta konsekuensinya.");
@@ -912,7 +1068,10 @@ function pgReasort(m){
 
   sec(m,"Uji validasi: inang");
   let c=card(m,"Kandidat memusat pada babi, dan menyusut pada manusia",
-    "Pangsa tiap inang di arsip dibandingkan dengan pangsanya di antara kandidat. Inang tidak pernah dipakai sebagai fitur model.");
+    "Penyebutnya adalah populasi terskor &mdash; "+f(B.arsip_total)+
+    " sekuens yang punya vektor fitur dan karena itu berpeluang menjadi "+
+    "kandidat &mdash; bukan seluruh arsip. Inang tidak pernah dipakai "+
+    "sebagai fitur model.");
   const rows=[
     ["Babi (Sus)",B.pangsa_arsip_babi,B.pangsa_kd_babi,B.pengayaan_babi],
     ["Unggas",B.pangsa_arsip_unggas,B.pangsa_kd_unggas,B.pengayaan_unggas],
@@ -926,6 +1085,13 @@ function pgReasort(m){
     {t:"Pangsa arsip",k:"1",n:1,h:r=>f2(r[1])+"%"},
     {t:"Pangsa kandidat",k:"2",n:1,h:r=>f2(r[2])+"%"},
     {t:"Pengayaan",k:"3",n:1,h:r=>"<b>"+f2(r[3])+"&times;</b>"}],rows);
+  ins(c,"w","Penyebut yang benar",
+    "<p>Hitungan pertama di situs ini memakai seluruh "+f(R.sekuens)+
+    " sekuens arsip sebagai penyebut dan menghasilkan pengayaan 5,81&times;. "+
+    "Itu salah: sekuens tanpa vektor fitur tidak pernah diskor, sehingga "+
+    "tidak pernah berpeluang menjadi kandidat. Dengan penyebut yang benar "+
+    "("+f(B.arsip_total)+" sekuens terskor) pengayaan mentahnya <b>"+
+    f2(B.pengayaan_babi)+"&times;</b>.</p>");
   ins(c,"","Mengapa ini penting",
     "<p>Model hanya melihat komposisi k-mer. Ia tidak pernah diberi tahu "+
     "spesies inang. Namun kandidatnya memusat <b>"+f2(B.pengayaan_babi)+
@@ -939,6 +1105,37 @@ function pgReasort(m){
     "tersebar kurang lebih merata di seluruh inang; ia tidak akan memusat "+
     "hampir enam kali pada satu spesies dan menyusut tujuh kali pada "+
     "spesies lain.</p>");
+
+  sec(m,"Apakah bertahan setelah konfonder dikendalikan");
+  let cS=card(m,"Odds ratio Cochran-Mantel-Haenszel, babi vs bukan babi",
+    "Pengayaan mentah tidak bisa membedakan sinyal biologis dari babi yang "+
+    "sekadar lebih intensif disekuens di wilayah dan periode tertentu. "+
+    "Estimator ini menggabungkan "+D.strat.cmh.strata+" strata wilayah "+
+    "&times; dekade, membandingkan hanya di dalam strata.", true);
+  strip(cS,[
+    ["OR Mantel-Haenszel",f2(D.strat.cmh.or),"gabungan antar strata"],
+    ["Selang 95%",f2(D.strat.cmh.ci_lo)+" &ndash; "+f2(D.strat.cmh.ci_hi),"Robins-Breslow-Greenland"],
+    ["Chi-kuadrat CMH",f1(D.strat.cmh.chi2),"p &lt; 10\u207b\u00b9\u2075"],
+    ["Strata",f(D.strat.cmh.strata),"wilayah \u00d7 dekade"],
+    ["OR regresi logistik",f2(D.strat.logit_babi_or),"+ penyesuaian subtipe"],
+  ]);
+  hbars(cS,D.strat.per_strata.map(r=>[r.wil+" "+r.dekade,
+    Number(r.or_strata)]),{judul:"OR strata",vf:v=>f2(v)+"\u00d7"});
+  ins(cS,"","Bertahan, dan justru menguat",
+    "<p>OR tersesuaikan <b>"+f2(D.strat.cmh.or)+"</b> lebih tinggi daripada "+
+    "pengayaan mentah "+f2(B.pengayaan_babi)+"&times;. Artinya penggabungan "+
+    "lintas strata sebelumnya <b>menutupi</b> sinyalnya, bukan "+
+    "menciptakannya &mdash; di dalam tiap wilayah dan dekade kontrasnya "+
+    "lebih tajam daripada di gabungan.</p>"+
+    "<p>Keberatan paling serius terhadap temuan ini &mdash; bahwa babi "+
+    "sekadar lebih sering disekuens &mdash; karena itu tertutup. Laju "+
+    "kandidat pada babi melampaui laju pada bukan babi di seluruh strata "+
+    "yang punya kandidat.</p>");
+  ins(cS,"w","Batas penyesuaian subtipe",
+    "<p>Angka regresi logistik "+f2(D.strat.logit_babi_or)+"&times; "+
+    "menyesuaikan subtipe, sementara definisi kandidat itu sendiri adalah "+
+    "ketidaksesuaian subtipe. Itu berisiko <i>overadjustment</i>, sehingga "+
+    "estimasi utama yang dilaporkan adalah OR CMH, bukan angka ini.</p>");
 
   sec(m,"Sebaran kandidat");
   let g=grid(m,true);
@@ -984,6 +1181,56 @@ function pgReasort(m){
     "kesalahannya jatuh pada pasangan yang memang saling bertukar segmen "+
     "di alam.</p>");
 
+  if(D.geo_tepi && D.geo_tepi.length){
+    sec(m,"Proyeksi geografis");
+    let cG=card(m,"Jaringan negara yang berbagi garis keturunan",
+      f(D.geo_tepi_n)+" pasangan negara seluruhnya; "+f(D.geo_tepi.length)+
+      " terkuat digambar. Tepi berarti kedua negara memuat klaster yang "+
+      "sama, jadi ia menandai jalur penyebaran yang mungkin &mdash; bukan "+
+      "penularan yang terbukti.",true);
+    chNetSimple(cG,D.geo_tepi,{judul:"pasangan negara",nlab:10,lr:30,
+      wf:e=>Number(e.lineage_bersama)||1,
+      et:e=>"<b>"+f(e.lineage_bersama)+"</b> klaster bersama"+
+        (e.jeda_tahun!==null&&e.jeda_tahun!==undefined
+          ?"<br>jeda "+f1(Number(e.jeda_tahun))+" tahun":"")});
+    const jd=D.geo_tepi.map(e=>Number(e.jeda_tahun))
+      .filter(v=>!isNaN(v));
+    if(jd.length) ins(cG,"","Jeda antar negara",
+      "<p>Rata-rata jeda kemunculan klaster yang sama antara dua negara "+
+      "adalah <b>"+f1(jd.reduce((a,b)=>a+b,0)/jd.length)+" tahun</b>, "+
+      "dengan jeda terpendek "+f1(Math.min(...jd))+" dan terpanjang "+
+      f1(Math.max(...jd))+". Jeda pendek pada pasangan berbobot tinggi "+
+      "adalah yang paling menarik ditelusuri: ia menandakan klaster yang "+
+      "sama muncul di dua tempat dalam waktu berdekatan.</p>");
+
+    let gG=grid(m,true);
+    let cg=card(gG,"Negara paling sentral pada jaringan geografis",
+      "PageRank atas jaringan negara.");
+    if(D.geo_sentral && D.geo_sentral.length)
+      hbars(cg,D.geo_sentral.slice(0,18).map(r=>[String(r.id),Number(r.skor)]),
+        {judul:"PageRank negara",vf:v=>v.toExponential(2)});
+    cg=card(gG,"Pasangan negara teratas","Menurut jumlah klaster bersama.");
+    hbars(cg,D.geo_tepi.slice(0,14).map(r=>
+      [r.src+" \u2013 "+r.dst,Number(r.lineage_bersama)]),
+      {judul:"klaster bersama"});
+  }
+
+  if(D.kandidat_silang_graf && D.kandidat_silang_graf.length){
+    sec(m,"Kandidat yang juga sentral di graf");
+    let cX=card(m,"Kandidat reassortant bersilang dengan sentralitas klaster",
+      f(D.kandidat_silang_graf_n)+" baris seluruhnya. Kandidat yang "+
+      "klasternya sekaligus sentral lebih layak ditelusuri: ia bukan "+
+      "pencilan terisolasi, melainkan duduk di bagian jaringan yang aktif "+
+      "bertukar segmen.");
+    table(cX,[
+      {t:"Klaster",k:"lineage_id",h:r=>"<code>"+esc(r.lineage_id)+"</code>"},
+      {t:"Galur",k:"galur"},
+      {t:"Seg",k:"segmen",n:1,h:r=>r.segmen+" "+(SEG[r.segmen]||"")},
+      {t:"PageRank",k:"skor",n:1,h:r=>Number(r.skor).toExponential(2)},
+      {t:"Derajat",k:"derajat",n:1,h:r=>f(r.derajat)},
+    ],D.kandidat_silang_graf.slice(0,20));
+  }
+
   sec(m,"Kandidat berkeyakinan tertinggi");
   c=card(m,"Dua puluh lima kandidat teratas",
     "Diurutkan menurut keyakinan model. Ini daftar untuk ditindaklanjuti, bukan kesimpulan.");
@@ -1007,9 +1254,43 @@ function pgReasort(m){
     "ini biologis, tetapi tiap kandidat tetap harus diuji satu per satu.</p>");
 }
 
+const SEGLEN = {1:2341, 2:2341, 3:2233, 4:1778, 5:1565, 6:1413, 7:1027, 8:890};
+const FRAG = "GGTCCAATCTGTCAAAATGGAGAAAATAGTGCTTCTTCTTGCAATAGTT";
+const FRAG_ID = "GU052403.2";
+const FRAG_GALUR = "A/chicken/Italy/330/1997(H5N2)";
+const K = 8;
+
+(function kepala(){
+  const pt=document.getElementById("peta");
+  const tot=Object.values(SEGLEN).reduce((a,b)=>a+b,0);
+  Object.keys(SEGLEN).forEach(k=>{
+    const n=Number(k), d=document.createElement("div");
+
+    d.style.flex="0 0 "+(100*SEGLEN[n]/tot).toFixed(3)+"%";
+    if(n===4||n===6) d.className="kunci";
+    d.innerHTML="<b>"+(SEG[n]||n)+"</b>";
+    d.title="Segmen "+n+" "+(SEG[n]||"")+" \u2014 "+f(SEGLEN[n])+" bp";
+    pt.appendChild(d);
+  });
+
+  document.getElementById("seqlab").innerHTML=
+    esc(FRAG_ID)+" &middot; segmen 4 HA &middot; "+esc(FRAG_GALUR)+
+    " &middot; jendela "+K+"-mer";
+  const sq=document.getElementById("seq");
+  sq.innerHTML=FRAG.split("").map(b=>'<i class="'+b+'">'+b+"</i>").join("");
+
+  requestAnimationFrame(()=>{
+    const w=sq.getBoundingClientRect().width/FRAG.length;
+    if(!w) return;
+    const km=document.getElementById("kmer");
+    km.style.width=(K*w).toFixed(1)+"px";
+    km.style.setProperty("--jarak",((FRAG.length-K)*w).toFixed(1)+"px");
+  });
+})();
+
 const PAGES=[
   ["arsip","Arsip",pgArsip],
-  ["mutu","Mutu & Waktu",pgMutu],
+  ["mutu","Mutu & ketepatan waktu",pgMutu],
   ["ragam","Keragaman",pgRagam],
   ["graf","Graf",pgGraf],
   ["reasort","Reassortment",pgReasort],
