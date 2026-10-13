@@ -176,8 +176,9 @@ h3.sec::after{content:"";flex:1;height:1px;background:var(--rule)}
   padding:13px 16px;margin:16px 0 0;max-width:76ch}
 .ins.w{border-left-color:var(--waspada);background:var(--waspada-soft)}
 .ins.s{border-left-color:var(--siaga);background:var(--siaga-soft)}
-.ins b{font-family:var(--mono);font-size:10px;letter-spacing:.02em;
+.ins b.t{font-family:var(--mono);font-size:10px;letter-spacing:.02em;
   display:block;margin-bottom:5px;color:var(--ink2);font-weight:500}
+.ins p b{font-weight:600;color:inherit;font-family:inherit;font-size:inherit}
 .ins p{margin:0;font-size:14.5px;color:var(--ink);line-height:1.6}
 .ins p+p{margin-top:9px}
 
@@ -621,7 +622,7 @@ function card(parent,title,cap,span){
 function ins(parent,kind,label,html){
   const d=document.createElement("div");
   d.className="ins"+(kind?" "+kind:"");
-  d.innerHTML="<b>"+label+"</b>"+html;
+  d.innerHTML='<b class="t">'+label+"</b>"+html;
   parent.appendChild(d); return d;
 }
 function strip(parent,items){
