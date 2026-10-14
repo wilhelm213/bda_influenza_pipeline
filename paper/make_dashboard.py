@@ -45,10 +45,10 @@ HEADER_ID = head[head.index('<header class="top">'):
 
 HEADER_EN = """<header class="top">
   <div class="tw">
-    <a class="beranda" href="../index.html"><svg viewBox="0 0 24 24" \
+    <a class="beranda" href="index.html"><svg viewBox="0 0 24 24" \
 fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" \
 stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path \
-d="M12 19l-7-7 7-7"/></svg>Project home</a>
+d="M12 19l-7-7 7-7"/></svg>Manuscript</a>
     <div class="peta" id="peta" aria-hidden="true"></div>
     <p class="petacap">The eight segments of the Influenza A genome, drawn to
       their true relative length. HA and NA are highlighted: those two alone
