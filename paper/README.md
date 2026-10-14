@@ -2,20 +2,16 @@ Written for: anyone opening the English companion site for the manuscript.
 
 # English companion site
 
-The English counterpart of the project site at the repository root. Same
-content, same structure, different language. The manuscript itself is written
+The English counterpart of the Indonesian project site at the repository root.
+It opens straight into the interactive atlas. The manuscript itself is written
 separately; this site is the companion the manuscript points to.
 
 | Path | What it is |
 | --- | --- |
-| `index.html` | Landing page: headline figures, findings, and how to run the pipeline |
-| `web/index.html` | The five-page interactive atlas |
+| `index.html` | The five-page interactive atlas; the site opens straight into it |
 | `figures/` | Six publication figures at 300 DPI, plus `FIGURES.txt` listing their captions |
 
-Live:
-
-- Landing page — <https://wilhelm213.github.io/bda_influenza_pipeline/paper/>
-- Atlas — <https://wilhelm213.github.io/bda_influenza_pipeline/paper/web/>
+Live: <https://wilhelm213.github.io/bda_influenza_pipeline/paper/>
 
 The Indonesian site lives at the repository root and the two do not link to
 each other.
@@ -40,21 +36,18 @@ The build scripts resolve every path relative to their own location, so they
 run from anywhere in a fresh clone.
 
 ```
-python paper/make_landing.py      # writes paper/index.html
-python paper/make_dashboard.py    # writes paper/web/index.html
+python paper/make_dashboard.py    # writes paper/index.html
 python paper/make_figures.py      # writes paper/figures/
 ```
 
-`make_landing.py` translates the Indonesian landing page at the repository
-root, so the two stay in step on styling. `make_dashboard.py` assembles the
-atlas from the template `web/sumber/situs_tpl.html` and the English page
+`make_dashboard.py` assembles the atlas from the template `web/sumber/situs_tpl.html` and the English page
 content in `dashboard_content.js`, embedding `web/sumber/paket_data.json` plus
 the `kasar` table from `web/stratifikasi.json`. `make_figures.py` reads
 `web/sumber/insight.json`, `models/metrik_model.csv`,
 `models/metrik_skalabilitas.csv` and `web/stratifikasi.json`.
 
-`make_figures.py` needs `matplotlib` and `numpy`. The other two need only the
-standard library, and none of them requires a running cluster.
+`make_figures.py` needs `matplotlib` and `numpy`. `make_dashboard.py` needs
+only the standard library, and none of them requires a running cluster.
 
 ## Platform the results come from
 

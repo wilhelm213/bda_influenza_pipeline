@@ -3,22 +3,34 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="Big Data pipeline for Influenza A genomic surveillance: 1,586,912 NCBI sequences processed with Hadoop, YARN, MapReduce, Spark and Neo4j.">
-<title>Influenza A Genome Pipeline</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Instrument+Sans:wght@500;600&display=swap">
+<meta name="description" content="Influenza A genome atlas: 1,586,912 NCBI sequences processed with Hadoop, Spark and Neo4j.">
 <style>
+
 *,*::before,*::after{box-sizing:border-box}
 html{color-scheme:light}
 :root{padding-top:env(safe-area-inset-top,0px);
       padding-bottom:env(safe-area-inset-bottom,0px)}
 body{margin:0}
 img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<title>Influenza A Genome Atlas</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Instrument+Sans:wght@500;600&display=swap">
+<style>
+
 :root{
   --ground:#e9ece4; --surface:#fbfcf9; --surface2:#f1f4ec;
   --ink:#10140d; --ink2:#3d4738; --ink3:#6c7865;
   --rule:#cdd4c4; --rule2:#e0e5d7;
   --akos:#1d5c3a; --akos-soft:#dfeee5; --akos-ink:#154a2d;
+  --waspada:#8f5c00; --waspada-soft:#f7ecd6;
+  --siaga:#9c2b32; --siaga-soft:#f7dedf;
   --bA:#1f7d3c; --bC:#2060bd; --bG:#8f5c00; --bT:#b8332e;
+
+  --d1:#2a78d6; --d2:#eb6834; --d3:#1baf7a; --d4:#eda100;
+  --d5:#e87ba4; --d6:#008300; --d7:#4a3aa7; --d8:#e34948;
+  --sq1:#cde2fb; --sq2:#9ec5f4; --sq3:#6da7ec;
+  --sq4:#3987e5; --sq5:#256abf; --sq6:#104281;
   --disp:"JetBrains Mono","SFMono-Regular",Consolas,monospace;
   --body:"Source Serif 4",Georgia,"Times New Roman",serif;
   --num:"Instrument Sans","Helvetica Neue",Arial,sans-serif;
@@ -29,7 +41,13 @@ img{max-width:100%}
   --ink:#e6ebe0; --ink2:#a9b5a0; --ink3:#7b876f;
   --rule:#2b3324; --rule2:#1f2619;
   --akos:#6fc295; --akos-soft:#15291d; --akos-ink:#8ed4ac;
+  --waspada:#d9a43f; --waspada-soft:#2e2510;
+  --siaga:#e0737c; --siaga-soft:#301618;
   --bA:#58c47f; --bC:#6aa8ea; --bG:#e0a33a; --bT:#ea6f6a;
+  --d1:#3987e5; --d2:#d95926; --d3:#199e70; --d4:#c98500;
+  --d5:#d55181; --d6:#008300; --d7:#9085e9; --d8:#e66767;
+  --sq1:#0d366b; --sq2:#184f95; --sq3:#256abf;
+  --sq4:#3987e5; --sq5:#6da7ec; --sq6:#9ec5f4;
   color-scheme:dark;
 }}
 :root[data-theme="dark"]{
@@ -37,186 +55,1349 @@ img{max-width:100%}
   --ink:#e6ebe0; --ink2:#a9b5a0; --ink3:#7b876f;
   --rule:#2b3324; --rule2:#1f2619;
   --akos:#6fc295; --akos-soft:#15291d; --akos-ink:#8ed4ac;
+  --waspada:#d9a43f; --waspada-soft:#2e2510;
+  --siaga:#e0737c; --siaga-soft:#301618;
   --bA:#58c47f; --bC:#6aa8ea; --bG:#e0a33a; --bT:#ea6f6a;
+  --d1:#3987e5; --d2:#d95926; --d3:#199e70; --d4:#c98500;
+  --d5:#d55181; --d6:#008300; --d7:#9085e9; --d8:#e66767;
+  --sq1:#0d366b; --sq2:#184f95; --sq3:#256abf;
+  --sq4:#3987e5; --sq5:#6da7ec; --sq6:#9ec5f4;
   color-scheme:dark;
 }
+*{box-sizing:border-box}
 body{background:var(--ground);color:var(--ink);font-family:var(--body);
-  font-size:17px;line-height:1.68}
-.wrap{max-width:860px;margin:0 auto;padding:0 20px;padding-block:0 60px}
+  font-size:16px;line-height:1.62;margin:0;-webkit-font-smoothing:antialiased}
+.tw{max-width:1120px;margin:0 auto;padding:0 20px}
 
-header{background:var(--surface);border-bottom:1px solid var(--rule)}
-header .in{max-width:860px;margin:0 auto;padding:0 20px;padding-block:22px 20px}
-.peta{display:flex;gap:2px;margin-bottom:14px}
-.peta div{height:26px;background:var(--surface2);border:1px solid var(--rule2);
-  border-bottom:2px solid var(--rule);display:flex;align-items:center;
-  justify-content:center;min-width:0}
+header.top{background:var(--surface);border-bottom:1px solid var(--rule)}
+.peta{display:flex;gap:2px;align-items:stretch;padding-top:16px}
+.peta div{position:relative;height:30px;background:var(--surface2);
+  border:1px solid var(--rule2);border-bottom:2px solid var(--rule);
+  min-width:0;display:flex;align-items:center;justify-content:center}
 .peta div.kunci{border-bottom-color:var(--akos);background:var(--akos-soft)}
-.peta b{font-family:var(--mono);font-size:9.5px;font-weight:500;color:var(--ink2)}
+.peta b{font-family:var(--mono);font-size:10px;font-weight:500;
+  color:var(--ink2);letter-spacing:.02em}
 .peta div.kunci b{color:var(--akos-ink)}
-.baris{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap}
-h1{font-family:var(--disp);font-size:22px;font-weight:700;margin:0;
-  letter-spacing:-.03em;line-height:1.2}
-.kop{font-family:var(--mono);font-size:10.5px;color:var(--ink3);
-  flex:1;min-width:150px;line-height:1.55}
+.petacap{font-family:var(--mono);font-size:10px;color:var(--ink3);
+  margin:5px 0 0;letter-spacing:.02em}
+.beranda{display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--num);font-size:13px;font-weight:600;letter-spacing:.01em;
+  color:var(--surface);background:var(--akos);border:0;
+  text-decoration:none;padding:9px 16px 9px 13px;margin:0 0 16px;
+  box-shadow:0 1px 0 rgba(0,0,0,.18)}
+.beranda:hover{background:var(--akos-ink)}
+.beranda:active{transform:translateY(1px)}
+.beranda:focus-visible{outline:3px solid var(--akos);outline-offset:2px}
+.beranda svg{width:15px;height:15px;flex:none;display:block}
+.idrow{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap;
+  padding:18px 0 4px}
+.idrow h1{font-family:var(--disp);font-size:20px;font-weight:700;margin:0;
+  letter-spacing:-.03em;line-height:1.15}
+.idrow .meta{font-family:var(--mono);font-size:11px;color:var(--ink3);
+  flex:1;min-width:140px}
 .tema{appearance:none;background:none;color:var(--ink3);
   border:1px solid var(--rule);cursor:pointer;font-family:var(--mono);
-  font-size:10.5px;padding:5px 10px;white-space:nowrap}
+  font-size:10.5px;padding:5px 9px;white-space:nowrap}
 .tema:hover{color:var(--ink);border-color:var(--ink3)}
 .tema:focus-visible{outline:2px solid var(--akos);outline-offset:1px}
 
-.lede{max-width:66ch;margin:28px 0 0;font-size:18px;color:var(--ink2)}
-h2{font-family:var(--disp);font-size:14px;font-weight:500;color:var(--ink2);
-  letter-spacing:.02em;margin:40px 0 14px;display:flex;align-items:center;
-  gap:10px}
-h2::before{content:"";width:2px;height:13px;background:var(--akos);flex:none}
-h2::after{content:"";flex:1;height:1px;background:var(--rule)}
-
-.kartu{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
-a.k{background:var(--surface);padding:16px 18px 18px;text-decoration:none;
-  color:inherit;display:block;min-width:0}
-a.k:hover{background:var(--surface2)}
-a.k:focus-visible{outline:2px solid var(--akos);outline-offset:-2px}
-a.k .t{font-family:var(--disp);font-size:14.5px;font-weight:700;
-  color:var(--akos-ink);display:block;margin-bottom:4px}
-a.k .d{font-size:14.5px;color:var(--ink3);line-height:1.5;display:block}
-
-.angka{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);
-  grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
-.angka div{background:var(--surface);padding:13px 16px 14px;min-width:0}
-.angka .k{font-family:var(--mono);font-size:9.5px;color:var(--ink3);
-  display:block;margin-bottom:4px}
-.angka .v{font-family:var(--num);font-size:21px;font-weight:600;display:block;
-  line-height:1.15}
-.angka .n{font-size:13px;color:var(--ink3);display:block;margin-top:2px}
-
-table{border-collapse:collapse;width:100%;font-size:14.5px;
-  font-family:var(--num);margin:4px 0 0}
-th{font-family:var(--mono);font-size:9.5px;color:var(--ink3);font-weight:500;
-  text-align:left;padding:8px 12px 8px 0;border-bottom:1px solid var(--rule)}
-td{padding:8px 12px 8px 0;border-bottom:1px solid var(--rule2)}
-td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
-code{font-family:var(--mono);font-size:.85em;color:var(--ink2);
-  background:var(--surface2);padding:1px 5px}
-pre{background:var(--surface);border:1px solid var(--rule2);padding:14px 16px;
-  overflow-x:auto;font-family:var(--mono);font-size:13px;line-height:1.6;
-  color:var(--ink2);margin:4px 0 0}
-p{margin:0 0 14px;max-width:68ch}
-footer{border-top:1px solid var(--rule);margin-top:44px;padding-top:20px;
-  font-size:14px;color:var(--ink3);max-width:68ch}
-@media (max-width:560px){
-  h1{font-size:18px}
-  .peta b{font-size:8px}
-  .angka div{padding:11px 13px}
+.seqbox{border-top:1px solid var(--rule2);padding:11px 0 13px}
+.seqlab{font-family:var(--mono);font-size:10px;color:var(--ink3);
+  margin-bottom:5px;letter-spacing:.02em}
+.seqwrap{position:relative;overflow:hidden;height:21px}
+.seq{font-family:var(--mono);font-size:13px;line-height:21px;
+  letter-spacing:.055em;white-space:nowrap;position:relative;z-index:2}
+.seq i{font-style:normal}
+.seq .A{color:var(--bA)} .seq .C{color:var(--bC)}
+.seq .G{color:var(--bG)} .seq .T{color:var(--bT)}
+.kmer{position:absolute;top:0;height:21px;z-index:1;
+  background:var(--akos-soft);border-left:1px solid var(--akos);
+  border-right:1px solid var(--akos)}
+@media (prefers-reduced-motion:no-preference){
+  .kmer{animation:geser 24s steps(40) infinite}
 }
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@keyframes geser{from{transform:translateX(0)}
+  to{transform:translateX(var(--jarak,320px))}}
+
+nav.tracks{display:flex;gap:0;overflow-x:auto;scrollbar-width:none;
+  border-top:1px solid var(--rule2)}
+nav.tracks::-webkit-scrollbar{display:none}
+nav.tracks button{appearance:none;background:none;border:0;cursor:pointer;
+  font-family:var(--mono);font-size:11.5px;color:var(--ink3);
+  padding:11px 15px 12px;white-space:nowrap;position:relative;
+  border-right:1px solid var(--rule2)}
+nav.tracks button:first-child{padding-left:0}
+nav.tracks button:hover{color:var(--ink2);background:var(--surface2)}
+nav.tracks button[aria-selected="true"]{color:var(--ink);font-weight:500}
+nav.tracks button[aria-selected="true"]::after{content:"";position:absolute;
+  left:0;right:0;bottom:0;height:2px;background:var(--akos)}
+nav.tracks button:first-child[aria-selected="true"]::after{left:0}
+nav.tracks button:focus-visible{outline:2px solid var(--akos);
+  outline-offset:-2px}
+
+main{max-width:1120px;margin:0 auto;padding:0 20px;padding-block:28px 60px}
+.lede{max-width:66ch;margin:0 0 26px}
+.lede h2{font-family:var(--disp);font-size:24px;font-weight:700;margin:0 0 9px;
+  letter-spacing:-.035em;line-height:1.2;text-wrap:balance}
+.lede p{margin:0;color:var(--ink2);font-size:16.5px}
+
+h3.sec{display:flex;align-items:center;gap:10px;margin:40px 0 16px;
+  font-family:var(--mono);font-size:11.5px;font-weight:500;color:var(--ink2);
+  letter-spacing:.02em}
+h3.sec::before{content:"";width:2px;height:13px;background:var(--akos);
+  flex:none}
+h3.sec::after{content:"";flex:1;height:1px;background:var(--rule)}
+
+.card{background:none;border:0;border-top:1px solid var(--rule);
+  padding:17px 0 20px;min-width:0}
+.card:first-of-type{border-top:0;padding-top:4px}
+.card h4{font-family:var(--disp);font-size:14px;font-weight:700;margin:0 0 4px;
+  letter-spacing:-.02em}
+.card .cap{font-size:14.5px;color:var(--ink3);margin:0 0 15px;line-height:1.55;
+  max-width:74ch}
+.grid{display:grid;gap:0 30px;grid-template-columns:repeat(auto-fit,minmax(330px,1fr))}
+.grid.w2{grid-template-columns:repeat(auto-fit,minmax(450px,1fr))}
+.grid>.card{border-top:1px solid var(--rule)}
+.grid>.card:first-of-type{border-top:1px solid var(--rule);padding-top:17px}
+.card.span{grid-column:1/-1}
+
+.strip{display:grid;gap:0;grid-template-columns:repeat(auto-fit,minmax(138px,1fr));
+  border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.strip div{padding:12px 16px 13px;min-width:0;border-left:1px solid var(--rule2)}
+.strip div:first-child{border-left:0;padding-left:0}
+.strip .k{font-family:var(--mono);font-size:10px;color:var(--ink3);
+  display:block;margin-bottom:4px;letter-spacing:.02em}
+.strip .v{font-family:var(--num);font-size:22px;font-weight:600;
+  letter-spacing:-.015em;display:block;line-height:1.15}
+.strip .n{font-size:13px;color:var(--ink3);display:block;margin-top:2px;
+  line-height:1.4}
+
+.ins{border-left:2px solid var(--akos);background:var(--akos-soft);
+  padding:13px 16px;margin:16px 0 0;max-width:76ch}
+.ins.w{border-left-color:var(--waspada);background:var(--waspada-soft)}
+.ins.s{border-left-color:var(--siaga);background:var(--siaga-soft)}
+.ins b.t{font-family:var(--mono);font-size:10px;letter-spacing:.02em;
+  display:block;margin-bottom:5px;color:var(--ink2);font-weight:500}
+.ins p b{font-weight:600;color:inherit;font-family:inherit;font-size:inherit}
+.ins p{margin:0;font-size:14.5px;color:var(--ink);line-height:1.6}
+.ins p+p{margin-top:9px}
+
+.hb{display:grid;grid-template-columns:minmax(74px,auto) 1fr minmax(54px,auto);
+  gap:5px 10px;align-items:center;font-size:13.5px}
+.hb .l{color:var(--ink2);text-align:right;overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap;min-width:0;font-size:13px}
+.hb .t{background:var(--surface2);height:14px;position:relative;min-width:0}
+.hb .t i{position:absolute;inset:0 auto 0 0;background:var(--akos);display:block}
+.hb .v{font-family:var(--mono);font-size:11.5px;color:var(--ink2);
+  font-variant-numeric:tabular-nums;text-align:right}
+.hb.alt .t i{background:var(--d2)}
+.hb.warn .t i{background:var(--waspada)}
+
+.pb{display:flex;height:20px;border:1px solid var(--rule);overflow:hidden}
+.pb span{display:block;min-width:0}
+.pb span+span{border-left:2px solid var(--surface)}
+.lg{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:12px;font-size:13px}
+.lg div{display:flex;align-items:center;gap:6px;min-width:0;color:var(--ink2)}
+.lg i{width:9px;height:9px;flex:none;display:block}
+.lg b{font-family:var(--mono);font-size:11px;font-variant-numeric:tabular-nums;
+  color:var(--ink2);font-weight:400}
+
+.mx{overflow-x:auto}
+.mx table{border-collapse:collapse;font-size:12px;min-width:100%}
+.mx th{font-family:var(--mono);font-size:10px;color:var(--ink3);
+  font-weight:500;padding:5px 7px;text-align:center;white-space:nowrap}
+.mx th.rh{text-align:right}
+.mx td{padding:0;border:1px solid var(--surface)}
+.mx td span{display:block;padding:7px 8px;text-align:center;
+  background:var(--surface2);
+  font-family:var(--mono);font-size:11px;font-variant-numeric:tabular-nums;
+  color:var(--ink)}
+
+.tw2{overflow-x:auto;margin-top:4px}
+table.dt{border-collapse:collapse;width:100%;font-size:13.5px;min-width:460px}
+table.dt th{font-family:var(--mono);font-size:10px;color:var(--ink3);
+  font-weight:500;text-align:left;padding:7px 10px 7px 0;
+  border-bottom:1px solid var(--rule);white-space:nowrap}
+table.dt td{padding:7px 10px 7px 0;border-bottom:1px solid var(--rule2);
+  vertical-align:top}
+table.dt td.n{font-family:var(--mono);font-variant-numeric:tabular-nums;
+  text-align:right;white-space:nowrap;font-size:12.5px}
+table.dt tbody tr:hover{background:var(--surface2)}
+code{font-family:var(--mono);font-size:.86em;color:var(--ink2)}
+
+svg.ch{display:block;width:100%;height:auto;max-width:100%}
+svg.ch .grid{stroke:var(--rule2);stroke-width:1}
+svg.ch .axis{stroke:var(--rule);stroke-width:1}
+svg.ch .tk{font-family:var(--mono);font-size:9.5px;fill:var(--ink3)}
+svg.ch .ln{fill:none;stroke:var(--akos);stroke-width:2;
+  stroke-linejoin:round;stroke-linecap:round}
+svg.ch .ar{fill:var(--akos);opacity:.12}
+svg.ch .dot{fill:var(--akos)}
+svg.ch .vb{fill:var(--akos);opacity:.8}
+svg.ch .lb{font-family:var(--mono);font-size:10px;fill:var(--ink2);
+  font-weight:500}
+svg.ch .lay{stroke:var(--surface);stroke-width:2}
+svg.ch .nd{stroke:var(--surface);stroke-width:2}
+svg.ch .eg{fill:none;stroke:var(--ink3);opacity:.4}
+svg.ch .rim{fill:none;stroke:var(--rule2);stroke-width:1}
+svg.ch .sl{font-family:var(--mono);font-size:10px;font-weight:500}
+
+#tip{position:fixed;z-index:90;pointer-events:none;opacity:0;
+  transition:opacity .09s;background:var(--surface);color:var(--ink);
+  border:1px solid var(--ink3);padding:8px 11px;font-size:13px;
+  max-width:270px;line-height:1.45;font-family:var(--body)}
+#tip b{font-family:var(--mono);font-size:11.5px;
+  font-variant-numeric:tabular-nums}
+#tip .tl{display:block;font-family:var(--mono);font-size:10px;
+  color:var(--ink3);margin-bottom:3px}
+.hb .t,.mx td span,svg.ch .vb,svg.ch .nd,svg.ch .lay,.pb span{cursor:default}
+
+footer{border-top:1px solid var(--rule);margin-top:44px;padding-block:22px 8px;
+  font-size:13.5px;color:var(--ink3);max-width:68ch}
+footer p{margin:0 0 9px}
+@media (max-width:560px){
+  .lede h2{font-size:20px}
+  .idrow h1{font-size:17px}
+  .strip .v{font-size:19px}
+  .strip div{padding:11px 12px;border-left:0;border-top:1px solid var(--rule2)}
+  .strip div:first-child{border-top:0}
+  .hb{grid-template-columns:minmax(58px,auto) 1fr minmax(46px,auto)}
+  .peta b{font-size:8.5px}
+  .grid{gap:0}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;
+  animation:none!important}}</style>
+<style>
+.tema{appearance:none;background:var(--surface2);color:var(--ink2);
+  border:1px solid var(--rule);cursor:pointer;font-family:var(--mono);
+  font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;
+  padding:5px 10px;margin-left:auto;white-space:nowrap}
+.tema:hover{color:var(--ink);border-color:var(--ink3)}
+.tema:focus-visible{outline:2px solid var(--akos);outline-offset:1px}
 </style>
+
 </head>
 <body>
-<header>
-  <div class="in">
-    <div class="peta" aria-hidden="true">
-      <div style="flex:0 0 17.23%"><b>PB2</b></div>
-      <div style="flex:0 0 17.23%"><b>PB1</b></div>
-      <div style="flex:0 0 16.43%"><b>PA</b></div>
-      <div class="kunci" style="flex:0 0 13.09%"><b>HA</b></div>
-      <div style="flex:0 0 11.52%"><b>NP</b></div>
-      <div class="kunci" style="flex:0 0 10.40%"><b>NA</b></div>
-      <div style="flex:0 0 7.56%"><b>M</b></div>
-      <div style="flex:0 0 6.55%"><b>NS</b></div>
-    </div>
-    <div class="baris">
-      <h1>Influenza A Genome Pipeline</h1>
-      <span class="kop">COMP8035041 &middot; Big Data Analytics<br>
-        Master of Computer Science &middot; BINUS Graduate Program</span>
+<header class="top">
+  <div class="tw">
+    <a class="beranda" href="https://github.com/wilhelm213/bda_influenza_pipeline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 18l6-6-6-6"/><path d="M8 6l-6 6 6 6"/></svg>Repository</a>
+    <div class="peta" id="peta" aria-hidden="true"></div>
+    <p class="petacap">The eight segments of the Influenza A genome, drawn to
+      their true relative length. HA and NA are highlighted: those two alone
+      determine the subtype name &mdash; which is why reassortment in the
+      internal segments can pass unnoticed without changing that name.</p>
+    <div class="idrow">
+      <h1>Influenza A Genome Atlas</h1>
+      <span class="meta">1,586,912 sequences &middot; 172 countries &middot;
+        1902&ndash;2026</span>
       <button class="tema" id="tema" type="button"
         aria-label="Change colour theme">theme: system</button>
     </div>
+    <div class="seqbox">
+      <div class="seqlab" id="seqlab"></div>
+      <div class="seqwrap">
+        <div class="kmer" id="kmer"></div>
+        <div class="seq" id="seq"></div>
+      </div>
+    </div>
+    <nav class="tracks" role="tablist" id="nav"></nav>
   </div>
 </header>
 
-<div class="wrap">
-  <p class="lede">An end-to-end pipeline over <b>1,586,912 Influenza A
-    genome sequences</b> from NCBI: retrieval, storage on HDFS, processing
-    with MapReduce and Spark on YARN, classification with Spark MLlib, and
-    <i>graph analytics</i> in Neo4j.</p>
-
-  <h2>Explore</h2>
-  <div class="kartu">
-    <a class="k" href="web/">
-      <span class="t">Interactive atlas &rarr;</span>
-      <span class="d">A five-page dashboard: archive, quality and timeliness,
-        diversity, similarity graph, and reassortment. Five network
-        diagrams.</span>
-    </a>
-    <a class="k" href="https://github.com/wilhelm213/bda_influenza_pipeline">
-      <span class="t">Source code &rarr;</span>
-      <span class="d">Eight pipeline notebooks, Docker Compose, the Hadoop
-        configuration, and the downstream analysis scripts.</span>
-    </a>
-  </div>
-
-  <h2>Headline figures</h2>
-  <div class="angka">
-    <div><span class="k">Sequences</span><span class="v">1,586,912</span>
-      <span class="n">from 172 countries</span></div>
-    <div><span class="k">Unique representatives</span><span class="v">893,599</span>
-      <span class="n">43.69% duplicated</span></div>
-    <div><span class="k">Bases</span><span class="v">2.57 Gb</span>
-      <span class="n">nucleotides</span></div>
-    <div><span class="k">Graph edges</span><span class="v">358,212</span>
-      <span class="n">8 segments</span></div>
-    <div><span class="k">Candidates</span><span class="v">1,990</span>
-      <span class="n">reassortment</span></div>
-    <div><span class="k">Host species</span><span class="v">601</span>
-      <span class="n">recorded</span></div>
-  </div>
-
-  <h2>Findings</h2>
-  <table>
-    <thead><tr><th>Result</th><th class="n">Value</th></tr></thead>
-    <tbody>
-      <tr><td>Segment classification, macro F1</td><td class="n">0.9998</td></tr>
-      <tr><td>Subtype from HA and NA</td><td class="n">0.9654</td></tr>
-      <tr><td>Subtype from internal segments only</td><td class="n">0.8678</td></tr>
-      <tr><td>MapReduce vs Spark, identical computation</td>
-          <td class="n">42.4 s vs 65.7 s</td></tr>
-      <tr><td>scikit-learn on a single node</td>
-          <td class="n">fails from 25% of the data</td></tr>
-      <tr><td>Candidate enrichment in swine, Mantel&ndash;Haenszel OR</td>
-          <td class="n">10.86</td></tr>
-    </tbody>
-  </table>
-
-  <h2>Running it yourself</h2>
-  <p>Credentials are not committed to the repository. Prepare two files
-    first, then bring the cluster up:</p>
-  <pre>cp docker/.env.contoh docker/.env
-cp docker/mysql-init.sql.contoh docker/mysql-init.sql
-cd docker &amp;&amp; docker compose --profile yarn up -d</pre>
-  <p style="margin-top:14px">Run <code>00_setup.ipynb</code> once; it
-    creates <code>nb/bda_secret.json</code> from the template and reports
-    which fields still need values. The data zones are not committed because
-    they run to hundreds of megabytes, and they can be rebuilt by running
-    notebooks 01 through 06 in order.</p>
-
-  <footer>
-    <p>Data source: NCBI Influenza Virus Database. Every figure was
-      computed from this project's data lake zones rather than copied from
-      the literature.</p>
-    <p>The similarity graph and the reassortment candidates were built on a
-      sample of at most 2,500 nodes per segment. Performance was measured on
-      a single physical host, so relative comparisons between processing
-      engines are valid but the absolute figures cannot be generalised to a
-      production cluster.</p>
-  </footer>
-</div>
+<main id="main"></main>
 
 <script>
+const D = {"ringkas":{"sekuens":1586912,"accession_unik":1586912,"sekuens_unik":893599,"wakil_unik":893599,"negara":172,"subtipe":143,"inang":601,"galur":273185,"tahun_min":1902,"tahun_maks":2026,"basa_total":2570555392},"rilis":[[1982,17],[1983,3],[1985,5],[1988,3],[1989,12],[1990,5],[1991,13],[1992,5],[1993,646],[1994,164],[1995,98],[1996,114],[1997,352],[1998,225],[1999,584],[2000,422],[2001,931],[2002,984],[2003,2028],[2004,2606],[2005,7975],[2006,17989],[2007,16315],[2008,18292],[2009,29339],[2010,40010],[2011,34121],[2012,43364],[2013,57191],[2014,47013],[2015,52972],[2016,63334],[2017,69359],[2018,59914],[2019,100712],[2020,64512],[2021,29422],[2022,73813],[2023,110238],[2024,190206],[2025,284484],[2026,166728]],"koleksi":[[1918,23],[1925,8],[1927,15],[1931,24],[1933,53],[1934,344],[1935,56],[1936,8],[1940,16],[1942,26],[1943,32],[1945,8],[1946,25],[1947,33],[1948,24],[1949,45],[1950,30],[1951,49],[1953,23],[1954,32],[1956,111],[1957,225],[1958,63],[1959,47],[1960,31],[1961,33],[1962,9],[1963,153],[1964,35],[1965,63],[1966,85],[1967,123],[1968,759],[1969,81],[1970,64],[1971,105],[1972,204],[1973,130],[1974,284],[1975,552],[1976,1427],[1977,1305],[1978,918],[1979,1000],[1980,751],[1981,770],[1982,783],[1983,1252],[1984,596],[1985,734],[1986,857],[1987,811],[1988,774],[1989,619],[1990,503],[1991,816],[1992,708],[1993,1922],[1994,1898],[1995,1728],[1996,1644],[1997,1121],[1998,1846],[1999,3709],[2000,5028],[2001,5158],[2002,6844],[2003,11186],[2004,8242],[2005,14132],[2006,18004],[2007,25638],[2008,24364],[2009,70208],[2010,31852],[2011,34865],[2012,32715],[2013,43171],[2014,44229],[2015,49396],[2016,62566],[2017,85298],[2018,74902],[2019,98440],[2020,34996],[2021,42129],[2022,169652],[2023,96729],[2024,178505],[2025,202788],[2026,36880]],"dup":[{"ember":"2 - 5","count":395265},{"ember":"6 - 20","count":193377},{"ember":"1 (tunggal)","count":710848},{"ember":"21 - 100","count":139162},{"ember":"> 100","count":148260}],"jeda":{"n":1523803,"rata":2.04,"median":1.0,"p90":6.0},"jeda_seb":[[0,481067],[1,463165],[2,175357],[3,124175],[4,74070],[5,52434],[6,38854],[7,32954],[8,20955],[9,15744],[10,10420],[11,8591],[12,7019],[13,3949],[14,3384],[15,2539],[16,1589],[17,2006],[18,1210],[19,1138],[20,1431],[21,593],[22,333],[23,185],[24,196],[25,65],[26,121],[27,163],[28,54],[29,26],[30,16]],"jeda_tren":[[1990,20.338,503],[1991,19.415,816],[1992,19.346,708],[1993,17.482,1922],[1994,16.591,1889],[1995,14.509,1728],[1996,14.053,1644],[1997,12.762,1121],[1998,11.79,1846],[1999,10.394,3709],[2000,9.738,5028],[2001,9.134,5158],[2002,7.859,6844],[2003,7.386,11186],[2004,5.892,8242],[2005,5.513,14132],[2006,5.327,18004],[2007,3.936,25638],[2008,4.028,24364],[2009,2.578,70208],[2010,3.545,31852],[2011,3.365,34865],[2012,3.099,32715],[2013,2.876,43171],[2014,2.88,44229],[2015,2.591,49396],[2016,1.788,62566],[2017,2.052,85298],[2018,1.73,74902],[2019,2.284,98440],[2020,1.964,34996],[2021,1.905,42129],[2022,1.521,169652],[2023,1.016,96729],[2024,0.61,178505],[2025,0.399,202788],[2026,0.0,36880]],"presisi":[{"presisi_tanggal":"hari","count":1402264},{"presisi_tanggal":"tahun","count":70145},{"presisi_tanggal":"bulan","count":68044},{"presisi_tanggal":"tidak_ada","count":46459}],"kelengkapan":[{"kelengkapan":"partial","count":1575650},{"kelengkapan":"complete","count":10870},{"kelengkapan":null,"count":392}],"sumber_sub":[{"subtipe_sumber":"metadata","count":1530534},{"subtipe_sumber":"tidak_diketahui","count":48823},{"subtipe_sumber":"defline","count":7555}],"sumber_seg":[{"segmen_sumber":"metadata","count":1562409},{"segmen_sumber":"defline_gen","count":20860},{"segmen_sumber":"tidak_diketahui","count":3067},{"segmen_sumber":"defline_segment","count":576}],"ambigu":[{"ember":"< 0,1%","count":50585},{"ember":"0 (bersih)","count":1503183},{"ember":"1 - 5%","count":4671},{"ember":"0,1 - 1%","count":28470},{"ember":">= 5%","count":3}],"rongga":[{"kolom":"subtipe","kosong":48823},{"kolom":"inang","kosong":59790},{"kolom":"negara","kosong":30153},{"kolom":"tahun_koleksi","kosong":46459},{"kolom":"isolat","kosong":14217},{"kolom":"segmen","kosong":3067}],"segmen":[{"segmen":1,"n":178568,"panjang_rata":2284.5,"gc_rata":43.96,"ambigu_rata":0.0161,"subtipe_unik":132},{"segmen":2,"n":174269,"panjang_rata":2281.9,"gc_rata":42.26,"ambigu_rata":0.0172,"subtipe_unik":131},{"segmen":3,"n":177554,"panjang_rata":2171.3,"gc_rata":42.99,"ambigu_rata":0.0147,"subtipe_unik":131},{"segmen":4,"n":269754,"panjang_rata":1618.6,"gc_rata":41.59,"ambigu_rata":0.0137,"subtipe_unik":136},{"segmen":5,"n":183090,"panjang_rata":1516.9,"gc_rata":45.93,"ambigu_rata":0.0115,"subtipe_unik":132},{"segmen":6,"n":217937,"panjang_rata":1407.2,"gc_rata":42.53,"ambigu_rata":0.0121,"subtipe_unik":133},{"segmen":7,"n":197358,"panjang_rata":990.3,"gc_rata":47.37,"ambigu_rata":0.0089,"subtipe_unik":131},{"segmen":8,"n":185315,"panjang_rata":853.0,"gc_rata":43.09,"ambigu_rata":0.0111,"subtipe_unik":133}],"seg_nol":[{"segmen":null,"n":3067,"panjang_rata":1584.7,"gc_rata":45.88,"ambigu_rata":0.0028,"subtipe_unik":19}],"subtipe":[{"subtipe":"H3N2","count":568329},{"subtipe":"H1N1","count":433463},{"subtipe":"H5N1","count":214639},{"subtipe":"H9N2","count":66791},{"subtipe":"H1N2","count":47468},{"subtipe":"H3N8","count":32973},{"subtipe":"H4N6","count":18280},{"subtipe":"H5N2","count":15067},{"subtipe":"H7N9","count":10716},{"subtipe":"H5N8","count":8769},{"subtipe":"H6N2","count":8502},{"subtipe":"H7N3","count":8375},{"subtipe":"H5N6","count":7212},{"subtipe":"H10N7","count":7103},{"subtipe":"H6N1","count":6592},{"subtipe":"H6N6","count":5620},{"subtipe":"H11N9","count":4953},{"subtipe":"H7N7","count":3870},{"subtipe":"H6N8","count":3530},{"subtipe":"H7N2","count":3403}],"negara":[{"negara":"USA","count":988942},{"negara":"China","count":119502},{"negara":"Canada","count":51648},{"negara":"New Zealand","count":31131},{"negara":"France","count":24818},{"negara":"United Kingdom","count":22257},{"negara":"Australia","count":20631},{"negara":"Germany","count":19033},{"negara":"Viet Nam","count":18168},{"negara":"Japan","count":16041},{"negara":"South Korea","count":14342},{"negara":"Mexico","count":13360},{"negara":"Italy","count":13101},{"negara":"Bangladesh","count":12437},{"negara":"Taiwan","count":12092},{"negara":"Chile","count":11966},{"negara":"Netherlands","count":10309},{"negara":"Singapore","count":9777},{"negara":"Thailand","count":9676},{"negara":"Hong Kong","count":9661},{"negara":"Switzerland","count":9411},{"negara":"Nicaragua","count":8998},{"negara":"Egypt","count":8327},{"negara":"India","count":7090},{"negara":"Kenya","count":7047}],"wilayah":[{"wilayah":"North America","count":1067872},{"wilayah":"Asia","count":256954},{"wilayah":"Europe","count":133653},{"wilayah":"Oceania","count":52018},{"wilayah":"South America","count":26920},{"wilayah":"Africa","count":26309},{"wilayah":null,"count":22665},{"wilayah":"Antarctica","count":521}],"inang":[{"inang":"Homo sapiens","count":895782},{"inang":"Sus scrofa","count":140331},{"inang":"Gallus gallus","count":109492},{"inang":"Anas platyrhynchos","count":66566},{"inang":"Anatidae","count":44724},{"inang":"Bos taurus","count":36769},{"inang":"Meleagris gallopavo","count":16166},{"inang":"Arenaria interpres","count":14983},{"inang":"Branta canadensis","count":13867},{"inang":"Aves","count":11780},{"inang":"Sus scrofa scrofa","count":11158},{"inang":"Spatula discors","count":10784},{"inang":"Equus caballus","count":10473},{"inang":"Anas acuta","count":8539},{"inang":"Anser caerulescens","count":6807}],"sub_tahun":[{"tahun_koleksi":1990,"subtipe":"H3N8","count":16},{"tahun_koleksi":1990,"subtipe":"H1N1","count":68},{"tahun_koleksi":1990,"subtipe":"H3N2","count":133},{"tahun_koleksi":1990,"subtipe":"H4N6","count":16},{"tahun_koleksi":1991,"subtipe":"H3N2","count":308},{"tahun_koleksi":1991,"subtipe":"H5N2","count":14},{"tahun_koleksi":1991,"subtipe":"H5N1","count":22},{"tahun_koleksi":1991,"subtipe":"H9N2","count":16},{"tahun_koleksi":1991,"subtipe":"H1N1","count":103},{"tahun_koleksi":1991,"subtipe":"H4N6","count":16},{"tahun_koleksi":1991,"subtipe":"H3N8","count":164},{"tahun_koleksi":1992,"subtipe":"H4N6","count":8},{"tahun_koleksi":1992,"subtipe":"H5N2","count":8},{"tahun_koleksi":1992,"subtipe":"H1N1","count":104},{"tahun_koleksi":1992,"subtipe":"H3N2","count":364},{"tahun_koleksi":1992,"subtipe":"H3N8","count":84},{"tahun_koleksi":1993,"subtipe":"H3N2","count":832},{"tahun_koleksi":1993,"subtipe":"H5N2","count":52},{"tahun_koleksi":1993,"subtipe":"H3N8","count":654},{"tahun_koleksi":1993,"subtipe":"H1N1","count":216},{"tahun_koleksi":1994,"subtipe":"H3N2","count":640},{"tahun_koleksi":1994,"subtipe":"H9N2","count":8},{"tahun_koleksi":1994,"subtipe":"H1N1","count":190},{"tahun_koleksi":1994,"subtipe":"H3N8","count":184},{"tahun_koleksi":1994,"subtipe":"H5N2","count":190},{"tahun_koleksi":1994,"subtipe":"H4N6","count":8},{"tahun_koleksi":1994,"subtipe":"H1N2","count":32},{"tahun_koleksi":1995,"subtipe":"H5N2","count":174},{"tahun_koleksi":1995,"subtipe":"H1N1","count":305},{"tahun_koleksi":1995,"subtipe":"H3N8","count":50},{"tahun_koleksi":1995,"subtipe":"H4N6","count":16},{"tahun_koleksi":1995,"subtipe":"H9N2","count":9},{"tahun_koleksi":1995,"subtipe":"H3N2","count":640},{"tahun_koleksi":1996,"subtipe":"H3N2","count":798},{"tahun_koleksi":1996,"subtipe":"H5N2","count":32},{"tahun_koleksi":1996,"subtipe":"H3N8","count":17},{"tahun_koleksi":1996,"subtipe":"H1N2","count":37},{"tahun_koleksi":1996,"subtipe":"H1N1","count":317},{"tahun_koleksi":1996,"subtipe":"H9N2","count":19},{"tahun_koleksi":1996,"subtipe":"H5N1","count":2},{"tahun_koleksi":1996,"subtipe":"H4N6","count":22},{"tahun_koleksi":1997,"subtipe":"H3N2","count":479},{"tahun_koleksi":1997,"subtipe":"H5N2","count":109},{"tahun_koleksi":1997,"subtipe":"H1N1","count":109},{"tahun_koleksi":1997,"subtipe":"H5N1","count":52},{"tahun_koleksi":1997,"subtipe":"H3N8","count":43},{"tahun_koleksi":1997,"subtipe":"H1N2","count":22},{"tahun_koleksi":1997,"subtipe":"H9N2","count":40},{"tahun_koleksi":1997,"subtipe":"H4N6","count":3},{"tahun_koleksi":1998,"subtipe":"H3N8","count":117},{"tahun_koleksi":1998,"subtipe":"H4N6","count":13},{"tahun_koleksi":1998,"subtipe":"H5N2","count":130},{"tahun_koleksi":1998,"subtipe":"H1N1","count":171},{"tahun_koleksi":1998,"subtipe":"H3N2","count":710},{"tahun_koleksi":1998,"subtipe":"H1N2","count":16},{"tahun_koleksi":1998,"subtipe":"H9N2","count":132},{"tahun_koleksi":1998,"subtipe":"H5N1","count":6},{"tahun_koleksi":1999,"subtipe":"H5N2","count":33},{"tahun_koleksi":1999,"subtipe":"H4N6","count":71},{"tahun_koleksi":1999,"subtipe":"H3N8","count":165},{"tahun_koleksi":1999,"subtipe":"H1N1","count":396},{"tahun_koleksi":1999,"subtipe":"H5N1","count":16},{"tahun_koleksi":1999,"subtipe":"H9N2","count":119},{"tahun_koleksi":1999,"subtipe":"H3N2","count":1616},{"tahun_koleksi":1999,"subtipe":"H1N2","count":71},{"tahun_koleksi":2000,"subtipe":"H3N8","count":39},{"tahun_koleksi":2000,"subtipe":"H5N2","count":141},{"tahun_koleksi":2000,"subtipe":"H9N2","count":224},{"tahun_koleksi":2000,"subtipe":"H1N1","count":1171},{"tahun_koleksi":2000,"subtipe":"H1N2","count":42},{"tahun_koleksi":2000,"subtipe":"H5N1","count":39},{"tahun_koleksi":2000,"subtipe":"H3N2","count":1504},{"tahun_koleksi":2000,"subtipe":"H4N6","count":92},{"tahun_koleksi":2001,"subtipe":"H4N6","count":65},{"tahun_koleksi":2001,"subtipe":"H1N1","count":1581},{"tahun_koleksi":2001,"subtipe":"H5N2","count":120},{"tahun_koleksi":2001,"subtipe":"H1N2","count":52},{"tahun_koleksi":2001,"subtipe":"H3N2","count":902},{"tahun_koleksi":2001,"subtipe":"H9N2","count":340},{"tahun_koleksi":2001,"subtipe":"H3N8","count":30},{"tahun_koleksi":2001,"subtipe":"H5N1","count":177},{"tahun_koleksi":2002,"subtipe":"H5N2","count":181},{"tahun_koleksi":2002,"subtipe":"H4N6","count":207},{"tahun_koleksi":2002,"subtipe":"H5N1","count":228},{"tahun_koleksi":2002,"subtipe":"H3N8","count":81},{"tahun_koleksi":2002,"subtipe":"H9N2","count":347},{"tahun_koleksi":2002,"subtipe":"H3N2","count":2289},{"tahun_koleksi":2002,"subtipe":"H1N1","count":715},{"tahun_koleksi":2002,"subtipe":"H1N2","count":167},{"tahun_koleksi":2003,"subtipe":"H3N8","count":2380},{"tahun_koleksi":2003,"subtipe":"H3N2","count":4186},{"tahun_koleksi":2003,"subtipe":"H1N1","count":1105},{"tahun_koleksi":2003,"subtipe":"H5N2","count":91},{"tahun_koleksi":2003,"subtipe":"H4N6","count":123},{"tahun_koleksi":2003,"subtipe":"H5N1","count":392},{"tahun_koleksi":2003,"subtipe":"H1N2","count":469},{"tahun_koleksi":2003,"subtipe":"H9N2","count":570},{"tahun_koleksi":2004,"subtipe":"H3N2","count":4106},{"tahun_koleksi":2004,"subtipe":"H1N1","count":679},{"tahun_koleksi":2004,"subtipe":"H5N1","count":565},{"tahun_koleksi":2004,"subtipe":"H1N2","count":323},{"tahun_koleksi":2004,"subtipe":"H4N6","count":91},{"tahun_koleksi":2004,"subtipe":"H3N8","count":92},{"tahun_koleksi":2004,"subtipe":"H9N2","count":647},{"tahun_koleksi":2004,"subtipe":"H5N2","count":76},{"tahun_koleksi":2005,"subtipe":"H3N2","count":4656},{"tahun_koleksi":2005,"subtipe":"H4N6","count":374},{"tahun_koleksi":2005,"subtipe":"H3N8","count":676},{"tahun_koleksi":2005,"subtipe":"H5N1","count":1397},{"tahun_koleksi":2005,"subtipe":"H5N2","count":204},{"tahun_koleksi":2005,"subtipe":"H1N1","count":1661},{"tahun_koleksi":2005,"subtipe":"H1N2","count":285},{"tahun_koleksi":2005,"subtipe":"H9N2","count":782},{"tahun_koleksi":2006,"subtipe":"H9N2","count":621},{"tahun_koleksi":2006,"subtipe":"H1N2","count":282},{"tahun_koleksi":2006,"subtipe":"H3N2","count":2997},{"tahun_koleksi":2006,"subtipe":"H5N2","count":1162},{"tahun_koleksi":2006,"subtipe":"H5N1","count":3159},{"tahun_koleksi":2006,"subtipe":"H4N6","count":1004},{"tahun_koleksi":2006,"subtipe":"H3N8","count":875},{"tahun_koleksi":2006,"subtipe":"H1N1","count":2754},{"tahun_koleksi":2007,"subtipe":"H1N2","count":372},{"tahun_koleksi":2007,"subtipe":"H4N6","count":1477},{"tahun_koleksi":2007,"subtipe":"H1N1","count":5855},{"tahun_koleksi":2007,"subtipe":"H3N8","count":2253},{"tahun_koleksi":2007,"subtipe":"H9N2","count":1078},{"tahun_koleksi":2007,"subtipe":"H3N2","count":5316},{"tahun_koleksi":2007,"subtipe":"H5N1","count":3215},{"tahun_koleksi":2007,"subtipe":"H5N2","count":610},{"tahun_koleksi":2008,"subtipe":"H5N2","count":292},{"tahun_koleksi":2008,"subtipe":"H1N2","count":462},{"tahun_koleksi":2008,"subtipe":"H9N2","count":905},{"tahun_koleksi":2008,"subtipe":"H1N1","count":6657},{"tahun_koleksi":2008,"subtipe":"H4N6","count":1419},{"tahun_koleksi":2008,"subtipe":"H3N2","count":4931},{"tahun_koleksi":2008,"subtipe":"H3N8","count":1262},{"tahun_koleksi":2008,"subtipe":"H5N1","count":1639},{"tahun_koleksi":2009,"subtipe":"H3N2","count":6653},{"tahun_koleksi":2009,"subtipe":"H4N6","count":2090},{"tahun_koleksi":2009,"subtipe":"H5N2","count":343},{"tahun_koleksi":2009,"subtipe":"H1N2","count":721},{"tahun_koleksi":2009,"subtipe":"H5N1","count":1047},{"tahun_koleksi":2009,"subtipe":"H1N1","count":48726},{"tahun_koleksi":2009,"subtipe":"H9N2","count":1651},{"tahun_koleksi":2009,"subtipe":"H3N8","count":1557},{"tahun_koleksi":2010,"subtipe":"H9N2","count":1221},{"tahun_koleksi":2010,"subtipe":"H1N2","count":1320},{"tahun_koleksi":2010,"subtipe":"H4N6","count":1120},{"tahun_koleksi":2010,"subtipe":"H1N1","count":12541},{"tahun_koleksi":2010,"subtipe":"H5N2","count":227},{"tahun_koleksi":2010,"subtipe":"H3N8","count":1718},{"tahun_koleksi":2010,"subtipe":"H5N1","count":1568},{"tahun_koleksi":2010,"subtipe":"H3N2","count":7053},{"tahun_koleksi":2011,"subtipe":"H5N2","count":606},{"tahun_koleksi":2011,"subtipe":"H5N1","count":1935},{"tahun_koleksi":2011,"subtipe":"H1N1","count":11019},{"tahun_koleksi":2011,"subtipe":"H1N2","count":3563},{"tahun_koleksi":2011,"subtipe":"H3N8","count":1130},{"tahun_koleksi":2011,"subtipe":"H9N2","count":2122},{"tahun_koleksi":2011,"subtipe":"H3N2","count":8324},{"tahun_koleksi":2011,"subtipe":"H4N6","count":815},{"tahun_koleksi":2012,"subtipe":"H5N2","count":135},{"tahun_koleksi":2012,"subtipe":"H3N8","count":618},{"tahun_koleksi":2012,"subtipe":"H9N2","count":1888},{"tahun_koleksi":2012,"subtipe":"H3N2","count":13589},{"tahun_koleksi":2012,"subtipe":"H1N1","count":6403},{"tahun_koleksi":2012,"subtipe":"H4N6","count":361},{"tahun_koleksi":2012,"subtipe":"H5N1","count":1769},{"tahun_koleksi":2012,"subtipe":"H1N2","count":2017},{"tahun_koleksi":2013,"subtipe":"H9N2","count":4360},{"tahun_koleksi":2013,"subtipe":"H1N2","count":2071},{"tahun_koleksi":2013,"subtipe":"H3N2","count":13392},{"tahun_koleksi":2013,"subtipe":"H1N1","count":8763},{"tahun_koleksi":2013,"subtipe":"H4N6","count":459},{"tahun_koleksi":2013,"subtipe":"H5N2","count":290},{"tahun_koleksi":2013,"subtipe":"H3N8","count":473},{"tahun_koleksi":2013,"subtipe":"H5N1","count":1666},{"tahun_koleksi":2014,"subtipe":"H1N2","count":2051},{"tahun_koleksi":2014,"subtipe":"H3N8","count":553},{"tahun_koleksi":2014,"subtipe":"H5N1","count":1147},{"tahun_koleksi":2014,"subtipe":"H4N6","count":409},{"tahun_koleksi":2014,"subtipe":"H1N1","count":8899},{"tahun_koleksi":2014,"subtipe":"H3N2","count":13513},{"tahun_koleksi":2014,"subtipe":"H5N2","count":438},{"tahun_koleksi":2014,"subtipe":"H9N2","count":2758},{"tahun_koleksi":2015,"subtipe":"H1N1","count":8097},{"tahun_koleksi":2015,"subtipe":"H4N6","count":683},{"tahun_koleksi":2015,"subtipe":"H3N8","count":1258},{"tahun_koleksi":2015,"subtipe":"H5N2","count":3007},{"tahun_koleksi":2015,"subtipe":"H5N1","count":2210},{"tahun_koleksi":2015,"subtipe":"H3N2","count":20672},{"tahun_koleksi":2015,"subtipe":"H1N2","count":2695},{"tahun_koleksi":2015,"subtipe":"H9N2","count":2977},{"tahun_koleksi":2016,"subtipe":"H1N1","count":19607},{"tahun_koleksi":2016,"subtipe":"H5N2","count":909},{"tahun_koleksi":2016,"subtipe":"H5N1","count":931},{"tahun_koleksi":2016,"subtipe":"H4N6","count":766},{"tahun_koleksi":2016,"subtipe":"H3N2","count":23013},{"tahun_koleksi":2016,"subtipe":"H3N8","count":625},{"tahun_koleksi":2016,"subtipe":"H9N2","count":3498},{"tahun_koleksi":2016,"subtipe":"H1N2","count":3286},{"tahun_koleksi":2017,"subtipe":"H3N8","count":1582},{"tahun_koleksi":2017,"subtipe":"H1N2","count":3173},{"tahun_koleksi":2017,"subtipe":"H3N2","count":45494},{"tahun_koleksi":2017,"subtipe":"H9N2","count":6697},{"tahun_koleksi":2017,"subtipe":"H5N1","count":863},{"tahun_koleksi":2017,"subtipe":"H4N6","count":1573},{"tahun_koleksi":2017,"subtipe":"H1N1","count":11881},{"tahun_koleksi":2017,"subtipe":"H5N2","count":1062},{"tahun_koleksi":2018,"subtipe":"H1N2","count":3686},{"tahun_koleksi":2018,"subtipe":"H1N1","count":22632},{"tahun_koleksi":2018,"subtipe":"H5N2","count":774},{"tahun_koleksi":2018,"subtipe":"H3N2","count":25324},{"tahun_koleksi":2018,"subtipe":"H4N6","count":636},{"tahun_koleksi":2018,"subtipe":"H9N2","count":7475},{"tahun_koleksi":2018,"subtipe":"H5N1","count":485},{"tahun_koleksi":2018,"subtipe":"H3N8","count":1323},{"tahun_koleksi":2019,"subtipe":"H3N2","count":45883},{"tahun_koleksi":2019,"subtipe":"H1N2","count":3091},{"tahun_koleksi":2019,"subtipe":"H4N6","count":514},{"tahun_koleksi":2019,"subtipe":"H5N2","count":662},{"tahun_koleksi":2019,"subtipe":"H9N2","count":4639},{"tahun_koleksi":2019,"subtipe":"H1N1","count":35392},{"tahun_koleksi":2019,"subtipe":"H3N8","count":2325},{"tahun_koleksi":2019,"subtipe":"H5N1","count":370},{"tahun_koleksi":2020,"subtipe":"H3N8","count":306},{"tahun_koleksi":2020,"subtipe":"H3N2","count":6577},{"tahun_koleksi":2020,"subtipe":"H9N2","count":2336},{"tahun_koleksi":2020,"subtipe":"H5N1","count":164},{"tahun_koleksi":2020,"subtipe":"H4N6","count":558},{"tahun_koleksi":2020,"subtipe":"H1N1","count":14810},{"tahun_koleksi":2020,"subtipe":"H1N2","count":3557},{"tahun_koleksi":2020,"subtipe":"H5N2","count":65},{"tahun_koleksi":2021,"subtipe":"H3N2","count":22726},{"tahun_koleksi":2021,"subtipe":"H3N8","count":1526},{"tahun_koleksi":2021,"subtipe":"H9N2","count":7888},{"tahun_koleksi":2021,"subtipe":"H1N1","count":3119},{"tahun_koleksi":2021,"subtipe":"H5N1","count":917},{"tahun_koleksi":2021,"subtipe":"H4N6","count":285},{"tahun_koleksi":2021,"subtipe":"H1N2","count":2361},{"tahun_koleksi":2021,"subtipe":"H5N2","count":63},{"tahun_koleksi":2022,"subtipe":"H3N8","count":1947},{"tahun_koleksi":2022,"subtipe":"H5N1","count":50311},{"tahun_koleksi":2022,"subtipe":"H4N6","count":170},{"tahun_koleksi":2022,"subtipe":"H1N1","count":17386},{"tahun_koleksi":2022,"subtipe":"H5N2","count":912},{"tahun_koleksi":2022,"subtipe":"H9N2","count":4005},{"tahun_koleksi":2022,"subtipe":"H1N2","count":3146},{"tahun_koleksi":2022,"subtipe":"H3N2","count":82811},{"tahun_koleksi":2023,"subtipe":"H1N1","count":43295},{"tahun_koleksi":2023,"subtipe":"H9N2","count":1786},{"tahun_koleksi":2023,"subtipe":"H5N1","count":18385},{"tahun_koleksi":2023,"subtipe":"H1N2","count":2996},{"tahun_koleksi":2023,"subtipe":"H3N2","count":24499},{"tahun_koleksi":2023,"subtipe":"H3N8","count":967},{"tahun_koleksi":2023,"subtipe":"H5N2","count":140},{"tahun_koleksi":2023,"subtipe":"H4N6","count":341},{"tahun_koleksi":2024,"subtipe":"H9N2","count":1119},{"tahun_koleksi":2024,"subtipe":"H5N1","count":44402},{"tahun_koleksi":2024,"subtipe":"H1N2","count":2431},{"tahun_koleksi":2024,"subtipe":"H1N1","count":58199},{"tahun_koleksi":2024,"subtipe":"H5N2","count":473},{"tahun_koleksi":2024,"subtipe":"H3N2","count":67763},{"tahun_koleksi":2024,"subtipe":"H4N6","count":276},{"tahun_koleksi":2024,"subtipe":"H3N8","count":376},{"tahun_koleksi":2025,"subtipe":"H4N6","count":1329},{"tahun_koleksi":2025,"subtipe":"H3N8","count":695},{"tahun_koleksi":2025,"subtipe":"H5N2","count":270},{"tahun_koleksi":2025,"subtipe":"H1N1","count":62437},{"tahun_koleksi":2025,"subtipe":"H9N2","count":685},{"tahun_koleksi":2025,"subtipe":"H3N2","count":76527},{"tahun_koleksi":2025,"subtipe":"H1N2","count":1251},{"tahun_koleksi":2025,"subtipe":"H5N1","count":52300},{"tahun_koleksi":2026,"subtipe":"H3N8","count":80},{"tahun_koleksi":2026,"subtipe":"H9N2","count":368},{"tahun_koleksi":2026,"subtipe":"H5N2","count":8},{"tahun_koleksi":2026,"subtipe":"H1N1","count":3045},{"tahun_koleksi":2026,"subtipe":"H3N2","count":16063},{"tahun_koleksi":2026,"subtipe":"H5N1","count":14774},{"tahun_koleksi":2026,"subtipe":"H1N2","count":650}],"wil_tahun":[{"tahun_koleksi":1995,"wilayah":"Asia","count":228},{"tahun_koleksi":1995,"wilayah":"North America","count":1299},{"tahun_koleksi":1995,"wilayah":"Europe","count":176},{"tahun_koleksi":1995,"wilayah":"Oceania","count":15},{"tahun_koleksi":1995,"wilayah":null,"count":3},{"tahun_koleksi":1995,"wilayah":"South America","count":7},{"tahun_koleksi":1996,"wilayah":"Asia","count":391},{"tahun_koleksi":1996,"wilayah":"Africa","count":22},{"tahun_koleksi":1996,"wilayah":"South America","count":96},{"tahun_koleksi":1996,"wilayah":"Europe","count":114},{"tahun_koleksi":1996,"wilayah":"North America","count":997},{"tahun_koleksi":1996,"wilayah":"Oceania","count":24},{"tahun_koleksi":1997,"wilayah":"Africa","count":21},{"tahun_koleksi":1997,"wilayah":"Asia","count":341},{"tahun_koleksi":1997,"wilayah":null,"count":7},{"tahun_koleksi":1997,"wilayah":"Oceania","count":82},{"tahun_koleksi":1997,"wilayah":"Europe","count":167},{"tahun_koleksi":1997,"wilayah":"North America","count":495},{"tahun_koleksi":1997,"wilayah":"South America","count":8},{"tahun_koleksi":1998,"wilayah":"North America","count":1228},{"tahun_koleksi":1998,"wilayah":"Asia","count":386},{"tahun_koleksi":1998,"wilayah":"Europe","count":201},{"tahun_koleksi":1998,"wilayah":"Africa","count":4},{"tahun_koleksi":1998,"wilayah":null,"count":11},{"tahun_koleksi":1998,"wilayah":"Oceania","count":7},{"tahun_koleksi":1998,"wilayah":"South America","count":9},{"tahun_koleksi":1999,"wilayah":"North America","count":1921},{"tahun_koleksi":1999,"wilayah":"Asia","count":768},{"tahun_koleksi":1999,"wilayah":"Europe","count":801},{"tahun_koleksi":1999,"wilayah":"Oceania","count":189},{"tahun_koleksi":1999,"wilayah":null,"count":7},{"tahun_koleksi":1999,"wilayah":"South America","count":22},{"tahun_koleksi":1999,"wilayah":"Africa","count":1},{"tahun_koleksi":2000,"wilayah":"Oceania","count":1604},{"tahun_koleksi":2000,"wilayah":"Asia","count":911},{"tahun_koleksi":2000,"wilayah":"North America","count":1570},{"tahun_koleksi":2000,"wilayah":"Europe","count":801},{"tahun_koleksi":2000,"wilayah":null,"count":15},{"tahun_koleksi":2000,"wilayah":"South America","count":120},{"tahun_koleksi":2000,"wilayah":"Africa","count":7},{"tahun_koleksi":2001,"wilayah":"North America","count":2007},{"tahun_koleksi":2001,"wilayah":"Africa","count":8},{"tahun_koleksi":2001,"wilayah":"Asia","count":1642},{"tahun_koleksi":2001,"wilayah":"Oceania","count":1054},{"tahun_koleksi":2001,"wilayah":"South America","count":115},{"tahun_koleksi":2001,"wilayah":"Europe","count":328},{"tahun_koleksi":2001,"wilayah":null,"count":4},{"tahun_koleksi":2002,"wilayah":"North America","count":2820},{"tahun_koleksi":2002,"wilayah":"Oceania","count":983},{"tahun_koleksi":2002,"wilayah":"Africa","count":15},{"tahun_koleksi":2002,"wilayah":"South America","count":48},{"tahun_koleksi":2002,"wilayah":"Asia","count":1906},{"tahun_koleksi":2002,"wilayah":"Europe","count":1063},{"tahun_koleksi":2002,"wilayah":null,"count":9},{"tahun_koleksi":2003,"wilayah":"Europe","count":4026},{"tahun_koleksi":2003,"wilayah":"Africa","count":13},{"tahun_koleksi":2003,"wilayah":"North America","count":3096},{"tahun_koleksi":2003,"wilayah":"Oceania","count":1092},{"tahun_koleksi":2003,"wilayah":"South America","count":65},{"tahun_koleksi":2003,"wilayah":"Asia","count":2894},{"tahun_koleksi":2004,"wilayah":"South America","count":73},{"tahun_koleksi":2004,"wilayah":"North America","count":2226},{"tahun_koleksi":2004,"wilayah":"Africa","count":40},{"tahun_koleksi":2004,"wilayah":"Oceania","count":1334},{"tahun_koleksi":2004,"wilayah":"Asia","count":3844},{"tahun_koleksi":2004,"wilayah":"Europe","count":721},{"tahun_koleksi":2004,"wilayah":null,"count":4},{"tahun_koleksi":2005,"wilayah":"South America","count":54},{"tahun_koleksi":2005,"wilayah":"Asia","count":5829},{"tahun_koleksi":2005,"wilayah":"Europe","count":1858},{"tahun_koleksi":2005,"wilayah":"North America","count":5009},{"tahun_koleksi":2005,"wilayah":"Oceania","count":1341},{"tahun_koleksi":2005,"wilayah":"Africa","count":25},{"tahun_koleksi":2005,"wilayah":null,"count":16},{"tahun_koleksi":2006,"wilayah":"Africa","count":729},{"tahun_koleksi":2006,"wilayah":"Europe","count":2665},{"tahun_koleksi":2006,"wilayah":"South America","count":97},{"tahun_koleksi":2006,"wilayah":"Asia","count":6833},{"tahun_koleksi":2006,"wilayah":null,"count":18},{"tahun_koleksi":2006,"wilayah":"North America","count":7503},{"tahun_koleksi":2006,"wilayah":"Oceania","count":159},{"tahun_koleksi":2007,"wilayah":"Africa","count":635},{"tahun_koleksi":2007,"wilayah":"Europe","count":2151},{"tahun_koleksi":2007,"wilayah":"South America","count":262},{"tahun_koleksi":2007,"wilayah":"North America","count":12990},{"tahun_koleksi":2007,"wilayah":"Oceania","count":208},{"tahun_koleksi":2007,"wilayah":"Asia","count":9379},{"tahun_koleksi":2007,"wilayah":null,"count":13},{"tahun_koleksi":2008,"wilayah":"North America","count":11726},{"tahun_koleksi":2008,"wilayah":"South America","count":208},{"tahun_koleksi":2008,"wilayah":"Africa","count":1094},{"tahun_koleksi":2008,"wilayah":"Asia","count":7650},{"tahun_koleksi":2008,"wilayah":"Europe","count":3579},{"tahun_koleksi":2008,"wilayah":"Oceania","count":81},{"tahun_koleksi":2008,"wilayah":null,"count":26},{"tahun_koleksi":2009,"wilayah":"Africa","count":1378},{"tahun_koleksi":2009,"wilayah":"Europe","count":12614},{"tahun_koleksi":2009,"wilayah":"South America","count":2156},{"tahun_koleksi":2009,"wilayah":"Oceania","count":788},{"tahun_koleksi":2009,"wilayah":"North America","count":32633},{"tahun_koleksi":2009,"wilayah":"Asia","count":20639},{"tahun_koleksi":2010,"wilayah":"South America","count":2239},{"tahun_koleksi":2010,"wilayah":"Asia","count":11743},{"tahun_koleksi":2010,"wilayah":"Oceania","count":692},{"tahun_koleksi":2010,"wilayah":null,"count":16},{"tahun_koleksi":2010,"wilayah":"North America","count":12456},{"tahun_koleksi":2010,"wilayah":"Europe","count":3766},{"tahun_koleksi":2010,"wilayah":"Africa","count":940},{"tahun_koleksi":2011,"wilayah":"Oceania","count":221},{"tahun_koleksi":2011,"wilayah":"Antarctica","count":18},{"tahun_koleksi":2011,"wilayah":"Asia","count":12606},{"tahun_koleksi":2011,"wilayah":"North America","count":14179},{"tahun_koleksi":2011,"wilayah":null,"count":11},{"tahun_koleksi":2011,"wilayah":"Africa","count":1069},{"tahun_koleksi":2011,"wilayah":"Europe","count":4712},{"tahun_koleksi":2011,"wilayah":"South America","count":2049},{"tahun_koleksi":2012,"wilayah":"Oceania","count":710},{"tahun_koleksi":2012,"wilayah":"South America","count":1694},{"tahun_koleksi":2012,"wilayah":"North America","count":16334},{"tahun_koleksi":2012,"wilayah":"Africa","count":652},{"tahun_koleksi":2012,"wilayah":"Asia","count":9413},{"tahun_koleksi":2012,"wilayah":"Europe","count":3912},{"tahun_koleksi":2013,"wilayah":"Europe","count":3410},{"tahun_koleksi":2013,"wilayah":"Africa","count":868},{"tahun_koleksi":2013,"wilayah":"South America","count":744},{"tahun_koleksi":2013,"wilayah":"North America","count":19336},{"tahun_koleksi":2013,"wilayah":"Asia","count":17196},{"tahun_koleksi":2013,"wilayah":"Antarctica","count":32},{"tahun_koleksi":2013,"wilayah":"Oceania","count":1585},{"tahun_koleksi":2014,"wilayah":"South America","count":958},{"tahun_koleksi":2014,"wilayah":"Europe","count":2930},{"tahun_koleksi":2014,"wilayah":"North America","count":18445},{"tahun_koleksi":2014,"wilayah":"Africa","count":512},{"tahun_koleksi":2014,"wilayah":"Oceania","count":3257},{"tahun_koleksi":2014,"wilayah":"Asia","count":18127},{"tahun_koleksi":2015,"wilayah":"Antarctica","count":10},{"tahun_koleksi":2015,"wilayah":"South America","count":769},{"tahun_koleksi":2015,"wilayah":"Europe","count":2226},{"tahun_koleksi":2015,"wilayah":"Africa","count":2052},{"tahun_koleksi":2015,"wilayah":"Oceania","count":4770},{"tahun_koleksi":2015,"wilayah":"North America","count":28215},{"tahun_koleksi":2015,"wilayah":"Asia","count":11354},{"tahun_koleksi":2016,"wilayah":"Oceania","count":2953},{"tahun_koleksi":2016,"wilayah":"Africa","count":1285},{"tahun_koleksi":2016,"wilayah":"Europe","count":3447},{"tahun_koleksi":2016,"wilayah":"South America","count":2104},{"tahun_koleksi":2016,"wilayah":"North America","count":41589},{"tahun_koleksi":2016,"wilayah":"Asia","count":11188},{"tahun_koleksi":2017,"wilayah":"Europe","count":7967},{"tahun_koleksi":2017,"wilayah":"Antarctica","count":46},{"tahun_koleksi":2017,"wilayah":"North America","count":48781},{"tahun_koleksi":2017,"wilayah":"Oceania","count":7443},{"tahun_koleksi":2017,"wilayah":"Africa","count":2131},{"tahun_koleksi":2017,"wilayah":"South America","count":1718},{"tahun_koleksi":2017,"wilayah":"Asia","count":17212},{"tahun_koleksi":2018,"wilayah":"North America","count":43529},{"tahun_koleksi":2018,"wilayah":"Africa","count":2456},{"tahun_koleksi":2018,"wilayah":"South America","count":1289},{"tahun_koleksi":2018,"wilayah":"Asia","count":17753},{"tahun_koleksi":2018,"wilayah":"Oceania","count":5055},{"tahun_koleksi":2018,"wilayah":"Europe","count":4820},{"tahun_koleksi":2019,"wilayah":"Asia","count":10132},{"tahun_koleksi":2019,"wilayah":"Europe","count":6845},{"tahun_koleksi":2019,"wilayah":"Africa","count":2448},{"tahun_koleksi":2019,"wilayah":"Oceania","count":3749},{"tahun_koleksi":2019,"wilayah":"North America","count":74551},{"tahun_koleksi":2019,"wilayah":"South America","count":715},{"tahun_koleksi":2020,"wilayah":"North America","count":24020},{"tahun_koleksi":2020,"wilayah":"Asia","count":6205},{"tahun_koleksi":2020,"wilayah":"South America","count":504},{"tahun_koleksi":2020,"wilayah":"Africa","count":651},{"tahun_koleksi":2020,"wilayah":"Oceania","count":142},{"tahun_koleksi":2020,"wilayah":"Europe","count":3474},{"tahun_koleksi":2021,"wilayah":"South America","count":344},{"tahun_koleksi":2021,"wilayah":"Asia","count":10771},{"tahun_koleksi":2021,"wilayah":"North America","count":26076},{"tahun_koleksi":2021,"wilayah":"Africa","count":2550},{"tahun_koleksi":2021,"wilayah":"Oceania","count":136},{"tahun_koleksi":2021,"wilayah":"Europe","count":2244},{"tahun_koleksi":2021,"wilayah":null,"count":8},{"tahun_koleksi":2022,"wilayah":"Asia","count":9169},{"tahun_koleksi":2022,"wilayah":"Africa","count":1361},{"tahun_koleksi":2022,"wilayah":"South America","count":1489},{"tahun_koleksi":2022,"wilayah":"Oceania","count":10753},{"tahun_koleksi":2022,"wilayah":"Europe","count":12482},{"tahun_koleksi":2022,"wilayah":"North America","count":134398},{"tahun_koleksi":2023,"wilayah":"Oceania","count":190},{"tahun_koleksi":2023,"wilayah":"North America","count":81464},{"tahun_koleksi":2023,"wilayah":"Africa","count":1456},{"tahun_koleksi":2023,"wilayah":"Europe","count":3225},{"tahun_koleksi":2023,"wilayah":"Asia","count":6468},{"tahun_koleksi":2023,"wilayah":"Antarctica","count":184},{"tahun_koleksi":2023,"wilayah":"South America","count":3742},{"tahun_koleksi":2024,"wilayah":"South America","count":1197},{"tahun_koleksi":2024,"wilayah":"Oceania","count":218},{"tahun_koleksi":2024,"wilayah":"Europe","count":8040},{"tahun_koleksi":2024,"wilayah":"Africa","count":934},{"tahun_koleksi":2024,"wilayah":"Antarctica","count":112},{"tahun_koleksi":2024,"wilayah":"North America","count":164389},{"tahun_koleksi":2024,"wilayah":"Asia","count":3615},{"tahun_koleksi":2025,"wilayah":"Oceania","count":16},{"tahun_koleksi":2025,"wilayah":"Antarctica","count":119},{"tahun_koleksi":2025,"wilayah":"Europe","count":17461},{"tahun_koleksi":2025,"wilayah":"North America","count":181528},{"tahun_koleksi":2025,"wilayah":"South America","count":1220},{"tahun_koleksi":2025,"wilayah":"Asia","count":2318},{"tahun_koleksi":2025,"wilayah":"Africa","count":126},{"tahun_koleksi":2026,"wilayah":"Asia","count":565},{"tahun_koleksi":2026,"wilayah":"South America","count":176},{"tahun_koleksi":2026,"wilayah":"Europe","count":2133},{"tahun_koleksi":2026,"wilayah":"Africa","count":191},{"tahun_koleksi":2026,"wilayah":"North America","count":33807},{"tahun_koleksi":2026,"wilayah":"Oceania","count":8}],"inang_sub":[{"inang":"Anatidae","subtipe":"H1N2","count":252},{"inang":"Gallus gallus","subtipe":"H3N2","count":243},{"inang":"Gallus gallus","subtipe":"H5N1","count":29570},{"inang":"Gallus gallus","subtipe":"H3N8","count":2399},{"inang":"Homo sapiens","subtipe":"H1N1","count":360545},{"inang":"Anatidae","subtipe":"H9N2","count":4581},{"inang":"Anas platyrhynchos","subtipe":"H9N2","count":1103},{"inang":"Homo sapiens","subtipe":"H1N2","count":404},{"inang":"Sus scrofa","subtipe":"H3N2","count":35039},{"inang":"Anatidae","subtipe":"H5N1","count":13876},{"inang":"Sus scrofa","subtipe":"H1N1","count":57761},{"inang":"Gallus gallus","subtipe":"H1N1","count":45},{"inang":"Sus scrofa","subtipe":"H1N2","count":40999},{"inang":"Gallus gallus","subtipe":"H9N2","count":49184},{"inang":"Sus scrofa","subtipe":"H9N2","count":331},{"inang":"Sus scrofa","subtipe":"H3N8","count":16},{"inang":"Anatidae","subtipe":"H1N1","count":309},{"inang":"Sus scrofa","subtipe":"H5N1","count":288},{"inang":"Homo sapiens","subtipe":"H3N8","count":16},{"inang":"Anas platyrhynchos","subtipe":"H3N2","count":1760},{"inang":"Anatidae","subtipe":"H3N8","count":758},{"inang":"Anas platyrhynchos","subtipe":"H3N8","count":7183},{"inang":"Bos taurus","subtipe":"H5N1","count":36769},{"inang":"Anas platyrhynchos","subtipe":"H1N2","count":222},{"inang":"Homo sapiens","subtipe":"H9N2","count":169},{"inang":"Anas platyrhynchos","subtipe":"H1N1","count":3250},{"inang":"Homo sapiens","subtipe":"H5N1","count":2671},{"inang":"Anatidae","subtipe":"H3N2","count":1184},{"inang":"Gallus gallus","subtipe":"H1N2","count":16},{"inang":"Anas platyrhynchos","subtipe":"H5N1","count":9263},{"inang":"Homo sapiens","subtipe":"H3N2","count":512153}],"graf_seg":[{"segmen":1,"tepi":60436,"kemiripan_rata":0.9164,"kemiripan_min":0.88},{"segmen":2,"tepi":54814,"kemiripan_rata":0.9153,"kemiripan_min":0.88},{"segmen":3,"tepi":66933,"kemiripan_rata":0.9169,"kemiripan_min":0.88},{"segmen":4,"tepi":19233,"kemiripan_rata":0.9164,"kemiripan_min":0.88},{"segmen":5,"tepi":46045,"kemiripan_rata":0.9149,"kemiripan_min":0.88},{"segmen":6,"tepi":27749,"kemiripan_rata":0.9153,"kemiripan_min":0.88},{"segmen":7,"tepi":45264,"kemiripan_rata":0.9136,"kemiripan_min":0.88},{"segmen":8,"tepi":37738,"kemiripan_rata":0.9111,"kemiripan_min":0.88}],"graf_tepi":358212,"klaster_seg":[{"segmen":1,"klaster":131,"simpul":1797},{"segmen":2,"klaster":119,"simpul":1803},{"segmen":3,"klaster":124,"simpul":1862},{"segmen":4,"klaster":154,"simpul":1594},{"segmen":5,"klaster":140,"simpul":1741},{"segmen":6,"klaster":132,"simpul":1599},{"segmen":7,"klaster":140,"simpul":1850},{"segmen":8,"klaster":139,"simpul":1719}],"klaster_uk":[{"ember":"2 - 5","count":905},{"ember":"6 - 20","count":109},{"ember":"21 - 100","count":36},{"ember":"> 100","count":29}],"klaster_top":[{"lineage_id":"S_3_CY019832","count":712},{"lineage_id":"S_2_CY009938","count":683},{"lineage_id":"S_5_CY002909","count":668},{"lineage_id":"S_6_AB271710","count":555},{"lineage_id":"S_7_CY002225","count":543},{"lineage_id":"S_7_AB914511","count":543},{"lineage_id":"S_2_AB704436","count":510},{"lineage_id":"S_3_CY211129","count":400},{"lineage_id":"S_1_CY002479","count":368},{"lineage_id":"S_8_AB434129","count":349},{"lineage_id":"S_8_CY211062","count":336},{"lineage_id":"S_1_OP644967","count":321}],"co_total":100,"co_pasang":[{"seg_src":2,"seg_dst":7,"tepi":6,"galur":20},{"seg_src":1,"seg_dst":3,"tepi":5,"galur":21},{"seg_src":4,"seg_dst":7,"tepi":5,"galur":14},{"seg_src":2,"seg_dst":8,"tepi":5,"galur":16},{"seg_src":3,"seg_dst":8,"tepi":5,"galur":18},{"seg_src":1,"seg_dst":5,"tepi":5,"galur":19},{"seg_src":1,"seg_dst":7,"tepi":4,"galur":11},{"seg_src":2,"seg_dst":3,"tepi":4,"galur":27},{"seg_src":5,"seg_dst":6,"tepi":4,"galur":15},{"seg_src":1,"seg_dst":2,"tepi":4,"galur":14},{"seg_src":1,"seg_dst":8,"tepi":4,"galur":9},{"seg_src":5,"seg_dst":8,"tepi":4,"galur":20},{"seg_src":5,"seg_dst":7,"tepi":4,"galur":14},{"seg_src":4,"seg_dst":8,"tepi":4,"galur":8},{"seg_src":1,"seg_dst":6,"tepi":4,"galur":13},{"seg_src":3,"seg_dst":7,"tepi":4,"galur":11},{"seg_src":7,"seg_dst":8,"tepi":4,"galur":21},{"seg_src":6,"seg_dst":8,"tepi":4,"galur":14},{"seg_src":3,"seg_dst":5,"tepi":3,"galur":20},{"seg_src":2,"seg_dst":6,"tepi":3,"galur":13},{"seg_src":2,"seg_dst":5,"tepi":3,"galur":13},{"seg_src":3,"seg_dst":4,"tepi":2,"galur":5},{"seg_src":3,"seg_dst":6,"tepi":2,"galur":11},{"seg_src":6,"seg_dst":7,"tepi":2,"galur":12},{"seg_src":4,"seg_dst":6,"tepi":2,"galur":5},{"seg_src":1,"seg_dst":4,"tepi":2,"galur":4},{"seg_src":2,"seg_dst":4,"tepi":2,"galur":8}],"co_top":[{"src":"S_2_CY009938","dst":"S_3_CY019832","seg_src":2,"seg_dst":3,"n_galur":14},{"src":"S_3_CY019832","dst":"S_5_CY002909","seg_src":3,"seg_dst":5,"n_galur":12},{"src":"S_1_CY002479","dst":"S_3_CY019832","seg_src":1,"seg_dst":3,"n_galur":10},{"src":"S_2_AB704436","dst":"S_3_CY211129","seg_src":2,"seg_dst":3,"n_galur":9},{"src":"S_1_CY002479","dst":"S_5_CY002909","seg_src":1,"seg_dst":5,"n_galur":9},{"src":"S_2_CY009938","dst":"S_6_AB271710","seg_src":2,"seg_dst":6,"n_galur":9},{"src":"S_5_CY002909","dst":"S_6_AB271710","seg_src":5,"seg_dst":6,"n_galur":9},{"src":"S_3_CY019832","dst":"S_6_AB271710","seg_src":3,"seg_dst":6,"n_galur":9},{"src":"S_7_CY002225","dst":"S_8_AB434129","seg_src":7,"seg_dst":8,"n_galur":8},{"src":"S_6_AB271710","dst":"S_7_CY002225","seg_src":6,"seg_dst":7,"n_galur":8},{"src":"S_7_AB914511","dst":"S_8_CY211062","seg_src":7,"seg_dst":8,"n_galur":7},{"src":"S_2_CY009938","dst":"S_5_CY002909","seg_src":2,"seg_dst":5,"n_galur":7},{"src":"S_3_CY019832","dst":"S_8_AB434129","seg_src":3,"seg_dst":8,"n_galur":6},{"src":"S_2_AB704436","dst":"S_7_AB914511","seg_src":2,"seg_dst":7,"n_galur":6},{"src":"S_6_AB271710","dst":"S_8_AB434129","seg_src":6,"seg_dst":8,"n_galur":6},{"src":"S_2_CY009938","dst":"S_4_CY114558","seg_src":2,"seg_dst":4,"n_galur":6},{"src":"S_5_CY002909","dst":"S_8_AB434129","seg_src":5,"seg_dst":8,"n_galur":6},{"src":"S_1_OP644967","dst":"S_2_CY009938","seg_src":1,"seg_dst":2,"n_galur":6},{"src":"S_4_AB558335","dst":"S_7_AB914511","seg_src":4,"seg_dst":7,"n_galur":5},{"src":"S_5_CY210924","dst":"S_7_AB914511","seg_src":5,"seg_dst":7,"n_galur":5}],"kd":{"baris":1990,"galur":1238,"keyakinan_rata":0.909},"kd_seg":[{"segmen":1,"count":400},{"segmen":2,"count":329},{"segmen":3,"count":340},{"segmen":5,"count":316},{"segmen":7,"count":295},{"segmen":8,"count":310}],"kd_wil":[{"wilayah":"North America","count":790},{"wilayah":"Asia","count":599},{"wilayah":"Europe","count":446},{"wilayah":"South America","count":104},{"wilayah":"Oceania","count":27},{"wilayah":null,"count":15},{"wilayah":"Africa","count":9}],"kd_tahun":[{"tahun_koleksi":1991,"count":3},{"tahun_koleksi":1992,"count":3},{"tahun_koleksi":1994,"count":4},{"tahun_koleksi":1995,"count":2},{"tahun_koleksi":1996,"count":1},{"tahun_koleksi":1997,"count":2},{"tahun_koleksi":1999,"count":1},{"tahun_koleksi":2000,"count":7},{"tahun_koleksi":2001,"count":6},{"tahun_koleksi":2002,"count":11},{"tahun_koleksi":2003,"count":38},{"tahun_koleksi":2004,"count":23},{"tahun_koleksi":2005,"count":27},{"tahun_koleksi":2006,"count":30},{"tahun_koleksi":2007,"count":49},{"tahun_koleksi":2008,"count":32},{"tahun_koleksi":2009,"count":39},{"tahun_koleksi":2010,"count":75},{"tahun_koleksi":2011,"count":100},{"tahun_koleksi":2012,"count":121},{"tahun_koleksi":2013,"count":105},{"tahun_koleksi":2014,"count":99},{"tahun_koleksi":2015,"count":86},{"tahun_koleksi":2016,"count":98},{"tahun_koleksi":2017,"count":119},{"tahun_koleksi":2018,"count":131},{"tahun_koleksi":2019,"count":119},{"tahun_koleksi":2020,"count":107},{"tahun_koleksi":2021,"count":90},{"tahun_koleksi":2022,"count":106},{"tahun_koleksi":2023,"count":69},{"tahun_koleksi":2024,"count":101},{"tahun_koleksi":2025,"count":66},{"tahun_koleksi":2026,"count":14}],"kd_inang":[{"inang":"Sus scrofa","count":1071},{"inang":"Gallus gallus","count":187},{"inang":"Homo sapiens","count":162},{"inang":"Anas platyrhynchos","count":102},{"inang":"Anatidae","count":92},{"inang":"Sus scrofa domesticus","count":28},{"inang":"Arenaria interpres","count":26},{"inang":"Aves","count":22},{"inang":"Sus scrofa scrofa","count":21},{"inang":"Anas carolinensis","count":15},{"inang":"Mustela lutreola","count":14}],"kd_silang":[{"subtipe_kelas":"H1N2","prediksi_subtipe":"H1N1","count":358},{"subtipe_kelas":"H3N2","prediksi_subtipe":"H1N1","count":306},{"subtipe_kelas":"H1N1","prediksi_subtipe":"H1N2","count":211},{"subtipe_kelas":"H1N1","prediksi_subtipe":"H3N2","count":165},{"subtipe_kelas":"H1N2","prediksi_subtipe":"H3N2","count":122},{"subtipe_kelas":"H7N9","prediksi_subtipe":"H9N2","count":98},{"subtipe_kelas":"H3N2","prediksi_subtipe":"H1N2","count":69},{"subtipe_kelas":"LAINNYA","prediksi_subtipe":"H5N1","count":40},{"subtipe_kelas":"LAINNYA","prediksi_subtipe":"H9N2","count":36},{"subtipe_kelas":"H5N1","prediksi_subtipe":"H9N2","count":30},{"subtipe_kelas":"LAINNYA","prediksi_subtipe":"H1N1","count":26},{"subtipe_kelas":"H6N6","prediksi_subtipe":"H6N2","count":24},{"subtipe_kelas":"H4N6","prediksi_subtipe":"LAINNYA","count":24},{"subtipe_kelas":"LAINNYA","prediksi_subtipe":"H3N2","count":23},{"subtipe_kelas":"H3N8","prediksi_subtipe":"LAINNYA","count":20},{"subtipe_kelas":"H3N8","prediksi_subtipe":"H9N2","count":17},{"subtipe_kelas":"H5N2","prediksi_subtipe":"H5N1","count":17},{"subtipe_kelas":"H6N2","prediksi_subtipe":"H6N6","count":15},{"subtipe_kelas":"H6N2","prediksi_subtipe":"H9N2","count":15},{"subtipe_kelas":"H5N6","prediksi_subtipe":"H5N8","count":14},{"subtipe_kelas":"H11N9","prediksi_subtipe":"LAINNYA","count":13},{"subtipe_kelas":"H6N1","prediksi_subtipe":"LAINNYA","count":12},{"subtipe_kelas":"H10N7","prediksi_subtipe":"LAINNYA","count":11},{"subtipe_kelas":"H3N2","prediksi_subtipe":"H9N2","count":10},{"subtipe_kelas":"LAINNYA","prediksi_subtipe":"H3N8","count":10}],"kd_yakin":[{"ember":"0,70 - 0,90","count":875},{"ember":">= 0,90","count":1115}],"kd_top":[{"accession":"KP098026","galur":"A/duck/Vietnam/NCVD-KA415/2012","segmen":3,"subtipe_kelas":"H5N2","prediksi_subtipe":"H5N1","keyakinan":0.9999981176107497,"negara":"Viet Nam","tahun_koleksi":2012,"inang":"Anatidae"},{"accession":"OR079477","galur":"A/reassortant/ICL_TKY05_PPFP2(turkey/Turkey/1/2005 x Puerto Rico/8/1934)","segmen":3,"subtipe_kelas":"H3N2","prediksi_subtipe":"H5N1","keyakinan":0.9999928063339386,"negara":null,"tahun_koleksi":null,"inang":null},{"accession":"OR079478","galur":"A/reassortant/ICL_TKY05_PPFP2(turkey/Turkey/1/2005 x Puerto Rico/8/1934)","segmen":8,"subtipe_kelas":"H3N2","prediksi_subtipe":"H5N1","keyakinan":0.9999522658138984,"negara":null,"tahun_koleksi":null,"inang":null},{"accession":"PV388428","galur":"A/duck/Bangladesh/CE-115-09-DA-02-DU-O/2024","segmen":8,"subtipe_kelas":"LAINNYA","prediksi_subtipe":"H9N2","keyakinan":0.9999448220910784,"negara":"Bangladesh","tahun_koleksi":2024,"inang":"Anas platyrhynchos"},{"accession":"KP098025","galur":"A/duck/Vietnam/NCVD-KA415/2012","segmen":2,"subtipe_kelas":"H5N2","prediksi_subtipe":"H5N1","keyakinan":0.9999038049657889,"negara":"Viet Nam","tahun_koleksi":2012,"inang":"Anatidae"},{"accession":"CY004877","galur":"A/herring gull/DE/665/1988","segmen":5,"subtipe_kelas":"H4N6","prediksi_subtipe":"LAINNYA","keyakinan":0.9998953793941417,"negara":"USA","tahun_koleksi":1988,"inang":"Aves"},{"accession":"KP098024","galur":"A/duck/Vietnam/NCVD-KA415/2012","segmen":1,"subtipe_kelas":"H5N2","prediksi_subtipe":"H5N1","keyakinan":0.9998779745923266,"negara":"Viet Nam","tahun_koleksi":2012,"inang":"Anatidae"},{"accession":"PX908034","galur":"A/Human/CHL/PUC_MVL_0120_25/2025","segmen":1,"subtipe_kelas":"H3N2","prediksi_subtipe":"H1N1","keyakinan":0.9998336800037315,"negara":"Chile","tahun_koleksi":2025,"inang":"Homo sapiens"},{"accession":"KY463810","galur":"A/blue winged teal/Missouri/14OS1960/2013","segmen":7,"subtipe_kelas":"LAINNYA","prediksi_subtipe":"H3N8","keyakinan":0.9998220383773444,"negara":"USA","tahun_koleksi":2013,"inang":"Spatula discors"},{"accession":"PX529542","galur":"A/Massachusetts/USIP-001-057-012/2024","segmen":7,"subtipe_kelas":"H1N1","prediksi_subtipe":"H3N2","keyakinan":0.9997772940222177,"negara":"USA","tahun_koleksi":2024,"inang":"Homo sapiens"},{"accession":"GQ907353","galur":"GQ907353","segmen":5,"subtipe_kelas":"LAINNYA","prediksi_subtipe":"H5N1","keyakinan":0.9997770528140643,"negara":"Mongolia","tahun_koleksi":2005,"inang":"Anas carolinensis"},{"accession":"PQ014780","galur":"A/Multnomah County/OR-S25534/2024","segmen":7,"subtipe_kelas":"H1N1","prediksi_subtipe":"H3N2","keyakinan":0.9997716811054114,"negara":"USA","tahun_koleksi":2024,"inang":"Homo sapiens"},{"accession":"PV212111","galur":"A/chicken/Bangladesh/CE-116-06-CB-25-BR-O/2023","segmen":5,"subtipe_kelas":"H5N1","prediksi_subtipe":"H9N2","keyakinan":0.9997599237187006,"negara":"Bangladesh","tahun_koleksi":2023,"inang":"Gallus gallus"},{"accession":"GU086104","galur":"A/swine/Shandong/106/2007","segmen":3,"subtipe_kelas":"H3N2","prediksi_subtipe":"H9N2","keyakinan":0.9997140780828406,"negara":"China","tahun_koleksi":2007,"inang":"Sus scrofa"},{"accession":"CY036195","galur":"A/little egret/Hong Kong/8550/2007(H5N1)","segmen":2,"subtipe_kelas":"H5N1","prediksi_subtipe":"H9N2","keyakinan":0.9997124145587177,"negara":"Hong Kong","tahun_koleksi":2007,"inang":"Egretta garzetta"},{"accession":"AB766238","galur":"A/chicken/Vietnam/OIE-2215/2012","segmen":3,"subtipe_kelas":"H5N2","prediksi_subtipe":"H5N1","keyakinan":0.9996667113105159,"negara":"Viet Nam","tahun_koleksi":2012,"inang":"Gallus gallus"},{"accession":"GU122043","galur":"A/pekin duck/Korea/LBM399/2007","segmen":7,"subtipe_kelas":"H6N2","prediksi_subtipe":"H9N2","keyakinan":0.9996411025204536,"negara":"South Korea","tahun_koleksi":2007,"inang":"Anas platyrhynchos"},{"accession":"PX908032","galur":"A/Human/CHL/PUC_MVL_0120_25/2025","segmen":5,"subtipe_kelas":"H3N2","prediksi_subtipe":"H1N1","keyakinan":0.9996354909703543,"negara":"Chile","tahun_koleksi":2025,"inang":"Homo sapiens"},{"accession":"PX908030","galur":"A/Human/CHL/PUC_MVL_0120_25/2025","segmen":3,"subtipe_kelas":"H3N2","prediksi_subtipe":"H1N1","keyakinan":0.9996186724521864,"negara":"Chile","tahun_koleksi":2025,"inang":"Homo sapiens"},{"accession":"MK361640","galur":"A/swine/Sassenberg/3762/2004","segmen":3,"subtipe_kelas":"H3N2","prediksi_subtipe":"H1N2","keyakinan":0.9995427781337065,"negara":"Germany","tahun_koleksi":2004,"inang":"Sus scrofa"},{"accession":"CY103877","galur":"A/little yellow-shouldered bat/Guatemala/153/2009","segmen":5,"subtipe_kelas":"LAINNYA","prediksi_subtipe":"H7N7","keyakinan":0.9995411474895001,"negara":"Guatemala","tahun_koleksi":2009,"inang":"Sturnira lilium"},{"accession":"MK943238","galur":"A/chicken/Viet Nam/HN-2630/2016","segmen":3,"subtipe_kelas":"H6N6","prediksi_subtipe":"H9N2","keyakinan":0.999538397266395,"negara":"Viet Nam","tahun_koleksi":2016,"inang":"Gallus gallus"},{"accession":"OR079475","galur":"A/reassortant/ICL_TKY05_PPFP2(turkey/Turkey/1/2005 x Puerto Rico/8/1934)","segmen":1,"subtipe_kelas":"H3N2","prediksi_subtipe":"H5N1","keyakinan":0.9995027220137374,"negara":null,"tahun_koleksi":null,"inang":null},{"accession":"PZ450425","galur":"A/Snowy Owl/MA/26G05414-019-original/2026","segmen":8,"subtipe_kelas":"LAINNYA","prediksi_subtipe":"H5N1","keyakinan":0.9994819289979642,"negara":"USA","tahun_koleksi":2026,"inang":"Bubo scandiacus"},{"accession":"MZ323836","galur":"A/canine/China/18006/2019","segmen":1,"subtipe_kelas":"LAINNYA","prediksi_subtipe":"H3N2","keyakinan":0.999476007860185,"negara":"China","tahun_koleksi":2019,"inang":"Canis lupus familiaris"}],"babi":{"arsip_total":892344,"kd_total":1990,"arsip_babi":116627,"kd_babi":1120,"arsip_unggas":202269,"kd_unggas":483,"arsip_manusia":445956,"kd_manusia":162,"pangsa_arsip_babi":13.07,"pangsa_kd_babi":56.28,"pengayaan_babi":4.31,"pangsa_arsip_unggas":22.67,"pangsa_kd_unggas":24.27,"pengayaan_unggas":1.07,"pangsa_arsip_manusia":49.98,"pangsa_kd_manusia":8.14,"pengayaan_manusia":0.16},"kinerja":[{"lapisan":"FEATURE","tahap":"bangun feature store untuk k=[4, 6, 8, 10]","detik":10054.8},{"lapisan":"ML","tahap":"TUGAS B2 -- subtipe dari segmen internal","detik":9113.0},{"lapisan":"INGESTION","tahap":"jalur A — unduh FASTA seluruh arsip","detik":8282.3},{"lapisan":"ML","tahap":"TUGAS B1 -- subtipe dari HA + NA","detik":4702.7},{"lapisan":"ML","tahap":"TUGAS A -- klasifikasi segmen","detik":2541.3},{"lapisan":"FEATURE","tahap":"baca zona silver","detik":2347.6},{"lapisan":"GRAPH","tahap":"bangun graf kemiripan per segmen","detik":1922.0},{"lapisan":"STORAGE","tahap":"baca FASTA jalur A","detik":1701.5},{"lapisan":"ML","tahap":"eksperimen skalabilitas","detik":1578.2},{"lapisan":"GRAPH","tahap":"bangun graf kemiripan untuk segmen sisanya","detik":1101.6},{"lapisan":"INGESTION","tahap":"jalur B -- unduh metadata terstruktur","detik":258.0},{"lapisan":"FEATURE","tahap":"ukur kejarangan vektor fitur","detik":192.3},{"lapisan":"SPARK","tahap":"Spark SQL pencacahan k-mer (skala kecil)","detik":76.8},{"lapisan":"GRAPH","tahap":"uji satu segmen sebelum menjalankan semuanya","detik":72.8}],"strat":{"populasi":{"terskor":892344,"dianalisis":892344,"kandidat":1990},"cmh":{"strata":17,"or":10.86107755571759,"ci_lo":9.690147927401485,"ci_hi":12.173498955340039,"chi2":2555.6724813626215,"p":0.0},"logit_babi_or":18.383084536212664,"per_strata":[{"wil":"Africa","dekade":2010,"n_babi":118.0,"a":0.0,"n_bukan":10059.0,"c":3.0,"laju_babi":0.0,"laju_bukan":0.0298,"or_strata":0.0},{"wil":"Asia","dekade":1990,"n_babi":458.0,"a":0.0,"n_bukan":1947.0,"c":4.0,"laju_babi":0.0,"laju_bukan":0.2054,"or_strata":0.0},{"wil":"Asia","dekade":2000,"n_babi":3195.0,"a":24.0,"n_bukan":44170.0,"c":71.0,"laju_babi":0.7512,"laju_bukan":0.1607,"or_strata":4.7009},{"wil":"Asia","dekade":2010,"n_babi":5254.0,"a":95.0,"n_bukan":94923.0,"c":256.0,"laju_babi":1.8081,"laju_bukan":0.2697,"or_strata":6.8095},{"wil":"Asia","dekade":2020,"n_babi":1082.0,"a":19.0,"n_bukan":25225.0,"c":79.0,"laju_babi":1.756,"laju_bukan":0.3132,"or_strata":5.6893},{"wil":"Europe","dekade":1990,"n_babi":593.0,"a":2.0,"n_bukan":1825.0,"c":1.0,"laju_babi":0.3373,"laju_bukan":0.0548,"or_strata":6.1726},{"wil":"Europe","dekade":2000,"n_babi":3783.0,"a":49.0,"n_bukan":15998.0,"c":6.0,"laju_babi":1.2953,"laju_bukan":0.0375,"or_strata":34.9763},{"wil":"Europe","dekade":2010,"n_babi":14828.0,"a":240.0,"n_bukan":16774.0,"c":27.0,"laju_babi":1.6186,"laju_bukan":0.161,"or_strata":10.2044},{"wil":"Europe","dekade":2020,"n_babi":7280.0,"a":109.0,"n_bukan":21249.0,"c":3.0,"laju_babi":1.4973,"laju_bukan":0.0141,"or_strata":107.6472},{"wil":"North America","dekade":1990,"n_babi":57.0,"a":0.0,"n_bukan":7509.0,"c":9.0,"laju_babi":0.0,"laju_bukan":0.1199,"or_strata":0.0},{"wil":"North America","dekade":2000,"n_babi":5446.0,"a":49.0,"n_bukan":51973.0,"c":59.0,"laju_babi":0.8997,"laju_bukan":0.1135,"or_strata":7.9887},{"wil":"North America","dekade":2010,"n_babi":38516.0,"a":244.0,"n_bukan":140183.0,"c":95.0,"laju_babi":0.6335,"laju_bukan":0.0678,"or_strata":9.4013},{"wil":"North America","dekade":2020,"n_babi":29528.0,"a":205.0,"n_bukan":254310.0,"c":105.0,"laju_babi":0.6943,"laju_bukan":0.0413,"or_strata":16.9255},{"wil":"Oceania","dekade":2010,"n_babi":233.0,"a":2.0,"n_bukan":17872.0,"c":16.0,"laju_babi":0.8584,"laju_bukan":0.0895,"or_strata":9.6623},{"wil":"South America","dekade":2000,"n_babi":61.0,"a":0.0,"n_bukan":2075.0,"c":4.0,"laju_babi":0.0,"laju_bukan":0.1928,"or_strata":0.0},{"wil":"South America","dekade":2010,"n_babi":2467.0,"a":60.0,"n_bukan":7398.0,"c":15.0,"laju_babi":2.4321,"laju_bukan":0.2028,"or_strata":12.2692},{"wil":"South America","dekade":2020,"n_babi":931.0,"a":14.0,"n_bukan":5147.0,"c":11.0,"laju_babi":1.5038,"laju_bukan":0.2137,"or_strata":7.1284}],"kasar":[{"kelas_inang":"unggas","n":202269,"k":483,"pangsa_pop":22.667155267475323,"pangsa_kand":24.271356783919597,"laju":0.23879091704611186,"pengayaan":1.0707720707567618},{"kelas_inang":"babi","n":116627,"k":1120,"pangsa_pop":13.06973543835113,"pangsa_kand":56.28140703517588,"laju":0.9603265110137447,"pengayaan":4.306239196703764},{"kelas_inang":"manusia","n":445956,"k":162,"pangsa_pop":49.97579408837847,"pangsa_kand":8.140703517587939,"laju":0.03632645373086134,"pengayaan":0.1628929297890037},{"kelas_inang":"lain","n":127492,"k":225,"pangsa_pop":14.287315205795075,"pangsa_kand":11.306532663316583,"laju":0.176481661594453,"pengayaan":0.7913686021801032}]},"co_semua":[{"src":"S_2_CY009938","dst":"S_3_CY019832","seg_src":2,"seg_dst":3,"n_galur":14},{"src":"S_3_CY019832","dst":"S_5_CY002909","seg_src":3,"seg_dst":5,"n_galur":12},{"src":"S_1_CY002479","dst":"S_3_CY019832","seg_src":1,"seg_dst":3,"n_galur":10},{"src":"S_2_AB704436","dst":"S_3_CY211129","seg_src":2,"seg_dst":3,"n_galur":9},{"src":"S_1_CY002479","dst":"S_5_CY002909","seg_src":1,"seg_dst":5,"n_galur":9},{"src":"S_2_CY009938","dst":"S_6_AB271710","seg_src":2,"seg_dst":6,"n_galur":9},{"src":"S_5_CY002909","dst":"S_6_AB271710","seg_src":5,"seg_dst":6,"n_galur":9},{"src":"S_3_CY019832","dst":"S_6_AB271710","seg_src":3,"seg_dst":6,"n_galur":9},{"src":"S_7_CY002225","dst":"S_8_AB434129","seg_src":7,"seg_dst":8,"n_galur":8},{"src":"S_6_AB271710","dst":"S_7_CY002225","seg_src":6,"seg_dst":7,"n_galur":8},{"src":"S_7_AB914511","dst":"S_8_CY211062","seg_src":7,"seg_dst":8,"n_galur":7},{"src":"S_2_CY009938","dst":"S_5_CY002909","seg_src":2,"seg_dst":5,"n_galur":7},{"src":"S_3_CY019832","dst":"S_8_AB434129","seg_src":3,"seg_dst":8,"n_galur":6},{"src":"S_2_AB704436","dst":"S_7_AB914511","seg_src":2,"seg_dst":7,"n_galur":6},{"src":"S_6_AB271710","dst":"S_8_AB434129","seg_src":6,"seg_dst":8,"n_galur":6},{"src":"S_2_CY009938","dst":"S_4_CY114558","seg_src":2,"seg_dst":4,"n_galur":6},{"src":"S_5_CY002909","dst":"S_8_AB434129","seg_src":5,"seg_dst":8,"n_galur":6},{"src":"S_1_OP644967","dst":"S_2_CY009938","seg_src":1,"seg_dst":2,"n_galur":6},{"src":"S_4_AB558335","dst":"S_7_AB914511","seg_src":4,"seg_dst":7,"n_galur":5},{"src":"S_5_CY210924","dst":"S_7_AB914511","seg_src":5,"seg_dst":7,"n_galur":5},{"src":"S_2_AB704436","dst":"S_8_CY211062","seg_src":2,"seg_dst":8,"n_galur":5},{"src":"S_5_CY002909","dst":"S_8_OP590753","seg_src":5,"seg_dst":8,"n_galur":5},{"src":"S_5_OQ231656","dst":"S_8_CY211062","seg_src":5,"seg_dst":8,"n_galur":5},{"src":"S_1_CY002479","dst":"S_6_AB271710","seg_src":1,"seg_dst":6,"n_galur":5},{"src":"S_2_CY009938","dst":"S_7_CY002225","seg_src":2,"seg_dst":7,"n_galur":5},{"src":"S_5_CY002909","dst":"S_7_CY002225","seg_src":5,"seg_dst":7,"n_galur":4},{"src":"S_5_CY046310","dst":"S_8_AB704466","seg_src":5,"seg_dst":8,"n_galur":4},{"src":"S_1_OP644967","dst":"S_7_CY002225","seg_src":1,"seg_dst":7,"n_galur":4},{"src":"S_6_AB271710","dst":"S_8_OP590753","seg_src":6,"seg_dst":8,"n_galur":4},{"src":"S_6_AB649900","dst":"S_7_AB914511","seg_src":6,"seg_dst":7,"n_galur":4},{"src":"S_3_OP269999","dst":"S_5_OQ547432","seg_src":3,"seg_dst":5,"n_galur":4},{"src":"S_3_CY019832","dst":"S_8_OP590753","seg_src":3,"seg_dst":8,"n_galur":4},{"src":"S_2_AB704436","dst":"S_5_CY210924","seg_src":2,"seg_dst":5,"n_galur":4},{"src":"S_3_CY211129","dst":"S_5_CY210924","seg_src":3,"seg_dst":5,"n_galur":4},{"src":"S_3_CY211129","dst":"S_8_CY211062","seg_src":3,"seg_dst":8,"n_galur":4},{"src":"S_7_MW961477","dst":"S_8_OK022587","seg_src":7,"seg_dst":8,"n_galur":4},{"src":"S_2_CY009938","dst":"S_8_AB434129","seg_src":2,"seg_dst":8,"n_galur":4},{"src":"S_3_CY211129","dst":"S_7_AB914511","seg_src":3,"seg_dst":7,"n_galur":3},{"src":"S_1_CY211071","dst":"S_3_CY211129","seg_src":1,"seg_dst":3,"n_galur":3},{"src":"S_1_OR627046","dst":"S_7_AB914511","seg_src":1,"seg_dst":7,"n_galur":3},{"src":"S_1_OR627046","dst":"S_2_AB704436","seg_src":1,"seg_dst":2,"n_galur":3},{"src":"S_2_LC774735","dst":"S_7_MW961477","seg_src":2,"seg_dst":7,"n_galur":3},{"src":"S_1_CY211071","dst":"S_6_AB649900","seg_src":1,"seg_dst":6,"n_galur":3},{"src":"S_5_OQ231656","dst":"S_7_AB914511","seg_src":5,"seg_dst":7,"n_galur":3},{"src":"S_4_OP377380","dst":"S_7_MW961477","seg_src":4,"seg_dst":7,"n_galur":3},{"src":"S_2_CY009938","dst":"S_8_OP590753","seg_src":2,"seg_dst":8,"n_galur":3},{"src":"S_3_CY019832","dst":"S_4_ON371046","seg_src":3,"seg_dst":4,"n_galur":3},{"src":"S_3_CY019832","dst":"S_7_CY002225","seg_src":3,"seg_dst":7,"n_galur":3},{"src":"S_3_OP269999","dst":"S_7_MW961477","seg_src":3,"seg_dst":7,"n_galur":3},{"src":"S_1_OP644967","dst":"S_3_CY019832","seg_src":1,"seg_dst":3,"n_galur":3},{"src":"S_1_OR627046","dst":"S_3_CY211129","seg_src":1,"seg_dst":3,"n_galur":3},{"src":"S_1_OP644967","dst":"S_8_OP590753","seg_src":1,"seg_dst":8,"n_galur":3},{"src":"S_1_OR627046","dst":"S_5_OQ231656","seg_src":1,"seg_dst":5,"n_galur":3},{"src":"S_1_CY211071","dst":"S_2_AB704436","seg_src":1,"seg_dst":2,"n_galur":3},{"src":"S_1_CY211071","dst":"S_5_CY210924","seg_src":1,"seg_dst":5,"n_galur":3},{"src":"S_4_AB558335","dst":"S_6_AB649900","seg_src":4,"seg_dst":6,"n_galur":3},{"src":"S_1_OP644967","dst":"S_6_AB271710","seg_src":1,"seg_dst":6,"n_galur":3},{"src":"S_4_OQ245645","dst":"S_6_ON531174","seg_src":4,"seg_dst":6,"n_galur":2},{"src":"S_4_OP377380","dst":"S_8_OK022587","seg_src":4,"seg_dst":8,"n_galur":2},{"src":"S_3_AB539738","dst":"S_8_AB704466","seg_src":3,"seg_dst":8,"n_galur":2},{"src":"S_5_CY210924","dst":"S_6_AB649900","seg_src":5,"seg_dst":6,"n_galur":2},{"src":"S_1_OP470803","dst":"S_5_OP270013","seg_src":1,"seg_dst":5,"n_galur":2},{"src":"S_5_CY046310","dst":"S_7_AB914511","seg_src":5,"seg_dst":7,"n_galur":2},{"src":"S_2_CY009938","dst":"S_6_OP623632","seg_src":2,"seg_dst":6,"n_galur":2},{"src":"S_5_OQ231656","dst":"S_6_ON531174","seg_src":5,"seg_dst":6,"n_galur":2},{"src":"S_2_AB704436","dst":"S_6_ON531174","seg_src":2,"seg_dst":6,"n_galur":2},{"src":"S_1_CY211071","dst":"S_8_CY211062","seg_src":1,"seg_dst":8,"n_galur":2},{"src":"S_7_AB914511","dst":"S_8_AB704466","seg_src":7,"seg_dst":8,"n_galur":2},{"src":"S_1_CY002479","dst":"S_7_CY002225","seg_src":1,"seg_dst":7,"n_galur":2},{"src":"S_4_PQ664425","dst":"S_8_OK022587","seg_src":4,"seg_dst":8,"n_galur":2},{"src":"S_1_OR627046","dst":"S_8_CY211062","seg_src":1,"seg_dst":8,"n_galur":2},{"src":"S_4_ON371046","dst":"S_7_CY002225","seg_src":4,"seg_dst":7,"n_galur":2},{"src":"S_3_CY003013","dst":"S_8_CY003012","seg_src":3,"seg_dst":8,"n_galur":2},{"src":"S_2_CY039485","dst":"S_7_AB285943","seg_src":2,"seg_dst":7,"n_galur":2},{"src":"S_4_OQ232406","dst":"S_8_CY211062","seg_src":4,"seg_dst":8,"n_galur":2},{"src":"S_2_CY093517","dst":"S_3_CY019832","seg_src":2,"seg_dst":3,"n_galur":2},{"src":"S_1_CY002479","dst":"S_4_CY114558","seg_src":1,"seg_dst":4,"n_galur":2},{"src":"S_3_CY211129","dst":"S_6_ON531174","seg_src":3,"seg_dst":6,"n_galur":2},{"src":"S_2_LC774735","dst":"S_3_PQ885519","seg_src":2,"seg_dst":3,"n_galur":2},{"src":"S_1_OP644967","dst":"S_4_OZ406102","seg_src":1,"seg_dst":4,"n_galur":2},{"src":"S_4_CY114558","dst":"S_7_CY002225","seg_src":4,"seg_dst":7,"n_galur":2},{"src":"S_1_PV059886","dst":"S_7_MW961477","seg_src":1,"seg_dst":7,"n_galur":2},{"src":"S_6_AB649900","dst":"S_8_CY211062","seg_src":6,"seg_dst":8,"n_galur":2},{"src":"S_2_OP377418","dst":"S_8_OK022587","seg_src":2,"seg_dst":8,"n_galur":2},{"src":"S_3_CY019832","dst":"S_4_CY114558","seg_src":3,"seg_dst":4,"n_galur":2},{"src":"S_1_CY041145","dst":"S_6_AB649900","seg_src":1,"seg_dst":6,"n_galur":2},{"src":"S_1_OP644967","dst":"S_5_CY002909","seg_src":1,"seg_dst":5,"n_galur":2},{"src":"S_4_CY026243","dst":"S_7_CY002225","seg_src":4,"seg_dst":7,"n_galur":2},{"src":"S_2_AB704436","dst":"S_5_OQ231656","seg_src":2,"seg_dst":5,"n_galur":2},{"src":"S_1_CY041145","dst":"S_8_AB704466","seg_src":1,"seg_dst":8,"n_galur":2},{"src":"S_4_ON371046","dst":"S_8_OP590753","seg_src":4,"seg_dst":8,"n_galur":2},{"src":"S_5_CY046310","dst":"S_6_AB649900","seg_src":5,"seg_dst":6,"n_galur":2},{"src":"S_2_OQ958586","dst":"S_7_MW961477","seg_src":2,"seg_dst":7,"n_galur":2},{"src":"S_2_LC774735","dst":"S_8_OK022587","seg_src":2,"seg_dst":8,"n_galur":2},{"src":"S_6_AB649900","dst":"S_8_AB704466","seg_src":6,"seg_dst":8,"n_galur":2},{"src":"S_1_CY041145","dst":"S_3_AB539738","seg_src":1,"seg_dst":3,"n_galur":2},{"src":"S_2_FJ577516","dst":"S_7_FJ577511","seg_src":2,"seg_dst":7,"n_galur":2},{"src":"S_3_CY098609","dst":"S_7_AB478036","seg_src":3,"seg_dst":7,"n_galur":2},{"src":"S_1_CY041145","dst":"S_2_AB704436","seg_src":1,"seg_dst":2,"n_galur":2},{"src":"S_2_AB704436","dst":"S_4_AB558335","seg_src":2,"seg_dst":4,"n_galur":2}],"sub_klaster":{"lineage_id":"S_5_PV070718","segmen":5,"simpul":54,"tepi":[{"src":"PZ009371","dst":"PZ032030","kemiripan":0.9821,"segmen":5},{"src":"PV070718","dst":"PV162168","kemiripan":0.9794,"segmen":5},{"src":"PX750416","dst":"PZ876530","kemiripan":0.9788,"segmen":5},{"src":"PV070718","dst":"PX818261","kemiripan":0.9787,"segmen":5},{"src":"PV070718","dst":"PZ876722","kemiripan":0.9787,"segmen":5},{"src":"PV162168","dst":"PZ876722","kemiripan":0.9787,"segmen":5},{"src":"PV162168","dst":"PX818261","kemiripan":0.9787,"segmen":5},{"src":"PX818261","dst":"PZ876722","kemiripan":0.9781,"segmen":5},{"src":"PV070718","dst":"PZ876354","kemiripan":0.9733,"segmen":5},{"src":"PZ009371","dst":"PZ265173","kemiripan":0.9713,"segmen":5},{"src":"PZ032030","dst":"PZ265173","kemiripan":0.9713,"segmen":5},{"src":"PX579563","dst":"PX812668","kemiripan":0.9713,"segmen":5},{"src":"PV162168","dst":"PZ877074","kemiripan":0.9706,"segmen":5},{"src":"PV070718","dst":"PZ877074","kemiripan":0.9706,"segmen":5},{"src":"PV162168","dst":"PZ876354","kemiripan":0.9706,"segmen":5},{"src":"PZ032030","dst":"PZ300121","kemiripan":0.97,"segmen":5},{"src":"PX914008","dst":"PZ032030","kemiripan":0.97,"segmen":5},{"src":"PZ876354","dst":"PZ876722","kemiripan":0.9699,"segmen":5},{"src":"PX914008","dst":"PZ009371","kemiripan":0.9699,"segmen":5},{"src":"PZ009371","dst":"PZ300121","kemiripan":0.9699,"segmen":5},{"src":"PV070718","dst":"PV162360","kemiripan":0.9699,"segmen":5},{"src":"PV162168","dst":"PV162360","kemiripan":0.9699,"segmen":5},{"src":"PZ876722","dst":"PZ877074","kemiripan":0.9699,"segmen":5},{"src":"PX818261","dst":"PZ876354","kemiripan":0.9699,"segmen":5},{"src":"PX818261","dst":"PZ877074","kemiripan":0.9699,"segmen":5},{"src":"PV070718","dst":"PV336405","kemiripan":0.9693,"segmen":5},{"src":"PV162360","dst":"PZ876722","kemiripan":0.9693,"segmen":5},{"src":"PV162360","dst":"PX818261","kemiripan":0.9693,"segmen":5},{"src":"PZ265173","dst":"PZ421875","kemiripan":0.9692,"segmen":5},{"src":"PV162168","dst":"PV336405","kemiripan":0.9692,"segmen":5},{"src":"PX880855","dst":"PZ265173","kemiripan":0.9692,"segmen":5},{"src":"PV336405","dst":"PZ876722","kemiripan":0.9686,"segmen":5},{"src":"PX812668","dst":"PX825991","kemiripan":0.9686,"segmen":5},{"src":"PV336405","dst":"PX818261","kemiripan":0.9686,"segmen":5},{"src":"PX812668","dst":"PZ175908","kemiripan":0.9686,"segmen":5},{"src":"PX750416","dst":"PZ128350","kemiripan":0.968,"segmen":5},{"src":"PX812668","dst":"PX823110","kemiripan":0.9679,"segmen":5},{"src":"PV162360","dst":"PZ732823","kemiripan":0.9679,"segmen":5},{"src":"PX579563","dst":"PX823110","kemiripan":0.9665,"segmen":5},{"src":"PZ876354","dst":"PZ877074","kemiripan":0.9619,"segmen":5},{"src":"PV162360","dst":"PZ876354","kemiripan":0.9612,"segmen":5},{"src":"PV162360","dst":"PZ877074","kemiripan":0.9612,"segmen":5},{"src":"PZ030855","dst":"PZ265173","kemiripan":0.9612,"segmen":5},{"src":"PV267641","dst":"PX687014","kemiripan":0.961,"segmen":5},{"src":"PX825991","dst":"PZ175908","kemiripan":0.9606,"segmen":5},{"src":"PV336405","dst":"PZ877074","kemiripan":0.9605,"segmen":5},{"src":"PV336405","dst":"PZ876354","kemiripan":0.9605,"segmen":5},{"src":"PX579563","dst":"PZ175908","kemiripan":0.9605,"segmen":5},{"src":"PX579563","dst":"PX825991","kemiripan":0.9605,"segmen":5},{"src":"PX817026","dst":"PZ877074","kemiripan":0.9605,"segmen":5},{"src":"PV456025","dst":"PZ877074","kemiripan":0.9605,"segmen":5},{"src":"PV338221","dst":"PZ733031","kemiripan":0.9601,"segmen":5},{"src":"PX914024","dst":"PZ479072","kemiripan":0.96,"segmen":5},{"src":"PV162360","dst":"PV336405","kemiripan":0.9599,"segmen":5},{"src":"PV070718","dst":"PZ732823","kemiripan":0.9599,"segmen":5},{"src":"PZ032030","dst":"PZ421875","kemiripan":0.9599,"segmen":5},{"src":"PX813756","dst":"PZ877074","kemiripan":0.9599,"segmen":5},{"src":"PV162168","dst":"PZ732823","kemiripan":0.9599,"segmen":5},{"src":"PX880855","dst":"PZ032030","kemiripan":0.9599,"segmen":5},{"src":"PZ009371","dst":"PZ421875","kemiripan":0.9598,"segmen":5},{"src":"PX880855","dst":"PZ009371","kemiripan":0.9598,"segmen":5},{"src":"PZ732823","dst":"PZ876722","kemiripan":0.9592,"segmen":5},{"src":"PV070718","dst":"PZ031478","kemiripan":0.9592,"segmen":5},{"src":"PV162168","dst":"PZ031478","kemiripan":0.9592,"segmen":5},{"src":"PX914008","dst":"PZ265173","kemiripan":0.9592,"segmen":5},{"src":"PX818261","dst":"PZ732823","kemiripan":0.9592,"segmen":5},{"src":"PZ265173","dst":"PZ300121","kemiripan":0.9592,"segmen":5},{"src":"PX748568","dst":"PZ265173","kemiripan":0.9586,"segmen":5},{"src":"PX813756","dst":"PX817026","kemiripan":0.9586,"segmen":5},{"src":"PZ029407","dst":"PZ265173","kemiripan":0.9585,"segmen":5},{"src":"PZ031478","dst":"PZ876722","kemiripan":0.9585,"segmen":5},{"src":"PX818261","dst":"PZ031478","kemiripan":0.9585,"segmen":5},{"src":"PX812668","dst":"PX824159","kemiripan":0.9579,"segmen":5},{"src":"PV162168","dst":"PV336453","kemiripan":0.9579,"segmen":5},{"src":"PX914008","dst":"PZ300121","kemiripan":0.9579,"segmen":5},{"src":"PV070718","dst":"PV336453","kemiripan":0.9579,"segmen":5},{"src":"PX880855","dst":"PZ421875","kemiripan":0.9578,"segmen":5},{"src":"PX823110","dst":"PZ175908","kemiripan":0.9573,"segmen":5},{"src":"PX812668","dst":"PZ450366","kemiripan":0.9573,"segmen":5},{"src":"PV336453","dst":"PZ876722","kemiripan":0.9572,"segmen":5},{"src":"PX823110","dst":"PX825991","kemiripan":0.9572,"segmen":5},{"src":"PV336453","dst":"PX818261","kemiripan":0.9572,"segmen":5},{"src":"PZ032030","dst":"PZ175172","kemiripan":0.9546,"segmen":5},{"src":"PZ009371","dst":"PZ175172","kemiripan":0.9546,"segmen":5},{"src":"PX825991","dst":"PZ450366","kemiripan":0.9533,"segmen":5},{"src":"PV494086","dst":"PZ732879","kemiripan":0.9532,"segmen":5},{"src":"PX687014","dst":"PZ876354","kemiripan":0.9526,"segmen":5},{"src":"PZ732823","dst":"PZ877074","kemiripan":0.9525,"segmen":5},{"src":"PZ030855","dst":"PZ032030","kemiripan":0.9519,"segmen":5},{"src":"PZ009371","dst":"PZ030855","kemiripan":0.9518,"segmen":5},{"src":"PX873787","dst":"PX914024","kemiripan":0.9514,"segmen":5},{"src":"PZ732823","dst":"PZ876354","kemiripan":0.9513,"segmen":5},{"src":"PX812668","dst":"PX820293","kemiripan":0.9512,"segmen":5},{"src":"PV162360","dst":"PZ733031","kemiripan":0.9507,"segmen":5},{"src":"PZ031478","dst":"PZ876354","kemiripan":0.9506,"segmen":5},{"src":"PZ031478","dst":"PZ877074","kemiripan":0.9505,"segmen":5},{"src":"PV162360","dst":"PZ031478","kemiripan":0.9499,"segmen":5},{"src":"PX579563","dst":"PX824159","kemiripan":0.9499,"segmen":5},{"src":"PV336405","dst":"PZ732823","kemiripan":0.9499,"segmen":5},{"src":"PZ029407","dst":"PZ421875","kemiripan":0.9499,"segmen":5},{"src":"PZ265173","dst":"PZ479016","kemiripan":0.9499,"segmen":5},{"src":"PX748568","dst":"PX880855","kemiripan":0.9499,"segmen":5},{"src":"PX880855","dst":"PZ030855","kemiripan":0.9498,"segmen":5},{"src":"PZ030855","dst":"PZ421875","kemiripan":0.9498,"segmen":5},{"src":"PV336453","dst":"PZ876354","kemiripan":0.9493,"segmen":5},{"src":"PV162168","dst":"PZ732879","kemiripan":0.9493,"segmen":5},{"src":"PZ029407","dst":"PZ032030","kemiripan":0.9493,"segmen":5},{"src":"PV070718","dst":"PZ732879","kemiripan":0.9493,"segmen":5},{"src":"PX748568","dst":"PZ032030","kemiripan":0.9493,"segmen":5},{"src":"PX748568","dst":"PZ009371","kemiripan":0.9493,"segmen":5},{"src":"PX579563","dst":"PZ450366","kemiripan":0.9492,"segmen":5},{"src":"PV336453","dst":"PZ877074","kemiripan":0.9492,"segmen":5},{"src":"PZ009371","dst":"PZ029407","kemiripan":0.9492,"segmen":5},{"src":"PV336405","dst":"PZ031478","kemiripan":0.9492,"segmen":5},{"src":"PX858354","dst":"PZ265173","kemiripan":0.9486,"segmen":5},{"src":"PV162360","dst":"PV336453","kemiripan":0.9486,"segmen":5},{"src":"PZ732879","dst":"PZ876722","kemiripan":0.9486,"segmen":5},{"src":"PX818261","dst":"PZ732879","kemiripan":0.9486,"segmen":5},{"src":"PV070718","dst":"PV456025","kemiripan":0.948,"segmen":5},{"src":"PV162168","dst":"PV456025","kemiripan":0.948,"segmen":5},{"src":"PV162168","dst":"PX817026","kemiripan":0.948,"segmen":5},{"src":"PV070718","dst":"PX817026","kemiripan":0.948,"segmen":5},{"src":"PX880855","dst":"PX914008","kemiripan":0.9479,"segmen":5},{"src":"PZ300121","dst":"PZ421875","kemiripan":0.9479,"segmen":5},{"src":"PX914008","dst":"PZ421875","kemiripan":0.9479,"segmen":5},{"src":"PX880855","dst":"PZ300121","kemiripan":0.9479,"segmen":5},{"src":"PV336405","dst":"PV336453","kemiripan":0.9479,"segmen":5},{"src":"PX817026","dst":"PX818261","kemiripan":0.9474,"segmen":5},{"src":"PV456025","dst":"PX818261","kemiripan":0.9474,"segmen":5},{"src":"PZ128350","dst":"PZ876530","kemiripan":0.9474,"segmen":5},{"src":"PX817026","dst":"PZ876722","kemiripan":0.9474,"segmen":5},{"src":"PV456025","dst":"PZ876722","kemiripan":0.9474,"segmen":5},{"src":"PV070718","dst":"PX813756","kemiripan":0.9474,"segmen":5},{"src":"PZ265173","dst":"PZ299721","kemiripan":0.9473,"segmen":5},{"src":"PX748568","dst":"PZ421875","kemiripan":0.9473,"segmen":5},{"src":"PV162168","dst":"PX813756","kemiripan":0.9473,"segmen":5},{"src":"PX824159","dst":"PZ175908","kemiripan":0.9473,"segmen":5},{"src":"PX748568","dst":"PZ009659","kemiripan":0.9473,"segmen":5},{"src":"PX824159","dst":"PX825991","kemiripan":0.9473,"segmen":5},{"src":"PX880855","dst":"PZ029407","kemiripan":0.9472,"segmen":5},{"src":"PX823110","dst":"PX824159","kemiripan":0.9467,"segmen":5},{"src":"PZ175908","dst":"PZ450366","kemiripan":0.9467,"segmen":5},{"src":"PX813756","dst":"PX818261","kemiripan":0.9467,"segmen":5},{"src":"PX813756","dst":"PZ876722","kemiripan":0.9467,"segmen":5},{"src":"PX823110","dst":"PZ450366","kemiripan":0.946,"segmen":5},{"src":"PZ175172","dst":"PZ265173","kemiripan":0.9441,"segmen":5},{"src":"PV070718","dst":"PV267641","kemiripan":0.9436,"segmen":5},{"src":"PZ733031","dst":"PZ876722","kemiripan":0.9435,"segmen":5},{"src":"PV162168","dst":"PV267641","kemiripan":0.9435,"segmen":5},{"src":"PX820293","dst":"PZ175908","kemiripan":0.9433,"segmen":5},{"src":"PX579563","dst":"PX820293","kemiripan":0.9432,"segmen":5},{"src":"PZ029407","dst":"PZ030855","kemiripan":0.9432,"segmen":5},{"src":"PV267641","dst":"PX818261","kemiripan":0.9429,"segmen":5},{"src":"PV070718","dst":"PZ733031","kemiripan":0.9429,"segmen":5},{"src":"PV162168","dst":"PX687014","kemiripan":0.9429,"segmen":5},{"src":"PV267641","dst":"PZ876722","kemiripan":0.9429,"segmen":5},{"src":"PV070718","dst":"PX687014","kemiripan":0.9429,"segmen":5},{"src":"PX914008","dst":"PZ175172","kemiripan":0.9428,"segmen":5},{"src":"PV162168","dst":"PZ733031","kemiripan":0.9428,"segmen":5},{"src":"PZ175172","dst":"PZ300121","kemiripan":0.9428,"segmen":5},{"src":"PX687014","dst":"PX818261","kemiripan":0.9423,"segmen":5},{"src":"PX687014","dst":"PZ876722","kemiripan":0.9423,"segmen":5},{"src":"PX818261","dst":"PZ733031","kemiripan":0.9422,"segmen":5},{"src":"PV070718","dst":"PX748568","kemiripan":0.9421,"segmen":5},{"src":"PZ175172","dst":"PZ300041","kemiripan":0.9421,"segmen":5},{"src":"PV162168","dst":"PX748568","kemiripan":0.942,"segmen":5},{"src":"PZ732879","dst":"PZ876354","kemiripan":0.942,"segmen":5},{"src":"PX748568","dst":"PX818261","kemiripan":0.9414,"segmen":5},{"src":"PX748568","dst":"PZ876722","kemiripan":0.9414,"segmen":5},{"src":"PX824159","dst":"PZ450366","kemiripan":0.9414,"segmen":5},{"src":"PX914024","dst":"PZ300481","kemiripan":0.941,"segmen":5},{"src":"PZ732823","dst":"PZ733031","kemiripan":0.9409,"segmen":5},{"src":"PZ032030","dst":"PZ479016","kemiripan":0.9408,"segmen":5},{"src":"PZ009371","dst":"PZ479016","kemiripan":0.9407,"segmen":5},{"src":"PZ732879","dst":"PZ877074","kemiripan":0.9407,"segmen":5},{"src":"PX820293","dst":"PX825991","kemiripan":0.9406,"segmen":5},{"src":"PX748568","dst":"PZ876354","kemiripan":0.9401,"segmen":5},{"src":"PV162360","dst":"PZ732879","kemiripan":0.9401,"segmen":5},{"src":"PZ031478","dst":"PZ732823","kemiripan":0.9401,"segmen":5},{"src":"PZ030855","dst":"PZ299545","kemiripan":0.94,"segmen":5},{"src":"PZ030855","dst":"PZ300121","kemiripan":0.94,"segmen":5},{"src":"PX914008","dst":"PZ030855","kemiripan":0.94,"segmen":5},{"src":"PX820293","dst":"PX823110","kemiripan":0.94,"segmen":5},{"src":"PV336405","dst":"PX687014","kemiripan":0.9397,"segmen":5},{"src":"PV456025","dst":"PX817026","kemiripan":0.9396,"segmen":5},{"src":"PV070718","dst":"PX812668","kemiripan":0.9395,"segmen":5},{"src":"PV162168","dst":"PX812668","kemiripan":0.9395,"segmen":5},{"src":"PX817026","dst":"PZ876354","kemiripan":0.9395,"segmen":5},{"src":"PX858354","dst":"PZ032030","kemiripan":0.9395,"segmen":5},{"src":"PV456025","dst":"PZ876354","kemiripan":0.9395,"segmen":5},{"src":"PV336405","dst":"PZ732879","kemiripan":0.9394,"segmen":5},{"src":"PX748568","dst":"PZ030855","kemiripan":0.9394,"segmen":5},{"src":"PZ265173","dst":"PZ478400","kemiripan":0.9394,"segmen":5},{"src":"PX858354","dst":"PZ009371","kemiripan":0.9394,"segmen":5},{"src":"PV162360","dst":"PX817026","kemiripan":0.9388,"segmen":5},{"src":"PV336453","dst":"PZ732823","kemiripan":0.9388,"segmen":5},{"src":"PX812668","dst":"PX818261","kemiripan":0.9388,"segmen":5},{"src":"PV070718","dst":"PZ265173","kemiripan":0.9388,"segmen":5},{"src":"PX813756","dst":"PZ876354","kemiripan":0.9388,"segmen":5},{"src":"PV162168","dst":"PZ265173","kemiripan":0.9388,"segmen":5},{"src":"PX812668","dst":"PZ876722","kemiripan":0.9388,"segmen":5},{"src":"PV162360","dst":"PV456025","kemiripan":0.9388,"segmen":5},{"src":"PX880855","dst":"PZ479016","kemiripan":0.9387,"segmen":5},{"src":"PZ421875","dst":"PZ479016","kemiripan":0.9387,"segmen":5},{"src":"PX818261","dst":"PZ265173","kemiripan":0.9382,"segmen":5},{"src":"PZ265173","dst":"PZ876722","kemiripan":0.9382,"segmen":5},{"src":"PZ032030","dst":"PZ299721","kemiripan":0.9382,"segmen":5},{"src":"PV336405","dst":"PX817026","kemiripan":0.9382,"segmen":5},{"src":"PV336405","dst":"PV456025","kemiripan":0.9382,"segmen":5},{"src":"PV162360","dst":"PX813756","kemiripan":0.9382,"segmen":5},{"src":"PV336453","dst":"PZ031478","kemiripan":0.9381,"segmen":5},{"src":"PZ265173","dst":"PZ299545","kemiripan":0.9381,"segmen":5},{"src":"PZ009371","dst":"PZ299721","kemiripan":0.9381,"segmen":5},{"src":"PV456025","dst":"PX813756","kemiripan":0.9376,"segmen":5},{"src":"PX858354","dst":"PX880855","kemiripan":0.9375,"segmen":5},{"src":"PV336405","dst":"PX813756","kemiripan":0.9375,"segmen":5},{"src":"PZ029407","dst":"PZ300121","kemiripan":0.9375,"segmen":5},{"src":"PX914008","dst":"PZ029407","kemiripan":0.9375,"segmen":5},{"src":"PX748568","dst":"PZ300121","kemiripan":0.9375,"segmen":5},{"src":"PX748568","dst":"PX914008","kemiripan":0.9375,"segmen":5},{"src":"PX858354","dst":"PZ421875","kemiripan":0.9375,"segmen":5},{"src":"PZ029407","dst":"PZ479016","kemiripan":0.9374,"segmen":5},{"src":"PV162168","dst":"PX914024","kemiripan":0.937,"segmen":5},{"src":"PV162168","dst":"PZ128350","kemiripan":0.9369,"segmen":5},{"src":"PV070718","dst":"PZ128350","kemiripan":0.9369,"segmen":5},{"src":"PX748568","dst":"PZ029407","kemiripan":0.9368,"segmen":5},{"src":"PZ128350","dst":"PZ876722","kemiripan":0.9362,"segmen":5},{"src":"PX818261","dst":"PZ128350","kemiripan":0.9362,"segmen":5},{"src":"PX880855","dst":"PZ299721","kemiripan":0.9361,"segmen":5},{"src":"PZ299721","dst":"PZ421875","kemiripan":0.9361,"segmen":5},{"src":"PV267641","dst":"PZ876354","kemiripan":0.9352,"segmen":5},{"src":"PV267641","dst":"PZ877074","kemiripan":0.9351,"segmen":5},{"src":"PX858354","dst":"PZ030855","kemiripan":0.9348,"segmen":5},{"src":"PX687014","dst":"PZ877074","kemiripan":0.9345,"segmen":5},{"src":"PV162360","dst":"PV267641","kemiripan":0.9345,"segmen":5},{"src":"PV336405","dst":"PZ733031","kemiripan":0.9344,"segmen":5},{"src":"PZ733031","dst":"PZ876354","kemiripan":0.9344,"segmen":5},{"src":"PZ733031","dst":"PZ877074","kemiripan":0.9343,"segmen":5},{"src":"PV162360","dst":"PX687014","kemiripan":0.9339,"segmen":5},{"src":"PV267641","dst":"PV336405","kemiripan":0.9339,"segmen":5},{"src":"PZ030855","dst":"PZ479016","kemiripan":0.9335,"segmen":5},{"src":"PX748568","dst":"PZ877074","kemiripan":0.9335,"segmen":5},{"src":"PX880855","dst":"PZ175172","kemiripan":0.9329,"segmen":5},{"src":"PV162360","dst":"PX748568","kemiripan":0.9329,"segmen":5},{"src":"PZ732823","dst":"PZ732879","kemiripan":0.9329,"segmen":5},{"src":"PZ175172","dst":"PZ421875","kemiripan":0.9329,"segmen":5},{"src":"PV336405","dst":"PX748568","kemiripan":0.9323,"segmen":5},{"src":"PV070718","dst":"PX579563","kemiripan":0.9316,"segmen":5},{"src":"PV162168","dst":"PX579563","kemiripan":0.9315,"segmen":5},{"src":"PX812668","dst":"PZ876354","kemiripan":0.9311,"segmen":5},{"src":"PV070718","dst":"PZ479016","kemiripan":0.931,"segmen":5},{"src":"PX812668","dst":"PZ877074","kemiripan":0.931,"segmen":5},{"src":"PZ128350","dst":"PZ877074","kemiripan":0.931,"segmen":5},{"src":"PV162168","dst":"PZ479016","kemiripan":0.931,"segmen":5},{"src":"PX579563","dst":"PX818261","kemiripan":0.9309,"segmen":5},{"src":"PX579563","dst":"PZ876722","kemiripan":0.9309,"segmen":5},{"src":"PV070718","dst":"PX914024","kemiripan":0.9305,"segmen":5},{"src":"PV162360","dst":"PX812668","kemiripan":0.9304,"segmen":5},{"src":"PZ265173","dst":"PZ876354","kemiripan":0.9304,"segmen":5},{"src":"PV162168","dst":"PX880855","kemiripan":0.9303,"segmen":5},{"src":"PX818261","dst":"PZ479016","kemiripan":0.9303,"segmen":5},{"src":"PZ265173","dst":"PZ877074","kemiripan":0.9303,"segmen":5},{"src":"PZ032030","dst":"PZ478400","kemiripan":0.9303,"segmen":5},{"src":"PZ479016","dst":"PZ876722","kemiripan":0.9303,"segmen":5},{"src":"PV070718","dst":"PX880855","kemiripan":0.9303,"segmen":5},{"src":"PZ009371","dst":"PZ478400","kemiripan":0.9302,"segmen":5},{"src":"PX820293","dst":"PX824159","kemiripan":0.9302,"segmen":5},{"src":"PX579563","dst":"PZ031478","kemiripan":0.9302,"segmen":5},{"src":"PX914024","dst":"PZ876722","kemiripan":0.9299,"segmen":5},{"src":"PX818261","dst":"PX914024","kemiripan":0.9299,"segmen":5},{"src":"PX873787","dst":"PZ479072","kemiripan":0.9299,"segmen":5},{"src":"PV070718","dst":"PZ032030","kemiripan":0.9298,"segmen":5},{"src":"PV162168","dst":"PZ032030","kemiripan":0.9298,"segmen":5},{"src":"PV070718","dst":"PX823110","kemiripan":0.9298,"segmen":5},{"src":"PZ032030","dst":"PZ300041","kemiripan":0.9298,"segmen":5},{"src":"PX818261","dst":"PX880855","kemiripan":0.9297,"segmen":5},{"src":"PV162168","dst":"PZ009371","kemiripan":0.9297,"segmen":5},{"src":"PV336405","dst":"PX812668","kemiripan":0.9297,"segmen":5},{"src":"PV162360","dst":"PZ265173","kemiripan":0.9297,"segmen":5},{"src":"PV162168","dst":"PX823110","kemiripan":0.9297,"segmen":5},{"src":"PV070718","dst":"PZ009371","kemiripan":0.9297,"segmen":5},{"src":"PX880855","dst":"PZ876722","kemiripan":0.9297,"segmen":5},{"src":"PZ029407","dst":"PZ478400","kemiripan":0.9296,"segmen":5},{"src":"PZ031478","dst":"PZ732879","kemiripan":0.9296,"segmen":5},{"src":"PX820293","dst":"PZ450366","kemiripan":0.9296,"segmen":5},{"src":"PV494086","dst":"PZ877074","kemiripan":0.9295,"segmen":5},{"src":"PV162168","dst":"PZ175908","kemiripan":0.9291,"segmen":5},{"src":"PX812668","dst":"PX813756","kemiripan":0.9291,"segmen":5},{"src":"PV070718","dst":"PX825991","kemiripan":0.9291,"segmen":5},{"src":"PX818261","dst":"PX823110","kemiripan":0.9291,"segmen":5},{"src":"PX823110","dst":"PZ876722","kemiripan":0.9291,"segmen":5},{"src":"PV456025","dst":"PZ732823","kemiripan":0.9291,"segmen":5},{"src":"PX818261","dst":"PZ032030","kemiripan":0.9291,"segmen":5},{"src":"PV070718","dst":"PZ175908","kemiripan":0.9291,"segmen":5},{"src":"PX817026","dst":"PZ732823","kemiripan":0.9291,"segmen":5},{"src":"PZ032030","dst":"PZ299545","kemiripan":0.9291,"segmen":5},{"src":"PZ032030","dst":"PZ876722","kemiripan":0.9291,"segmen":5},{"src":"PX818261","dst":"PZ009371","kemiripan":0.929,"segmen":5},{"src":"PV162168","dst":"PX825991","kemiripan":0.929,"segmen":5},{"src":"PV336405","dst":"PZ265173","kemiripan":0.929,"segmen":5},{"src":"PX914008","dst":"PZ479016","kemiripan":0.929,"segmen":5},{"src":"PZ299545","dst":"PZ479016","kemiripan":0.929,"segmen":5},{"src":"PZ300121","dst":"PZ479016","kemiripan":0.929,"segmen":5},{"src":"PZ009371","dst":"PZ876722","kemiripan":0.929,"segmen":5},{"src":"PZ009371","dst":"PZ299545","kemiripan":0.929,"segmen":5},{"src":"PX818261","dst":"PZ175908","kemiripan":0.9285,"segmen":5},{"src":"PX813756","dst":"PZ732823","kemiripan":0.9285,"segmen":5},{"src":"PZ128350","dst":"PZ876354","kemiripan":0.9285,"segmen":5},{"src":"PZ175908","dst":"PZ876722","kemiripan":0.9285,"segmen":5},{"src":"PX817026","dst":"PZ031478","kemiripan":0.9284,"segmen":5},{"src":"PX748568","dst":"PZ479016","kemiripan":0.9284,"segmen":5},{"src":"PV456025","dst":"PZ031478","kemiripan":0.9284,"segmen":5},{"src":"PX825991","dst":"PZ876722","kemiripan":0.9284,"segmen":5},{"src":"PV336453","dst":"PZ732879","kemiripan":0.9284,"segmen":5},{"src":"PZ009371","dst":"PZ300041","kemiripan":0.9284,"segmen":5},{"src":"PX818261","dst":"PX825991","kemiripan":0.9284,"segmen":5},{"src":"PX880855","dst":"PZ478400","kemiripan":0.9283,"segmen":5},{"src":"PZ421875","dst":"PZ478400","kemiripan":0.9283,"segmen":5},{"src":"PZ030855","dst":"PZ299721","kemiripan":0.9283,"segmen":5},{"src":"PZ128350","dst":"PZ175908","kemiripan":0.9279,"segmen":5},{"src":"PV070718","dst":"PZ421875","kemiripan":0.9278,"segmen":5},{"src":"PX858354","dst":"PZ300121","kemiripan":0.9278,"segmen":5},{"src":"PZ032030","dst":"PZ877074","kemiripan":0.9278,"segmen":5},{"src":"PX813756","dst":"PZ031478","kemiripan":0.9278,"segmen":5},{"src":"PX858354","dst":"PX914008","kemiripan":0.9278,"segmen":5},{"src":"PV162360","dst":"PZ128350","kemiripan":0.9278,"segmen":5},{"src":"PV162168","dst":"PZ421875","kemiripan":0.9277,"segmen":5},{"src":"PZ009371","dst":"PZ877074","kemiripan":0.9277,"segmen":5},{"src":"PV070718","dst":"PX750416","kemiripan":0.9272,"segmen":5},{"src":"PV162168","dst":"PX750416","kemiripan":0.9272,"segmen":5},{"src":"PV336453","dst":"PV456025","kemiripan":0.9272,"segmen":5},{"src":"PV336453","dst":"PX817026","kemiripan":0.9272,"segmen":5},{"src":"PX748568","dst":"PX858354","kemiripan":0.9271,"segmen":5},{"src":"PZ421875","dst":"PZ876722","kemiripan":0.9271,"segmen":5},{"src":"PV162360","dst":"PZ479016","kemiripan":0.9271,"segmen":5},{"src":"PX858354","dst":"PZ029407","kemiripan":0.9271,"segmen":5},{"src":"PV336405","dst":"PZ128350","kemiripan":0.9271,"segmen":5},{"src":"PZ009659","dst":"PZ265173","kemiripan":0.9271,"segmen":5},{"src":"PX818261","dst":"PZ421875","kemiripan":0.9271,"segmen":5},{"src":"PX748568","dst":"PZ299721","kemiripan":0.9271,"segmen":5},{"src":"PZ299545","dst":"PZ421875","kemiripan":0.927,"segmen":5},{"src":"PX880855","dst":"PZ299545","kemiripan":0.927,"segmen":5},{"src":"PX750416","dst":"PZ876722","kemiripan":0.9266,"segmen":5},{"src":"PX750416","dst":"PX818261","kemiripan":0.9266,"segmen":5},{"src":"PZ299721","dst":"PZ300121","kemiripan":0.9265,"segmen":5},{"src":"PV336453","dst":"PX813756","kemiripan":0.9265,"segmen":5},{"src":"PV070718","dst":"PZ029407","kemiripan":0.9265,"segmen":5},{"src":"PX914008","dst":"PZ299721","kemiripan":0.9265,"segmen":5},{"src":"PV162168","dst":"PZ029407","kemiripan":0.9264,"segmen":5},{"src":"PX818261","dst":"PZ029407","kemiripan":0.9258,"segmen":5},{"src":"PZ029407","dst":"PZ299545","kemiripan":0.9258,"segmen":5},{"src":"PZ029407","dst":"PZ299721","kemiripan":0.9258,"segmen":5},{"src":"PZ029407","dst":"PZ876722","kemiripan":0.9258,"segmen":5},{"src":"PX750416","dst":"PZ876354","kemiripan":0.9253,"segmen":5},{"src":"PZ030855","dst":"PZ175172","kemiripan":0.9251,"segmen":5},{"src":"PX914008","dst":"PZ478400","kemiripan":0.9251,"segmen":5},{"src":"PV267641","dst":"PZ732823","kemiripan":0.925,"segmen":5},{"src":"PX687014","dst":"PZ732823","kemiripan":0.9244,"segmen":5},{"src":"PV267641","dst":"PZ031478","kemiripan":0.9243,"segmen":5},{"src":"PX687014","dst":"PZ031478","kemiripan":0.9237,"segmen":5},{"src":"PZ265021","dst":"PZ265173","kemiripan":0.9236,"segmen":5},{"src":"PZ031478","dst":"PZ733031","kemiripan":0.9234,"segmen":5},{"src":"PX748568","dst":"PZ732823","kemiripan":0.9233,"segmen":5},{"src":"PX579563","dst":"PZ876354","kemiripan":0.9232,"segmen":5},{"src":"PZ175908","dst":"PZ877074","kemiripan":0.9232,"segmen":5},{"src":"PX579563","dst":"PZ877074","kemiripan":0.9231,"segmen":5},{"src":"PZ030855","dst":"PZ478400","kemiripan":0.9231,"segmen":5},{"src":"PV267641","dst":"PV336453","kemiripan":0.9231,"segmen":5},{"src":"PX748568","dst":"PZ175172","kemiripan":0.9227,"segmen":5},{"src":"PZ029407","dst":"PZ175172","kemiripan":0.9226,"segmen":5},{"src":"PV070718","dst":"PV494086","kemiripan":0.9226,"segmen":5},{"src":"PZ479016","dst":"PZ876354","kemiripan":0.9226,"segmen":5},{"src":"PX748568","dst":"PZ031478","kemiripan":0.9226,"segmen":5},{"src":"PV336453","dst":"PX687014","kemiripan":0.9225,"segmen":5},{"src":"PZ479016","dst":"PZ877074","kemiripan":0.9225,"segmen":5},{"src":"PV162168","dst":"PV494086","kemiripan":0.9225,"segmen":5},{"src":"PV162360","dst":"PX579563","kemiripan":0.9225,"segmen":5},{"src":"PX914024","dst":"PZ876354","kemiripan":0.9222,"segmen":5},{"src":"PV338221","dst":"PZ876722","kemiripan":0.9222,"segmen":5},{"src":"PV336453","dst":"PZ733031","kemiripan":0.9222,"segmen":5},{"src":"PX914024","dst":"PZ877074","kemiripan":0.9221,"segmen":5},{"src":"PX880855","dst":"PZ876354","kemiripan":0.9219,"segmen":5},{"src":"PV494086","dst":"PZ876722","kemiripan":0.9219,"segmen":5},{"src":"PV494086","dst":"PX818261","kemiripan":0.9219,"segmen":5},{"src":"PV336405","dst":"PX579563","kemiripan":0.9218,"segmen":5},{"src":"PX880855","dst":"PZ877074","kemiripan":0.9218,"segmen":5},{"src":"PV162168","dst":"PV338221","kemiripan":0.9215,"segmen":5},{"src":"PV162360","dst":"PX914024","kemiripan":0.9215,"segmen":5},{"src":"PV070718","dst":"PV338221","kemiripan":0.9215,"segmen":5},{"src":"PX823110","dst":"PZ876354","kemiripan":0.9214,"segmen":5},{"src":"PZ032030","dst":"PZ876354","kemiripan":0.9214,"segmen":5},{"src":"PX579563","dst":"PX813756","kemiripan":0.9213,"segmen":5},{"src":"PV162360","dst":"PX880855","kemiripan":0.9213,"segmen":5},{"src":"PX823110","dst":"PZ877074","kemiripan":0.9213,"segmen":5},{"src":"PV336453","dst":"PX748568","kemiripan":0.9213,"segmen":5},{"src":"PV336405","dst":"PZ479016","kemiripan":0.9213,"segmen":5},{"src":"PX750416","dst":"PZ877074","kemiripan":0.9213,"segmen":5},{"src":"PZ009371","dst":"PZ876354","kemiripan":0.9213,"segmen":5},{"src":"PX812668","dst":"PZ031478","kemiripan":0.9213,"segmen":5},{"src":"PZ300481","dst":"PZ479072","kemiripan":0.921,"segmen":5},{"src":"PV338221","dst":"PX818261","kemiripan":0.9209,"segmen":5},{"src":"PV336405","dst":"PX914024","kemiripan":0.9208,"segmen":5},{"src":"PX812668","dst":"PZ732823","kemiripan":0.9208,"segmen":5},{"src":"PV162360","dst":"PZ032030","kemiripan":0.9208,"segmen":5},{"src":"PZ175908","dst":"PZ876354","kemiripan":0.9208,"segmen":5},{"src":"PV162360","dst":"PZ009371","kemiripan":0.9207,"segmen":5},{"src":"PX825991","dst":"PZ876354","kemiripan":0.9207,"segmen":5},{"src":"PV162360","dst":"PX823110","kemiripan":0.9207,"segmen":5},{"src":"PX825991","dst":"PZ877074","kemiripan":0.9206,"segmen":5},{"src":"PV336405","dst":"PX880855","kemiripan":0.9206,"segmen":5},{"src":"PX880855","dst":"PZ732879","kemiripan":0.9206,"segmen":5},{"src":"PV336405","dst":"PZ032030","kemiripan":0.9201,"segmen":5},{"src":"PV162360","dst":"PZ175908","kemiripan":0.9201,"segmen":5},{"src":"PV162360","dst":"PX825991","kemiripan":0.9201,"segmen":5},{"src":"PV336405","dst":"PX823110","kemiripan":0.9201,"segmen":5},{"src":"PZ265173","dst":"PZ732823","kemiripan":0.9201,"segmen":5},{"src":"PV336405","dst":"PZ009371","kemiripan":0.92,"segmen":5},{"src":"PV070718","dst":"PZ030855","kemiripan":0.92,"segmen":5},{"src":"PV162168","dst":"PZ030855","kemiripan":0.9199,"segmen":5},{"src":"PX813756","dst":"PX823110","kemiripan":0.9195,"segmen":5},{"src":"PZ421875","dst":"PZ876354","kemiripan":0.9194,"segmen":5},{"src":"PZ031478","dst":"PZ265173","kemiripan":0.9194,"segmen":5},{"src":"PV336405","dst":"PZ175908","kemiripan":0.9194,"segmen":5},{"src":"PV336405","dst":"PX825991","kemiripan":0.9194,"segmen":5},{"src":"PV162360","dst":"PZ299721","kemiripan":0.9194,"segmen":5},{"src":"PX825991","dst":"PZ732879","kemiripan":0.9194,"segmen":5},{"src":"PZ030855","dst":"PZ876722","kemiripan":0.9193,"segmen":5},{"src":"PX818261","dst":"PZ030855","kemiripan":0.9193,"segmen":5},{"src":"PX748568","dst":"PZ478400","kemiripan":0.9193,"segmen":5},{"src":"PZ421875","dst":"PZ877074","kemiripan":0.9193,"segmen":5},{"src":"PX820293","dst":"PZ877074","kemiripan":0.9192,"segmen":5},{"src":"PX813756","dst":"PZ175908","kemiripan":0.9189,"segmen":5},{"src":"PV162168","dst":"PX824159","kemiripan":0.9188,"segmen":5},{"src":"PX817026","dst":"PZ732879","kemiripan":0.9188,"segmen":5},{"src":"PV070718","dst":"PX824159","kemiripan":0.9188,"segmen":5},{"src":"PV456025","dst":"PZ732879","kemiripan":0.9188,"segmen":5},{"src":"PX858354","dst":"PZ479016","kemiripan":0.9188,"segmen":5},{"src":"PV336453","dst":"PZ128350","kemiripan":0.9188,"segmen":5},{"src":"PV336453","dst":"PX812668","kemiripan":0.9188,"segmen":5},{"src":"PX813756","dst":"PX825991","kemiripan":0.9188,"segmen":5},{"src":"PZ300121","dst":"PZ478400","kemiripan":0.9187,"segmen":5},{"src":"PX880855","dst":"PZ009659","kemiripan":0.9187,"segmen":5},{"src":"PV162360","dst":"PZ421875","kemiripan":0.9187,"segmen":5},{"src":"PX813756","dst":"PZ732879","kemiripan":0.9182,"segmen":5},{"src":"PZ128350","dst":"PZ732823","kemiripan":0.9182,"segmen":5},{"src":"PX818261","dst":"PX824159","kemiripan":0.9182,"segmen":5},{"src":"PV162168","dst":"PZ300121","kemiripan":0.9182,"segmen":5},{"src":"PV336453","dst":"PZ265173","kemiripan":0.9182,"segmen":5},{"src":"PZ265173","dst":"PZ300041","kemiripan":0.9182,"segmen":5},{"src":"PV070718","dst":"PZ450366","kemiripan":0.9182,"segmen":5},{"src":"PX824159","dst":"PZ876722","kemiripan":0.9182,"segmen":5},{"src":"PX812668","dst":"PZ265173","kemiripan":0.9182,"segmen":5},{"src":"PX914008","dst":"PZ300041","kemiripan":0.9182,"segmen":5},{"src":"PV162360","dst":"PX750416","kemiripan":0.9182,"segmen":5},{"src":"PV070718","dst":"PZ299545","kemiripan":0.9182,"segmen":5},{"src":"PV070718","dst":"PZ300121","kemiripan":0.9182,"segmen":5},{"src":"PV162168","dst":"PZ450366","kemiripan":0.9182,"segmen":5},{"src":"PV070718","dst":"PX914008","kemiripan":0.9182,"segmen":5},{"src":"PZ009659","dst":"PZ032030","kemiripan":0.9182,"segmen":5},{"src":"PV162168","dst":"PX914008","kemiripan":0.9182,"segmen":5},{"src":"PV162168","dst":"PZ299545","kemiripan":0.9181,"segmen":5},{"src":"PV336405","dst":"PZ421875","kemiripan":0.9181,"segmen":5},{"src":"PZ009371","dst":"PZ009659","kemiripan":0.9181,"segmen":5},{"src":"PX748568","dst":"PZ299545","kemiripan":0.9181,"segmen":5},{"src":"PZ029407","dst":"PZ876354","kemiripan":0.9181,"segmen":5},{"src":"PZ029407","dst":"PZ877074","kemiripan":0.918,"segmen":5},{"src":"PV336405","dst":"PX750416","kemiripan":0.9176,"segmen":5},{"src":"PX818261","dst":"PZ300121","kemiripan":0.9176,"segmen":5},{"src":"PZ300121","dst":"PZ876722","kemiripan":0.9176,"segmen":5},{"src":"PZ450366","dst":"PZ876722","kemiripan":0.9176,"segmen":5},{"src":"PX818261","dst":"PX914008","kemiripan":0.9176,"segmen":5},{"src":"PX914008","dst":"PZ876722","kemiripan":0.9176,"segmen":5},{"src":"PX818261","dst":"PZ450366","kemiripan":0.9176,"segmen":5},{"src":"PZ299545","dst":"PZ300121","kemiripan":0.9175,"segmen":5},{"src":"PX914008","dst":"PZ299545","kemiripan":0.9175,"segmen":5},{"src":"PZ299545","dst":"PZ876722","kemiripan":0.9175,"segmen":5},{"src":"PZ031478","dst":"PZ128350","kemiripan":0.9175,"segmen":5},{"src":"PZ479016","dst":"PZ732823","kemiripan":0.9175,"segmen":5},{"src":"PX818261","dst":"PZ299545","kemiripan":0.9175,"segmen":5},{"src":"PZ299721","dst":"PZ479016","kemiripan":0.9174,"segmen":5},{"src":"PV162360","dst":"PZ029407","kemiripan":0.9174,"segmen":5},{"src":"PZ030855","dst":"PZ031478","kemiripan":0.9173,"segmen":5},{"src":"PV162168","dst":"PZ479072","kemiripan":0.917,"segmen":5},{"src":"PZ300041","dst":"PZ300121","kemiripan":0.9169,"segmen":5},{"src":"PV336405","dst":"PZ029407","kemiripan":0.9168,"segmen":5},{"src":"PZ300121","dst":"PZ877074","kemiripan":0.9162,"segmen":5},{"src":"PV070718","dst":"PZ009659","kemiripan":0.9162,"segmen":5},{"src":"PX914008","dst":"PZ877074","kemiripan":0.9162,"segmen":5},{"src":"PV162168","dst":"PZ009659","kemiripan":0.9162,"segmen":5},{"src":"PX858354","dst":"PZ299721","kemiripan":0.9162,"segmen":5},{"src":"PZ009659","dst":"PZ421875","kemiripan":0.9161,"segmen":5},{"src":"PV456025","dst":"PZ128350","kemiripan":0.9157,"segmen":5},{"src":"PZ009659","dst":"PZ876722","kemiripan":0.9156,"segmen":5},{"src":"PX818261","dst":"PZ009659","kemiripan":0.9156,"segmen":5},{"src":"PX687014","dst":"PZ732879","kemiripan":0.9155,"segmen":5},{"src":"PV267641","dst":"PZ732879","kemiripan":0.9149,"segmen":5},{"src":"PZ032030","dst":"PZ265021","kemiripan":0.9147,"segmen":5},{"src":"PZ009371","dst":"PZ265021","kemiripan":0.9146,"segmen":5},{"src":"PZ175172","dst":"PZ479016","kemiripan":0.9143,"segmen":5},{"src":"PZ029407","dst":"PZ732823","kemiripan":0.9143,"segmen":5}]},"sentralitas":[{"id":"S_7_MW961477","skor":0.04764503847096156,"derajat":6,"segmen":"7"},{"id":"S_8_OK022587","skor":0.03971229848891888,"derajat":5,"segmen":"8"},{"id":"S_3_CY019832","skor":0.037116983780744385,"derajat":11,"segmen":"3"},{"id":"S_2_AB704436","skor":0.034389561148726724,"derajat":10,"segmen":"2"},{"id":"S_7_CY002225","skor":0.03421393677985734,"derajat":10,"segmen":"7"},{"id":"S_7_AB914511","skor":0.03402340208839258,"derajat":10,"segmen":"7"},{"id":"S_2_CY009938","skor":0.030925607181783565,"derajat":9,"segmen":"2"},{"id":"S_8_CY211062","skor":0.028811087776506296,"derajat":8,"segmen":"8"},{"id":"S_6_AB649900","skor":0.028326424922406997,"derajat":8,"segmen":"6"},{"id":"S_6_AB271710","skor":0.026046998624045102,"derajat":8,"segmen":"6"},{"id":"S_5_CY002909","skor":0.026046998624045102,"derajat":8,"segmen":"5"},{"id":"S_2_LC774735","skor":0.025126819949100775,"derajat":3,"segmen":"2"},{"id":"S_1_OP644967","skor":0.02494179903501284,"derajat":7,"segmen":"1"},{"id":"S_3_CY211129","skor":0.024466437795345894,"derajat":7,"segmen":"3"},{"id":"S_8_OP590753","skor":0.020440388126991244,"derajat":6,"segmen":"8"},{"id":"S_8_AB704466","skor":0.019685618701283672,"derajat":5,"segmen":"8"},{"id":"S_3_OP269999","skor":0.019088906178151777,"derajat":2,"segmen":"3"},{"id":"S_2_FJ577516","skor":0.018867924528301886,"derajat":1,"segmen":"2"},{"id":"S_7_AB478036","skor":0.018867924528301886,"derajat":1,"segmen":"7"},{"id":"S_3_CY098609","skor":0.018867924528301886,"derajat":1,"segmen":"3"},{"id":"S_3_CY003013","skor":0.018867924528301886,"derajat":1,"segmen":"3"},{"id":"S_7_FJ577511","skor":0.018867924528301886,"derajat":1,"segmen":"7"},{"id":"S_2_CY039485","skor":0.018867924528301886,"derajat":1,"segmen":"2"},{"id":"S_7_AB285943","skor":0.018867924528301886,"derajat":1,"segmen":"7"},{"id":"S_5_OP270013","skor":0.018867924528301886,"derajat":1,"segmen":"5"},{"id":"S_8_CY003012","skor":0.018867924528301886,"derajat":1,"segmen":"8"},{"id":"S_1_OP470803","skor":0.018867924528301886,"derajat":1,"segmen":"1"},{"id":"S_5_OQ231656","skor":0.018440508579573793,"derajat":5,"segmen":"5"},{"id":"S_1_OR627046","skor":0.017805986817785672,"derajat":5,"segmen":"1"},{"id":"S_1_CY211071","skor":0.01779166438242106,"derajat":5,"segmen":"1"}],"sentralitas_n":53,"sentral_derajat":[{"derajat":1,"count":22},{"derajat":2,"count":3},{"derajat":3,"count":4},{"derajat":4,"count":3},{"derajat":5,"count":8},{"derajat":6,"count":2},{"derajat":7,"count":2},{"derajat":8,"count":4},{"derajat":9,"count":1},{"derajat":10,"count":3},{"derajat":11,"count":1}],"geo_sentral":[{"id":"France","skor":0.03277608973788201},{"id":"Germany","skor":0.032771394435561874},{"id":"New Zealand","skor":0.02642389440574766},{"id":"South Korea","skor":0.024884635348939442},{"id":"Chile","skor":0.02454821878444926},{"id":"Russia","skor":0.024258405618064843},{"id":"Kenya","skor":0.02407070150678059},{"id":"Italy","skor":0.022110351768160223},{"id":"Japan","skor":0.02108902486184876},{"id":"Switzerland","skor":0.020656533826348453},{"id":"China","skor":0.019846935143829982},{"id":"Canada","skor":0.019813200223041928},{"id":"United Kingdom","skor":0.018808188016416552},{"id":"Turkey","skor":0.018512597411422096},{"id":"South Africa","skor":0.01809563973670705},{"id":"Nicaragua","skor":0.01803461202460996},{"id":"Colombia","skor":0.018017594843424835},{"id":"USA","skor":0.01707028212177384},{"id":"Brazil","skor":0.016915082813424975},{"id":"Denmark","skor":0.016604653911209633},{"id":"Singapore","skor":0.01659986379137265},{"id":"Spain","skor":0.016598819513813524},{"id":"Mexico","skor":0.016534538603819145},{"id":"Australia","skor":0.016500415265502406},{"id":"India","skor":0.01617039656202121}],"geo_tepi":[{"src":"USA","dst":"Canada","lineage_bersama":77,"jeda_tahun":1.82},{"src":"Canada","dst":"USA","lineage_bersama":55,"jeda_tahun":0.31},{"src":"USA","dst":"United Kingdom","lineage_bersama":38,"jeda_tahun":3.34},{"src":"USA","dst":"Chile","lineage_bersama":36,"jeda_tahun":3.36},{"src":"USA","dst":"New Zealand","lineage_bersama":35,"jeda_tahun":1.63},{"src":"USA","dst":"Australia","lineage_bersama":35,"jeda_tahun":1.26},{"src":"USA","dst":"Japan","lineage_bersama":33,"jeda_tahun":3.48},{"src":"USA","dst":"Mexico","lineage_bersama":31,"jeda_tahun":1.61},{"src":"USA","dst":"Nicaragua","lineage_bersama":30,"jeda_tahun":2.3},{"src":"USA","dst":"China","lineage_bersama":30,"jeda_tahun":2.33},{"src":"New Zealand","dst":"USA","lineage_bersama":30,"jeda_tahun":0.73},{"src":"Australia","dst":"USA","lineage_bersama":29,"jeda_tahun":0.41},{"src":"USA","dst":"South Korea","lineage_bersama":26,"jeda_tahun":4.0},{"src":"USA","dst":"Germany","lineage_bersama":25,"jeda_tahun":5.2},{"src":"USA","dst":"Taiwan","lineage_bersama":25,"jeda_tahun":1.04},{"src":"USA","dst":"France","lineage_bersama":24,"jeda_tahun":6.21},{"src":"USA","dst":"Switzerland","lineage_bersama":24,"jeda_tahun":6.88},{"src":"USA","dst":"Malaysia","lineage_bersama":24,"jeda_tahun":2.92},{"src":"China","dst":"Japan","lineage_bersama":24,"jeda_tahun":3.58},{"src":"China","dst":"France","lineage_bersama":23,"jeda_tahun":5.09},{"src":"USA","dst":"Hong Kong","lineage_bersama":23,"jeda_tahun":1.0},{"src":"USA","dst":"Peru","lineage_bersama":23,"jeda_tahun":2.83},{"src":"United Kingdom","dst":"France","lineage_bersama":22,"jeda_tahun":2.14},{"src":"USA","dst":"Russia","lineage_bersama":22,"jeda_tahun":3.45},{"src":"USA","dst":"Thailand","lineage_bersama":22,"jeda_tahun":2.55},{"src":"Mexico","dst":"United Kingdom","lineage_bersama":22,"jeda_tahun":2.91},{"src":"United Kingdom","dst":"USA","lineage_bersama":22,"jeda_tahun":0.27},{"src":"China","dst":"USA","lineage_bersama":22,"jeda_tahun":0.82},{"src":"USA","dst":"Kenya","lineage_bersama":21,"jeda_tahun":6.0},{"src":"New Zealand","dst":"Australia","lineage_bersama":21,"jeda_tahun":1.52},{"src":"Mexico","dst":"Chile","lineage_bersama":21,"jeda_tahun":4.0},{"src":"USA","dst":"Brazil","lineage_bersama":21,"jeda_tahun":2.71},{"src":"Mexico","dst":"France","lineage_bersama":20,"jeda_tahun":5.1},{"src":"Mexico","dst":"Nicaragua","lineage_bersama":20,"jeda_tahun":1.75},{"src":"China","dst":"South Korea","lineage_bersama":20,"jeda_tahun":3.5},{"src":"Australia","dst":"New Zealand","lineage_bersama":20,"jeda_tahun":1.85},{"src":"Australia","dst":"Japan","lineage_bersama":20,"jeda_tahun":3.75},{"src":"China","dst":"Germany","lineage_bersama":20,"jeda_tahun":4.3},{"src":"United Kingdom","dst":"Mexico","lineage_bersama":19,"jeda_tahun":0.21},{"src":"Taiwan","dst":"Japan","lineage_bersama":19,"jeda_tahun":4.26},{"src":"USA","dst":"Italy","lineage_bersama":19,"jeda_tahun":4.74},{"src":"USA","dst":"Singapore","lineage_bersama":19,"jeda_tahun":1.95},{"src":"China","dst":"Russia","lineage_bersama":18,"jeda_tahun":3.72},{"src":"New Zealand","dst":"United Kingdom","lineage_bersama":18,"jeda_tahun":6.0},{"src":"Mexico","dst":"USA","lineage_bersama":18,"jeda_tahun":0.06},{"src":"Mexico","dst":"Canada","lineage_bersama":18,"jeda_tahun":3.11},{"src":"China","dst":"United Kingdom","lineage_bersama":18,"jeda_tahun":4.61},{"src":"Hong Kong","dst":"USA","lineage_bersama":18,"jeda_tahun":0.22},{"src":"China","dst":"Chile","lineage_bersama":18,"jeda_tahun":3.61},{"src":"Nicaragua","dst":"France","lineage_bersama":18,"jeda_tahun":4.83},{"src":"Australia","dst":"United Kingdom","lineage_bersama":18,"jeda_tahun":4.5},{"src":"China","dst":"Italy","lineage_bersama":17,"jeda_tahun":3.35},{"src":"Mexico","dst":"Russia","lineage_bersama":17,"jeda_tahun":2.71},{"src":"China","dst":"Thailand","lineage_bersama":17,"jeda_tahun":2.47},{"src":"Taiwan","dst":"South Korea","lineage_bersama":17,"jeda_tahun":3.76},{"src":"Mexico","dst":"China","lineage_bersama":17,"jeda_tahun":2.0},{"src":"Thailand","dst":"Germany","lineage_bersama":17,"jeda_tahun":4.94},{"src":"New Zealand","dst":"Japan","lineage_bersama":17,"jeda_tahun":6.24},{"src":"Thailand","dst":"Japan","lineage_bersama":17,"jeda_tahun":4.29},{"src":"Canada","dst":"Chile","lineage_bersama":17,"jeda_tahun":2.59}],"geo_tepi_n":1424,"kandidat_silang_graf":[{"lineage_id":"S_4_MH597340","galur":"A/sanderling/Delaware/650623/2002","segmen":4,"skor":null,"derajat":null},{"lineage_id":"S_5_KM029744","galur":"A/swine/Guangdong/NS2883/2012","segmen":5,"skor":null,"derajat":null},{"lineage_id":"S_8_CY211062","galur":"A/New Zealand/18CF1401/2018","segmen":8,"skor":0.028811087776506296,"derajat":8},{"lineage_id":"S_8_CY211062","galur":"A/Michigan/UM-10068483945/2025","segmen":8,"skor":0.028811087776506296,"derajat":8},{"lineage_id":"S_7_MW171027","galur":"A/swine/Italy/410546/2018","segmen":7,"skor":null,"derajat":null},{"lineage_id":"S_5_MT860784","galur":"A/swine/North Carolina/A02525225/2021","segmen":5,"skor":null,"derajat":null},{"lineage_id":"S_4_MW466162","galur":"A/duck/Bangladesh/44478/2020","segmen":4,"skor":null,"derajat":null},{"lineage_id":"S_5_MT860784","galur":"A/swine/Iowa/A02862022/2023","segmen":5,"skor":null,"derajat":null},{"lineage_id":"S_2_AB704436","galur":"A/Spain/8833/2019","segmen":2,"skor":0.034389561148726724,"derajat":10},{"lineage_id":"S_2_AB704436","galur":"A/Texas/7788/2018","segmen":2,"skor":0.034389561148726724,"derajat":10},{"lineage_id":"S_2_AB704436","galur":"A/Brisbane/144/2017","segmen":2,"skor":0.034389561148726724,"derajat":10},{"lineage_id":"S_7_CY079132","galur":"A/American green-winged teal/Interior Alaska/10BM06728R0/2010","segmen":7,"skor":null,"derajat":null},{"lineage_id":"S_5_JQ350558","galur":"A/swine/Indiana/A01049349/2010","segmen":5,"skor":null,"derajat":null},{"lineage_id":"S_8_MZ089181","galur":"A/swine/France/56-200313/2020","segmen":8,"skor":null,"derajat":null},{"lineage_id":"S_1_PV979211","galur":"A/mallard duck/Ohio/24OS0828/2024","segmen":1,"skor":null,"derajat":null},{"lineage_id":"S_1_OQ292650","galur":"A/chicken/Jiangxi/8591/2022","segmen":1,"skor":null,"derajat":null},{"lineage_id":"S_1_KY364149","galur":"A/swine/France/22-160150/2016","segmen":1,"skor":null,"derajat":null},{"lineage_id":"S_8_KF178667","galur":"A/Changsha/72/2017","segmen":8,"skor":null,"derajat":null},{"lineage_id":"S_7_MT666899","galur":"A/swine/Denmark/2015_20566_1p1/2015","segmen":7,"skor":null,"derajat":null},{"lineage_id":"S_8_OP590753","galur":"A/Multnomah County/OR-S25534/2024","segmen":8,"skor":0.020440388126991244,"derajat":6},{"lineage_id":"S_1_CY211071","galur":"A/Texas/7784/2018","segmen":1,"skor":0.01779166438242106,"derajat":5},{"lineage_id":"S_2_LC774735","galur":"A/Snow Goose/MO/25G06604-033-original/2025","segmen":2,"skor":0.025126819949100775,"derajat":3},{"lineage_id":"S_3_AB539738","galur":"A/swine/Minnesota/239105/2009","segmen":3,"skor":0.009620405572517898,"derajat":2},{"lineage_id":"S_3_AB539738","galur":"A/swine/Thailand/CU-CG45/2011","segmen":3,"skor":0.009620405572517898,"derajat":2},{"lineage_id":"S_3_AB539738","galur":"A/swine/Korea/CY03-13/2012","segmen":3,"skor":0.009620405572517898,"derajat":2},{"lineage_id":"S_1_KU752399","galur":"A/swine/Iowa/A02016896/2018","segmen":1,"skor":null,"derajat":null},{"lineage_id":"S_7_KY551366","galur":"A/Green-winged Teal/AK/25-025567-002-original/2025","segmen":7,"skor":null,"derajat":null},{"lineage_id":"S_1_CY045700","galur":"A/swine/Oklahoma/SG1325/2009","segmen":1,"skor":null,"derajat":null},{"lineage_id":"S_5_CY046310","galur":"A/swine/Iowa/A01202048/2011","segmen":5,"skor":0.012078198754980458,"derajat":3},{"lineage_id":"S_2_CY146922","galur":"A/chicken/Jiangsu/JT119/2015","segmen":2,"skor":null,"derajat":null}],"kandidat_silang_graf_n":61};
+const SEG = {1:"PB2",2:"PB1",3:"PA",4:"HA",5:"NP",6:"NA",7:"M",8:"NS"};
+const DC = ["--d1","--d2","--d3","--d4","--d5","--d6","--d7","--d8"];
+const NS = "http://www.w3.org/2000/svg";
+
+const nf = new Intl.NumberFormat("en-US");
+const f = n => (n===null||n===undefined||isNaN(n)) ? "&ndash;" : nf.format(n);
+const f1 = n => nf.format(Math.round(n*10)/10);
+const f2 = n => nf.format(Math.round(n*100)/100);
+const pct = (a,b) => f2(100*a/b)+"%";
+
+const esc = s => String(s===null||s===undefined?"":s)
+  .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+  .replace(/"/g,"&quot;");
+
+function mk(n,a){const e=document.createElementNS(NS,n);
+  for(const k in a) e.setAttribute(k,a[k]); return e;}
+function frame(w,h){const s=document.createElementNS(NS,"svg");
+  s.setAttribute("viewBox","0 0 "+w+" "+h);
+  s.setAttribute("preserveAspectRatio","xMidYMid meet");
+  s.setAttribute("class","ch"); s.setAttribute("role","img"); return s;}
+function txt(s,x,y,c,anc){const t=mk("text",{x:x,y:y,class:c||"tk"});
+  if(anc) t.setAttribute("text-anchor",anc); t.textContent=s; return t;}
+function nice(mx){
+  if(mx<=0) return 1; const p=Math.pow(10,Math.floor(Math.log10(mx)));
+  const r=mx/p; const m=r<=1?1:r<=2?2:r<=2.5?2.5:r<=5?5:10; return m*p;}
+
+function chLine(host,pts,o){
+  o=o||{}; const W=760,H=o.h||250,L=56,R=14,T=14,B=32;
+  const s=frame(W,H);
+  const xs=pts.map(p=>p[0]), ys=pts.map(p=>p[1]);
+  const x0=Math.min(...xs), x1=Math.max(...xs);
+  const y1=nice(Math.max(...ys)), y0=0;
+  const X=v=>L+(W-L-R)*((v-x0)/((x1-x0)||1));
+  const Y=v=>H-B-(H-T-B)*((v-y0)/((y1-y0)||1));
+  for(let i=0;i<=4;i++){const v=y0+(y1-y0)*i/4, y=Y(v);
+    s.appendChild(mk("line",{x1:L,x2:W-R,y1:y,y2:y,class:"grid"}));
+    s.appendChild(txt(o.yf?o.yf(v):f(v),L-7,y+3.4,"tk","end"));}
+  s.appendChild(mk("line",{x1:L,x2:W-R,y1:H-B,y2:H-B,class:"axis"}));
+  const step=Math.max(1,Math.ceil(pts.length/7));
+  pts.forEach((p,i)=>{ if(i%step && i!==pts.length-1) return;
+    s.appendChild(txt(p[0],X(p[0]),H-B+15,"tk","middle"));});
+  let d="",a="M"+X(x0)+" "+(H-B);
+  pts.forEach((p,i)=>{d+=(i?" L":"M")+X(p[0])+" "+Y(p[1]);
+    a+=" L"+X(p[0])+" "+Y(p[1]);});
+  a+=" L"+X(x1)+" "+(H-B)+" Z";
+  if(o.area!==false) s.appendChild(mk("path",{d:a,class:"ar"}));
+  s.appendChild(mk("path",{d:d,class:"ln"}));
+  const lp=pts[pts.length-1];
+  s.appendChild(mk("circle",{cx:X(lp[0]),cy:Y(lp[1]),r:3.4,class:"dot"}));
+  s.appendChild(txt((o.ef?o.ef(lp[1]):f(lp[1])),X(lp[0])-6,Y(lp[1])-9,"lb","end"));
+  host.appendChild(s);
+}
+
+function chVBar(host,pts,o){
+  o=o||{}; const W=760,H=o.h||220,L=52,R=12,T=14,B=32;
+  const s=frame(W,H);
+  const y1=nice(Math.max(...pts.map(p=>p[1])));
+  const bw=(W-L-R)/pts.length;
+  const Y=v=>H-B-(H-T-B)*(v/(y1||1));
+  for(let i=0;i<=4;i++){const v=y1*i/4,y=Y(v);
+    s.appendChild(mk("line",{x1:L,x2:W-R,y1:y,y2:y,class:"grid"}));
+    s.appendChild(txt(o.yf?o.yf(v):f(v),L-7,y+3.4,"tk","end"));}
+  s.appendChild(mk("line",{x1:L,x2:W-R,y1:H-B,y2:H-B,class:"axis"}));
+  pts.forEach((p,i)=>{
+    const x=L+i*bw, h=Math.max(1,(H-B)-Y(p[1]));
+    const rc=mk("rect",{x:x+bw*0.14,y:Y(p[1]),width:bw*0.72,height:h,
+      class:"vb"});
+    s.appendChild(rc);
+    bindTip(rc,'<span class="tl">'+(o.judul||"value")+"</span>"+esc(p[0])+
+      ": <b>"+(o.tf?o.tf(p[1]):f(p[1]))+"</b>");
+    if(pts.length<=16 || i%2===0)
+      s.appendChild(txt(p[0],x+bw/2,H-B+15,"tk","middle"));});
+  host.appendChild(s);
+}
+
+function chStack(host,rows,keys,o){
+  o=o||{}; const W=760,H=o.h||265,L=56,R=14,T=14,B=42;
+  const s=frame(W,H);
+  const xs=[...new Set(rows.map(r=>r.x))].sort((a,b)=>a-b);
+  const m={}; xs.forEach(x=>m[x]={});
+  rows.forEach(r=>{m[r.x][r.k]=(m[r.x][r.k]||0)+r.v;});
+  const tot=xs.map(x=>keys.reduce((a,k)=>a+(m[x][k]||0),0));
+  const y1=nice(Math.max(...tot));
+  const X=v=>L+(W-L-R)*((v-xs[0])/((xs[xs.length-1]-xs[0])||1));
+  const Y=v=>H-B-(H-T-B)*(v/(y1||1));
+  for(let i=0;i<=4;i++){const v=y1*i/4,y=Y(v);
+    s.appendChild(mk("line",{x1:L,x2:W-R,y1:y,y2:y,class:"grid"}));
+    s.appendChild(txt(o.yf?o.yf(v):f(v),L-7,y+3.4,"tk","end"));}
+  s.appendChild(mk("line",{x1:L,x2:W-R,y1:H-B,y2:H-B,class:"axis"}));
+  const base={}; xs.forEach(x=>base[x]=0);
+  keys.forEach((k,ki)=>{
+    let up="",dn="";
+    xs.forEach((x,i)=>{const v=base[x]+(m[x][k]||0);
+      up+=(i?" L":"M")+X(x)+" "+Y(v);});
+    for(let i=xs.length-1;i>=0;i--){const x=xs[i];
+      dn+=" L"+X(x)+" "+Y(base[x]);}
+    const ly=mk("path",{d:up+dn+" Z",class:"lay",
+      fill:"var("+DC[ki%DC.length]+")","fill-opacity":.9});
+    s.appendChild(ly);
+    const tot_k=xs.reduce((a,x)=>a+(m[x][k]||0),0);
+    bindTip(ly,'<span class="tl">'+(o.judul||"series")+"</span>"+esc(k)+
+      "<br><b>"+f(tot_k)+"</b> sequences across the whole range");
+    xs.forEach(x=>{base[x]+=(m[x][k]||0);});});
+  const step=Math.max(1,Math.ceil(xs.length/8));
+  xs.forEach((x,i)=>{ if(i%step && i!==xs.length-1) return;
+    s.appendChild(txt(x,X(x),H-B+15,"tk","middle"));});
+  host.appendChild(s);
+  const lg=document.createElement("div"); lg.className="lg";
+  lg.innerHTML=keys.map((k,i)=>'<div><i style="background:var('+
+    DC[i%DC.length]+')"></i>'+esc(k)+"</div>").join("");
+  host.appendChild(lg);
+}
+
+function hbars(host,rows,o){
+  o=o||{}; const mx=o.max||Math.max(...rows.map(r=>r[1]));
+  const d=document.createElement("div");
+  d.className="hb"+(o.tone?" "+o.tone:"");
+  d.innerHTML=rows.map(r=>'<span class="l" title="'+esc(r[0])+'">'+esc(r[0])+
+    '</span><span class="t"><i style="width:'+(100*r[1]/(mx||1)).toFixed(2)+
+    '%"></i></span><span class="v">'+(o.vf?o.vf(r[1]):f(r[1]))+"</span>").join("");
+  host.appendChild(d);
+  const trk=d.querySelectorAll(".t");
+  rows.forEach((r,i)=>{ if(trk[i]) bindTip(trk[i],
+    '<span class="tl">'+(o.judul||"value")+"</span>"+esc(r[0])+": <b>"+
+    (o.vf?o.vf(r[1]):f(r[1]))+"</b>"+
+    (o.pt?"<br>"+pct(r[1],o.pt)+" of total":""));});
+}
+
+function propbar(host,rows){
+  const tot=rows.reduce((a,r)=>a+r[1],0);
+  const b=document.createElement("div"); b.className="pb";
+  b.innerHTML=rows.map((r,i)=>'<span style="width:'+(100*r[1]/tot).toFixed(3)+
+    '%;background:var('+DC[i%DC.length]+')" title="'+esc(r[0])+'"></span>').join("");
+  host.appendChild(b);
+  const lg=document.createElement("div"); lg.className="lg";
+  lg.innerHTML=rows.map((r,i)=>'<div><i style="background:var('+DC[i%DC.length]+
+    ')"></i>'+esc(r[0])+" <b>"+pct(r[1],tot)+"</b></div>").join("");
+  host.appendChild(lg);
+}
+
+function matrix(host,ys,xs,get,o){
+  o=o||{}; let mx=0;
+  ys.forEach(y=>xs.forEach(x=>{const v=get(y,x); if(v>mx) mx=v;}));
+  let h='<div class="mx"><table><thead><tr><th></th>'+
+    xs.map(x=>"<th>"+esc(o.xl?o.xl(x):x)+"</th>").join("")+"</tr></thead><tbody>";
+  ys.forEach(y=>{h+='<tr><th class="rh">'+esc(o.yl?o.yl(y):y)+"</th>";
+    xs.forEach(x=>{const v=get(y,x);
+
+      const k=v?Math.min(6,1+Math.floor(6*Math.sqrt(v/mx)-1e-9)):0;
+      const bg=k?"var(--sq"+k+")":"var(--surface2)";
+      const fg=k>=4?"#ffffff":"var(--ink)";
+      h+='<td><span data-t="'+esc((o.yl?o.yl(y):y)+" / "+(o.xl?o.xl(x):x)+
+        " = "+(v?f(v):"0"))+'" style="background:'+bg+";color:"+fg+'">'+
+        (v?f(v):"")+"</span></td>";});
+    h+="</tr>";});
+  host.innerHTML+=h+"</tbody></table></div>";
+  host.querySelectorAll(".mx td span[data-t]").forEach(el=>{
+    bindTip(el,'<span class="tl">'+(o.judul||"value")+"</span>"+
+      esc(el.getAttribute("data-t")));});
+}
+
+const tip=document.createElement("div"); tip.id="tip";
+document.body.appendChild(tip);
+function bindTip(el,html){
+  el.addEventListener("mouseenter",()=>{tip.innerHTML=html;tip.style.opacity="1";});
+  el.addEventListener("mousemove",e=>{
+    const w=tip.offsetWidth||180, h=tip.offsetHeight||40;
+    let x=e.clientX+14, y=e.clientY-h-10;
+    if(x+w>innerWidth-8) x=e.clientX-w-14;
+    if(y<8) y=e.clientY+16;
+    tip.style.left=x+"px"; tip.style.top=y+"px";});
+  el.addEventListener("mouseleave",()=>{tip.style.opacity="0";});
+}
+
+function chNetwork(host,tepi,o){
+  o=o||{}; const W=760,H=530,CX=380,CY=258,R=176;
+  const s=frame(W,H);
+  const simpul={};
+  tepi.forEach(e=>{[["src",e.seg_src],["dst",e.seg_dst]].forEach(([k,sg])=>{
+    const id=e[k];
+    if(!simpul[id]) simpul[id]={id:id,seg:sg,deg:0,bobot:0};
+    simpul[id].deg++; simpul[id].bobot+=e.n_galur;});});
+  const segs=[...new Set(Object.values(simpul).map(n=>n.seg))].sort((a,b)=>a-b);
+  const per={}; segs.forEach(g=>per[g]=Object.values(simpul)
+    .filter(n=>n.seg===g).sort((a,b)=>a.id<b.id?-1:1));
+  const lebar=360/segs.length;
+  segs.forEach((g,gi)=>{
+    const arr=per[g], c=gi*lebar-90+lebar/2;
+    arr.forEach((n,i)=>{
+      const sp=lebar*0.52;
+      const a=(arr.length===1?c:c-sp/2+sp*i/(arr.length-1))*Math.PI/180;
+      n.x=CX+R*Math.cos(a); n.y=CY+R*Math.sin(a); n.a=a;});});
+  s.appendChild(mk("circle",{cx:CX,cy:CY,r:R,class:"rim"}));
+  const bmax=Math.max(...tepi.map(e=>e.n_galur));
+  tepi.forEach(e=>{
+    const a=simpul[e.src], b=simpul[e.dst];
+    const qx=CX+(a.x+b.x-2*CX)*0.22, qy=CY+(a.y+b.y-2*CY)*0.22;
+    const p=mk("path",{d:"M"+a.x+" "+a.y+" Q"+qx+" "+qy+" "+b.x+" "+b.y,
+      class:"eg","stroke-width":(1+3.4*e.n_galur/bmax).toFixed(2)});
+    s.appendChild(p);
+    bindTip(p,'<span class="tl">co-occurrence edge</span>'+esc(e.src)+" &harr; "+
+      esc(e.dst)+"<br><b>"+f(e.n_galur)+"</b> strains share both clusters");});
+  Object.values(simpul).forEach(n=>{
+    const r=4.6+2.6*Math.sqrt(n.deg);
+    const c=mk("circle",{cx:n.x,cy:n.y,r:r,class:"nd",
+      fill:"var("+DC[(n.seg-1)%DC.length]+")"});
+    s.appendChild(c);
+    bindTip(c,'<span class="tl">cluster, segment '+n.seg+" "+(SEG[n.seg]||"")+
+      '</span>'+esc(n.id)+"<br><b>"+n.deg+"</b> edges &middot; <b>"+
+      f(n.bobot)+"</b> strains in total");});
+  segs.forEach((g,gi)=>{
+    const a=(gi*lebar-90+lebar/2)*Math.PI/180, rr=R+30;
+    const x=CX+rr*Math.cos(a), y=CY+rr*Math.sin(a);
+    const tt=txt(g+" "+(SEG[g]||""),x,y+3.4,"sl","middle");
+    tt.setAttribute("fill","var("+DC[(g-1)%DC.length]+")");
+    s.appendChild(tt);});
+  host.appendChild(s);
+  const lg=document.createElement("div"); lg.className="lg";
+  lg.innerHTML=segs.map(g=>'<div><i style="background:var('+
+    DC[(g-1)%DC.length]+')"></i>Segment '+g+" "+(SEG[g]||"")+" <b>"+
+    per[g].length+" clusters</b></div>").join("");
+  host.appendChild(lg);
+}
+
+function chNetSimple(host,tepi,o){
+  o=o||{}; const W=760,H=o.h||470,CX=380,CY=o.cy||228,R=o.r||168;
+  const s=frame(W,H);
+  const nd={};
+  tepi.forEach(e=>{[e.src,e.dst].forEach(k=>{
+    if(!nd[k]) nd[k]={id:k,deg:0,w:0};
+    nd[k].deg++; nd[k].w+=(o.wf?o.wf(e):1);});});
+  const arr=Object.values(nd).sort((a,b)=>b.deg-a.deg);
+
+  const urut=[]; arr.forEach((n,i)=>{ if(i%2) urut.push(n); else urut.unshift(n); });
+  const dmax=Math.max(...arr.map(n=>n.deg));
+  urut.forEach((n,i)=>{
+    const a=(i/urut.length)*2*Math.PI-Math.PI/2;
+    n.x=CX+R*Math.cos(a); n.y=CY+R*Math.sin(a); n.a=a;});
+  s.appendChild(mk("circle",{cx:CX,cy:CY,r:R,class:"rim"}));
+  const wmax=Math.max(...tepi.map(e=>o.wf?o.wf(e):1));
+  tepi.forEach(e=>{
+    const a=nd[e.src], b=nd[e.dst];
+    const qx=CX+(a.x+b.x-2*CX)*0.18, qy=CY+(a.y+b.y-2*CY)*0.18;
+    const w=o.wf?o.wf(e):1;
+    const p=mk("path",{d:"M"+a.x+" "+a.y+" Q"+qx+" "+qy+" "+b.x+" "+b.y,
+      class:"eg","stroke-width":(0.7+2.6*w/wmax).toFixed(2)});
+    s.appendChild(p);
+    bindTip(p,'<span class="tl">'+(o.judul||"edge")+"</span>"+esc(e.src)+
+      " &harr; "+esc(e.dst)+(o.et?"<br>"+o.et(e):""));});
+  urut.forEach(n=>{
+    const k=Math.min(6,1+Math.floor(6*Math.sqrt(n.deg/dmax)-1e-9));
+    const c=mk("circle",{cx:n.x,cy:n.y,r:(3.4+2.4*Math.sqrt(n.deg)).toFixed(2),
+      class:"nd",fill:"var(--sq"+Math.max(2,k)+")"});
+    s.appendChild(c);
+    bindTip(c,'<span class="tl">node</span>'+esc(n.id)+"<br><b>"+n.deg+
+      "</b> edges");});
+
+  arr.slice(0,o.nlab||8).forEach(n=>{
+    const rr=R+Math.max(16,(o.lr||26));
+    const x=CX+rr*Math.cos(n.a), y=CY+rr*Math.sin(n.a);
+    const anc=Math.cos(n.a)>0.25?"start":(Math.cos(n.a)<-0.25?"end":"middle");
+    s.appendChild(txt((o.lab?o.lab(n.id):n.id),x,y+3.2,"sl",anc));});
+  host.appendChild(s);
+}
+
+function chGroup(host,kat,seri,o){
+  o=o||{}; const W=760,H=o.h||250,L=56,R=14,T=14,B=38;
+  const s=frame(W,H);
+  const y1=nice(Math.max(...seri.flatMap(sr=>sr.v)));
+  const Y=v=>H-B-(H-T-B)*(v/(y1||1));
+  const gw=(W-L-R)/kat.length, bw=Math.min(34,(gw*0.74)/seri.length);
+  for(let i=0;i<=4;i++){const v=y1*i/4,y=Y(v);
+    s.appendChild(mk("line",{x1:L,x2:W-R,y1:y,y2:y,class:"grid"}));
+    s.appendChild(txt(o.yf?o.yf(v):f(v),L-7,y+3.4,"tk","end"));}
+  s.appendChild(mk("line",{x1:L,x2:W-R,y1:H-B,y2:H-B,class:"axis"}));
+  kat.forEach((k,i)=>{
+    const x0=L+i*gw+(gw-bw*seri.length)/2;
+    seri.forEach((sr,j)=>{
+      const v=sr.v[i], h=Math.max(1,(H-B)-Y(v));
+      const r=mk("rect",{x:x0+j*bw,y:Y(v),width:Math.max(2,bw-2),height:h,
+        fill:"var("+DC[j%DC.length]+")"});
+      s.appendChild(r);
+      bindTip(r,'<span class="tl">'+esc(k)+"</span>"+esc(sr.n)+": <b>"+
+        (o.tf?o.tf(v):f(v))+"</b>");});
+    s.appendChild(txt(k,L+i*gw+gw/2,H-B+15,"tk","middle"));});
+  host.appendChild(s);
+
+  if(seri.length>1){
+    const lg=document.createElement("div"); lg.className="lg";
+    lg.innerHTML=seri.map((sr,j)=>'<div><i style="background:var('+
+      DC[j%DC.length]+')"></i>'+esc(sr.n)+"</div>").join("");
+    host.appendChild(lg);
+  }
+}
+
+function table(host,cols,rows){
+  const h='<div class="tw2"><table class="dt"><thead><tr>'+
+    cols.map(c=>"<th"+(c.n?' style="text-align:right"':"")+">"+esc(c.t)+
+      "</th>").join("")+"</tr></thead><tbody>"+
+    rows.map(r=>"<tr>"+cols.map(c=>'<td'+(c.n?' class="n"':"")+">"+
+      (c.h?c.h(r):esc(r[c.k]))+"</td>").join("")+"</tr>").join("")+
+    "</tbody></table></div>";
+  host.innerHTML+=h;
+}
+
+function card(parent,title,cap,span){
+  const c=document.createElement("div");
+  c.className="card"+(span?" span":"");
+  c.innerHTML="<h4>"+title+"</h4>"+(cap?'<p class="cap">'+cap+"</p>":"");
+  parent.appendChild(c); return c;
+}
+function ins(parent,kind,label,html){
+  const d=document.createElement("div");
+  d.className="ins"+(kind?" "+kind:"");
+  d.innerHTML='<b class="t">'+label+"</b>"+html;
+  parent.appendChild(d); return d;
+}
+function strip(parent,items){
+  const d=document.createElement("div"); d.className="strip";
+  d.innerHTML=items.map(i=>"<div><span class='k'>"+i[0]+
+    "</span><span class='v'>"+i[1]+"</span>"+
+    (i[2]?"<span class='n'>"+i[2]+"</span>":"")+"</div>").join("");
+  parent.appendChild(d);
+}
+function sec(parent,t){const h=document.createElement("h3");
+  h.className="sec"; h.textContent=t; parent.appendChild(h);}
+function grid(parent,w2){const d=document.createElement("div");
+  d.className="grid"+(w2?" w2":""); parent.appendChild(d); return d;}
+function lede(parent,h,p){const d=document.createElement("div");
+  d.className="lede"; d.innerHTML="<h2>"+h+"</h2><p>"+p+"</p>";
+  parent.appendChild(d);}
+
+const R=D.ringkas, J=D.jeda, B=D.babi, KD=D.kd, ST=D.strat;
+const unik=R.sekuens_unik, redun=R.sekuens-unik;
+const STAGE={
+  "bangun feature store untuk k=[4, 6, 8, 10]":"build feature store, k = 4, 6, 8, 10",
+  "TUGAS B2 -- subtipe dari segmen internal":"task B2: subtype from internal segments",
+  "jalur A — unduh FASTA seluruh arsip":"path A: download FASTA for whole archive",
+  "TUGAS B1 -- subtipe dari HA + NA":"task B1: subtype from HA and NA",
+  "TUGAS A -- klasifikasi segmen":"task A: segment classification",
+  "baca zona silver":"read silver zone",
+  "bangun graf kemiripan per segmen":"build similarity graph per segment",
+  "baca FASTA jalur A":"read path A FASTA",
+  "eksperimen skalabilitas":"scalability experiment",
+  "bangun graf kemiripan untuk segmen sisanya":"similarity graph, remaining segments",
+  "jalur B -- unduh metadata terstruktur":"path B: download structured metadata",
+  "ukur kejarangan vektor fitur":"measure feature-vector sparsity",
+  "Spark SQL pencacahan k-mer (skala kecil)":"Spark SQL k-mer counting, small scale",
+  "uji satu segmen sebelum menjalankan semuanya":"single-segment trial before full run",
+};
+const cari=(a,k,v)=>a.find(x=>x[k]===v)||{};
+const ambil=(a,k,v,f2)=>(cari(a,k,v)[f2])||0;
+
+/* ══════════ 1. ARCHIVE ══════════ */
+function pgArsip(m){
+  lede(m,"An archive measured, not estimated",
+    "Every figure on this page was computed from "+f(R.sekuens)+
+    " Influenza A sequence records retrieved from NCBI and processed through "+
+    "HDFS, YARN, MapReduce and Spark &mdash; none is drawn from a sample "+
+    "extract.");
+  strip(m,[
+    ["Sequences",f(R.sekuens),"archive records"],
+    ["Unique sequences",f(unik),pct(unik,R.sekuens)+" of archive"],
+    ["Strains",f(R.galur),"distinct isolates"],
+    ["Bases",f2(R.basa_total/1e9)+" Gb",f(R.basa_total)+" nucleotides"],
+    ["Countries",f(R.negara),"jurisdictions"],
+    ["Subtypes",f(R.subtipe),"HA/NA combinations"],
+    ["Host species",f(R.inang),"recorded"],
+    ["Span",R.tahun_min+"&ndash;"+R.tahun_maks,"collection years"],
+  ]);
+
+  sec(m,"Archive growth");
+  let g=grid(m,true);
+  let c=card(g,"Sequences released per year",
+    "NCBI release year. The 2026 series was still in progress when the data "+
+    "were retrieved.");
+  chLine(c,D.rilis,{});
+  const r25=(D.rilis.find(p=>p[0]===2025)||[0,0])[1];
+  const r15=(D.rilis.find(p=>p[0]===2015)||[0,0])[1];
+  ins(c,"","Acceleration",
+    "<p>The 2025 release alone reached <b>"+f(r25)+"</b> sequences, or "+
+    f1(r25/(r15||1))+"&times; the 2015 volume. The archive is not merely "+
+    "large; it is the rate of growth that forces distributed processing.</p>");
+
+  c=card(g,"Sequences by collection year",
+    "When the sample was taken, not when it was published. The final year is "+
+    "incomplete and therefore appears to decline.");
+  chLine(c,D.koleksi.filter(p=>p[0]>=1990),{});
+
+  sec(m,"Redundancy");
+  g=grid(m,true);
+  c=card(g,"How often one identical sequence recurs",
+    "Computed from a SHA-1 digest over the nucleotide string, not from the "+
+    "accession number.");
+  hbars(c,D.dup.map(r=>[({"1 (tunggal)":"1 (singleton)","2 - 5":"2 to 5",
+    "6 - 20":"6 to 20","21 - 100":"21 to 100","> 100":"above 100"})[r.ember]
+    ||r.ember,r.count]),{tone:"warn",judul:"records",pt:R.sekuens});
+  ins(c,"w","Storage burden",
+    "<p>The archive holds <b>"+f(R.sekuens)+"</b> records but only <b>"+
+    f(unik)+"</b> distinct nucleotide strings. That is <b>"+
+    pct(redun,R.sekuens)+"</b> exact duplication &mdash; "+f(redun)+
+    " records adding no sequence information at all.</p>"+
+    "<p>Deduplication is applied in the silver zone before feature "+
+    "extraction, so modelling runs on "+f(unik)+" unique representatives "+
+    "rather than on "+f(R.sekuens)+" copies.</p>");
+
+  c=card(g,"The platform that produced these figures",
+    "Cluster specification behind every number on this site.");
+  table(c,[{t:"Component",k:"a"},{t:"Configuration",k:"b"}],[
+    {a:"HDFS",b:"3 DataNodes, replication 2, 128 MB blocks"},
+    {a:"YARN",b:"1 ResourceManager, 3 NodeManagers, 12 vCores, 18,432 MB"},
+    {a:"MapReduce",b:"Hadoop Streaming, awk mapper and reducer"},
+    {a:"Spark",b:"3.5.9 on YARN, Spark SQL and MLlib"},
+    {a:"Neo4j",b:"5.26 Community, Graph Data Science"},
+    {a:"Feature zone",b:"38.7 GB of sparse k-mer vectors on HDFS"},
+  ]);
+  ins(c,"s","A limit that must be stated",
+    "<p>Nine containers run on a <b>single physical host</b>, so inter-node "+
+    "traffic never crosses a network. The performance figures below are "+
+    "valid as relative comparisons between processing engines, but cannot "+
+    "be generalised to a production cluster.</p>");
+
+  sec(m,"Measured stage durations");
+  c=card(m,"Longest pipeline stages",
+    "Maximum duration per stage from the JSONL audit trail across all runs.");
+  hbars(c,D.kinerja.map(r=>[STAGE[r.tahap]||r.tahap,
+    r.detik/60]),{judul:"stage duration",vf:v=>f1(v)+" min"});
+  const tmax=D.kinerja[0];
+  ins(c,"","Where the time goes",
+    "<p>The heaviest stage runs for "+f1(tmax.detik/60)+" minutes, or "+
+    f1(tmax.detik/3600)+" hours. Feature extraction and archive retrieval "+
+    "dominate; the graph and aggregation stages are a small fraction of the "+
+    "whole.</p>");
+}
+
+/* ══════════ 2. QUALITY AND TIMELINESS ══════════ */
+function pgMutu(m){
+  lede(m,"How fast and how clean this archive is",
+    "Surveillance has value only if the data arrive quickly enough and are "+
+    "reliable enough to support decisions. Both properties are measured "+
+    "here.");
+  strip(m,[
+    ["Mean lag",f2(J.rata)+" yr","collection to release"],
+    ["Median lag",f(J.median)+" yr","half arrive faster"],
+    ["90th percentile",f(J.p90)+" yr","slow tail"],
+    ["Measured over",f(J.n),"dated sequences"],
+    ["Day precision",pct(D.presisi[0].count,R.sekuens),"full date"],
+    ["Clean strings",pct((D.ambigu.find(a=>a.ember==="0 (bersih)")||{count:0}).count,R.sekuens),"no ambiguous bases"],
+  ]);
+
+  sec(m,"Reporting timeliness");
+  let c=card(m,"The collection-to-release lag has collapsed",
+    "Mean difference between release year and collection year, grouped by "+
+    "collection year. Lower means faster reporting. 2026 is excluded: samples "+
+    "collected and released in the same year always show zero lag, which "+
+    "would produce a false decline.");
+  chLine(c,D.jeda_tren.filter(r=>r[0]<=2025).map(r=>[r[0],r[1]]),
+    {yf:v=>f2(v),ef:v=>f2(v)+" yr",h:270});
+  const t19=(D.jeda_tren.find(r=>r[0]===2019)||[0,0])[1];
+  const t25=(D.jeda_tren.find(r=>r[0]===2025)||[0,0])[1];
+  ins(c,"","The central finding of this page",
+    "<p>Samples collected in 2019 took a mean of <b>"+f2(t19)+" years</b> to "+
+    "reach the public archive. For 2025 samples the figure is <b>"+f2(t25)+
+    " years</b> &mdash; roughly <b>"+f1(t19/(t25||1))+"&times;</b> faster.</p>"+
+    "<p>This changes what is possible. At a two-year lag, archive analysis is "+
+    "retrospective. Below half a year, the same archive begins to support "+
+    "near-operational monitoring &mdash; and that is precisely what demands "+
+    "a pipeline of this scale.</p>");
+
+  let g=grid(m,true);
+  c=card(g,"Lag distribution","How many sequences fall at each year of lag.");
+  chVBar(c,D.jeda_seb.filter(r=>r[0]<=15),{judul:"sequences"});
+
+  c=card(g,"Collection date precision",
+    "How finely the date is recorded. Only day precision supports seasonal "+
+    "analysis.");
+  propbar(c,D.presisi.map(r=>[({hari:"day",bulan:"month",tahun:"year",
+    tidak_ada:"not recorded"})[r.presisi_tanggal]||r.presisi_tanggal,r.count]));
+  const tdk=(D.presisi.find(p=>p.presisi_tanggal==="tidak_ada")||{count:0}).count;
+  const thn=(D.presisi.find(p=>p.presisi_tanggal==="tahun")||{count:0}).count;
+  ins(c,"w","A limit on seasonal analysis",
+    "<p><b>"+f(tdk+thn)+"</b> sequences ("+pct(tdk+thn,R.sekuens)+
+    ") carry no date finer than the year. Any seasonal analysis &mdash; and "+
+    "vaccine composition depends on one &mdash; must exclude these records "+
+    "rather than assume their dates.</p>");
+
+  sec(m,"Quality and label provenance");
+  g=grid(m,true);
+  c=card(g,"Where the subtype label came from",
+    "Whether the subtype was taken from structured metadata, parsed from the "+
+    "defline text, or absent entirely.");
+  propbar(c,D.sumber_sub.map(r=>[({metadata:"metadata",defline:"defline text",
+    tidak_diketahui:"unknown"})[r.subtipe_sumber]||r.subtipe_sumber,r.count]));
+  const dfl=(D.sumber_sub.find(s=>s.subtipe_sumber==="defline")||{count:0}).count;
+  ins(c,"","Why provenance is recorded",
+    "<p><b>"+f(dfl)+"</b> subtype labels exist only because they were parsed "+
+    "from free-text descriptions with regular expressions rather than read "+
+    "from a metadata field. Such labels are more fragile, and separating "+
+    "them lets downstream analysis choose the confidence level it relies "+
+    "on.</p>");
+
+  c=card(g,"Sequence completeness","The complete or partial flag from NCBI.");
+  propbar(c,D.kelengkapan.map(r=>[r.kelengkapan===null?"not recorded":
+    r.kelengkapan,r.count]));
+  const cpl=(D.kelengkapan.find(k=>k.kelengkapan==="complete")||{count:0}).count;
+  ins(c,"s","A consequence for method choice",
+    "<p>Only <b>"+f(cpl)+"</b> sequences ("+pct(cpl,R.sekuens)+
+    ") are flagged <i>complete</i>. Filtering to complete genomes alone would "+
+    "discard more than 99% of the archive.</p>"+
+    "<p>This is the methodological reason for the <i>alignment-free</i> "+
+    "k-mer approach: it still works on partial sequences, whereas alignment "+
+    "requires comparable regions between the sequences being compared.</p>");
+
+  g=grid(m,true);
+  c=card(g,"Ambiguous bases per sequence",
+    "Percentage of positions that are not A, C, G or T.");
+  hbars(c,D.ambigu.slice().sort((a,b)=>b.count-a.count).map(r=>[
+    ({"0 (bersih)":"0 (clean)","< 0,1%":"< 0.1%","0,1 - 1%":"0.1 - 1%",
+      "1 - 5%":"1 - 5%",">= 5%":"≥ 5%"})[r.ember]||r.ember,r.count]),
+    {judul:"sequences",pt:R.sekuens});
+
+  c=card(g,"Empty metadata fields",
+    "Records with no value in each key field.");
+  hbars(c,D.rongga.map(r=>[({subtipe:"subtype",inang:"host",negara:"country",
+    tahun_koleksi:"collection year",isolat:"isolate",segmen:"segment"})[r.kolom]
+    ||r.kolom,r.kosong]),{tone:"warn",judul:"empty records"});
+  const sg=(D.rongga.find(r=>r.kolom==="segmen")||{kosong:0}).kosong;
+  ins(c,"w","The most consequential gap",
+    "<p><b>"+f(sg)+"</b> sequences cannot be mapped to any of the eight "+
+    "segments, from either metadata or defline. These records are excluded "+
+    "from all per-segment analysis, and the count is reported rather than "+
+    "hidden.</p>");
+}
+
+/* ══════════ 3. DIVERSITY AND BIAS ══════════ */
+function pgRagam(m){
+  const usa=ambil(D.negara,"negara","USA","count");
+  const na=ambil(D.wilayah,"wilayah","North America","count");
+  const af=ambil(D.wilayah,"wilayah","Africa","count");
+  const hs=ambil(D.inang,"inang","Homo sapiens","count");
+  lede(m,"The diversity of the archive, and where it is blind",
+    "The archive spans "+f(R.subtipe)+" subtypes and "+f(R.inang)+
+    " host species. That coverage is deeply uneven, and the unevenness is "+
+    "itself a finding worth stating.");
+  strip(m,[
+    ["Subtypes",f(R.subtipe),"HA/NA combinations"],
+    ["Host species",f(R.inang),"recorded"],
+    ["Countries",f(R.negara),"jurisdictions"],
+    ["US share",pct(usa,R.sekuens),f(usa)+" sequences"],
+    ["Africa share",pct(af,R.sekuens),f(af)+" sequences"],
+    ["Human share",pct(hs,R.sekuens),f(hs)+" sequences"],
+  ]);
+
+  sec(m,"Subtype composition");
+  let g=grid(m,true);
+  let c=card(g,"Twenty most frequent subtypes",
+    "Whole archive, by sequence count.");
+  hbars(c,D.subtipe.map(r=>[r.subtipe,r.count]),
+    {judul:"sequences",pt:R.sekuens});
+  const s3=D.subtipe[0], s1=D.subtipe[1];
+  ins(c,"","Concentration",
+    "<p>"+esc(s3.subtipe)+" and "+esc(s1.subtipe)+" alone account for <b>"+
+    pct(s3.count+s1.count,R.sekuens)+"</b> of the archive, although "+
+    f(R.subtipe)+" distinct subtypes are recorded. The tail is very thin: "+
+    "the twentieth-ranked subtype has only "+f(D.subtipe[19].count)+
+    " sequences.</p>");
+
+  c=card(g,"Subtypes over time",
+    "The eight most frequent subtypes by collection year, 1990 onward.");
+  chStack(c,D.sub_tahun.map(r=>({x:r.tahun_koleksi,k:r.subtipe,v:r.count})),
+    D.subtipe.slice(0,8).map(r=>r.subtipe),{judul:"subtype"});
+
+  sec(m,"Geography");
+  g=grid(m,true);
+  c=card(g,"Twenty-five leading countries","Sequence count by country of origin.");
+  hbars(c,D.negara.map(r=>[r.negara,r.count]),{judul:"sequences",pt:R.sekuens});
+  ins(c,"s","A surveillance blind spot",
+    "<p>The United States contributes <b>"+pct(usa,R.sekuens)+"</b> of the "+
+    "archive and North America <b>"+pct(na,R.sekuens)+"</b>, while the whole "+
+    "of Africa contributes <b>"+pct(af,R.sekuens)+"</b> with "+f(af)+
+    " sequences.</p>"+
+    "<p>This almost certainly reflects sequencing capacity rather than the "+
+    "distribution of the virus. Every global inference drawn from this "+
+    "archive inherits that bias, and any model trained on it will be weakest "+
+    "precisely where the data are sparsest.</p>");
+
+  c=card(g,"Regions over time","Collection year 1995 onward.");
+  chStack(c,D.wil_tahun.filter(r=>r.wilayah).map(r=>
+    ({x:r.tahun_koleksi,k:r.wilayah,v:r.count})),
+    D.wilayah.filter(w=>w.wilayah).slice(0,6).map(w=>w.wilayah),
+    {judul:"region"});
+
+  sec(m,"Hosts");
+  g=grid(m,true);
+  c=card(g,"Fifteen most frequent hosts","Species names as recorded.");
+  hbars(c,D.inang.map(r=>[r.inang,r.count]),
+    {tone:"alt",judul:"sequences",pt:R.sekuens});
+  ins(c,"","Why host matters here",
+    "<p>Swine account for "+f2(100*B.arsip_babi/B.arsip_total)+
+    "% of the archive and avian hosts for "+
+    f2(100*B.arsip_unggas/B.arsip_total)+"%. These baseline shares become "+
+    "the comparator on the reassortment page: without them, a concentration "+
+    "of candidates in one host could not be distinguished from that host "+
+    "simply being sampled more often.</p>");
+
+  c=card(g,"Host against subtype",
+    "Six leading hosts against six leading subtypes. Darker cells carry more "+
+    "sequences.");
+  const ih=[...new Set(D.inang_sub.map(r=>r.inang))].slice(0,6);
+  const is_=[...new Set(D.inang_sub.map(r=>r.subtipe))].slice(0,6);
+  const im={}; D.inang_sub.forEach(r=>{im[r.inang+"|"+r.subtipe]=r.count;});
+  matrix(c,ih,is_,(y,x)=>im[y+"|"+x]||0,{judul:"sequences"});
+
+  sec(m,"Per-segment structure");
+  c=card(m,"The eight genome segments",
+    "Length, GC content and subtype diversity per segment. Segment 4 is HA "+
+    "and segment 6 is NA; together they determine the subtype name.");
+  table(c,[
+    {t:"Seg",k:"segmen",h:r=>r.segmen+" &middot; "+(SEG[r.segmen]||"")},
+    {t:"Sequences",k:"n",n:1,h:r=>f(r.n)},
+    {t:"Share",k:"p",n:1,h:r=>pct(r.n,R.sekuens)},
+    {t:"Mean length",k:"panjang_rata",n:1,h:r=>f1(r.panjang_rata)+" nt"},
+    {t:"GC",k:"gc_rata",n:1,h:r=>f2(r.gc_rata)+"%"},
+    {t:"Mean ambiguity",k:"ambigu_rata",n:1,h:r=>f2(r.ambigu_rata*100)+"%"},
+    {t:"Subtypes",k:"subtipe_unik",n:1,h:r=>f(r.subtipe_unik)},
+  ],D.segmen);
+  const seg4=D.segmen.find(s=>s.segmen===4);
+  const rata=D.segmen.reduce((a,s)=>a+s.n,0)/8;
+  ins(c,"w","Sequencing bias toward HA",
+    "<p>Segment 4 (HA) carries <b>"+f(seg4.n)+"</b> sequences, about <b>"+
+    f2(seg4.n/rata)+"&times;</b> the eight-segment mean. The cause is not "+
+    "biological: HA is the principal antibody target and the subtype "+
+    "determinant, so laboratories sequence it far more often than the "+
+    "internal segments.</p>"+
+    "<p>Complete eight-segment genomes are therefore much rarer than the "+
+    "archive total suggests &mdash; and reassortment analysis is exactly "+
+    "what requires complete genomes.</p>");
+}
+
+/* ══════════ 4. SIMILARITY GRAPH ══════════ */
+function pgGraf(m){
+  const simpul=D.klaster_seg.reduce((a,r)=>a+r.simpul,0);
+  const klaster=D.klaster_seg.reduce((a,r)=>a+r.klaster,0);
+  const uk=D.klaster_uk.reduce((o,r)=>(o[r.ember]=r.count,o),{});
+  lede(m,"The archive as a graph, not as a table",
+    "Rather than comparing every pair of sequences, MinHash LSH examines only "+
+    "pairs likely to be similar. The result is a per-segment similarity "+
+    "graph whose connected components become clusters.");
+  strip(m,[
+    ["Similarity edges",f(D.graf_tepi),"across 8 segments"],
+    ["Nodes",f(simpul),"sequences in graph"],
+    ["Clusters",f(klaster),"connected components"],
+    ["Min similarity",f2(D.graf_seg[0].kemiripan_min),"Jaccard threshold"],
+    ["Small clusters",f(uk["2 - 5"]||0),"size 2 to 5"],
+    ["Large clusters",f(uk["> 100"]||0),"above 100 nodes"],
+  ]);
+  ins(m,"s","Read the figures on this page carefully",
+    "<p>The graph was built on a <b>sample of at most 2,500 nodes per "+
+    "segment</b>, not on all "+f(R.sekuens)+" archive sequences. The cluster "+
+    "structure is informative, but <b>the absolute counts apply to the "+
+    "sample</b>, not to the full archive. Scaling to the whole archive is "+
+    "engineering work that has not been completed, and that is stated here "+
+    "rather than obscured.</p>");
+
+  if(D.sub_klaster && D.sub_klaster.tepi && D.sub_klaster.tepi.length){
+    sec(m,"One cluster seen from inside");
+    const SK=D.sub_klaster;
+    let cK=card(m,"Similarity subgraph of cluster "+esc(SK.lineage_id),
+      "Segment "+SK.segmen+" ("+(SEG[SK.segmen]||"")+"), "+f(SK.simpul)+
+      " sequences, "+f(SK.tepi.length)+" strongest edges. The size "+
+      "distribution gives numbers only; the internal shape is visible here. "+
+      "Node colour follows degree.",true);
+    chNetSimple(cK,SK.tepi,{judul:"similarity edge",nlab:0,
+      wf:e=>Number(e.kemiripan)||1,
+      et:e=>"similarity <b>"+f2(Number(e.kemiripan))+"</b>"});
+    const dg={}; SK.tepi.forEach(e=>{dg[e.src]=(dg[e.src]||0)+1;
+      dg[e.dst]=(dg[e.dst]||0)+1;});
+    const dv=Object.values(dg);
+    ins(cK,"","Dense, not chain-like",
+      "<p>Mean degree inside this cluster is <b>"+
+      f1(dv.reduce((a,b)=>a+b,0)/dv.length)+"</b> against a maximum of "+
+      f(Math.max(...dv))+". The cluster is a tight clump rather than a long "+
+      "thinly connected chain &mdash; which means the 0.88 similarity "+
+      "threshold separates real groups rather than cutting through a "+
+      "continuum.</p>");
+  }
+
+  sec(m,"Edges per segment");
+  let g=grid(m,true);
+  let c=card(g,"Similarity edges per segment",
+    "Pairs passing the threshold, per segment.");
+  hbars(c,D.graf_seg.map(r=>[r.segmen+" "+(SEG[r.segmen]||""),r.tepi]),
+    {judul:"edges",pt:D.graf_tepi});
+  const mn=D.graf_seg.reduce((a,b)=>a.tepi<b.tepi?a:b);
+  const mx=D.graf_seg.reduce((a,b)=>a.tepi>b.tepi?a:b);
+  ins(c,"","Density is not uniform",
+    "<p>At comparable node counts, segment "+mx.segmen+" ("+SEG[mx.segmen]+
+    ") yields <b>"+f(mx.tepi)+"</b> edges while segment "+mn.segmen+" ("+
+    SEG[mn.segmen]+") yields only <b>"+f(mn.tepi)+"</b> &mdash; a "+
+    f1(mx.tepi/(mn.tepi||1))+"&times; difference.</p>"+
+    "<p>Internal segments are more conserved, so many of their sequences "+
+    "pass the similarity threshold. HA is the most variable, which is "+
+    "consistent with the immune selection pressure acting on it.</p>");
+
+  c=card(g,"Nodes and clusters per segment",
+    "Two series on one count scale: how many sequences enter the graph, and "+
+    "how many connected components they form.");
+  chGroup(c,D.klaster_seg.map(r=>r.segmen+" "+(SEG[r.segmen]||"")),
+    [{n:"nodes",v:D.klaster_seg.map(r=>r.simpul)},
+     {n:"clusters",v:D.klaster_seg.map(r=>r.klaster)}],{judul:"segment"});
+  const rk=D.klaster_seg.map(r=>r.simpul/r.klaster);
+  ins(c,"","Cluster density",
+    "<p>Mean nodes per cluster ranges from <b>"+f2(Math.min(...rk))+
+    "</b> to <b>"+f2(Math.max(...rk))+"</b>. A higher ratio means sequences "+
+    "of that segment connect to one another more often, that is, they are "+
+    "more conserved.</p>");
+
+  sec(m,"Cluster shape");
+  g=grid(m,true);
+  c=card(g,"Cluster size distribution",
+    "How many clusters fall in each size range.");
+  hbars(c,D.klaster_uk.slice().sort((a,b)=>b.count-a.count).map(r=>[
+    ({"2 - 5":"2 to 5","6 - 20":"6 to 20","21 - 100":"21 to 100",
+      "> 100":"above 100","1 (tunggal)":"1 (singleton)"})[r.ember]||r.ember,
+    r.count]),{tone:"alt",judul:"clusters"});
+  ins(c,"","A sharp long tail",
+    "<p><b>"+f(uk["2 - 5"]||0)+"</b> clusters hold only two to five "+
+    "sequences, while <b>"+f(uk["> 100"]||0)+"</b> exceed one hundred nodes. "+
+    "This shape is characteristic of viral populations: many rare variants, "+
+    "a few widely circulating strains.</p>");
+
+  c=card(g,"The twelve largest clusters",
+    "Cluster identifiers carry their segment number, for example S_4 for HA.");
+  hbars(c,D.klaster_top.map(r=>[r.lineage_id.replace(/^S_/,"seg "),r.count]),
+    {judul:"cluster size",tone:"alt"});
+
+  if(D.sentralitas && D.sentralitas.length){
+    sec(m,"Cluster centrality");
+    let gC=grid(m,true);
+    let cC=card(gC,"Most central clusters by PageRank",
+      "Computed over "+f(D.sentralitas_n)+" clusters. A high score means the "+
+      "cluster pairs with many clusters that themselves pair widely.");
+    hbars(cC,D.sentralitas.slice(0,15).map(r=>
+      [String(r.id).replace(/^S_/,"seg "),Number(r.skor)]),
+      {judul:"PageRank",vf:v=>v.toExponential(2)});
+    cC=card(gC,"Cluster degree distribution",
+      "How many clusters have each degree.");
+    if(D.sentral_derajat && D.sentral_derajat.length)
+      hbars(cC,D.sentral_derajat.map(r=>["degree "+r.derajat,r.count]),
+        {judul:"clusters",tone:"alt"});
+  }
+
+  sec(m,"Method notes");
+  c=card(m,"Why LSH, and what it trades away",
+    "Parameter choices and their consequences.");
+  c.innerHTML+="<p style='margin:0 0 10px;color:var(--ink2);font-size:13.5px'>"+
+    "Comparing all pairs across 2,500 nodes requires about "+
+    f(2500*2499/2)+" comparisons per segment. MinHash LSH short-circuits "+
+    "this by examining only pairs that fall into the same hash bucket. The "+
+    "Jaccard distance threshold of 0.12 was not guessed but chosen from a "+
+    "measured sweep: at 0.05 the graph is too sparse to form meaningful "+
+    "clusters, while at 0.25 the edge count explodes until it exhausts disk "+
+    "space.</p>";
+  ins(c,"w","A term deliberately avoided",
+    "<p>These clusters are <b>not</b> phylogenetic lineages. They are "+
+    "connected components of a k-mer similarity graph. The two are often "+
+    "related, but calling them <i>lineages</i> would claim more than this "+
+    "method establishes.</p>");
+}
+
+/* ══════════ 5. REASSORTMENT ══════════ */
+function pgReasort(m){
+  lede(m,"Reassortment candidates, and evidence that the signal is real",
+    "A candidate is flagged when the subtype predicted from k-mer "+
+    "composition differs from the recorded subtype at high confidence. The "+
+    "question that matters: is that a biological signal, or merely a "+
+    "metadata error?");
+  strip(m,[
+    ["Candidates",f(KD.baris),"flagged sequences"],
+    ["Strains",f(KD.galur),"distinct isolates"],
+    ["Mean confidence",f2(KD.keyakinan_rata),"model probability"],
+    ["High confidence",f((D.kd_yakin.find(k=>k.ember===">= 0,90")||{count:0}).count),"above 0.90"],
+    ["Co-occurrence edges",f(D.co_total),"cluster pairs"],
+    ["Swine enrichment",f2(cari(ST.kasar,"kelas_inang","babi").pengayaan)+"&times;","vs population share"],
+  ]);
+
+  sec(m,"Cross-segment cluster network");
+  const EDG=(D.co_semua && D.co_semua.length)?D.co_semua:D.co_top;
+  const penuh=EDG.length>=D.co_total;
+  let cN=card(m,penuh?("All "+f(EDG.length)+" co-occurrence edges as a network")
+    :(f(EDG.length)+" strongest co-occurrence edges as a network"),
+    "Each node is one similarity cluster; each edge means both clusters occur "+
+    "in the same strain. Nodes are grouped by segment around the circle, "+
+    "sized by edge count, with edge thickness following the number of shared "+
+    "strains. Hover for detail.",true);
+  chNetwork(cN,EDG,{});
+  const drj={}; EDG.forEach(e=>{drj[e.src]=(drj[e.src]||0)+1;
+    drj[e.dst]=(drj[e.dst]||0)+1;});
+  const pusat=Object.entries(drj).sort((a,b)=>b[1]-a[1])[0];
+  ins(cN,"","The shape of the network",
+    "<p>"+(penuh?"All ":"")+f(EDG.length)+" edges link <b>"+
+    Object.keys(drj).length+"</b> clusters spread across <b>all eight "+
+    "segments</b> rather than concentrating in one or two. The most connected "+
+    "node is <code>"+esc(pusat[0])+"</code> with "+pusat[1]+" edges.</p>"+
+    "<p>A dispersed pattern is exactly what reassortment should produce: the "+
+    "event exchanges segments between strains, so its trace appears across "+
+    "many segments at once rather than in a single place.</p>");
+
+  let gM=grid(m,true);
+  let cM=card(gM,"Segment-pair intensity",
+    "Strains linking clusters from two different segments. The matrix is made "+
+    "symmetric for readability.");
+  const SG=[1,2,3,4,5,6,7,8];
+  const pm={}; D.co_pasang.forEach(r=>{
+    pm[r.seg_src+"|"+r.seg_dst]=r.galur; pm[r.seg_dst+"|"+r.seg_src]=r.galur;});
+  matrix(cM,SG,SG,(y,x)=>y===x?0:(pm[y+"|"+x]||0),
+    {xl:v=>v+" "+(SEG[v]||""),yl:v=>v+" "+(SEG[v]||""),judul:"shared strains"});
+
+  cM=card(gM,"Leading segment pairs","Ranked by number of shared strains.");
+  hbars(cM,D.co_pasang.slice(0,12).map(r=>[
+    (SEG[r.seg_src]||r.seg_src)+" – "+(SEG[r.seg_dst]||r.seg_dst),r.galur]),
+    {judul:"shared strains"});
+
+  sec(m,"Validation test: host");
+  let c=card(m,"Candidates concentrate in swine and thin out in humans",
+    "The share of each host in the scored population &mdash; "+
+    f(ST.populasi.dianalisis)+" sequences holding feature vectors and "+
+    "therefore eligible to be flagged &mdash; against its share among "+
+    "candidates. Host was never a model feature.");
+  const EN={babi:"Swine (Sus)",unggas:"Avian",manusia:"Human"};
+  const rows=ST.kasar.filter(r=>r.kelas_inang!=="lain").slice()
+    .sort((a,b)=>b.pengayaan-a.pengayaan);
+  chGroup(c,rows.map(r=>EN[r.kelas_inang]||r.kelas_inang),
+    [{n:"share of population (%)",v:rows.map(r=>r.pangsa_pop)},
+     {n:"share of candidates (%)",v:rows.map(r=>r.pangsa_kand)}],
+    {judul:"host share",tf:v=>f2(v)+"%",yf:v=>f1(v)+"%",h:235});
+  table(c,[{t:"Host",k:"kelas_inang",h:r=>EN[r.kelas_inang]||r.kelas_inang},
+    {t:"Share of population",k:"pangsa_pop",n:1,h:r=>f2(r.pangsa_pop)+"%"},
+    {t:"Share of candidates",k:"pangsa_kand",n:1,h:r=>f2(r.pangsa_kand)+"%"},
+    {t:"Enrichment",k:"pengayaan",n:1,h:r=>"<b>"+f2(r.pengayaan)+"&times;</b>"}],
+    rows);
+  ins(c,"","Why this matters",
+    "<p>The model sees only k-mer composition. It is never told the host "+
+    "species. Yet its candidates concentrate <b>"+
+    f2(cari(ST.kasar,"kelas_inang","babi").pengayaan)+"&times;</b> in swine "+
+    "and thin out to <b>"+
+    f2(cari(ST.kasar,"kelas_inang","manusia").pengayaan)+"&times;</b> in "+
+    "humans.</p>"+
+    "<p>Swine are long established as an influenza <i>mixing vessel</i>: "+
+    "their respiratory tract admits both avian and human viruses, so "+
+    "reassortment occurs there more often. This pipeline rediscovers that "+
+    "pattern without ever being given a hint about it.</p>"+
+    "<p>That also answers the most serious objection. Metadata error would "+
+    "be spread roughly evenly across hosts; it would not concentrate "+
+    "fourfold in one species and thin sevenfold in another.</p>");
+
+  sec(m,"Does it survive confounder control?");
+  let cS=card(m,"Cochran–Mantel–Haenszel odds ratio, swine versus "+
+    "non-swine",
+    "Raw enrichment cannot separate a biological signal from swine simply "+
+    "being sequenced more intensively in certain regions and periods. This "+
+    "estimator pools "+ST.cmh.strata+" region × decade strata, comparing "+
+    "only within strata.",true);
+  strip(cS,[
+    ["Mantel–Haenszel OR",f2(ST.cmh.or),"pooled across strata"],
+    ["95% interval",f2(ST.cmh.ci_lo)+" – "+f2(ST.cmh.ci_hi),"Robins–Breslow–Greenland"],
+    ["CMH chi-square",f1(ST.cmh.chi2),"p &lt; 10⁻¹⁵"],
+    ["Strata",f(ST.cmh.strata),"region × decade"],
+    ["Logistic OR",f2(ST.logit_babi_or),"+ subtype adjustment"],
+  ]);
+  hbars(cS,ST.per_strata.map(r=>[r.wil+" "+r.dekade,Number(r.or_strata)]),
+    {judul:"stratum OR",vf:v=>f2(v)+"×"});
+  ins(cS,"","It survives, and strengthens",
+    "<p>The adjusted odds ratio of <b>"+f2(ST.cmh.or)+"</b> is higher than "+
+    "the crude enrichment of "+
+    f2(cari(ST.kasar,"kelas_inang","babi").pengayaan)+"&times;. Pooling "+
+    "across strata had been <b>masking</b> the signal, not creating it "+
+    "&mdash; within each region and decade the contrast is sharper than in "+
+    "aggregate.</p>"+
+    "<p>The most serious objection to this finding &mdash; that swine are "+
+    "simply sequenced more often &mdash; is therefore closed.</p>");
+  ins(cS,"w","A limit on the logistic figure",
+    "<p>The logistic regression value of "+f2(ST.logit_babi_or)+"&times; "+
+    "adjusts for subtype, while candidate status is itself defined by subtype "+
+    "disagreement. That risks <i>overadjustment</i>, so the primary estimate "+
+    "reported is the CMH odds ratio, not this one.</p>");
+
+  sec(m,"Candidate distribution");
+  let g=grid(m,true);
+  c=card(g,"Candidates by host","Twelve leading hosts among candidates.");
+  hbars(c,D.kd_inang.map(r=>[r.inang,r.count]),
+    {tone:"warn",judul:"candidates",pt:KD.baris});
+
+  c=card(g,"Candidates by region","Flagged sequences per region.");
+  hbars(c,D.kd_wil.filter(r=>r.wilayah).map(r=>[r.wilayah,r.count]),
+    {tone:"alt",judul:"candidates",pt:KD.baris});
+  const kas=ambil(D.kd_wil,"wilayah","Asia","count");
+  const as_=ambil(D.wilayah,"wilayah","Asia","count");
+  ins(c,"","Asia exceeds its share",
+    "<p>Asia holds "+pct(as_,R.sekuens)+" of the archive but <b>"+
+    pct(kas,KD.baris)+"</b> of candidates &mdash; about "+
+    f2((kas/KD.baris)/(as_/R.sekuens))+"&times; its share.</p>");
+
+  g=grid(m,true);
+  c=card(g,"Candidates by collection year","Temporal distribution.");
+  chVBar(c,D.kd_tahun.filter(r=>r.tahun_koleksi>=2000)
+    .map(r=>[r.tahun_koleksi,r.count]),{judul:"candidates"});
+
+  c=card(g,"Model confidence on candidates",
+    "Only high-confidence predictions are flagged.");
+  hbars(c,D.kd_yakin.map(r=>[({"0,70 - 0,90":"0.70 – 0.90",
+    ">= 0,90":"≥ 0.90"})[r.ember]||r.ember,r.count]),
+    {judul:"candidates"});
+
+  sec(m,"Pattern of subtype disagreement");
+  c=card(m,"Recorded subtype against predicted subtype",
+    "Twenty-five leading pairs. Rows are the archive label, columns the "+
+    "model's inference from k-mer composition.");
+  const ky=[...new Set(D.kd_silang.map(r=>r.subtipe_kelas))];
+  const kx=[...new Set(D.kd_silang.map(r=>r.prediksi_subtipe))];
+  const km={}; D.kd_silang.forEach(r=>{
+    km[r.subtipe_kelas+"|"+r.prediksi_subtipe]=r.count;});
+  matrix(c,ky,kx,(y,x)=>km[y+"|"+x]||0,{judul:"candidate sequences"});
+  table(c,[{t:"Recorded",k:"subtipe_kelas"},
+    {t:"Predicted",k:"prediksi_subtipe"},
+    {t:"Sequences",k:"count",n:1,h:r=>f(r.count)}],D.kd_silang);
+  ins(c,"","A biologically coherent pattern",
+    "<p>The most frequent disagreements involve H1N1, H1N2 and H3N2 &mdash; "+
+    "precisely the subtypes that circulate in swine and that most often "+
+    "exchange segments in nature. The model's errors are not random; they "+
+    "fall on the pairs that genuinely reassort.</p>");
+
+  if(D.geo_tepi && D.geo_tepi.length){
+    sec(m,"Geographic projection");
+    let cG=card(m,"Network of countries sharing clusters",
+      f(D.geo_tepi_n)+" country pairs in total; the "+f(D.geo_tepi.length)+
+      " strongest are drawn. An edge means both countries contain the same "+
+      "cluster, so it marks a possible dissemination route &mdash; not a "+
+      "demonstrated transmission.",true);
+    chNetSimple(cG,D.geo_tepi,{judul:"country pair",nlab:10,lr:30,
+      wf:e=>Number(e.lineage_bersama)||1,
+      et:e=>"<b>"+f(e.lineage_bersama)+"</b> shared clusters"+
+        (e.jeda_tahun!==null&&e.jeda_tahun!==undefined
+          ?"<br>"+f1(Number(e.jeda_tahun))+" year lag":"")});
+    const jd=D.geo_tepi.map(e=>Number(e.jeda_tahun)).filter(v=>!isNaN(v));
+    if(jd.length) ins(cG,"","Lag between countries",
+      "<p>The mean interval between the same cluster appearing in two "+
+      "countries is <b>"+f1(jd.reduce((a,b)=>a+b,0)/jd.length)+" years</b>, "+
+      "with the shortest at "+f1(Math.min(...jd))+" and the longest at "+
+      f1(Math.max(...jd))+". Short lags on high-weight pairs are the most "+
+      "worth following up: they indicate the same cluster surfacing in two "+
+      "places within a narrow window.</p>");
+
+    let gG=grid(m,true);
+    let cg=card(gG,"Most central countries in the dissemination network",
+      "PageRank over the country network.");
+    if(D.geo_sentral && D.geo_sentral.length)
+      hbars(cg,D.geo_sentral.slice(0,18).map(r=>[String(r.id),Number(r.skor)]),
+        {judul:"country PageRank",vf:v=>v.toExponential(2)});
+    cg=card(gG,"Leading country pairs","By number of shared clusters.");
+    hbars(cg,D.geo_tepi.slice(0,14).map(r=>
+      [r.src+" – "+r.dst,Number(r.lineage_bersama)]),
+      {judul:"shared clusters"});
+  }
+
+  if(D.kandidat_silang_graf && D.kandidat_silang_graf.length){
+    sec(m,"Candidates that are also central in the graph");
+    let cX=card(m,"Reassortment candidates crossed with cluster centrality",
+      f(D.kandidat_silang_graf_n)+" rows in total. A candidate whose cluster "+
+      "is also central deserves closer attention: it is not an isolated "+
+      "outlier but sits in an actively exchanging part of the network.");
+    table(cX,[
+      {t:"Cluster",k:"lineage_id",h:r=>"<code>"+esc(r.lineage_id)+"</code>"},
+      {t:"Strain",k:"galur"},
+      {t:"Seg",k:"segmen",n:1,h:r=>r.segmen+" "+(SEG[r.segmen]||"")},
+      {t:"PageRank",k:"skor",n:1,h:r=>(r.skor===null||r.skor===undefined)?"&ndash;":Number(r.skor).toExponential(2)},
+      {t:"Degree",k:"derajat",n:1,h:r=>f(r.derajat)},
+    ],D.kandidat_silang_graf.slice(0,20));
+  }
+
+  sec(m,"Highest-confidence candidates");
+  c=card(m,"Twenty-five leading candidates",
+    "Ordered by model confidence. This is a list for follow-up, not a "+
+    "conclusion.");
+  table(c,[
+    {t:"Accession",k:"accession",h:r=>"<code>"+esc(r.accession)+"</code>"},
+    {t:"Strain",k:"galur"},
+    {t:"Seg",k:"segmen",n:1,h:r=>r.segmen+" "+(SEG[r.segmen]||"")},
+    {t:"Recorded",k:"subtipe_kelas"},
+    {t:"Predicted",k:"prediksi_subtipe"},
+    {t:"Confidence",k:"keyakinan",n:1,h:r=>f2(r.keyakinan)},
+    {t:"Country",k:"negara"},
+    {t:"Year",k:"tahun_koleksi",n:1},
+    {t:"Host",k:"inang"},
+  ],D.kd_top);
+  ins(c,"s","What has not been established",
+    "<p>These are <b>candidates</b>, not confirmed reassortment events. "+
+    "Confirmation requires per-segment phylogenetic analysis establishing "+
+    "that the segments of a strain descend from distinct lineages, and that "+
+    "has not been done.</p>"+
+    "<p>The swine enrichment gives reasonable confidence that most of this "+
+    "signal is biological, but each candidate still has to be checked "+
+    "individually.</p>");
+}
+
+const SEGLEN = {1:2341, 2:2341, 3:2233, 4:1778, 5:1565, 6:1413, 7:1027, 8:890};
+const FRAG = "GGTCCAATCTGTCAAAATGGAGAAAATAGTGCTTCTTCTTGCAATAGTT";
+const FRAG_ID = "GU052403.2";
+const FRAG_GALUR = "A/chicken/Italy/330/1997(H5N2)";
+const K = 8;
+
+(function kepala(){
+  const pt=document.getElementById("peta");
+  const tot=Object.values(SEGLEN).reduce((a,b)=>a+b,0);
+  Object.keys(SEGLEN).forEach(k=>{
+    const n=Number(k), d=document.createElement("div");
+
+    d.style.flex="0 0 "+(100*SEGLEN[n]/tot).toFixed(3)+"%";
+    if(n===4||n===6) d.className="kunci";
+    d.innerHTML="<b>"+(SEG[n]||n)+"</b>";
+    d.title="Segment "+n+" "+(SEG[n]||"")+" \u2014 "+f(SEGLEN[n])+" bp";
+    pt.appendChild(d);
+  });
+
+  document.getElementById("seqlab").innerHTML=
+    esc(FRAG_ID)+" &middot; segment 4 HA &middot; "+esc(FRAG_GALUR)+
+    " &middot; "+K+"-mer window";
+  const sq=document.getElementById("seq");
+  sq.innerHTML=FRAG.split("").map(b=>'<i class="'+b+'">'+b+"</i>").join("");
+
+  requestAnimationFrame(()=>{
+    const w=sq.getBoundingClientRect().width/FRAG.length;
+    if(!w) return;
+    const km=document.getElementById("kmer");
+    km.style.width=(K*w).toFixed(1)+"px";
+    km.style.setProperty("--jarak",((FRAG.length-K)*w).toFixed(1)+"px");
+  });
+})();
+
+const PAGES=[
+  ["archive","Archive",pgArsip],
+  ["quality","Quality & timeliness",pgMutu],
+  ["diversity","Diversity",pgRagam],
+  ["graph","Graph",pgGraf],
+  ["reassortment","Reassortment",pgReasort],
+];
+const main=document.getElementById("main"), nav=document.getElementById("nav");
+const panes={};
+PAGES.forEach(([id,label,fn])=>{
+  const b=document.createElement("button");
+  b.textContent=label; b.id="tab-"+id;
+  b.setAttribute("role","tab"); b.setAttribute("aria-controls","pane-"+id);
+  b.onclick=()=>{ if(location.hash!=="#"+id) location.hash=id; else show(id); };
+  nav.appendChild(b);
+  const p=document.createElement("section");
+  p.id="pane-"+id; p.setAttribute("role","tabpanel");
+  p.setAttribute("aria-labelledby","tab-"+id);
+  main.appendChild(p); panes[id]=p;
+  fn(p);
+});
+
+const FOOT='<p><b>Data source.</b> NCBI Influenza Virus Database, '+
+  f(R.sekuens)+' records retrieved and processed through HDFS, YARN, '+
+  'MapReduce, Spark and Neo4j. Every figure on this site was computed '+
+  'from the data lake zones rather than copied from the literature.'+
+  '</p>'+
+  '<p><b>Limits.</b> The similarity graph and the reassortment '+
+  'candidates were built on a sample, and performance was measured '+
+  'on a single physical host. Both constraints are stated on the '+
+  'pages they affect.</p>';
+PAGES.forEach(([id])=>{ const ft=document.createElement("footer");
+  ft.innerHTML=FOOT; panes[id].appendChild(ft); });
+
+function show(id){
+  if(!panes[id]) id=PAGES[0][0];
+  PAGES.forEach(([p])=>{
+    panes[p].hidden=(p!==id);
+    const b=document.getElementById("tab-"+p);
+    b.setAttribute("aria-selected",p===id?"true":"false");
+  });
+  window.scrollTo(0,0);
+}
+const tok=()=>(location.hash||"").replace(/^#/,"").replace(/[^A-Za-z0-9._~-]/g,"");
+window.addEventListener("hashchange",()=>show(tok()));
+show(tok());
+
 (function(){
   var b=document.getElementById("tema"), urut=["system","light","dark"];
-  function baca(){ try{ return localStorage.getItem("theme-bda-en")||"system"; }
-    catch(e){ return "system"; } }
+  function baca(){ try{ return localStorage.getItem("atlas-theme-en")
+    ||"system"; }catch(e){ return "system"; } }
   function terap(v){
     var r=document.documentElement;
     if(v==="light") r.setAttribute("data-theme","light");
@@ -227,7 +1408,7 @@ cd docker &amp;&amp; docker compose --profile yarn up -d</pre>
   var kini=baca(); terap(kini);
   b.addEventListener("click",function(){
     kini=urut[(urut.indexOf(kini)+1)%urut.length];
-    try{ localStorage.setItem("theme-bda-en",kini); }catch(e){}
+    try{ localStorage.setItem("atlas-theme-en",kini); }catch(e){}
     terap(kini);
   });
 })();

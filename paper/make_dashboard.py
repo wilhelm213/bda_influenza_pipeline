@@ -45,10 +45,10 @@ HEADER_ID = head[head.index('<header class="top">'):
 
 HEADER_EN = """<header class="top">
   <div class="tw">
-    <a class="beranda" href="../index.html"><svg viewBox="0 0 24 24" \
+    <a class="beranda" href="https://github.com/wilhelm213/bda_influenza_pipeline"><svg viewBox="0 0 24 24" \
 fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" \
-stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path \
-d="M12 19l-7-7 7-7"/></svg>Project home</a>
+stroke-linejoin="round" aria-hidden="true"><path d="M16 18l6-6-6-6"/><path \
+d="M8 6l-6 6 6 6"/></svg>Repository</a>
     <div class="peta" id="peta" aria-hidden="true"></div>
     <p class="petacap">The eight segments of the Influenza A genome, drawn to
       their true relative length. HA and NA are highlighted: those two alone
@@ -185,9 +185,7 @@ kerangka = html
 html = html.replace("__DATA__", json.dumps(
     PAKET, ensure_ascii=False, separators=(",", ":")))
 
-WEB = os.path.join(PAPER, "web")
-os.makedirs(WEB, exist_ok=True)
-out = os.path.join(WEB, "index.html")
+out = os.path.join(PAPER, "index.html")
 io.open(out, "w", encoding="utf-8").write(html)
 
 print("written     :", out)
