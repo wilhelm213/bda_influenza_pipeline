@@ -1,35 +1,29 @@
-Written for: reviewers, co-authors and readers arriving from the manuscript.
+Written for: anyone opening the English companion site for the manuscript.
 
-# Manuscript materials (English)
+# English companion site
 
-Methodology and Results & Discussion for a Scopus Q1 submission on
-alignment-free machine learning and graph analytics over 1,586,912 Influenza A
-genome sequences retrieved from the NCBI Influenza Virus Database.
-
-Every figure in this folder was computed from the project data lake. None is
-reproduced from the literature, and none is estimated from a sample extract
-unless the page or caption says so explicitly.
-
-## Contents
+The English counterpart of the project site at the repository root. Same
+content, same structure, different language. The manuscript itself is written
+separately; this site is the companion the manuscript points to.
 
 | Path | What it is |
 | --- | --- |
-| `index.html` | Sections 2 (Materials and Methods) and 3 (Results and Discussion), with the six figures and five tables inline |
-| `dashboard.html` | The five-page interactive atlas, in English |
+| `index.html` | Landing page: headline figures, findings, and how to run the pipeline |
+| `web/index.html` | The five-page interactive atlas |
 | `figures/` | Six publication figures at 300 DPI, plus `FIGURES.txt` listing their captions |
-| `style.css` | Stylesheet for `index.html` |
-| `make_manuscript.py` | Builds `index.html` from the measured results |
-| `make_figures.py` | Builds the six figures in `figures/` |
-| `make_dashboard.py` | Builds `dashboard.html` |
-| `dashboard_content.js` | The English page content the dashboard is assembled from |
 
-Live versions:
+Live:
 
-- Manuscript sections — <https://wilhelm213.github.io/bda_influenza_pipeline/paper/>
-- English atlas — <https://wilhelm213.github.io/bda_influenza_pipeline/paper/dashboard.html>
-- Indonesian atlas — <https://wilhelm213.github.io/bda_influenza_pipeline/web/>
+- Landing page — <https://wilhelm213.github.io/bda_influenza_pipeline/paper/>
+- Atlas — <https://wilhelm213.github.io/bda_influenza_pipeline/paper/web/>
+
+The Indonesian site lives at the repository root and the two do not link to
+each other.
 
 ## Figures
+
+These are generated for insertion into the manuscript document, not for the
+website.
 
 | File | Caption |
 | --- | --- |
@@ -43,22 +37,24 @@ Live versions:
 ## Rebuilding
 
 The build scripts resolve every path relative to their own location, so they
-run from anywhere in a fresh clone. Their inputs are the committed result files
-`models/metrik_model.csv`, `models/metrik_skalabilitas.csv`,
-`models/ringkasan_ml.json`, `models/ringkasan_mapreduce.json`,
-`web/stratifikasi.json`, `web/operator_graf2.json` and the aggregates in
-`web/sumber/` (`insight.json`, `paket_data.json`, `laporan_kualitas.json` and
-the atlas template `situs_tpl.html`). From anywhere:
+run from anywhere in a fresh clone.
 
 ```
+python paper/make_landing.py      # writes paper/index.html
+python paper/make_dashboard.py    # writes paper/web/index.html
 python paper/make_figures.py      # writes paper/figures/
-python paper/make_manuscript.py   # writes paper/index.html
-python paper/make_dashboard.py    # writes paper/dashboard.html
 ```
 
-`make_figures.py` needs `matplotlib` and `numpy`. The other two scripts need
-only the standard library. None of them requires a running cluster; they
-consume result files that the pipeline has already written.
+`make_landing.py` translates the Indonesian landing page at the repository
+root, so the two stay in step on styling. `make_dashboard.py` assembles the
+atlas from the template `web/sumber/situs_tpl.html` and the English page
+content in `dashboard_content.js`, embedding `web/sumber/paket_data.json` plus
+the `kasar` table from `web/stratifikasi.json`. `make_figures.py` reads
+`web/sumber/insight.json`, `models/metrik_model.csv`,
+`models/metrik_skalabilitas.csv` and `web/stratifikasi.json`.
+
+`make_figures.py` needs `matplotlib` and `numpy`. The other two need only the
+standard library, and none of them requires a running cluster.
 
 ## Platform the results come from
 
@@ -70,7 +66,7 @@ and MLlib, and Neo4j 5.26 Community with the Graph Data Science library.
 Because all containers share one host, inter-node traffic never crosses a
 network. The timing figures are therefore valid as relative comparisons
 between processing engines and must not be read as production-cluster
-throughput. This constraint is stated in the manuscript as well.
+throughput.
 
 ## Two limits stated up front
 
@@ -81,11 +77,5 @@ sample rather than the whole archive.
 The reassortment candidates are candidates, not confirmed events. Confirmation
 requires per-segment phylogenetic analysis showing that the segments of a
 strain descend from distinct lineages, and that analysis has not been carried
-out here. The swine enrichment reported in §3.5 is evidence that most of the
-signal is biological, not a substitute for that confirmation.
-
-## Reuse
-
-Both HTML files are self-contained: the dashboard embeds its own data, and the
-manuscript references only `style.css` and the PNGs in `figures/`. Either can
-be opened directly from disk with no server.
+out here. The swine enrichment is evidence that most of the signal is
+biological, not a substitute for that confirmation.

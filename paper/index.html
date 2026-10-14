@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="Alignment-free machine learning and graph analytics on 1.59 million influenza A genome sequences: methodology and results.">
-<title>Influenza A Genomic Surveillance Manuscript</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Instrument+Sans:wght@500;600&display=swap">
+<meta name="description" content="Big Data pipeline for Influenza A genomic surveillance: 1,586,912 NCBI sequences processed with Hadoop, YARN, MapReduce, Spark and Neo4j.">
+<title>Influenza A Genome Pipeline</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Instrument+Sans:wght@500;600&display=swap">
 <style>
 *,*::before,*::after{box-sizing:border-box}
 html{color-scheme:light}
@@ -17,7 +17,8 @@ img{max-width:100%}
   --ground:#e9ece4; --surface:#fbfcf9; --surface2:#f1f4ec;
   --ink:#10140d; --ink2:#3d4738; --ink3:#6c7865;
   --rule:#cdd4c4; --rule2:#e0e5d7;
-  --accent:#1d5c3a; --accent-soft:#dfeee5; --accent-ink:#154a2d;
+  --akos:#1d5c3a; --akos-soft:#dfeee5; --akos-ink:#154a2d;
+  --bA:#1f7d3c; --bC:#2060bd; --bG:#8f5c00; --bT:#b8332e;
   --disp:"JetBrains Mono","SFMono-Regular",Consolas,monospace;
   --body:"Source Serif 4",Georgia,"Times New Roman",serif;
   --num:"Instrument Sans","Helvetica Neue",Arial,sans-serif;
@@ -27,234 +28,208 @@ img{max-width:100%}
   --ground:#0a0c08; --surface:#14180f; --surface2:#1b2015;
   --ink:#e6ebe0; --ink2:#a9b5a0; --ink3:#7b876f;
   --rule:#2b3324; --rule2:#1f2619;
-  --accent:#6fc295; --accent-soft:#15291d; --accent-ink:#8ed4ac;
+  --akos:#6fc295; --akos-soft:#15291d; --akos-ink:#8ed4ac;
+  --bA:#58c47f; --bC:#6aa8ea; --bG:#e0a33a; --bT:#ea6f6a;
   color-scheme:dark;
 }}
 :root[data-theme="dark"]{
   --ground:#0a0c08; --surface:#14180f; --surface2:#1b2015;
   --ink:#e6ebe0; --ink2:#a9b5a0; --ink3:#7b876f;
   --rule:#2b3324; --rule2:#1f2619;
-  --accent:#6fc295; --accent-soft:#15291d; --accent-ink:#8ed4ac;
+  --akos:#6fc295; --akos-soft:#15291d; --akos-ink:#8ed4ac;
+  --bA:#58c47f; --bC:#6aa8ea; --bG:#e0a33a; --bT:#ea6f6a;
   color-scheme:dark;
 }
 body{background:var(--ground);color:var(--ink);font-family:var(--body);
-  font-size:17px;line-height:1.72}
-.wrap{max-width:780px;margin:0 auto;padding:0 20px;padding-block:0 64px}
+  font-size:17px;line-height:1.68}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px;padding-block:0 60px}
 
 header{background:var(--surface);border-bottom:1px solid var(--rule)}
-header .in{max-width:780px;margin:0 auto;padding:0 20px;padding-block:22px 24px}
-.navrow{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 18px}
-.home{display:inline-flex;align-items:center;gap:8px;font-family:var(--num);
-  font-size:13px;font-weight:600;color:var(--surface);background:var(--accent);
-  text-decoration:none;padding:9px 16px 9px 13px;
-  box-shadow:0 1px 0 rgba(0,0,0,.18)}
-.home.ghost{background:var(--surface2);color:var(--accent-ink);
-  box-shadow:inset 0 0 0 1px var(--rule)}
-.home.ghost:hover{background:var(--accent-soft);color:var(--accent-ink)}
-.home:hover{background:var(--accent-ink)}
-.home:active{transform:translateY(1px)}
-.home:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
-.home svg{width:15px;height:15px;flex:none;display:block}
-.kicker{font-family:var(--mono);font-size:10.5px;color:var(--ink3);
-  letter-spacing:.05em;margin:0 0 10px}
-header h1{font-family:var(--disp);font-size:23px;font-weight:500;margin:0 0 12px;
-  letter-spacing:-.03em;line-height:1.28;text-wrap:balance}
-header .sub{font-size:16.5px;color:var(--ink2);margin:0;max-width:62ch}
-
-nav.toc{background:var(--surface);border:1px solid var(--rule);
-  padding:16px 20px 18px;margin:26px 0 10px}
-nav.toc p{font-family:var(--mono);font-size:10px;color:var(--ink3);
-  letter-spacing:.06em;text-transform:uppercase;margin:0 0 10px}
-nav.toc a{display:block;font-size:14.5px;color:var(--ink2);text-decoration:none;
-  padding:2px 0 2px 12px;border-left:2px solid var(--rule2);line-height:1.5}
-nav.toc a[href^="#m"]:not([href="#m"]),nav.toc a[href^="#r"]:not([href="#r"]){
-  padding-left:24px}
-nav.toc a[href="#m"],nav.toc a[href="#r"]{font-family:var(--disp);
-  font-size:13px;color:var(--ink);margin-top:8px;border-left-color:var(--accent)}
-nav.toc a:hover{color:var(--ink)}
-nav.toc a:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
-
-h2{font-family:var(--disp);font-size:19px;font-weight:500;margin:46px 0 14px;
-  letter-spacing:-.025em;line-height:1.3;scroll-margin-top:16px;
-  padding-top:16px;border-top:1px solid var(--rule)}
-h3{font-family:var(--disp);font-size:15px;font-weight:500;margin:32px 0 10px;
-  letter-spacing:-.015em;scroll-margin-top:16px}
-p{margin:0 0 15px}
-b,strong{font-weight:600}
-code{font-family:var(--mono);font-size:.84em;color:var(--ink2)}
-
-figure{margin:24px 0 6px;background:var(--surface);
-  border:1px solid var(--rule2);padding:12px}
-figure img{display:block;width:100%;height:auto}
-.cap{font-family:var(--num);font-size:13.5px;color:var(--ink3);
-  margin:0 0 26px;line-height:1.55;max-width:70ch}
-.cap b{color:var(--ink2);font-weight:600}
-.tcap{margin:24px 0 8px}
-
-.tw{overflow-x:auto;margin:0 0 26px}
-table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:420px;
-  font-family:var(--num)}
-th{font-family:var(--mono);font-size:9.5px;color:var(--ink3);font-weight:500;
-  text-align:left;padding:8px 12px 8px 0;border-bottom:1px solid var(--rule);
-  white-space:nowrap;vertical-align:bottom}
-td{padding:8px 12px 8px 0;border-bottom:1px solid var(--rule2);
-  vertical-align:top}
-td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
-tr.hl td{background:var(--accent-soft)}
-
-.meta{margin-top:44px;padding-top:18px;border-top:1px solid var(--rule)}
-.meta h3{font-size:13px;margin:16px 0 8px}
-.meta ol{margin:0;padding-left:22px;font-size:14px;color:var(--ink2)}
-.meta li{margin-bottom:5px}
-footer{border-top:1px solid var(--rule);margin-top:34px;padding-top:18px;
-  font-size:14px;color:var(--ink3);max-width:68ch}
-footer p{margin:0}
-footer a{color:var(--accent-ink);text-decoration:underline;
-  text-underline-offset:2px}
-
-.theme{position:fixed;right:14px;bottom:calc(env(safe-area-inset-bottom,0px) + 14px);
-  z-index:50;appearance:none;background:var(--surface);color:var(--ink3);
+header .in{max-width:860px;margin:0 auto;padding:0 20px;padding-block:22px 20px}
+.peta{display:flex;gap:2px;margin-bottom:14px}
+.peta div{height:26px;background:var(--surface2);border:1px solid var(--rule2);
+  border-bottom:2px solid var(--rule);display:flex;align-items:center;
+  justify-content:center;min-width:0}
+.peta div.kunci{border-bottom-color:var(--akos);background:var(--akos-soft)}
+.peta b{font-family:var(--mono);font-size:9.5px;font-weight:500;color:var(--ink2)}
+.peta div.kunci b{color:var(--akos-ink)}
+.baris{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap}
+h1{font-family:var(--disp);font-size:22px;font-weight:700;margin:0;
+  letter-spacing:-.03em;line-height:1.2}
+.kop{font-family:var(--mono);font-size:10.5px;color:var(--ink3);
+  flex:1;min-width:150px;line-height:1.55}
+.tema{appearance:none;background:none;color:var(--ink3);
   border:1px solid var(--rule);cursor:pointer;font-family:var(--mono);
-  font-size:10.5px;padding:7px 11px}
-.theme:hover{color:var(--ink);border-color:var(--ink3)}
-.theme:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+  font-size:10.5px;padding:5px 10px;white-space:nowrap}
+.tema:hover{color:var(--ink);border-color:var(--ink3)}
+.tema:focus-visible{outline:2px solid var(--akos);outline-offset:1px}
+
+.lede{max-width:66ch;margin:28px 0 0;font-size:18px;color:var(--ink2)}
+h2{font-family:var(--disp);font-size:14px;font-weight:500;color:var(--ink2);
+  letter-spacing:.02em;margin:40px 0 14px;display:flex;align-items:center;
+  gap:10px}
+h2::before{content:"";width:2px;height:13px;background:var(--akos);flex:none}
+h2::after{content:"";flex:1;height:1px;background:var(--rule)}
+
+.kartu{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+a.k{background:var(--surface);padding:16px 18px 18px;text-decoration:none;
+  color:inherit;display:block;min-width:0}
+a.k:hover{background:var(--surface2)}
+a.k:focus-visible{outline:2px solid var(--akos);outline-offset:-2px}
+a.k .t{font-family:var(--disp);font-size:14.5px;font-weight:700;
+  color:var(--akos-ink);display:block;margin-bottom:4px}
+a.k .d{font-size:14.5px;color:var(--ink3);line-height:1.5;display:block}
+
+.angka{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.angka div{background:var(--surface);padding:13px 16px 14px;min-width:0}
+.angka .k{font-family:var(--mono);font-size:9.5px;color:var(--ink3);
+  display:block;margin-bottom:4px}
+.angka .v{font-family:var(--num);font-size:21px;font-weight:600;display:block;
+  line-height:1.15}
+.angka .n{font-size:13px;color:var(--ink3);display:block;margin-top:2px}
+
+table{border-collapse:collapse;width:100%;font-size:14.5px;
+  font-family:var(--num);margin:4px 0 0}
+th{font-family:var(--mono);font-size:9.5px;color:var(--ink3);font-weight:500;
+  text-align:left;padding:8px 12px 8px 0;border-bottom:1px solid var(--rule)}
+td{padding:8px 12px 8px 0;border-bottom:1px solid var(--rule2)}
+td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+code{font-family:var(--mono);font-size:.85em;color:var(--ink2);
+  background:var(--surface2);padding:1px 5px}
+pre{background:var(--surface);border:1px solid var(--rule2);padding:14px 16px;
+  overflow-x:auto;font-family:var(--mono);font-size:13px;line-height:1.6;
+  color:var(--ink2);margin:4px 0 0}
+p{margin:0 0 14px;max-width:68ch}
+footer{border-top:1px solid var(--rule);margin-top:44px;padding-top:20px;
+  font-size:14px;color:var(--ink3);max-width:68ch}
 @media (max-width:560px){
-  body{font-size:16px}
-  header h1{font-size:19px}
-  h2{font-size:17px}
+  h1{font-size:18px}
+  .peta b{font-size:8px}
+  .angka div{padding:11px 13px}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
-
 </style>
 </head>
 <body>
 <header>
   <div class="in">
-    <div class="navrow">
-      <a class="home" href="dashboard.html"><svg viewBox="0 0 24 24"
-        fill="none" stroke="currentColor" stroke-width="2.2"
-        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect
-        x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7"
-        height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3"
-        y="16" width="7" height="5"/></svg>Interactive atlas</a>
-      <a class="home ghost"
-        href="https://github.com/wilhelm213/bda_influenza_pipeline"><svg viewBox="0 0 24 24"
-        fill="none" stroke="currentColor" stroke-width="2.2"
-        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path
-        d="M16 18l6-6-6-6"/><path d="M8 6l-6 6 6 6"/></svg>Repository</a>
+    <div class="peta" aria-hidden="true">
+      <div style="flex:0 0 17.23%"><b>PB2</b></div>
+      <div style="flex:0 0 17.23%"><b>PB1</b></div>
+      <div style="flex:0 0 16.43%"><b>PA</b></div>
+      <div class="kunci" style="flex:0 0 13.09%"><b>HA</b></div>
+      <div style="flex:0 0 11.52%"><b>NP</b></div>
+      <div class="kunci" style="flex:0 0 10.40%"><b>NA</b></div>
+      <div style="flex:0 0 7.56%"><b>M</b></div>
+      <div style="flex:0 0 6.55%"><b>NS</b></div>
     </div>
-    <p class="kicker">Manuscript sections &middot; Methodology and Results</p>
-    <h1>Alignment-Free Machine Learning and Graph Analytics on 1.59 Million
-      Influenza A Genome Sequences</h1>
-    <p class="sub">Sections 2 and 3 of the manuscript. Every figure quoted
-      here was computed from the project data lake; none is reproduced from
-      the literature.</p>
+    <div class="baris">
+      <h1>Influenza A Genome Pipeline</h1>
+      <span class="kop">COMP8035041 &middot; Big Data Analytics<br>
+        Master of Computer Science &middot; BINUS Graduate Program</span>
+      <button class="tema" id="tema" type="button"
+        aria-label="Change colour theme">theme: system</button>
+    </div>
   </div>
 </header>
+
 <div class="wrap">
-  <nav class="toc" aria-label="Contents"><p>Contents</p><a href="#m">2. Materials and Methods</a><a href="#m1">2.1. Data source and acquisition</a><a href="#m2">2.2. Quality control and deduplication</a><a href="#m3">2.3. Alignment-free feature representation</a><a href="#m4">2.4. Classification tasks</a><a href="#m5">2.5. Algorithms and model development</a><a href="#m6">2.6. Similarity graph construction</a><a href="#m7">2.7. Candidate screening and statistical analysis</a><a href="#m8">2.8. Computational environment</a><a href="#r">3. Results and Discussion</a><a href="#r1">3.1. Archive characteristics</a><a href="#r2">3.2. Timeliness of the archive</a><a href="#r3">3.3. Classification performance</a><a href="#r4">3.4. Distributed versus single-node execution</a><a href="#r5">3.5. Graph structure</a><a href="#r6">3.6. Candidate screening and host enrichment</a><a href="#r7">3.7. A negative result on graph-native screening</a><a href="#r8">3.8. Limitations</a></nav>
-  <main><h2 id="m">2. Materials and Methods</h2>
-<h3 id="m1">2.1. Data source and acquisition</h3>
-<p>All sequence data were obtained from the NCBI Influenza Virus Database. Because no single endpoint returns both structured metadata and nucleotide sequences, two retrieval paths were combined: E-utilities for metadata and vvsearch2 for FASTA records, joined on accession number. Requests were partitioned by collection year, with high-volume years further split by month to stay within server response limits, yielding 42 partitions. The retrieval process was made idempotent by recording completed partitions in a manifest, so interrupted runs resume without re-downloading. NCBI rate limits were respected throughout at three requests per second without an API key and ten with one. The complete retrieval required approximately 2.3 hours of wall-clock time.</p>
-<p>The resulting corpus comprises <b>1,586,912</b> sequence records spanning 1902–2026 collection years, drawn from 172 countries and 601 host species, and totalling 2,570,555,392 nucleotides.</p>
-<h3 id="m2">2.2. Quality control and deduplication</h3>
-<p>Four quality gates were applied before any downstream processing, and the number of records failing each gate was recorded rather than silently discarded (Table 1). Sequences shorter than 500 bp were removed because their <i>k</i>-mer vectors are too sparse for meaningful comparison; sequences longer than 2,600 bp were removed because they exceed the longest influenza A segment and are almost certainly assembly artefacts; and sequences with more than 5% ambiguous bases were removed because non-ACGT characters corrupt every <i>k</i>-mer window containing them.</p>
-<p class="cap tcap"><b>Table 1.</b> Quality control outcomes. Of 1,627,536 retrieved records, 1,586,912 passed all gates.</p><div class="tw"><table><thead><tr><th>Quality gate</th><th class="n">Records removed</th><th class="n">Percentage</th><th class="n">Records retained</th></tr></thead><tbody><tr><td>Length &ge; 500 bp</td><td class="n">36,388</td><td class="n">2.236%</td><td class="n">1,591,148</td></tr><tr><td>Length &le; 2,600 bp</td><td class="n">49</td><td class="n">0.003%</td><td class="n">1,591,099</td></tr><tr><td>Ambiguous bases &le; 5%</td><td class="n">4,187</td><td class="n">0.257%</td><td class="n">1,586,912</td></tr><tr><td>Duplicate accessions</td><td class="n">0</td><td class="n">0.000%</td><td class="n">1,586,912</td></tr></tbody></table></div>
-<p>Exact duplicates were identified by SHA-1 digest over the nucleotide string rather than by accession, revealing that <b>43.69%</b> of records are byte-identical copies: 1,586,912 records collapse to 893,599 distinct sequences. Duplicates were flagged rather than deleted. All modelling was performed on the 893,599 unique representatives, because training on the full set would both over-weight frequently sequenced strains and allow identical sequences to appear in training and test partitions simultaneously, inflating held-out accuracy without demonstrating generalisation. Geographic analyses retained all occurrences, since there each occurrence is a distinct observation.</p>
-<h3 id="m3">2.3. Alignment-free feature representation</h3>
-<p>Features were derived without sequence alignment. Each nucleotide string was decomposed into all overlapping substrings of length <i>k</i> and their frequencies counted. At <i>k</i> = 8 the feature space contains 4<sup>8</sup> = 65,536 possible <i>k</i>-mers, of which 56,171 were observed in the corpus.</p>
-<p>The alignment-free approach was chosen for a specific property of this corpus rather than for convenience. Only 0.68% of records carry the <i>complete</i> flag, so restricting analysis to complete genomes would discard more than 99% of the data. Alignment requires comparable regions between sequences, whereas <i>k</i>-mer composition remains computable on partial sequences.</p>
-<p>The value of <i>k</i> was selected by ablation over <i>k</i> &isin; {4, 6, 8, 10}. Small <i>k</i> yields a feature space too narrow to separate distinct sequences; large <i>k</i> makes nearly every <i>k</i>-mer unique to a single sequence, leaving no shared signal to learn, while the storage cost escalates. Features were produced by a three-stage pipeline: term-frequency vectorisation, inverse document frequency weighting to down-weight <i>k</i>-mers present in nearly all sequences, and L2 normalisation so that longer sequences do not acquire larger vector norms. All vectors were stored in sparse form; the same matrix in dense form would require approximately 3.7 TB against 11.77 GB sparse, with a mean of roughly 1,630 non-zero entries per row.</p>
-<h3 id="m4">2.4. Classification tasks</h3>
-<p>Metadata were used exclusively as labels and never as model inputs. Consequently the models never observe subtype, host, country or year when predicting, and any agreement between prediction and metadata constitutes evidence that the signal resides in the nucleotide composition itself. Three classification tasks were defined (Table 2).</p>
-<p class="cap tcap"><b>Table 2.</b> Classification tasks. Tasks B1 and B2 were deliberately separated because HA and NA define the subtype nomenclature whereas the internal segments do not.</p><div class="tw"><table><thead><tr><th>Task</th><th>Input</th><th>Target</th><th class="n">Classes</th></tr></thead><tbody><tr><td>A</td><td>Nucleotide string of one sequence</td><td>Genome segment 1–8</td><td class="n">8</td></tr><tr><td>B1</td><td>Nucleotide strings of segments HA and NA</td><td>Subtype</td><td class="n">21</td></tr><tr><td>B2</td><td>Nucleotide strings of internal segments (1, 2, 3, 5, 7, 8)</td><td>Subtype</td><td class="n">21</td></tr></tbody></table></div>
-<p>The separation of B1 from B2 is the central design decision. Task B1 is close to tautological, since subtype H5N1 means hemagglutinin type 5 and neuraminidase type 1; its value lies in establishing an upper bound. Task B2 is informative precisely because the internal segments carry no definitional relationship to the subtype label, so any predictive ability above chance indicates that internal segments retain a trace of the strain constellation from which they derive.</p>
-<h3 id="m5">2.5. Algorithms and model development</h3>
-<p>Three algorithms were compared, selected to represent different assumptions about high-dimensional sparse data. Logistic regression is a linear model whose parameter count grows linearly with the feature space and which yields calibrated probabilities, a property required by the candidate screening described in Section 2.7. Random forest is a non-linear tree ensemble capable of capturing interactions between <i>k</i>-mers but obliged to survey feature subsets at every split. Naive Bayes assumes conditional independence between features, an assumption that is demonstrably violated here because adjacent <i>k</i>-mers overlap in seven of their eight positions; it was included specifically to quantify the cost of that violation.</p>
-<p>Each pipeline was implemented twice: once with Spark MLlib distributed over YARN, and once with scikit-learn on a single node. Both were evaluated on training fractions increasing from 1% to the full corpus, using logistic regression on Task A so that the comparison is like for like.</p>
-<h3 id="m6">2.6. Similarity graph construction</h3>
-<p>A similarity graph was built from the same feature vectors. Exhaustive pairwise comparison is infeasible &mdash; 2,500 nodes alone require 3,123,750 comparisons per segment &mdash; so MinHash locality-sensitive hashing was used, which evaluates only candidate pairs falling into matching hash buckets. The Jaccard distance threshold was set at 0.12, chosen from a measured sweep rather than assumed: at 0.05 the graph is almost disconnected with mean degree 1.6, whereas at 0.25 and above the edge count expands rapidly and risks forming a single giant component that discriminates nothing. Connected components were computed by label propagation, with checkpointing at each iteration to prevent query-plan growth from exhausting driver memory. The resulting graph was loaded into a property-graph database to support variable-depth path queries that are awkward to express as repeated SQL joins.</p>
-<p>Two clusters from different segments were linked when both occur in the same strain, producing a cross-segment co-occurrence network. Throughout this paper these clusters are referred to as similarity clusters and not as lineages: they are connected components of a <i>k</i>-mer similarity graph, and although the two often correspond, calling them lineages would claim more than the method establishes.</p>
-<h3 id="m7">2.7. Candidate screening and statistical analysis</h3>
-<p>Reassortment candidates were flagged where the subtype predicted from the <i>k</i>-mer composition of internal segments disagreed with the recorded subtype at high model confidence. Because the models never observe host species, the host composition of the flagged set provides an independent validation signal.</p>
-<p>Enrichment was computed against the <b>scored population</b> of 892,344 sequences &mdash; those possessing feature vectors and therefore eligible to be flagged &mdash; and not against the full archive, since sequences that were never scored could never become candidates. Raw enrichment cannot distinguish a biological signal from uneven sequencing effort across regions and periods, so a Cochran–Mantel–Haenszel odds ratio was computed over 17 strata of region &times; decade, comparing only within strata. Robins–Breslow–Greenland standard errors were used for the confidence interval. A multivariable logistic regression adjusting additionally for subtype was computed as a secondary analysis, with the caveat noted in Section 3.6.</p>
-<h3 id="m8">2.8. Computational environment</h3>
-<p>All processing ran on a Hadoop cluster deployed as nine containers on a single physical host: HDFS with three DataNodes at replication factor 2 and 128 MB blocks, YARN with one ResourceManager and three NodeManagers providing 12 vCores and 18,432 MB of memory, Spark 3.5.9, a property-graph database, and a relational warehouse placed outside the cluster. YARN served as the sole resource manager for both MapReduce jobs and Spark applications, which makes performance comparison between the two engines legitimate because they contend for identical resources.</p>
-<p>Because all components share one physical host, inter-node traffic never traverses a physical network. This limitation is revisited in Section 3.8.</p>
-<h2 id="r">3. Results and Discussion</h2>
-<h3 id="r1">3.1. Archive characteristics</h3>
-<p>The corpus is both large and accelerating. Fig. 1 shows annual release volume, which reached 284,484 sequences in 2025 alone.</p>
-<figure><img src="figures/fig1_archive_growth.png" alt="Sequences released per year from 1990 onward. The final year was incomplete at the time of retrieval."></figure>
-<p class="cap"><b>Fig. 1.</b> Sequences released per year from 1990 onward. The final year was incomplete at the time of retrieval.</p>
-<p>Taxonomic and geographic coverage are markedly uneven. Subtypes H3N2 and H1N1 together account for 63.13% of the corpus despite 143 distinct subtypes being recorded. Geographically, the United States contributes 62.32% and North America 67.29%, while the entire African continent contributes 1.66% with 26,309 sequences. This distribution almost certainly reflects sequencing capacity rather than viral prevalence, and any global inference drawn from this archive inherits that bias; models trained on it will be weakest precisely where data are sparsest.</p>
-<p>A further structural bias affects the reassortment analysis directly. Segment 4 (hemagglutinin) carries 269,754 sequences, roughly 1.36 times the eight-segment mean, because it is both the dominant antibody target and the subtype determinant and is therefore sequenced preferentially. Complete eight-segment genomes are consequently far rarer than the corpus total suggests, which constrains any constellation-level analysis.</p>
-<h3 id="r2">3.2. Timeliness of the archive</h3>
-<figure><img src="figures/fig2_reporting_lag.png" alt="Mean interval between sample collection and public release, by collection year. The year 2026 is excluded because samples collected and released in the same year necessarily show zero lag."></figure>
-<p class="cap"><b>Fig. 2.</b> Mean interval between sample collection and public release, by collection year. The year 2026 is excluded because samples collected and released in the same year necessarily show zero lag.</p>
-<p>Samples collected in 2019 required a mean of 2.28 years to reach the public archive; for samples collected in 2025 the interval was 0.40 years, a reduction of approximately 5.7-fold. This shift changes what the archive can support. At a two-year lag, archive analysis is necessarily retrospective. Below half a year, the same archive begins to support near-operational monitoring &mdash; and it is that capability which creates the requirement for pipelines of the scale described here.</p>
-<h3 id="r3">3.3. Classification performance</h3>
-<p class="cap tcap"><b>Table 3.</b> Classification results for nine models. The highlighted row is the only model whose log loss exceeds the chance baseline.</p><div class="tw"><table><thead><tr><th>Task</th><th>Algorithm</th><th class="n">Macro F1</th><th class="n">Accuracy</th><th class="n">Log loss</th><th class="n">Chance log loss</th><th class="n">Train time (s)</th></tr></thead><tbody><tr><td>A</td><td>LogisticRegression</td><td class="n">0.9998</td><td class="n">0.9998</td><td class="n">0.0017</td><td class="n">2.0794</td><td class="n">583.0</td></tr><tr><td>A</td><td>RandomForest</td><td class="n">0.9977</td><td class="n">0.9977</td><td class="n">0.0906</td><td class="n">2.0794</td><td class="n">1802.6</td></tr><tr><td>A</td><td>NaiveBayes</td><td class="n">0.9997</td><td class="n">0.9997</td><td class="n">0.0103</td><td class="n">2.0794</td><td class="n">13.8</td></tr><tr><td>B1</td><td>LogisticRegression</td><td class="n">0.9654</td><td class="n">0.9658</td><td class="n">0.1143</td><td class="n">3.0445</td><td class="n">325.0</td></tr><tr><td>B1</td><td>RandomForest</td><td class="n">0.8900</td><td class="n">0.9004</td><td class="n">0.4569</td><td class="n">3.0445</td><td class="n">4333.9</td></tr><tr><td>B1</td><td>NaiveBayes</td><td class="n">0.8795</td><td class="n">0.8725</td><td class="n">2.3188</td><td class="n">3.0445</td><td class="n">5.9</td></tr><tr><td>B2</td><td>LogisticRegression</td><td class="n">0.8678</td><td class="n">0.8705</td><td class="n">0.4355</td><td class="n">3.0445</td><td class="n">779.6</td></tr><tr><td>B2</td><td>RandomForest</td><td class="n">0.6292</td><td class="n">0.6747</td><td class="n">1.0615</td><td class="n">3.0445</td><td class="n">8231.2</td></tr><tr class="hl"><td>B2</td><td>NaiveBayes</td><td class="n">0.7651</td><td class="n">0.7566</td><td class="n">3.3654</td><td class="n">3.0445</td><td class="n">12.9</td></tr></tbody></table></div>
-<figure><img src="figures/fig4_model_comparison.png" alt="Macro F1 (left) and training time (right) by task and algorithm."></figure>
-<p class="cap"><b>Fig. 3.</b> Macro F1 (left) and training time (right) by task and algorithm.</p>
-<p>Task A reached macro F1 0.9998 with log loss 0.0017 against a chance baseline of 2.0794. This result is expected rather than notable: the eight influenza segments differ substantially in both composition and length, from 890 nucleotides for NS to 2,341 for PB2, so separating them is an easy problem. The result is best read as verification that the pipeline functions correctly.</p>
-<p>The substantive finding is the small gap between Tasks B1 and B2. With hemagglutinin and neuraminidase available, macro F1 reached 0.9654. Using only the six internal segments, macro F1 remained 0.8678, a decrease of just 0.0976, with log loss 0.4355 against a chance baseline of 3.0445. Since the internal segments bear no definitional relationship to subtype nomenclature, this indicates that they carry a strong trace of the strain from which they derive. That trace is what makes the candidate screening in Section 3.5 possible: when the internal segments of a strain signal a subtype different from the recorded one, it suggests that its segments do not share a common ancestry.</p>
-<p>A methodological caution emerges from naive Bayes on Task B2. Its accuracy of 0.7566 appears acceptable, yet its log loss of 3.3654 exceeds the chance baseline of 3.0445: the model assigns high probability to incorrect answers. The cause is the violated independence assumption, since overlapping <i>k</i>-mers cause what is effectively one piece of evidence to be counted repeatedly, inflating confidence. Had evaluation stopped at accuracy, this model would have appeared a reasonable choice at 12.9 seconds of training against 779.6 seconds for logistic regression, and that choice would have corrupted every downstream analysis depending on its probabilities.</p>
-<p>Random forest was outperformed on all three tasks while also being the most expensive, requiring 137 minutes on Task B2 for a macro F1 of 0.6292. The cause is structural: across 65,536 predominantly zero columns, every tree split must survey feature subsets that are almost entirely uninformative, whereas a linear model benefits from high-dimensional sparsity by assigning small weights across many features simultaneously. Logistic regression was therefore adopted for all downstream analysis.</p>
-<h3 id="r4">3.4. Distributed versus single-node execution</h3>
-<p class="cap tcap"><b>Table 4.</b> Distributed versus single-node training across increasing fractions of the corpus. Highlighted rows mark runs that scikit-learn could not complete.</p><div class="tw"><table><thead><tr><th class="n">Fraction</th><th class="n">Training rows</th><th class="n">Spark MLlib (s)</th><th class="n">scikit-learn (s)</th><th class="n">Spark throughput</th><th class="n">Macro F1</th></tr></thead><tbody><tr><td class="n">1%</td><td class="n">7,251</td><td class="n">75.6</td><td class="n">31.7</td><td class="n">95 rows/s</td><td class="n">0.9989</td></tr><tr><td class="n">5%</td><td class="n">35,854</td><td class="n">69.1</td><td class="n">211.1</td><td class="n">518 rows/s</td><td class="n">0.9999</td></tr><tr class="hl"><td class="n">25%</td><td class="n">178,783</td><td class="n">165.8</td><td class="n">failed</td><td class="n">1,078 rows/s</td><td class="n">0.9998</td></tr><tr class="hl"><td class="n">50%</td><td class="n">356,839</td><td class="n">269.5</td><td class="n">failed</td><td class="n">1,324 rows/s</td><td class="n">0.9998</td></tr><tr class="hl"><td class="n">100%</td><td class="n">713,440</td><td class="n">495.5</td><td class="n">failed</td><td class="n">1,439 rows/s</td><td class="n">0.9998</td></tr></tbody></table></div>
-<figure><img src="figures/fig3_scalability.png" alt="Training time (left) and throughput (right) against training-set size on logarithmic axes. Crosses mark runs that failed to complete."></figure>
-<p class="cap"><b>Fig. 4.</b> Training time (left) and throughput (right) against training-set size on logarithmic axes. Crosses mark runs that failed to complete.</p>
-<p>At 1% of the data (7,251 rows) scikit-learn was decisively faster, 31.69 seconds against 75.58. Spark pays a fixed overhead &mdash; launching executors, submitting to the resource manager, distributing data &mdash; that exceeds the computation itself at this scale. At 5% the ordering reverses, 69.12 seconds against 211.12. From 25% onward scikit-learn did not merely slow but failed outright, unable to hold the feature matrix on a single node.</p>
-<p>Throughput reinforces the same conclusion from a different direction. Spark rose from 95 to 1,439 rows per second as the workload grew, because the fixed scheduling cost amortises, whereas scikit-learn declined from 228 to 169 rows per second before failing. Macro F1 varied only between 0.9989 and 0.9999 across all fractions. What distributed execution purchases here is therefore not improved accuracy but the ability to complete the task at full scale at all &mdash; a distinction often blurred in comparisons of this kind.</p>
-<p>A separate comparison isolated the processing engines. The identical <i>k</i>-mer frequency computation was executed once as a MapReduce streaming job and once in Spark SQL, producing byte-identical results of 56,171 unique <i>k</i>-mers. MapReduce completed in 42.4 seconds against Spark's 65.7. This does not indicate general superiority but reflects the shape of the task: a single aggregation pass without iteration is the ideal case for MapReduce, whereas Spark pays scheduling overhead it cannot recover. The combiner reduced map output from 2,964,548 to 265,159 records before shuffle, a reduction of 91%.</p>
-<h3 id="r5">3.5. Graph structure</h3>
-<figure><img src="figures/fig5_edges_per_segment.png" alt="Similarity edges per genome segment at comparable node counts."></figure>
-<p class="cap"><b>Fig. 5.</b> Similarity edges per genome segment at comparable node counts.</p>
-<p>The graph comprises 358,212 edges across the eight segments, and its density is markedly non-uniform. Segment 3 (PA) produced 66,933 edges while segment 4 (HA) produced 19,233, a 3.5-fold difference at nearly identical node counts. This asymmetry is biologically interpretable: hemagglutinin is the principal antibody target and therefore under the strongest immune selection pressure, changing fastest, whereas internal segments such as the polymerase genes are far more conserved and consequently exceed the similarity threshold far more often.</p>
-<p>Component sizes follow a long-tailed distribution: 905 components contain two to five sequences while 29 exceed one hundred nodes. This shape is characteristic of viral populations, in which many rare variants coexist with a few widely circulating strains.</p>
-<h3 id="r6">3.6. Candidate screening and host enrichment</h3>
-<p>Screening flagged 1,990 sequences from 1,238 strains at a mean confidence of 0.909. The pattern of disagreement is not random: the most frequent mismatches involve H1N1, H1N2 and H3N2, precisely the subtypes that circulate in swine and that most frequently exchange segments in nature.</p>
-<figure><img src="figures/fig6_host_enrichment.png" alt="Host composition of the scored population compared with the flagged candidate set, annotated with enrichment ratios. Host species was never a model input."></figure>
-<p class="cap"><b>Fig. 6.</b> Host composition of the scored population compared with the flagged candidate set, annotated with enrichment ratios. Host species was never a model input.</p>
-<p>Candidates concentrate 4.31-fold in swine and are depleted 0.16-fold in humans, despite host species never entering the model. Swine are long established as a mixing vessel for influenza, their respiratory tract admitting both avian and human viruses and thereby facilitating reassortment. The pipeline recovers this pattern without ever being given any information about it, which constitutes independent evidence that the captured signal is biological rather than an artefact of metadata error.</p>
-<p class="cap tcap"><b>Table 5.</b> Confounder-adjusted association between swine host and candidate status.</p><div class="tw"><table><thead><tr><th>Measure</th><th class="n">Value</th></tr></thead><tbody><tr><td>Mantel–Haenszel odds ratio</td><td class="n">10.86</td></tr><tr><td>95% confidence interval</td><td class="n">9.69–12.17</td></tr><tr><td>CMH chi-square</td><td class="n">2555.7</td></tr><tr><td>Strata (region × decade)</td><td class="n">17</td></tr><tr><td>Scored population</td><td class="n">892,344</td></tr><tr><td>Flagged candidates</td><td class="n">1,990</td></tr></tbody></table></div>
-<p>The adjusted odds ratio of 10.86 (95% CI 9.69–12.17) is <i>higher</i> than the crude enrichment of 4.31-fold, indicating that pooling across strata had masked the signal rather than created it: within individual regions and decades the contrast is sharper than in aggregate. The objection that swine are simply sequenced more intensively is therefore not supported.</p>
-<p>The secondary logistic regression returned an odds ratio of 18.38, but that model adjusts for subtype while candidate status is itself defined by subtype disagreement, raising a risk of overadjustment. The Cochran–Mantel–Haenszel estimate is therefore reported as primary.</p>
-<h3 id="r7">3.7. A negative result on graph-native screening</h3>
-<p>A further experiment attempted to flag candidates directly from graph structure without using subtype at all. A strain was flagged when its constellation contained a low-support cluster pairing while both constituent clusters were individually high-degree &mdash; common building blocks in an uncommon combination.</p>
-<p>The operator did not work. On a strain-aware graph of 3,230 eligible strains it flagged 697, or 21.6% of the population, with swine enrichment of only 1.30-fold against 4.31-fold for the subtype-based approach. The cause is cluster granularity: at the threshold used, components average roughly seven sequences, whereas true influenza lineages are considerably coarser. "Different cluster" therefore does not imply "different lineage", and the premise collapses because at that granularity nearly every cluster pairing is rare.</p>
-<p>This result is reported because it is measured and diagnosed, and because it delimits the alignment-free approach: <i>k</i>-mer composition can group sequences, but at this resolution it does not substitute for phylogenetic lineage assignment.</p>
-<h3 id="r8">3.8. Limitations</h3>
-<p>Three limitations constrain the interpretation of these results. First, the output is a set of <b>candidates</b> rather than confirmed reassortment events; confirmation requires per-segment phylogenetic analysis establishing that the segments of a strain derive from distinct lineages, which was outside the scope of this work. Second, the similarity graph was constructed on a sample of at most 2,500 nodes per segment rather than on the full corpus, so while the cluster structure is informative the absolute counts apply to the sample. Third, all performance measurements were taken on a single physical host, so inter-node traffic never crossed a physical network; relative comparisons between processing engines remain valid because both were measured under identical conditions, but the absolute figures cannot be generalised to a production cluster.</p>
-<p>The host-enrichment result provides reasonable confidence that most of the captured signal is biological, but each candidate still requires individual verification.</p>
-  <section class="meta">
-    <h3>Figures</h3><ol><li>Sequences released per year from 1990 onward. The final year was incomplete at the time of retrieval.</li><li>Mean interval between sample collection and public release, by collection year. The year 2026 is excluded because samples collected and released in the same year necessarily show zero lag.</li><li>Macro F1 (left) and training time (right) by task and algorithm.</li><li>Training time (left) and throughput (right) against training-set size on logarithmic axes. Crosses mark runs that failed to complete.</li><li>Similarity edges per genome segment at comparable node counts.</li><li>Host composition of the scored population compared with the flagged candidate set, annotated with enrichment ratios. Host species was never a model input.</li></ol>
-    <h3>Tables</h3><ol><li>Quality control outcomes. Of 1,627,536 retrieved records, 1,586,912 passed all gates.</li><li>Classification tasks. Tasks B1 and B2 were deliberately separated because HA and NA define the subtype nomenclature whereas the internal segments do not.</li><li>Classification results for nine models. The highlighted row is the only model whose log loss exceeds the chance baseline.</li><li>Distributed versus single-node training across increasing fractions of the corpus. Highlighted rows mark runs that scikit-learn could not complete.</li><li>Confounder-adjusted association between swine host and candidate status.</li></ol>
-  </section>
+  <p class="lede">An end-to-end pipeline over <b>1,586,912 Influenza A
+    genome sequences</b> from NCBI: retrieval, storage on HDFS, processing
+    with MapReduce and Spark on YARN, classification with Spark MLlib, and
+    <i>graph analytics</i> in Neo4j.</p>
+
+  <h2>Explore</h2>
+  <div class="kartu">
+    <a class="k" href="web/">
+      <span class="t">Interactive atlas &rarr;</span>
+      <span class="d">A five-page dashboard: archive, quality and timeliness,
+        diversity, similarity graph, and reassortment. Five network
+        diagrams.</span>
+    </a>
+    <a class="k" href="https://github.com/wilhelm213/bda_influenza_pipeline">
+      <span class="t">Source code &rarr;</span>
+      <span class="d">Eight pipeline notebooks, Docker Compose, the Hadoop
+        configuration, and the downstream analysis scripts.</span>
+    </a>
+  </div>
+
+  <h2>Headline figures</h2>
+  <div class="angka">
+    <div><span class="k">Sequences</span><span class="v">1,586,912</span>
+      <span class="n">from 172 countries</span></div>
+    <div><span class="k">Unique representatives</span><span class="v">893,599</span>
+      <span class="n">43.69% duplicated</span></div>
+    <div><span class="k">Bases</span><span class="v">2.57 Gb</span>
+      <span class="n">nucleotides</span></div>
+    <div><span class="k">Graph edges</span><span class="v">358,212</span>
+      <span class="n">8 segments</span></div>
+    <div><span class="k">Candidates</span><span class="v">1,990</span>
+      <span class="n">reassortment</span></div>
+    <div><span class="k">Host species</span><span class="v">601</span>
+      <span class="n">recorded</span></div>
+  </div>
+
+  <h2>Findings</h2>
+  <table>
+    <thead><tr><th>Result</th><th class="n">Value</th></tr></thead>
+    <tbody>
+      <tr><td>Segment classification, macro F1</td><td class="n">0.9998</td></tr>
+      <tr><td>Subtype from HA and NA</td><td class="n">0.9654</td></tr>
+      <tr><td>Subtype from internal segments only</td><td class="n">0.8678</td></tr>
+      <tr><td>MapReduce vs Spark, identical computation</td>
+          <td class="n">42.4 s vs 65.7 s</td></tr>
+      <tr><td>scikit-learn on a single node</td>
+          <td class="n">fails from 25% of the data</td></tr>
+      <tr><td>Candidate enrichment in swine, Mantel&ndash;Haenszel OR</td>
+          <td class="n">10.86</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Running it yourself</h2>
+  <p>Credentials are not committed to the repository. Prepare two files
+    first, then bring the cluster up:</p>
+  <pre>cp docker/.env.contoh docker/.env
+cp docker/mysql-init.sql.contoh docker/mysql-init.sql
+cd docker &amp;&amp; docker compose --profile yarn up -d</pre>
+  <p style="margin-top:14px">Run <code>00_setup.ipynb</code> once; it
+    creates <code>nb/bda_secret.json</code> from the template and reports
+    which fields still need values. The data zones are not committed because
+    they run to hundreds of megabytes, and they can be rebuilt by running
+    notebooks 01 through 06 in order.</p>
+
   <footer>
-    <p>Data source: NCBI Influenza Virus Database. The analysis code and
-      the <a href="dashboard.html">interactive atlas</a> accompany this
-      manuscript in the project repository.</p>
+    <p>Data source: NCBI Influenza Virus Database. Every figure was
+      computed from this project's data lake zones rather than copied from
+      the literature.</p>
+    <p>The similarity graph and the reassortment candidates were built on a
+      sample of at most 2,500 nodes per segment. Performance was measured on
+      a single physical host, so relative comparisons between processing
+      engines are valid but the absolute figures cannot be generalised to a
+      production cluster.</p>
   </footer>
-  </main>
 </div>
-<button class="theme" id="theme" type="button"
-  aria-label="Change colour theme">theme: system</button>
+
 <script>
 (function(){
-  var b=document.getElementById("theme"), order=["system","light","dark"];
-  function read(){ try{ return localStorage.getItem("theme-paper")||"system"; }
+  var b=document.getElementById("tema"), urut=["system","light","dark"];
+  function baca(){ try{ return localStorage.getItem("theme-bda-en")||"system"; }
     catch(e){ return "system"; } }
-  function apply(v){ var r=document.documentElement;
+  function terap(v){
+    var r=document.documentElement;
     if(v==="light") r.setAttribute("data-theme","light");
     else if(v==="dark") r.setAttribute("data-theme","dark");
     else r.removeAttribute("data-theme");
-    b.textContent="theme: "+v; }
-  var cur=read(); apply(cur);
+    b.textContent="theme: "+v;
+  }
+  var kini=baca(); terap(kini);
   b.addEventListener("click",function(){
-    cur=order[(order.indexOf(cur)+1)%order.length];
-    try{ localStorage.setItem("theme-paper",cur); }catch(e){}
-    apply(cur); });
+    kini=urut[(urut.indexOf(kini)+1)%urut.length];
+    try{ localStorage.setItem("theme-bda-en",kini); }catch(e){}
+    terap(kini);
+  });
 })();
 </script>
 </body>
