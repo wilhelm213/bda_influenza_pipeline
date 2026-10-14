@@ -1,0 +1,5119 @@
+{
+ "ringkas": {
+  "sekuens": 1586912,
+  "accession_unik": 1586912,
+  "sekuens_unik": 893599,
+  "wakil_unik": 893599,
+  "negara": 172,
+  "subtipe": 143,
+  "inang": 601,
+  "galur": 273185,
+  "tahun_min": 1902,
+  "tahun_maks": 2026,
+  "basa_total": 2570555392
+ },
+ "per_tahun_rilis": [
+  {
+   "tahun_rilis": null,
+   "count": 392
+  },
+  {
+   "tahun_rilis": 1982,
+   "count": 17
+  },
+  {
+   "tahun_rilis": 1983,
+   "count": 3
+  },
+  {
+   "tahun_rilis": 1985,
+   "count": 5
+  },
+  {
+   "tahun_rilis": 1988,
+   "count": 3
+  },
+  {
+   "tahun_rilis": 1989,
+   "count": 12
+  },
+  {
+   "tahun_rilis": 1990,
+   "count": 5
+  },
+  {
+   "tahun_rilis": 1991,
+   "count": 13
+  },
+  {
+   "tahun_rilis": 1992,
+   "count": 5
+  },
+  {
+   "tahun_rilis": 1993,
+   "count": 646
+  },
+  {
+   "tahun_rilis": 1994,
+   "count": 164
+  },
+  {
+   "tahun_rilis": 1995,
+   "count": 98
+  },
+  {
+   "tahun_rilis": 1996,
+   "count": 114
+  },
+  {
+   "tahun_rilis": 1997,
+   "count": 352
+  },
+  {
+   "tahun_rilis": 1998,
+   "count": 225
+  },
+  {
+   "tahun_rilis": 1999,
+   "count": 584
+  },
+  {
+   "tahun_rilis": 2000,
+   "count": 422
+  },
+  {
+   "tahun_rilis": 2001,
+   "count": 931
+  },
+  {
+   "tahun_rilis": 2002,
+   "count": 984
+  },
+  {
+   "tahun_rilis": 2003,
+   "count": 2028
+  },
+  {
+   "tahun_rilis": 2004,
+   "count": 2606
+  },
+  {
+   "tahun_rilis": 2005,
+   "count": 7975
+  },
+  {
+   "tahun_rilis": 2006,
+   "count": 17989
+  },
+  {
+   "tahun_rilis": 2007,
+   "count": 16315
+  },
+  {
+   "tahun_rilis": 2008,
+   "count": 18292
+  },
+  {
+   "tahun_rilis": 2009,
+   "count": 29339
+  },
+  {
+   "tahun_rilis": 2010,
+   "count": 40010
+  },
+  {
+   "tahun_rilis": 2011,
+   "count": 34121
+  },
+  {
+   "tahun_rilis": 2012,
+   "count": 43364
+  },
+  {
+   "tahun_rilis": 2013,
+   "count": 57191
+  },
+  {
+   "tahun_rilis": 2014,
+   "count": 47013
+  },
+  {
+   "tahun_rilis": 2015,
+   "count": 52972
+  },
+  {
+   "tahun_rilis": 2016,
+   "count": 63334
+  },
+  {
+   "tahun_rilis": 2017,
+   "count": 69359
+  },
+  {
+   "tahun_rilis": 2018,
+   "count": 59914
+  },
+  {
+   "tahun_rilis": 2019,
+   "count": 100712
+  },
+  {
+   "tahun_rilis": 2020,
+   "count": 64512
+  },
+  {
+   "tahun_rilis": 2021,
+   "count": 29422
+  },
+  {
+   "tahun_rilis": 2022,
+   "count": 73813
+  },
+  {
+   "tahun_rilis": 2023,
+   "count": 110238
+  },
+  {
+   "tahun_rilis": 2024,
+   "count": 190206
+  },
+  {
+   "tahun_rilis": 2025,
+   "count": 284484
+  },
+  {
+   "tahun_rilis": 2026,
+   "count": 166728
+  }
+ ],
+ "per_tahun_koleksi": [
+  {
+   "tahun_koleksi": 1918,
+   "count": 23
+  },
+  {
+   "tahun_koleksi": 1925,
+   "count": 8
+  },
+  {
+   "tahun_koleksi": 1927,
+   "count": 15
+  },
+  {
+   "tahun_koleksi": 1931,
+   "count": 24
+  },
+  {
+   "tahun_koleksi": 1933,
+   "count": 53
+  },
+  {
+   "tahun_koleksi": 1934,
+   "count": 344
+  },
+  {
+   "tahun_koleksi": 1935,
+   "count": 56
+  },
+  {
+   "tahun_koleksi": 1936,
+   "count": 8
+  },
+  {
+   "tahun_koleksi": 1940,
+   "count": 16
+  },
+  {
+   "tahun_koleksi": 1942,
+   "count": 26
+  },
+  {
+   "tahun_koleksi": 1943,
+   "count": 32
+  },
+  {
+   "tahun_koleksi": 1945,
+   "count": 8
+  },
+  {
+   "tahun_koleksi": 1946,
+   "count": 25
+  },
+  {
+   "tahun_koleksi": 1947,
+   "count": 33
+  },
+  {
+   "tahun_koleksi": 1948,
+   "count": 24
+  },
+  {
+   "tahun_koleksi": 1949,
+   "count": 45
+  },
+  {
+   "tahun_koleksi": 1950,
+   "count": 30
+  },
+  {
+   "tahun_koleksi": 1951,
+   "count": 49
+  },
+  {
+   "tahun_koleksi": 1953,
+   "count": 23
+  },
+  {
+   "tahun_koleksi": 1954,
+   "count": 32
+  },
+  {
+   "tahun_koleksi": 1956,
+   "count": 111
+  },
+  {
+   "tahun_koleksi": 1957,
+   "count": 225
+  },
+  {
+   "tahun_koleksi": 1958,
+   "count": 63
+  },
+  {
+   "tahun_koleksi": 1959,
+   "count": 47
+  },
+  {
+   "tahun_koleksi": 1960,
+   "count": 31
+  },
+  {
+   "tahun_koleksi": 1961,
+   "count": 33
+  },
+  {
+   "tahun_koleksi": 1962,
+   "count": 9
+  },
+  {
+   "tahun_koleksi": 1963,
+   "count": 153
+  },
+  {
+   "tahun_koleksi": 1964,
+   "count": 35
+  },
+  {
+   "tahun_koleksi": 1965,
+   "count": 63
+  },
+  {
+   "tahun_koleksi": 1966,
+   "count": 85
+  },
+  {
+   "tahun_koleksi": 1967,
+   "count": 123
+  },
+  {
+   "tahun_koleksi": 1968,
+   "count": 759
+  },
+  {
+   "tahun_koleksi": 1969,
+   "count": 81
+  },
+  {
+   "tahun_koleksi": 1970,
+   "count": 64
+  },
+  {
+   "tahun_koleksi": 1971,
+   "count": 105
+  },
+  {
+   "tahun_koleksi": 1972,
+   "count": 204
+  },
+  {
+   "tahun_koleksi": 1973,
+   "count": 130
+  },
+  {
+   "tahun_koleksi": 1974,
+   "count": 284
+  },
+  {
+   "tahun_koleksi": 1975,
+   "count": 552
+  },
+  {
+   "tahun_koleksi": 1976,
+   "count": 1427
+  },
+  {
+   "tahun_koleksi": 1977,
+   "count": 1305
+  },
+  {
+   "tahun_koleksi": 1978,
+   "count": 918
+  },
+  {
+   "tahun_koleksi": 1979,
+   "count": 1000
+  },
+  {
+   "tahun_koleksi": 1980,
+   "count": 751
+  },
+  {
+   "tahun_koleksi": 1981,
+   "count": 770
+  },
+  {
+   "tahun_koleksi": 1982,
+   "count": 783
+  },
+  {
+   "tahun_koleksi": 1983,
+   "count": 1252
+  },
+  {
+   "tahun_koleksi": 1984,
+   "count": 596
+  },
+  {
+   "tahun_koleksi": 1985,
+   "count": 734
+  },
+  {
+   "tahun_koleksi": 1986,
+   "count": 857
+  },
+  {
+   "tahun_koleksi": 1987,
+   "count": 811
+  },
+  {
+   "tahun_koleksi": 1988,
+   "count": 774
+  },
+  {
+   "tahun_koleksi": 1989,
+   "count": 619
+  },
+  {
+   "tahun_koleksi": 1990,
+   "count": 503
+  },
+  {
+   "tahun_koleksi": 1991,
+   "count": 816
+  },
+  {
+   "tahun_koleksi": 1992,
+   "count": 708
+  },
+  {
+   "tahun_koleksi": 1993,
+   "count": 1922
+  },
+  {
+   "tahun_koleksi": 1994,
+   "count": 1898
+  },
+  {
+   "tahun_koleksi": 1995,
+   "count": 1728
+  },
+  {
+   "tahun_koleksi": 1996,
+   "count": 1644
+  },
+  {
+   "tahun_koleksi": 1997,
+   "count": 1121
+  },
+  {
+   "tahun_koleksi": 1998,
+   "count": 1846
+  },
+  {
+   "tahun_koleksi": 1999,
+   "count": 3709
+  },
+  {
+   "tahun_koleksi": 2000,
+   "count": 5028
+  },
+  {
+   "tahun_koleksi": 2001,
+   "count": 5158
+  },
+  {
+   "tahun_koleksi": 2002,
+   "count": 6844
+  },
+  {
+   "tahun_koleksi": 2003,
+   "count": 11186
+  },
+  {
+   "tahun_koleksi": 2004,
+   "count": 8242
+  },
+  {
+   "tahun_koleksi": 2005,
+   "count": 14132
+  },
+  {
+   "tahun_koleksi": 2006,
+   "count": 18004
+  },
+  {
+   "tahun_koleksi": 2007,
+   "count": 25638
+  },
+  {
+   "tahun_koleksi": 2008,
+   "count": 24364
+  },
+  {
+   "tahun_koleksi": 2009,
+   "count": 70208
+  },
+  {
+   "tahun_koleksi": 2010,
+   "count": 31852
+  },
+  {
+   "tahun_koleksi": 2011,
+   "count": 34865
+  },
+  {
+   "tahun_koleksi": 2012,
+   "count": 32715
+  },
+  {
+   "tahun_koleksi": 2013,
+   "count": 43171
+  },
+  {
+   "tahun_koleksi": 2014,
+   "count": 44229
+  },
+  {
+   "tahun_koleksi": 2015,
+   "count": 49396
+  },
+  {
+   "tahun_koleksi": 2016,
+   "count": 62566
+  },
+  {
+   "tahun_koleksi": 2017,
+   "count": 85298
+  },
+  {
+   "tahun_koleksi": 2018,
+   "count": 74902
+  },
+  {
+   "tahun_koleksi": 2019,
+   "count": 98440
+  },
+  {
+   "tahun_koleksi": 2020,
+   "count": 34996
+  },
+  {
+   "tahun_koleksi": 2021,
+   "count": 42129
+  },
+  {
+   "tahun_koleksi": 2022,
+   "count": 169652
+  },
+  {
+   "tahun_koleksi": 2023,
+   "count": 96729
+  },
+  {
+   "tahun_koleksi": 2024,
+   "count": 178505
+  },
+  {
+   "tahun_koleksi": 2025,
+   "count": 202788
+  },
+  {
+   "tahun_koleksi": 2026,
+   "count": 36880
+  }
+ ],
+ "jeda_ringkas": {
+  "n": 1523803,
+  "rata": 2.04,
+  "median": 1.0,
+  "p90": 6.0
+ },
+ "jeda_sebaran": [
+  {
+   "jeda": 0,
+   "count": 481067
+  },
+  {
+   "jeda": 1,
+   "count": 463165
+  },
+  {
+   "jeda": 2,
+   "count": 175357
+  },
+  {
+   "jeda": 3,
+   "count": 124175
+  },
+  {
+   "jeda": 4,
+   "count": 74070
+  },
+  {
+   "jeda": 5,
+   "count": 52434
+  },
+  {
+   "jeda": 6,
+   "count": 38854
+  },
+  {
+   "jeda": 7,
+   "count": 32954
+  },
+  {
+   "jeda": 8,
+   "count": 20955
+  },
+  {
+   "jeda": 9,
+   "count": 15744
+  },
+  {
+   "jeda": 10,
+   "count": 10420
+  },
+  {
+   "jeda": 11,
+   "count": 8591
+  },
+  {
+   "jeda": 12,
+   "count": 7019
+  },
+  {
+   "jeda": 13,
+   "count": 3949
+  },
+  {
+   "jeda": 14,
+   "count": 3384
+  },
+  {
+   "jeda": 15,
+   "count": 2539
+  },
+  {
+   "jeda": 16,
+   "count": 1589
+  },
+  {
+   "jeda": 17,
+   "count": 2006
+  },
+  {
+   "jeda": 18,
+   "count": 1210
+  },
+  {
+   "jeda": 19,
+   "count": 1138
+  },
+  {
+   "jeda": 20,
+   "count": 1431
+  },
+  {
+   "jeda": 21,
+   "count": 593
+  },
+  {
+   "jeda": 22,
+   "count": 333
+  },
+  {
+   "jeda": 23,
+   "count": 185
+  },
+  {
+   "jeda": 24,
+   "count": 196
+  },
+  {
+   "jeda": 25,
+   "count": 65
+  },
+  {
+   "jeda": 26,
+   "count": 121
+  },
+  {
+   "jeda": 27,
+   "count": 163
+  },
+  {
+   "jeda": 28,
+   "count": 54
+  },
+  {
+   "jeda": 29,
+   "count": 26
+  },
+  {
+   "jeda": 30,
+   "count": 16
+  }
+ ],
+ "jeda_per_tahun": [
+  {
+   "tahun_koleksi": 1990,
+   "rata": 20.33797216699801,
+   "n": 503
+  },
+  {
+   "tahun_koleksi": 1991,
+   "rata": 19.415441176470587,
+   "n": 816
+  },
+  {
+   "tahun_koleksi": 1992,
+   "rata": 19.346045197740114,
+   "n": 708
+  },
+  {
+   "tahun_koleksi": 1993,
+   "rata": 17.482310093652444,
+   "n": 1922
+  },
+  {
+   "tahun_koleksi": 1994,
+   "rata": 16.590788777130758,
+   "n": 1889
+  },
+  {
+   "tahun_koleksi": 1995,
+   "rata": 14.50925925925926,
+   "n": 1728
+  },
+  {
+   "tahun_koleksi": 1996,
+   "rata": 14.052919708029197,
+   "n": 1644
+  },
+  {
+   "tahun_koleksi": 1997,
+   "rata": 12.761819803746654,
+   "n": 1121
+  },
+  {
+   "tahun_koleksi": 1998,
+   "rata": 11.789815817984833,
+   "n": 1846
+  },
+  {
+   "tahun_koleksi": 1999,
+   "rata": 10.393906713399838,
+   "n": 3709
+  },
+  {
+   "tahun_koleksi": 2000,
+   "rata": 9.7384645982498,
+   "n": 5028
+  },
+  {
+   "tahun_koleksi": 2001,
+   "rata": 9.134160527336176,
+   "n": 5158
+  },
+  {
+   "tahun_koleksi": 2002,
+   "rata": 7.85885447106955,
+   "n": 6844
+  },
+  {
+   "tahun_koleksi": 2003,
+   "rata": 7.385571249776507,
+   "n": 11186
+  },
+  {
+   "tahun_koleksi": 2004,
+   "rata": 5.891895171074982,
+   "n": 8242
+  },
+  {
+   "tahun_koleksi": 2005,
+   "rata": 5.512524766487404,
+   "n": 14132
+  },
+  {
+   "tahun_koleksi": 2006,
+   "rata": 5.326816263052655,
+   "n": 18004
+  },
+  {
+   "tahun_koleksi": 2007,
+   "rata": 3.9359154380216865,
+   "n": 25638
+  },
+  {
+   "tahun_koleksi": 2008,
+   "rata": 4.028279428665244,
+   "n": 24364
+  },
+  {
+   "tahun_koleksi": 2009,
+   "rata": 2.578039539653601,
+   "n": 70208
+  },
+  {
+   "tahun_koleksi": 2010,
+   "rata": 3.5454602536732387,
+   "n": 31852
+  },
+  {
+   "tahun_koleksi": 2011,
+   "rata": 3.364663702853865,
+   "n": 34865
+  },
+  {
+   "tahun_koleksi": 2012,
+   "rata": 3.098517499617912,
+   "n": 32715
+  },
+  {
+   "tahun_koleksi": 2013,
+   "rata": 2.875981561696509,
+   "n": 43171
+  },
+  {
+   "tahun_koleksi": 2014,
+   "rata": 2.879536051007258,
+   "n": 44229
+  },
+  {
+   "tahun_koleksi": 2015,
+   "rata": 2.5909385375334035,
+   "n": 49396
+  },
+  {
+   "tahun_koleksi": 2016,
+   "rata": 1.7882396189623757,
+   "n": 62566
+  },
+  {
+   "tahun_koleksi": 2017,
+   "rata": 2.0518066074233863,
+   "n": 85298
+  },
+  {
+   "tahun_koleksi": 2018,
+   "rata": 1.7297668954100025,
+   "n": 74902
+  },
+  {
+   "tahun_koleksi": 2019,
+   "rata": 2.284020723283218,
+   "n": 98440
+  },
+  {
+   "tahun_koleksi": 2020,
+   "rata": 1.963853011772774,
+   "n": 34996
+  },
+  {
+   "tahun_koleksi": 2021,
+   "rata": 1.904816159889862,
+   "n": 42129
+  },
+  {
+   "tahun_koleksi": 2022,
+   "rata": 1.5210253931577582,
+   "n": 169652
+  },
+  {
+   "tahun_koleksi": 2023,
+   "rata": 1.0159104301708899,
+   "n": 96729
+  },
+  {
+   "tahun_koleksi": 2024,
+   "rata": 0.610414274109969,
+   "n": 178505
+  },
+  {
+   "tahun_koleksi": 2025,
+   "rata": 0.3987316803755646,
+   "n": 202788
+  },
+  {
+   "tahun_koleksi": 2026,
+   "rata": 0.0,
+   "n": 36880
+  }
+ ],
+ "presisi_tanggal": [
+  {
+   "presisi_tanggal": "hari",
+   "count": 1402264
+  },
+  {
+   "presisi_tanggal": "tahun",
+   "count": 70145
+  },
+  {
+   "presisi_tanggal": "bulan",
+   "count": 68044
+  },
+  {
+   "presisi_tanggal": "tidak_ada",
+   "count": 46459
+  }
+ ],
+ "kelengkapan": [
+  {
+   "kelengkapan": "partial",
+   "count": 1575650
+  },
+  {
+   "kelengkapan": "complete",
+   "count": 10870
+  },
+  {
+   "kelengkapan": null,
+   "count": 392
+  }
+ ],
+ "sumber_segmen": [
+  {
+   "segmen_sumber": "metadata",
+   "count": 1562409
+  },
+  {
+   "segmen_sumber": "defline_gen",
+   "count": 20860
+  },
+  {
+   "segmen_sumber": "tidak_diketahui",
+   "count": 3067
+  },
+  {
+   "segmen_sumber": "defline_segment",
+   "count": 576
+  }
+ ],
+ "sumber_subtipe": [
+  {
+   "subtipe_sumber": "metadata",
+   "count": 1530534
+  },
+  {
+   "subtipe_sumber": "tidak_diketahui",
+   "count": 48823
+  },
+  {
+   "subtipe_sumber": "defline",
+   "count": 7555
+  }
+ ],
+ "ambigu_ember": [
+  {
+   "ember": "< 0,1%",
+   "count": 50585
+  },
+  {
+   "ember": "0 (bersih)",
+   "count": 1503183
+  },
+  {
+   "ember": "1 - 5%",
+   "count": 4671
+  },
+  {
+   "ember": "0,1 - 1%",
+   "count": 28470
+  },
+  {
+   "ember": ">= 5%",
+   "count": 3
+  }
+ ],
+ "rongga": [
+  {
+   "kolom": "subtipe",
+   "kosong": 48823
+  },
+  {
+   "kolom": "inang",
+   "kosong": 59790
+  },
+  {
+   "kolom": "negara",
+   "kosong": 30153
+  },
+  {
+   "kolom": "tahun_koleksi",
+   "kosong": 46459
+  },
+  {
+   "kolom": "isolat",
+   "kosong": 14217
+  },
+  {
+   "kolom": "segmen",
+   "kosong": 3067
+  }
+ ],
+ "duplikat_ember": [
+  {
+   "ember": "2 - 5",
+   "count": 395265
+  },
+  {
+   "ember": "6 - 20",
+   "count": 193377
+  },
+  {
+   "ember": "1 (tunggal)",
+   "count": 710848
+  },
+  {
+   "ember": "21 - 100",
+   "count": 139162
+  },
+  {
+   "ember": "> 100",
+   "count": 148260
+  }
+ ],
+ "per_segmen": [
+  {
+   "segmen": null,
+   "n": 3067,
+   "panjang_rata": 1584.7,
+   "gc_rata": 45.88,
+   "ambigu_rata": 0.0028,
+   "subtipe_unik": 19
+  },
+  {
+   "segmen": 1,
+   "n": 178568,
+   "panjang_rata": 2284.5,
+   "gc_rata": 43.96,
+   "ambigu_rata": 0.0161,
+   "subtipe_unik": 132
+  },
+  {
+   "segmen": 2,
+   "n": 174269,
+   "panjang_rata": 2281.9,
+   "gc_rata": 42.26,
+   "ambigu_rata": 0.0172,
+   "subtipe_unik": 131
+  },
+  {
+   "segmen": 3,
+   "n": 177554,
+   "panjang_rata": 2171.3,
+   "gc_rata": 42.99,
+   "ambigu_rata": 0.0147,
+   "subtipe_unik": 131
+  },
+  {
+   "segmen": 4,
+   "n": 269754,
+   "panjang_rata": 1618.6,
+   "gc_rata": 41.59,
+   "ambigu_rata": 0.0137,
+   "subtipe_unik": 136
+  },
+  {
+   "segmen": 5,
+   "n": 183090,
+   "panjang_rata": 1516.9,
+   "gc_rata": 45.93,
+   "ambigu_rata": 0.0115,
+   "subtipe_unik": 132
+  },
+  {
+   "segmen": 6,
+   "n": 217937,
+   "panjang_rata": 1407.2,
+   "gc_rata": 42.53,
+   "ambigu_rata": 0.0121,
+   "subtipe_unik": 133
+  },
+  {
+   "segmen": 7,
+   "n": 197358,
+   "panjang_rata": 990.3,
+   "gc_rata": 47.37,
+   "ambigu_rata": 0.0089,
+   "subtipe_unik": 131
+  },
+  {
+   "segmen": 8,
+   "n": 185315,
+   "panjang_rata": 853.0,
+   "gc_rata": 43.09,
+   "ambigu_rata": 0.0111,
+   "subtipe_unik": 133
+  }
+ ],
+ "per_subtipe": [
+  {
+   "subtipe": "H3N2",
+   "count": 568329
+  },
+  {
+   "subtipe": "H1N1",
+   "count": 433463
+  },
+  {
+   "subtipe": "H5N1",
+   "count": 214639
+  },
+  {
+   "subtipe": "H9N2",
+   "count": 66791
+  },
+  {
+   "subtipe": "H1N2",
+   "count": 47468
+  },
+  {
+   "subtipe": "H3N8",
+   "count": 32973
+  },
+  {
+   "subtipe": "H4N6",
+   "count": 18280
+  },
+  {
+   "subtipe": "H5N2",
+   "count": 15067
+  },
+  {
+   "subtipe": "H7N9",
+   "count": 10716
+  },
+  {
+   "subtipe": "H5N8",
+   "count": 8769
+  },
+  {
+   "subtipe": "H6N2",
+   "count": 8502
+  },
+  {
+   "subtipe": "H7N3",
+   "count": 8375
+  },
+  {
+   "subtipe": "H5N6",
+   "count": 7212
+  },
+  {
+   "subtipe": "H10N7",
+   "count": 7103
+  },
+  {
+   "subtipe": "H6N1",
+   "count": 6592
+  },
+  {
+   "subtipe": "H6N6",
+   "count": 5620
+  },
+  {
+   "subtipe": "H11N9",
+   "count": 4953
+  },
+  {
+   "subtipe": "H7N7",
+   "count": 3870
+  },
+  {
+   "subtipe": "H6N8",
+   "count": 3530
+  },
+  {
+   "subtipe": "H7N2",
+   "count": 3403
+  }
+ ],
+ "per_negara": [
+  {
+   "negara": "USA",
+   "count": 988942
+  },
+  {
+   "negara": "China",
+   "count": 119502
+  },
+  {
+   "negara": "Canada",
+   "count": 51648
+  },
+  {
+   "negara": "New Zealand",
+   "count": 31131
+  },
+  {
+   "negara": "France",
+   "count": 24818
+  },
+  {
+   "negara": "United Kingdom",
+   "count": 22257
+  },
+  {
+   "negara": "Australia",
+   "count": 20631
+  },
+  {
+   "negara": "Germany",
+   "count": 19033
+  },
+  {
+   "negara": "Viet Nam",
+   "count": 18168
+  },
+  {
+   "negara": "Japan",
+   "count": 16041
+  },
+  {
+   "negara": "South Korea",
+   "count": 14342
+  },
+  {
+   "negara": "Mexico",
+   "count": 13360
+  },
+  {
+   "negara": "Italy",
+   "count": 13101
+  },
+  {
+   "negara": "Bangladesh",
+   "count": 12437
+  },
+  {
+   "negara": "Taiwan",
+   "count": 12092
+  },
+  {
+   "negara": "Chile",
+   "count": 11966
+  },
+  {
+   "negara": "Netherlands",
+   "count": 10309
+  },
+  {
+   "negara": "Singapore",
+   "count": 9777
+  },
+  {
+   "negara": "Thailand",
+   "count": 9676
+  },
+  {
+   "negara": "Hong Kong",
+   "count": 9661
+  },
+  {
+   "negara": "Switzerland",
+   "count": 9411
+  },
+  {
+   "negara": "Nicaragua",
+   "count": 8998
+  },
+  {
+   "negara": "Egypt",
+   "count": 8327
+  },
+  {
+   "negara": "India",
+   "count": 7090
+  },
+  {
+   "negara": "Kenya",
+   "count": 7047
+  }
+ ],
+ "per_wilayah": [
+  {
+   "wilayah": "North America",
+   "count": 1067872
+  },
+  {
+   "wilayah": "Asia",
+   "count": 256954
+  },
+  {
+   "wilayah": "Europe",
+   "count": 133653
+  },
+  {
+   "wilayah": "Oceania",
+   "count": 52018
+  },
+  {
+   "wilayah": "South America",
+   "count": 26920
+  },
+  {
+   "wilayah": "Africa",
+   "count": 26309
+  },
+  {
+   "wilayah": null,
+   "count": 22665
+  },
+  {
+   "wilayah": "Antarctica",
+   "count": 521
+  }
+ ],
+ "per_inang": [
+  {
+   "inang": "Homo sapiens",
+   "count": 895782
+  },
+  {
+   "inang": "Sus scrofa",
+   "count": 140331
+  },
+  {
+   "inang": "Gallus gallus",
+   "count": 109492
+  },
+  {
+   "inang": "Anas platyrhynchos",
+   "count": 66566
+  },
+  {
+   "inang": "Anatidae",
+   "count": 44724
+  },
+  {
+   "inang": "Bos taurus",
+   "count": 36769
+  },
+  {
+   "inang": "Meleagris gallopavo",
+   "count": 16166
+  },
+  {
+   "inang": "Arenaria interpres",
+   "count": 14983
+  },
+  {
+   "inang": "Branta canadensis",
+   "count": 13867
+  },
+  {
+   "inang": "Aves",
+   "count": 11780
+  },
+  {
+   "inang": "Sus scrofa scrofa",
+   "count": 11158
+  },
+  {
+   "inang": "Spatula discors",
+   "count": 10784
+  },
+  {
+   "inang": "Equus caballus",
+   "count": 10473
+  },
+  {
+   "inang": "Anas acuta",
+   "count": 8539
+  },
+  {
+   "inang": "Anser caerulescens",
+   "count": 6807
+  }
+ ],
+ "subtipe_tahun": [
+  {
+   "tahun_koleksi": 1990,
+   "subtipe": "H3N8",
+   "count": 16
+  },
+  {
+   "tahun_koleksi": 1990,
+   "subtipe": "H1N1",
+   "count": 68
+  },
+  {
+   "tahun_koleksi": 1990,
+   "subtipe": "H3N2",
+   "count": 133
+  },
+  {
+   "tahun_koleksi": 1990,
+   "subtipe": "H4N6",
+   "count": 16
+  },
+  {
+   "tahun_koleksi": 1991,
+   "subtipe": "H3N2",
+   "count": 308
+  },
+  {
+   "tahun_koleksi": 1991,
+   "subtipe": "H5N2",
+   "count": 14
+  },
+  {
+   "tahun_koleksi": 1991,
+   "subtipe": "H5N1",
+   "count": 22
+  },
+  {
+   "tahun_koleksi": 1991,
+   "subtipe": "H9N2",
+   "count": 16
+  },
+  {
+   "tahun_koleksi": 1991,
+   "subtipe": "H1N1",
+   "count": 103
+  },
+  {
+   "tahun_koleksi": 1991,
+   "subtipe": "H4N6",
+   "count": 16
+  },
+  {
+   "tahun_koleksi": 1991,
+   "subtipe": "H3N8",
+   "count": 164
+  },
+  {
+   "tahun_koleksi": 1992,
+   "subtipe": "H4N6",
+   "count": 8
+  },
+  {
+   "tahun_koleksi": 1992,
+   "subtipe": "H5N2",
+   "count": 8
+  },
+  {
+   "tahun_koleksi": 1992,
+   "subtipe": "H1N1",
+   "count": 104
+  },
+  {
+   "tahun_koleksi": 1992,
+   "subtipe": "H3N2",
+   "count": 364
+  },
+  {
+   "tahun_koleksi": 1992,
+   "subtipe": "H3N8",
+   "count": 84
+  },
+  {
+   "tahun_koleksi": 1993,
+   "subtipe": "H3N2",
+   "count": 832
+  },
+  {
+   "tahun_koleksi": 1993,
+   "subtipe": "H5N2",
+   "count": 52
+  },
+  {
+   "tahun_koleksi": 1993,
+   "subtipe": "H3N8",
+   "count": 654
+  },
+  {
+   "tahun_koleksi": 1993,
+   "subtipe": "H1N1",
+   "count": 216
+  },
+  {
+   "tahun_koleksi": 1994,
+   "subtipe": "H3N2",
+   "count": 640
+  },
+  {
+   "tahun_koleksi": 1994,
+   "subtipe": "H9N2",
+   "count": 8
+  },
+  {
+   "tahun_koleksi": 1994,
+   "subtipe": "H1N1",
+   "count": 190
+  },
+  {
+   "tahun_koleksi": 1994,
+   "subtipe": "H3N8",
+   "count": 184
+  },
+  {
+   "tahun_koleksi": 1994,
+   "subtipe": "H5N2",
+   "count": 190
+  },
+  {
+   "tahun_koleksi": 1994,
+   "subtipe": "H4N6",
+   "count": 8
+  },
+  {
+   "tahun_koleksi": 1994,
+   "subtipe": "H1N2",
+   "count": 32
+  },
+  {
+   "tahun_koleksi": 1995,
+   "subtipe": "H5N2",
+   "count": 174
+  },
+  {
+   "tahun_koleksi": 1995,
+   "subtipe": "H1N1",
+   "count": 305
+  },
+  {
+   "tahun_koleksi": 1995,
+   "subtipe": "H3N8",
+   "count": 50
+  },
+  {
+   "tahun_koleksi": 1995,
+   "subtipe": "H4N6",
+   "count": 16
+  },
+  {
+   "tahun_koleksi": 1995,
+   "subtipe": "H9N2",
+   "count": 9
+  },
+  {
+   "tahun_koleksi": 1995,
+   "subtipe": "H3N2",
+   "count": 640
+  },
+  {
+   "tahun_koleksi": 1996,
+   "subtipe": "H3N2",
+   "count": 798
+  },
+  {
+   "tahun_koleksi": 1996,
+   "subtipe": "H5N2",
+   "count": 32
+  },
+  {
+   "tahun_koleksi": 1996,
+   "subtipe": "H3N8",
+   "count": 17
+  },
+  {
+   "tahun_koleksi": 1996,
+   "subtipe": "H1N2",
+   "count": 37
+  },
+  {
+   "tahun_koleksi": 1996,
+   "subtipe": "H1N1",
+   "count": 317
+  },
+  {
+   "tahun_koleksi": 1996,
+   "subtipe": "H9N2",
+   "count": 19
+  },
+  {
+   "tahun_koleksi": 1996,
+   "subtipe": "H5N1",
+   "count": 2
+  },
+  {
+   "tahun_koleksi": 1996,
+   "subtipe": "H4N6",
+   "count": 22
+  },
+  {
+   "tahun_koleksi": 1997,
+   "subtipe": "H3N2",
+   "count": 479
+  },
+  {
+   "tahun_koleksi": 1997,
+   "subtipe": "H5N2",
+   "count": 109
+  },
+  {
+   "tahun_koleksi": 1997,
+   "subtipe": "H1N1",
+   "count": 109
+  },
+  {
+   "tahun_koleksi": 1997,
+   "subtipe": "H5N1",
+   "count": 52
+  },
+  {
+   "tahun_koleksi": 1997,
+   "subtipe": "H3N8",
+   "count": 43
+  },
+  {
+   "tahun_koleksi": 1997,
+   "subtipe": "H1N2",
+   "count": 22
+  },
+  {
+   "tahun_koleksi": 1997,
+   "subtipe": "H9N2",
+   "count": 40
+  },
+  {
+   "tahun_koleksi": 1997,
+   "subtipe": "H4N6",
+   "count": 3
+  },
+  {
+   "tahun_koleksi": 1998,
+   "subtipe": "H3N8",
+   "count": 117
+  },
+  {
+   "tahun_koleksi": 1998,
+   "subtipe": "H4N6",
+   "count": 13
+  },
+  {
+   "tahun_koleksi": 1998,
+   "subtipe": "H5N2",
+   "count": 130
+  },
+  {
+   "tahun_koleksi": 1998,
+   "subtipe": "H1N1",
+   "count": 171
+  },
+  {
+   "tahun_koleksi": 1998,
+   "subtipe": "H3N2",
+   "count": 710
+  },
+  {
+   "tahun_koleksi": 1998,
+   "subtipe": "H1N2",
+   "count": 16
+  },
+  {
+   "tahun_koleksi": 1998,
+   "subtipe": "H9N2",
+   "count": 132
+  },
+  {
+   "tahun_koleksi": 1998,
+   "subtipe": "H5N1",
+   "count": 6
+  },
+  {
+   "tahun_koleksi": 1999,
+   "subtipe": "H5N2",
+   "count": 33
+  },
+  {
+   "tahun_koleksi": 1999,
+   "subtipe": "H4N6",
+   "count": 71
+  },
+  {
+   "tahun_koleksi": 1999,
+   "subtipe": "H3N8",
+   "count": 165
+  },
+  {
+   "tahun_koleksi": 1999,
+   "subtipe": "H1N1",
+   "count": 396
+  },
+  {
+   "tahun_koleksi": 1999,
+   "subtipe": "H5N1",
+   "count": 16
+  },
+  {
+   "tahun_koleksi": 1999,
+   "subtipe": "H9N2",
+   "count": 119
+  },
+  {
+   "tahun_koleksi": 1999,
+   "subtipe": "H3N2",
+   "count": 1616
+  },
+  {
+   "tahun_koleksi": 1999,
+   "subtipe": "H1N2",
+   "count": 71
+  },
+  {
+   "tahun_koleksi": 2000,
+   "subtipe": "H3N8",
+   "count": 39
+  },
+  {
+   "tahun_koleksi": 2000,
+   "subtipe": "H5N2",
+   "count": 141
+  },
+  {
+   "tahun_koleksi": 2000,
+   "subtipe": "H9N2",
+   "count": 224
+  },
+  {
+   "tahun_koleksi": 2000,
+   "subtipe": "H1N1",
+   "count": 1171
+  },
+  {
+   "tahun_koleksi": 2000,
+   "subtipe": "H1N2",
+   "count": 42
+  },
+  {
+   "tahun_koleksi": 2000,
+   "subtipe": "H5N1",
+   "count": 39
+  },
+  {
+   "tahun_koleksi": 2000,
+   "subtipe": "H3N2",
+   "count": 1504
+  },
+  {
+   "tahun_koleksi": 2000,
+   "subtipe": "H4N6",
+   "count": 92
+  },
+  {
+   "tahun_koleksi": 2001,
+   "subtipe": "H4N6",
+   "count": 65
+  },
+  {
+   "tahun_koleksi": 2001,
+   "subtipe": "H1N1",
+   "count": 1581
+  },
+  {
+   "tahun_koleksi": 2001,
+   "subtipe": "H5N2",
+   "count": 120
+  },
+  {
+   "tahun_koleksi": 2001,
+   "subtipe": "H1N2",
+   "count": 52
+  },
+  {
+   "tahun_koleksi": 2001,
+   "subtipe": "H3N2",
+   "count": 902
+  },
+  {
+   "tahun_koleksi": 2001,
+   "subtipe": "H9N2",
+   "count": 340
+  },
+  {
+   "tahun_koleksi": 2001,
+   "subtipe": "H3N8",
+   "count": 30
+  },
+  {
+   "tahun_koleksi": 2001,
+   "subtipe": "H5N1",
+   "count": 177
+  },
+  {
+   "tahun_koleksi": 2002,
+   "subtipe": "H5N2",
+   "count": 181
+  },
+  {
+   "tahun_koleksi": 2002,
+   "subtipe": "H4N6",
+   "count": 207
+  },
+  {
+   "tahun_koleksi": 2002,
+   "subtipe": "H5N1",
+   "count": 228
+  },
+  {
+   "tahun_koleksi": 2002,
+   "subtipe": "H3N8",
+   "count": 81
+  },
+  {
+   "tahun_koleksi": 2002,
+   "subtipe": "H9N2",
+   "count": 347
+  },
+  {
+   "tahun_koleksi": 2002,
+   "subtipe": "H3N2",
+   "count": 2289
+  },
+  {
+   "tahun_koleksi": 2002,
+   "subtipe": "H1N1",
+   "count": 715
+  },
+  {
+   "tahun_koleksi": 2002,
+   "subtipe": "H1N2",
+   "count": 167
+  },
+  {
+   "tahun_koleksi": 2003,
+   "subtipe": "H3N8",
+   "count": 2380
+  },
+  {
+   "tahun_koleksi": 2003,
+   "subtipe": "H3N2",
+   "count": 4186
+  },
+  {
+   "tahun_koleksi": 2003,
+   "subtipe": "H1N1",
+   "count": 1105
+  },
+  {
+   "tahun_koleksi": 2003,
+   "subtipe": "H5N2",
+   "count": 91
+  },
+  {
+   "tahun_koleksi": 2003,
+   "subtipe": "H4N6",
+   "count": 123
+  },
+  {
+   "tahun_koleksi": 2003,
+   "subtipe": "H5N1",
+   "count": 392
+  },
+  {
+   "tahun_koleksi": 2003,
+   "subtipe": "H1N2",
+   "count": 469
+  },
+  {
+   "tahun_koleksi": 2003,
+   "subtipe": "H9N2",
+   "count": 570
+  },
+  {
+   "tahun_koleksi": 2004,
+   "subtipe": "H3N2",
+   "count": 4106
+  },
+  {
+   "tahun_koleksi": 2004,
+   "subtipe": "H1N1",
+   "count": 679
+  },
+  {
+   "tahun_koleksi": 2004,
+   "subtipe": "H5N1",
+   "count": 565
+  },
+  {
+   "tahun_koleksi": 2004,
+   "subtipe": "H1N2",
+   "count": 323
+  },
+  {
+   "tahun_koleksi": 2004,
+   "subtipe": "H4N6",
+   "count": 91
+  },
+  {
+   "tahun_koleksi": 2004,
+   "subtipe": "H3N8",
+   "count": 92
+  },
+  {
+   "tahun_koleksi": 2004,
+   "subtipe": "H9N2",
+   "count": 647
+  },
+  {
+   "tahun_koleksi": 2004,
+   "subtipe": "H5N2",
+   "count": 76
+  },
+  {
+   "tahun_koleksi": 2005,
+   "subtipe": "H3N2",
+   "count": 4656
+  },
+  {
+   "tahun_koleksi": 2005,
+   "subtipe": "H4N6",
+   "count": 374
+  },
+  {
+   "tahun_koleksi": 2005,
+   "subtipe": "H3N8",
+   "count": 676
+  },
+  {
+   "tahun_koleksi": 2005,
+   "subtipe": "H5N1",
+   "count": 1397
+  },
+  {
+   "tahun_koleksi": 2005,
+   "subtipe": "H5N2",
+   "count": 204
+  },
+  {
+   "tahun_koleksi": 2005,
+   "subtipe": "H1N1",
+   "count": 1661
+  },
+  {
+   "tahun_koleksi": 2005,
+   "subtipe": "H1N2",
+   "count": 285
+  },
+  {
+   "tahun_koleksi": 2005,
+   "subtipe": "H9N2",
+   "count": 782
+  },
+  {
+   "tahun_koleksi": 2006,
+   "subtipe": "H9N2",
+   "count": 621
+  },
+  {
+   "tahun_koleksi": 2006,
+   "subtipe": "H1N2",
+   "count": 282
+  },
+  {
+   "tahun_koleksi": 2006,
+   "subtipe": "H3N2",
+   "count": 2997
+  },
+  {
+   "tahun_koleksi": 2006,
+   "subtipe": "H5N2",
+   "count": 1162
+  },
+  {
+   "tahun_koleksi": 2006,
+   "subtipe": "H5N1",
+   "count": 3159
+  },
+  {
+   "tahun_koleksi": 2006,
+   "subtipe": "H4N6",
+   "count": 1004
+  },
+  {
+   "tahun_koleksi": 2006,
+   "subtipe": "H3N8",
+   "count": 875
+  },
+  {
+   "tahun_koleksi": 2006,
+   "subtipe": "H1N1",
+   "count": 2754
+  },
+  {
+   "tahun_koleksi": 2007,
+   "subtipe": "H1N2",
+   "count": 372
+  },
+  {
+   "tahun_koleksi": 2007,
+   "subtipe": "H4N6",
+   "count": 1477
+  },
+  {
+   "tahun_koleksi": 2007,
+   "subtipe": "H1N1",
+   "count": 5855
+  },
+  {
+   "tahun_koleksi": 2007,
+   "subtipe": "H3N8",
+   "count": 2253
+  },
+  {
+   "tahun_koleksi": 2007,
+   "subtipe": "H9N2",
+   "count": 1078
+  },
+  {
+   "tahun_koleksi": 2007,
+   "subtipe": "H3N2",
+   "count": 5316
+  },
+  {
+   "tahun_koleksi": 2007,
+   "subtipe": "H5N1",
+   "count": 3215
+  },
+  {
+   "tahun_koleksi": 2007,
+   "subtipe": "H5N2",
+   "count": 610
+  },
+  {
+   "tahun_koleksi": 2008,
+   "subtipe": "H5N2",
+   "count": 292
+  },
+  {
+   "tahun_koleksi": 2008,
+   "subtipe": "H1N2",
+   "count": 462
+  },
+  {
+   "tahun_koleksi": 2008,
+   "subtipe": "H9N2",
+   "count": 905
+  },
+  {
+   "tahun_koleksi": 2008,
+   "subtipe": "H1N1",
+   "count": 6657
+  },
+  {
+   "tahun_koleksi": 2008,
+   "subtipe": "H4N6",
+   "count": 1419
+  },
+  {
+   "tahun_koleksi": 2008,
+   "subtipe": "H3N2",
+   "count": 4931
+  },
+  {
+   "tahun_koleksi": 2008,
+   "subtipe": "H3N8",
+   "count": 1262
+  },
+  {
+   "tahun_koleksi": 2008,
+   "subtipe": "H5N1",
+   "count": 1639
+  },
+  {
+   "tahun_koleksi": 2009,
+   "subtipe": "H3N2",
+   "count": 6653
+  },
+  {
+   "tahun_koleksi": 2009,
+   "subtipe": "H4N6",
+   "count": 2090
+  },
+  {
+   "tahun_koleksi": 2009,
+   "subtipe": "H5N2",
+   "count": 343
+  },
+  {
+   "tahun_koleksi": 2009,
+   "subtipe": "H1N2",
+   "count": 721
+  },
+  {
+   "tahun_koleksi": 2009,
+   "subtipe": "H5N1",
+   "count": 1047
+  },
+  {
+   "tahun_koleksi": 2009,
+   "subtipe": "H1N1",
+   "count": 48726
+  },
+  {
+   "tahun_koleksi": 2009,
+   "subtipe": "H9N2",
+   "count": 1651
+  },
+  {
+   "tahun_koleksi": 2009,
+   "subtipe": "H3N8",
+   "count": 1557
+  },
+  {
+   "tahun_koleksi": 2010,
+   "subtipe": "H9N2",
+   "count": 1221
+  },
+  {
+   "tahun_koleksi": 2010,
+   "subtipe": "H1N2",
+   "count": 1320
+  },
+  {
+   "tahun_koleksi": 2010,
+   "subtipe": "H4N6",
+   "count": 1120
+  },
+  {
+   "tahun_koleksi": 2010,
+   "subtipe": "H1N1",
+   "count": 12541
+  },
+  {
+   "tahun_koleksi": 2010,
+   "subtipe": "H5N2",
+   "count": 227
+  },
+  {
+   "tahun_koleksi": 2010,
+   "subtipe": "H3N8",
+   "count": 1718
+  },
+  {
+   "tahun_koleksi": 2010,
+   "subtipe": "H5N1",
+   "count": 1568
+  },
+  {
+   "tahun_koleksi": 2010,
+   "subtipe": "H3N2",
+   "count": 7053
+  },
+  {
+   "tahun_koleksi": 2011,
+   "subtipe": "H5N2",
+   "count": 606
+  },
+  {
+   "tahun_koleksi": 2011,
+   "subtipe": "H5N1",
+   "count": 1935
+  },
+  {
+   "tahun_koleksi": 2011,
+   "subtipe": "H1N1",
+   "count": 11019
+  },
+  {
+   "tahun_koleksi": 2011,
+   "subtipe": "H1N2",
+   "count": 3563
+  },
+  {
+   "tahun_koleksi": 2011,
+   "subtipe": "H3N8",
+   "count": 1130
+  },
+  {
+   "tahun_koleksi": 2011,
+   "subtipe": "H9N2",
+   "count": 2122
+  },
+  {
+   "tahun_koleksi": 2011,
+   "subtipe": "H3N2",
+   "count": 8324
+  },
+  {
+   "tahun_koleksi": 2011,
+   "subtipe": "H4N6",
+   "count": 815
+  },
+  {
+   "tahun_koleksi": 2012,
+   "subtipe": "H5N2",
+   "count": 135
+  },
+  {
+   "tahun_koleksi": 2012,
+   "subtipe": "H3N8",
+   "count": 618
+  },
+  {
+   "tahun_koleksi": 2012,
+   "subtipe": "H9N2",
+   "count": 1888
+  },
+  {
+   "tahun_koleksi": 2012,
+   "subtipe": "H3N2",
+   "count": 13589
+  },
+  {
+   "tahun_koleksi": 2012,
+   "subtipe": "H1N1",
+   "count": 6403
+  },
+  {
+   "tahun_koleksi": 2012,
+   "subtipe": "H4N6",
+   "count": 361
+  },
+  {
+   "tahun_koleksi": 2012,
+   "subtipe": "H5N1",
+   "count": 1769
+  },
+  {
+   "tahun_koleksi": 2012,
+   "subtipe": "H1N2",
+   "count": 2017
+  },
+  {
+   "tahun_koleksi": 2013,
+   "subtipe": "H9N2",
+   "count": 4360
+  },
+  {
+   "tahun_koleksi": 2013,
+   "subtipe": "H1N2",
+   "count": 2071
+  },
+  {
+   "tahun_koleksi": 2013,
+   "subtipe": "H3N2",
+   "count": 13392
+  },
+  {
+   "tahun_koleksi": 2013,
+   "subtipe": "H1N1",
+   "count": 8763
+  },
+  {
+   "tahun_koleksi": 2013,
+   "subtipe": "H4N6",
+   "count": 459
+  },
+  {
+   "tahun_koleksi": 2013,
+   "subtipe": "H5N2",
+   "count": 290
+  },
+  {
+   "tahun_koleksi": 2013,
+   "subtipe": "H3N8",
+   "count": 473
+  },
+  {
+   "tahun_koleksi": 2013,
+   "subtipe": "H5N1",
+   "count": 1666
+  },
+  {
+   "tahun_koleksi": 2014,
+   "subtipe": "H1N2",
+   "count": 2051
+  },
+  {
+   "tahun_koleksi": 2014,
+   "subtipe": "H3N8",
+   "count": 553
+  },
+  {
+   "tahun_koleksi": 2014,
+   "subtipe": "H5N1",
+   "count": 1147
+  },
+  {
+   "tahun_koleksi": 2014,
+   "subtipe": "H4N6",
+   "count": 409
+  },
+  {
+   "tahun_koleksi": 2014,
+   "subtipe": "H1N1",
+   "count": 8899
+  },
+  {
+   "tahun_koleksi": 2014,
+   "subtipe": "H3N2",
+   "count": 13513
+  },
+  {
+   "tahun_koleksi": 2014,
+   "subtipe": "H5N2",
+   "count": 438
+  },
+  {
+   "tahun_koleksi": 2014,
+   "subtipe": "H9N2",
+   "count": 2758
+  },
+  {
+   "tahun_koleksi": 2015,
+   "subtipe": "H1N1",
+   "count": 8097
+  },
+  {
+   "tahun_koleksi": 2015,
+   "subtipe": "H4N6",
+   "count": 683
+  },
+  {
+   "tahun_koleksi": 2015,
+   "subtipe": "H3N8",
+   "count": 1258
+  },
+  {
+   "tahun_koleksi": 2015,
+   "subtipe": "H5N2",
+   "count": 3007
+  },
+  {
+   "tahun_koleksi": 2015,
+   "subtipe": "H5N1",
+   "count": 2210
+  },
+  {
+   "tahun_koleksi": 2015,
+   "subtipe": "H3N2",
+   "count": 20672
+  },
+  {
+   "tahun_koleksi": 2015,
+   "subtipe": "H1N2",
+   "count": 2695
+  },
+  {
+   "tahun_koleksi": 2015,
+   "subtipe": "H9N2",
+   "count": 2977
+  },
+  {
+   "tahun_koleksi": 2016,
+   "subtipe": "H1N1",
+   "count": 19607
+  },
+  {
+   "tahun_koleksi": 2016,
+   "subtipe": "H5N2",
+   "count": 909
+  },
+  {
+   "tahun_koleksi": 2016,
+   "subtipe": "H5N1",
+   "count": 931
+  },
+  {
+   "tahun_koleksi": 2016,
+   "subtipe": "H4N6",
+   "count": 766
+  },
+  {
+   "tahun_koleksi": 2016,
+   "subtipe": "H3N2",
+   "count": 23013
+  },
+  {
+   "tahun_koleksi": 2016,
+   "subtipe": "H3N8",
+   "count": 625
+  },
+  {
+   "tahun_koleksi": 2016,
+   "subtipe": "H9N2",
+   "count": 3498
+  },
+  {
+   "tahun_koleksi": 2016,
+   "subtipe": "H1N2",
+   "count": 3286
+  },
+  {
+   "tahun_koleksi": 2017,
+   "subtipe": "H3N8",
+   "count": 1582
+  },
+  {
+   "tahun_koleksi": 2017,
+   "subtipe": "H1N2",
+   "count": 3173
+  },
+  {
+   "tahun_koleksi": 2017,
+   "subtipe": "H3N2",
+   "count": 45494
+  },
+  {
+   "tahun_koleksi": 2017,
+   "subtipe": "H9N2",
+   "count": 6697
+  },
+  {
+   "tahun_koleksi": 2017,
+   "subtipe": "H5N1",
+   "count": 863
+  },
+  {
+   "tahun_koleksi": 2017,
+   "subtipe": "H4N6",
+   "count": 1573
+  },
+  {
+   "tahun_koleksi": 2017,
+   "subtipe": "H1N1",
+   "count": 11881
+  },
+  {
+   "tahun_koleksi": 2017,
+   "subtipe": "H5N2",
+   "count": 1062
+  },
+  {
+   "tahun_koleksi": 2018,
+   "subtipe": "H1N2",
+   "count": 3686
+  },
+  {
+   "tahun_koleksi": 2018,
+   "subtipe": "H1N1",
+   "count": 22632
+  },
+  {
+   "tahun_koleksi": 2018,
+   "subtipe": "H5N2",
+   "count": 774
+  },
+  {
+   "tahun_koleksi": 2018,
+   "subtipe": "H3N2",
+   "count": 25324
+  },
+  {
+   "tahun_koleksi": 2018,
+   "subtipe": "H4N6",
+   "count": 636
+  },
+  {
+   "tahun_koleksi": 2018,
+   "subtipe": "H9N2",
+   "count": 7475
+  },
+  {
+   "tahun_koleksi": 2018,
+   "subtipe": "H5N1",
+   "count": 485
+  },
+  {
+   "tahun_koleksi": 2018,
+   "subtipe": "H3N8",
+   "count": 1323
+  },
+  {
+   "tahun_koleksi": 2019,
+   "subtipe": "H3N2",
+   "count": 45883
+  },
+  {
+   "tahun_koleksi": 2019,
+   "subtipe": "H1N2",
+   "count": 3091
+  },
+  {
+   "tahun_koleksi": 2019,
+   "subtipe": "H4N6",
+   "count": 514
+  },
+  {
+   "tahun_koleksi": 2019,
+   "subtipe": "H5N2",
+   "count": 662
+  },
+  {
+   "tahun_koleksi": 2019,
+   "subtipe": "H9N2",
+   "count": 4639
+  },
+  {
+   "tahun_koleksi": 2019,
+   "subtipe": "H1N1",
+   "count": 35392
+  },
+  {
+   "tahun_koleksi": 2019,
+   "subtipe": "H3N8",
+   "count": 2325
+  },
+  {
+   "tahun_koleksi": 2019,
+   "subtipe": "H5N1",
+   "count": 370
+  },
+  {
+   "tahun_koleksi": 2020,
+   "subtipe": "H3N8",
+   "count": 306
+  },
+  {
+   "tahun_koleksi": 2020,
+   "subtipe": "H3N2",
+   "count": 6577
+  },
+  {
+   "tahun_koleksi": 2020,
+   "subtipe": "H9N2",
+   "count": 2336
+  },
+  {
+   "tahun_koleksi": 2020,
+   "subtipe": "H5N1",
+   "count": 164
+  },
+  {
+   "tahun_koleksi": 2020,
+   "subtipe": "H4N6",
+   "count": 558
+  },
+  {
+   "tahun_koleksi": 2020,
+   "subtipe": "H1N1",
+   "count": 14810
+  },
+  {
+   "tahun_koleksi": 2020,
+   "subtipe": "H1N2",
+   "count": 3557
+  },
+  {
+   "tahun_koleksi": 2020,
+   "subtipe": "H5N2",
+   "count": 65
+  },
+  {
+   "tahun_koleksi": 2021,
+   "subtipe": "H3N2",
+   "count": 22726
+  },
+  {
+   "tahun_koleksi": 2021,
+   "subtipe": "H3N8",
+   "count": 1526
+  },
+  {
+   "tahun_koleksi": 2021,
+   "subtipe": "H9N2",
+   "count": 7888
+  },
+  {
+   "tahun_koleksi": 2021,
+   "subtipe": "H1N1",
+   "count": 3119
+  },
+  {
+   "tahun_koleksi": 2021,
+   "subtipe": "H5N1",
+   "count": 917
+  },
+  {
+   "tahun_koleksi": 2021,
+   "subtipe": "H4N6",
+   "count": 285
+  },
+  {
+   "tahun_koleksi": 2021,
+   "subtipe": "H1N2",
+   "count": 2361
+  },
+  {
+   "tahun_koleksi": 2021,
+   "subtipe": "H5N2",
+   "count": 63
+  },
+  {
+   "tahun_koleksi": 2022,
+   "subtipe": "H3N8",
+   "count": 1947
+  },
+  {
+   "tahun_koleksi": 2022,
+   "subtipe": "H5N1",
+   "count": 50311
+  },
+  {
+   "tahun_koleksi": 2022,
+   "subtipe": "H4N6",
+   "count": 170
+  },
+  {
+   "tahun_koleksi": 2022,
+   "subtipe": "H1N1",
+   "count": 17386
+  },
+  {
+   "tahun_koleksi": 2022,
+   "subtipe": "H5N2",
+   "count": 912
+  },
+  {
+   "tahun_koleksi": 2022,
+   "subtipe": "H9N2",
+   "count": 4005
+  },
+  {
+   "tahun_koleksi": 2022,
+   "subtipe": "H1N2",
+   "count": 3146
+  },
+  {
+   "tahun_koleksi": 2022,
+   "subtipe": "H3N2",
+   "count": 82811
+  },
+  {
+   "tahun_koleksi": 2023,
+   "subtipe": "H1N1",
+   "count": 43295
+  },
+  {
+   "tahun_koleksi": 2023,
+   "subtipe": "H9N2",
+   "count": 1786
+  },
+  {
+   "tahun_koleksi": 2023,
+   "subtipe": "H5N1",
+   "count": 18385
+  },
+  {
+   "tahun_koleksi": 2023,
+   "subtipe": "H1N2",
+   "count": 2996
+  },
+  {
+   "tahun_koleksi": 2023,
+   "subtipe": "H3N2",
+   "count": 24499
+  },
+  {
+   "tahun_koleksi": 2023,
+   "subtipe": "H3N8",
+   "count": 967
+  },
+  {
+   "tahun_koleksi": 2023,
+   "subtipe": "H5N2",
+   "count": 140
+  },
+  {
+   "tahun_koleksi": 2023,
+   "subtipe": "H4N6",
+   "count": 341
+  },
+  {
+   "tahun_koleksi": 2024,
+   "subtipe": "H9N2",
+   "count": 1119
+  },
+  {
+   "tahun_koleksi": 2024,
+   "subtipe": "H5N1",
+   "count": 44402
+  },
+  {
+   "tahun_koleksi": 2024,
+   "subtipe": "H1N2",
+   "count": 2431
+  },
+  {
+   "tahun_koleksi": 2024,
+   "subtipe": "H1N1",
+   "count": 58199
+  },
+  {
+   "tahun_koleksi": 2024,
+   "subtipe": "H5N2",
+   "count": 473
+  },
+  {
+   "tahun_koleksi": 2024,
+   "subtipe": "H3N2",
+   "count": 67763
+  },
+  {
+   "tahun_koleksi": 2024,
+   "subtipe": "H4N6",
+   "count": 276
+  },
+  {
+   "tahun_koleksi": 2024,
+   "subtipe": "H3N8",
+   "count": 376
+  },
+  {
+   "tahun_koleksi": 2025,
+   "subtipe": "H4N6",
+   "count": 1329
+  },
+  {
+   "tahun_koleksi": 2025,
+   "subtipe": "H3N8",
+   "count": 695
+  },
+  {
+   "tahun_koleksi": 2025,
+   "subtipe": "H5N2",
+   "count": 270
+  },
+  {
+   "tahun_koleksi": 2025,
+   "subtipe": "H1N1",
+   "count": 62437
+  },
+  {
+   "tahun_koleksi": 2025,
+   "subtipe": "H9N2",
+   "count": 685
+  },
+  {
+   "tahun_koleksi": 2025,
+   "subtipe": "H3N2",
+   "count": 76527
+  },
+  {
+   "tahun_koleksi": 2025,
+   "subtipe": "H1N2",
+   "count": 1251
+  },
+  {
+   "tahun_koleksi": 2025,
+   "subtipe": "H5N1",
+   "count": 52300
+  },
+  {
+   "tahun_koleksi": 2026,
+   "subtipe": "H3N8",
+   "count": 80
+  },
+  {
+   "tahun_koleksi": 2026,
+   "subtipe": "H9N2",
+   "count": 368
+  },
+  {
+   "tahun_koleksi": 2026,
+   "subtipe": "H5N2",
+   "count": 8
+  },
+  {
+   "tahun_koleksi": 2026,
+   "subtipe": "H1N1",
+   "count": 3045
+  },
+  {
+   "tahun_koleksi": 2026,
+   "subtipe": "H3N2",
+   "count": 16063
+  },
+  {
+   "tahun_koleksi": 2026,
+   "subtipe": "H5N1",
+   "count": 14774
+  },
+  {
+   "tahun_koleksi": 2026,
+   "subtipe": "H1N2",
+   "count": 650
+  }
+ ],
+ "inang_subtipe": [
+  {
+   "inang": "Anatidae",
+   "subtipe": "H1N2",
+   "count": 252
+  },
+  {
+   "inang": "Gallus gallus",
+   "subtipe": "H3N2",
+   "count": 243
+  },
+  {
+   "inang": "Gallus gallus",
+   "subtipe": "H5N1",
+   "count": 29570
+  },
+  {
+   "inang": "Gallus gallus",
+   "subtipe": "H3N8",
+   "count": 2399
+  },
+  {
+   "inang": "Homo sapiens",
+   "subtipe": "H1N1",
+   "count": 360545
+  },
+  {
+   "inang": "Anatidae",
+   "subtipe": "H9N2",
+   "count": 4581
+  },
+  {
+   "inang": "Anas platyrhynchos",
+   "subtipe": "H9N2",
+   "count": 1103
+  },
+  {
+   "inang": "Homo sapiens",
+   "subtipe": "H1N2",
+   "count": 404
+  },
+  {
+   "inang": "Sus scrofa",
+   "subtipe": "H3N2",
+   "count": 35039
+  },
+  {
+   "inang": "Anatidae",
+   "subtipe": "H5N1",
+   "count": 13876
+  },
+  {
+   "inang": "Sus scrofa",
+   "subtipe": "H1N1",
+   "count": 57761
+  },
+  {
+   "inang": "Gallus gallus",
+   "subtipe": "H1N1",
+   "count": 45
+  },
+  {
+   "inang": "Sus scrofa",
+   "subtipe": "H1N2",
+   "count": 40999
+  },
+  {
+   "inang": "Gallus gallus",
+   "subtipe": "H9N2",
+   "count": 49184
+  },
+  {
+   "inang": "Sus scrofa",
+   "subtipe": "H9N2",
+   "count": 331
+  },
+  {
+   "inang": "Sus scrofa",
+   "subtipe": "H3N8",
+   "count": 16
+  },
+  {
+   "inang": "Anatidae",
+   "subtipe": "H1N1",
+   "count": 309
+  },
+  {
+   "inang": "Sus scrofa",
+   "subtipe": "H5N1",
+   "count": 288
+  },
+  {
+   "inang": "Homo sapiens",
+   "subtipe": "H3N8",
+   "count": 16
+  },
+  {
+   "inang": "Anas platyrhynchos",
+   "subtipe": "H3N2",
+   "count": 1760
+  },
+  {
+   "inang": "Anatidae",
+   "subtipe": "H3N8",
+   "count": 758
+  },
+  {
+   "inang": "Anas platyrhynchos",
+   "subtipe": "H3N8",
+   "count": 7183
+  },
+  {
+   "inang": "Bos taurus",
+   "subtipe": "H5N1",
+   "count": 36769
+  },
+  {
+   "inang": "Anas platyrhynchos",
+   "subtipe": "H1N2",
+   "count": 222
+  },
+  {
+   "inang": "Homo sapiens",
+   "subtipe": "H9N2",
+   "count": 169
+  },
+  {
+   "inang": "Anas platyrhynchos",
+   "subtipe": "H1N1",
+   "count": 3250
+  },
+  {
+   "inang": "Homo sapiens",
+   "subtipe": "H5N1",
+   "count": 2671
+  },
+  {
+   "inang": "Anatidae",
+   "subtipe": "H3N2",
+   "count": 1184
+  },
+  {
+   "inang": "Gallus gallus",
+   "subtipe": "H1N2",
+   "count": 16
+  },
+  {
+   "inang": "Anas platyrhynchos",
+   "subtipe": "H5N1",
+   "count": 9263
+  },
+  {
+   "inang": "Homo sapiens",
+   "subtipe": "H3N2",
+   "count": 512153
+  }
+ ],
+ "wilayah_tahun": [
+  {
+   "tahun_koleksi": 1995,
+   "wilayah": "Asia",
+   "count": 228
+  },
+  {
+   "tahun_koleksi": 1995,
+   "wilayah": "North America",
+   "count": 1299
+  },
+  {
+   "tahun_koleksi": 1995,
+   "wilayah": "Europe",
+   "count": 176
+  },
+  {
+   "tahun_koleksi": 1995,
+   "wilayah": "Oceania",
+   "count": 15
+  },
+  {
+   "tahun_koleksi": 1995,
+   "wilayah": null,
+   "count": 3
+  },
+  {
+   "tahun_koleksi": 1995,
+   "wilayah": "South America",
+   "count": 7
+  },
+  {
+   "tahun_koleksi": 1996,
+   "wilayah": "Asia",
+   "count": 391
+  },
+  {
+   "tahun_koleksi": 1996,
+   "wilayah": "Africa",
+   "count": 22
+  },
+  {
+   "tahun_koleksi": 1996,
+   "wilayah": "South America",
+   "count": 96
+  },
+  {
+   "tahun_koleksi": 1996,
+   "wilayah": "Europe",
+   "count": 114
+  },
+  {
+   "tahun_koleksi": 1996,
+   "wilayah": "North America",
+   "count": 997
+  },
+  {
+   "tahun_koleksi": 1996,
+   "wilayah": "Oceania",
+   "count": 24
+  },
+  {
+   "tahun_koleksi": 1997,
+   "wilayah": "Africa",
+   "count": 21
+  },
+  {
+   "tahun_koleksi": 1997,
+   "wilayah": "Asia",
+   "count": 341
+  },
+  {
+   "tahun_koleksi": 1997,
+   "wilayah": null,
+   "count": 7
+  },
+  {
+   "tahun_koleksi": 1997,
+   "wilayah": "Oceania",
+   "count": 82
+  },
+  {
+   "tahun_koleksi": 1997,
+   "wilayah": "Europe",
+   "count": 167
+  },
+  {
+   "tahun_koleksi": 1997,
+   "wilayah": "North America",
+   "count": 495
+  },
+  {
+   "tahun_koleksi": 1997,
+   "wilayah": "South America",
+   "count": 8
+  },
+  {
+   "tahun_koleksi": 1998,
+   "wilayah": "North America",
+   "count": 1228
+  },
+  {
+   "tahun_koleksi": 1998,
+   "wilayah": "Asia",
+   "count": 386
+  },
+  {
+   "tahun_koleksi": 1998,
+   "wilayah": "Europe",
+   "count": 201
+  },
+  {
+   "tahun_koleksi": 1998,
+   "wilayah": "Africa",
+   "count": 4
+  },
+  {
+   "tahun_koleksi": 1998,
+   "wilayah": null,
+   "count": 11
+  },
+  {
+   "tahun_koleksi": 1998,
+   "wilayah": "Oceania",
+   "count": 7
+  },
+  {
+   "tahun_koleksi": 1998,
+   "wilayah": "South America",
+   "count": 9
+  },
+  {
+   "tahun_koleksi": 1999,
+   "wilayah": "North America",
+   "count": 1921
+  },
+  {
+   "tahun_koleksi": 1999,
+   "wilayah": "Asia",
+   "count": 768
+  },
+  {
+   "tahun_koleksi": 1999,
+   "wilayah": "Europe",
+   "count": 801
+  },
+  {
+   "tahun_koleksi": 1999,
+   "wilayah": "Oceania",
+   "count": 189
+  },
+  {
+   "tahun_koleksi": 1999,
+   "wilayah": null,
+   "count": 7
+  },
+  {
+   "tahun_koleksi": 1999,
+   "wilayah": "South America",
+   "count": 22
+  },
+  {
+   "tahun_koleksi": 1999,
+   "wilayah": "Africa",
+   "count": 1
+  },
+  {
+   "tahun_koleksi": 2000,
+   "wilayah": "Oceania",
+   "count": 1604
+  },
+  {
+   "tahun_koleksi": 2000,
+   "wilayah": "Asia",
+   "count": 911
+  },
+  {
+   "tahun_koleksi": 2000,
+   "wilayah": "North America",
+   "count": 1570
+  },
+  {
+   "tahun_koleksi": 2000,
+   "wilayah": "Europe",
+   "count": 801
+  },
+  {
+   "tahun_koleksi": 2000,
+   "wilayah": null,
+   "count": 15
+  },
+  {
+   "tahun_koleksi": 2000,
+   "wilayah": "South America",
+   "count": 120
+  },
+  {
+   "tahun_koleksi": 2000,
+   "wilayah": "Africa",
+   "count": 7
+  },
+  {
+   "tahun_koleksi": 2001,
+   "wilayah": "North America",
+   "count": 2007
+  },
+  {
+   "tahun_koleksi": 2001,
+   "wilayah": "Africa",
+   "count": 8
+  },
+  {
+   "tahun_koleksi": 2001,
+   "wilayah": "Asia",
+   "count": 1642
+  },
+  {
+   "tahun_koleksi": 2001,
+   "wilayah": "Oceania",
+   "count": 1054
+  },
+  {
+   "tahun_koleksi": 2001,
+   "wilayah": "South America",
+   "count": 115
+  },
+  {
+   "tahun_koleksi": 2001,
+   "wilayah": "Europe",
+   "count": 328
+  },
+  {
+   "tahun_koleksi": 2001,
+   "wilayah": null,
+   "count": 4
+  },
+  {
+   "tahun_koleksi": 2002,
+   "wilayah": "North America",
+   "count": 2820
+  },
+  {
+   "tahun_koleksi": 2002,
+   "wilayah": "Oceania",
+   "count": 983
+  },
+  {
+   "tahun_koleksi": 2002,
+   "wilayah": "Africa",
+   "count": 15
+  },
+  {
+   "tahun_koleksi": 2002,
+   "wilayah": "South America",
+   "count": 48
+  },
+  {
+   "tahun_koleksi": 2002,
+   "wilayah": "Asia",
+   "count": 1906
+  },
+  {
+   "tahun_koleksi": 2002,
+   "wilayah": "Europe",
+   "count": 1063
+  },
+  {
+   "tahun_koleksi": 2002,
+   "wilayah": null,
+   "count": 9
+  },
+  {
+   "tahun_koleksi": 2003,
+   "wilayah": "Europe",
+   "count": 4026
+  },
+  {
+   "tahun_koleksi": 2003,
+   "wilayah": "Africa",
+   "count": 13
+  },
+  {
+   "tahun_koleksi": 2003,
+   "wilayah": "North America",
+   "count": 3096
+  },
+  {
+   "tahun_koleksi": 2003,
+   "wilayah": "Oceania",
+   "count": 1092
+  },
+  {
+   "tahun_koleksi": 2003,
+   "wilayah": "South America",
+   "count": 65
+  },
+  {
+   "tahun_koleksi": 2003,
+   "wilayah": "Asia",
+   "count": 2894
+  },
+  {
+   "tahun_koleksi": 2004,
+   "wilayah": "South America",
+   "count": 73
+  },
+  {
+   "tahun_koleksi": 2004,
+   "wilayah": "North America",
+   "count": 2226
+  },
+  {
+   "tahun_koleksi": 2004,
+   "wilayah": "Africa",
+   "count": 40
+  },
+  {
+   "tahun_koleksi": 2004,
+   "wilayah": "Oceania",
+   "count": 1334
+  },
+  {
+   "tahun_koleksi": 2004,
+   "wilayah": "Asia",
+   "count": 3844
+  },
+  {
+   "tahun_koleksi": 2004,
+   "wilayah": "Europe",
+   "count": 721
+  },
+  {
+   "tahun_koleksi": 2004,
+   "wilayah": null,
+   "count": 4
+  },
+  {
+   "tahun_koleksi": 2005,
+   "wilayah": "South America",
+   "count": 54
+  },
+  {
+   "tahun_koleksi": 2005,
+   "wilayah": "Asia",
+   "count": 5829
+  },
+  {
+   "tahun_koleksi": 2005,
+   "wilayah": "Europe",
+   "count": 1858
+  },
+  {
+   "tahun_koleksi": 2005,
+   "wilayah": "North America",
+   "count": 5009
+  },
+  {
+   "tahun_koleksi": 2005,
+   "wilayah": "Oceania",
+   "count": 1341
+  },
+  {
+   "tahun_koleksi": 2005,
+   "wilayah": "Africa",
+   "count": 25
+  },
+  {
+   "tahun_koleksi": 2005,
+   "wilayah": null,
+   "count": 16
+  },
+  {
+   "tahun_koleksi": 2006,
+   "wilayah": "Africa",
+   "count": 729
+  },
+  {
+   "tahun_koleksi": 2006,
+   "wilayah": "Europe",
+   "count": 2665
+  },
+  {
+   "tahun_koleksi": 2006,
+   "wilayah": "South America",
+   "count": 97
+  },
+  {
+   "tahun_koleksi": 2006,
+   "wilayah": "Asia",
+   "count": 6833
+  },
+  {
+   "tahun_koleksi": 2006,
+   "wilayah": null,
+   "count": 18
+  },
+  {
+   "tahun_koleksi": 2006,
+   "wilayah": "North America",
+   "count": 7503
+  },
+  {
+   "tahun_koleksi": 2006,
+   "wilayah": "Oceania",
+   "count": 159
+  },
+  {
+   "tahun_koleksi": 2007,
+   "wilayah": "Africa",
+   "count": 635
+  },
+  {
+   "tahun_koleksi": 2007,
+   "wilayah": "Europe",
+   "count": 2151
+  },
+  {
+   "tahun_koleksi": 2007,
+   "wilayah": "South America",
+   "count": 262
+  },
+  {
+   "tahun_koleksi": 2007,
+   "wilayah": "North America",
+   "count": 12990
+  },
+  {
+   "tahun_koleksi": 2007,
+   "wilayah": "Oceania",
+   "count": 208
+  },
+  {
+   "tahun_koleksi": 2007,
+   "wilayah": "Asia",
+   "count": 9379
+  },
+  {
+   "tahun_koleksi": 2007,
+   "wilayah": null,
+   "count": 13
+  },
+  {
+   "tahun_koleksi": 2008,
+   "wilayah": "North America",
+   "count": 11726
+  },
+  {
+   "tahun_koleksi": 2008,
+   "wilayah": "South America",
+   "count": 208
+  },
+  {
+   "tahun_koleksi": 2008,
+   "wilayah": "Africa",
+   "count": 1094
+  },
+  {
+   "tahun_koleksi": 2008,
+   "wilayah": "Asia",
+   "count": 7650
+  },
+  {
+   "tahun_koleksi": 2008,
+   "wilayah": "Europe",
+   "count": 3579
+  },
+  {
+   "tahun_koleksi": 2008,
+   "wilayah": "Oceania",
+   "count": 81
+  },
+  {
+   "tahun_koleksi": 2008,
+   "wilayah": null,
+   "count": 26
+  },
+  {
+   "tahun_koleksi": 2009,
+   "wilayah": "Africa",
+   "count": 1378
+  },
+  {
+   "tahun_koleksi": 2009,
+   "wilayah": "Europe",
+   "count": 12614
+  },
+  {
+   "tahun_koleksi": 2009,
+   "wilayah": "South America",
+   "count": 2156
+  },
+  {
+   "tahun_koleksi": 2009,
+   "wilayah": "Oceania",
+   "count": 788
+  },
+  {
+   "tahun_koleksi": 2009,
+   "wilayah": "North America",
+   "count": 32633
+  },
+  {
+   "tahun_koleksi": 2009,
+   "wilayah": "Asia",
+   "count": 20639
+  },
+  {
+   "tahun_koleksi": 2010,
+   "wilayah": "South America",
+   "count": 2239
+  },
+  {
+   "tahun_koleksi": 2010,
+   "wilayah": "Asia",
+   "count": 11743
+  },
+  {
+   "tahun_koleksi": 2010,
+   "wilayah": "Oceania",
+   "count": 692
+  },
+  {
+   "tahun_koleksi": 2010,
+   "wilayah": null,
+   "count": 16
+  },
+  {
+   "tahun_koleksi": 2010,
+   "wilayah": "North America",
+   "count": 12456
+  },
+  {
+   "tahun_koleksi": 2010,
+   "wilayah": "Europe",
+   "count": 3766
+  },
+  {
+   "tahun_koleksi": 2010,
+   "wilayah": "Africa",
+   "count": 940
+  },
+  {
+   "tahun_koleksi": 2011,
+   "wilayah": "Oceania",
+   "count": 221
+  },
+  {
+   "tahun_koleksi": 2011,
+   "wilayah": "Antarctica",
+   "count": 18
+  },
+  {
+   "tahun_koleksi": 2011,
+   "wilayah": "Asia",
+   "count": 12606
+  },
+  {
+   "tahun_koleksi": 2011,
+   "wilayah": "North America",
+   "count": 14179
+  },
+  {
+   "tahun_koleksi": 2011,
+   "wilayah": null,
+   "count": 11
+  },
+  {
+   "tahun_koleksi": 2011,
+   "wilayah": "Africa",
+   "count": 1069
+  },
+  {
+   "tahun_koleksi": 2011,
+   "wilayah": "Europe",
+   "count": 4712
+  },
+  {
+   "tahun_koleksi": 2011,
+   "wilayah": "South America",
+   "count": 2049
+  },
+  {
+   "tahun_koleksi": 2012,
+   "wilayah": "Oceania",
+   "count": 710
+  },
+  {
+   "tahun_koleksi": 2012,
+   "wilayah": "South America",
+   "count": 1694
+  },
+  {
+   "tahun_koleksi": 2012,
+   "wilayah": "North America",
+   "count": 16334
+  },
+  {
+   "tahun_koleksi": 2012,
+   "wilayah": "Africa",
+   "count": 652
+  },
+  {
+   "tahun_koleksi": 2012,
+   "wilayah": "Asia",
+   "count": 9413
+  },
+  {
+   "tahun_koleksi": 2012,
+   "wilayah": "Europe",
+   "count": 3912
+  },
+  {
+   "tahun_koleksi": 2013,
+   "wilayah": "Europe",
+   "count": 3410
+  },
+  {
+   "tahun_koleksi": 2013,
+   "wilayah": "Africa",
+   "count": 868
+  },
+  {
+   "tahun_koleksi": 2013,
+   "wilayah": "South America",
+   "count": 744
+  },
+  {
+   "tahun_koleksi": 2013,
+   "wilayah": "North America",
+   "count": 19336
+  },
+  {
+   "tahun_koleksi": 2013,
+   "wilayah": "Asia",
+   "count": 17196
+  },
+  {
+   "tahun_koleksi": 2013,
+   "wilayah": "Antarctica",
+   "count": 32
+  },
+  {
+   "tahun_koleksi": 2013,
+   "wilayah": "Oceania",
+   "count": 1585
+  },
+  {
+   "tahun_koleksi": 2014,
+   "wilayah": "South America",
+   "count": 958
+  },
+  {
+   "tahun_koleksi": 2014,
+   "wilayah": "Europe",
+   "count": 2930
+  },
+  {
+   "tahun_koleksi": 2014,
+   "wilayah": "North America",
+   "count": 18445
+  },
+  {
+   "tahun_koleksi": 2014,
+   "wilayah": "Africa",
+   "count": 512
+  },
+  {
+   "tahun_koleksi": 2014,
+   "wilayah": "Oceania",
+   "count": 3257
+  },
+  {
+   "tahun_koleksi": 2014,
+   "wilayah": "Asia",
+   "count": 18127
+  },
+  {
+   "tahun_koleksi": 2015,
+   "wilayah": "Antarctica",
+   "count": 10
+  },
+  {
+   "tahun_koleksi": 2015,
+   "wilayah": "South America",
+   "count": 769
+  },
+  {
+   "tahun_koleksi": 2015,
+   "wilayah": "Europe",
+   "count": 2226
+  },
+  {
+   "tahun_koleksi": 2015,
+   "wilayah": "Africa",
+   "count": 2052
+  },
+  {
+   "tahun_koleksi": 2015,
+   "wilayah": "Oceania",
+   "count": 4770
+  },
+  {
+   "tahun_koleksi": 2015,
+   "wilayah": "North America",
+   "count": 28215
+  },
+  {
+   "tahun_koleksi": 2015,
+   "wilayah": "Asia",
+   "count": 11354
+  },
+  {
+   "tahun_koleksi": 2016,
+   "wilayah": "Oceania",
+   "count": 2953
+  },
+  {
+   "tahun_koleksi": 2016,
+   "wilayah": "Africa",
+   "count": 1285
+  },
+  {
+   "tahun_koleksi": 2016,
+   "wilayah": "Europe",
+   "count": 3447
+  },
+  {
+   "tahun_koleksi": 2016,
+   "wilayah": "South America",
+   "count": 2104
+  },
+  {
+   "tahun_koleksi": 2016,
+   "wilayah": "North America",
+   "count": 41589
+  },
+  {
+   "tahun_koleksi": 2016,
+   "wilayah": "Asia",
+   "count": 11188
+  },
+  {
+   "tahun_koleksi": 2017,
+   "wilayah": "Europe",
+   "count": 7967
+  },
+  {
+   "tahun_koleksi": 2017,
+   "wilayah": "Antarctica",
+   "count": 46
+  },
+  {
+   "tahun_koleksi": 2017,
+   "wilayah": "North America",
+   "count": 48781
+  },
+  {
+   "tahun_koleksi": 2017,
+   "wilayah": "Oceania",
+   "count": 7443
+  },
+  {
+   "tahun_koleksi": 2017,
+   "wilayah": "Africa",
+   "count": 2131
+  },
+  {
+   "tahun_koleksi": 2017,
+   "wilayah": "South America",
+   "count": 1718
+  },
+  {
+   "tahun_koleksi": 2017,
+   "wilayah": "Asia",
+   "count": 17212
+  },
+  {
+   "tahun_koleksi": 2018,
+   "wilayah": "North America",
+   "count": 43529
+  },
+  {
+   "tahun_koleksi": 2018,
+   "wilayah": "Africa",
+   "count": 2456
+  },
+  {
+   "tahun_koleksi": 2018,
+   "wilayah": "South America",
+   "count": 1289
+  },
+  {
+   "tahun_koleksi": 2018,
+   "wilayah": "Asia",
+   "count": 17753
+  },
+  {
+   "tahun_koleksi": 2018,
+   "wilayah": "Oceania",
+   "count": 5055
+  },
+  {
+   "tahun_koleksi": 2018,
+   "wilayah": "Europe",
+   "count": 4820
+  },
+  {
+   "tahun_koleksi": 2019,
+   "wilayah": "Asia",
+   "count": 10132
+  },
+  {
+   "tahun_koleksi": 2019,
+   "wilayah": "Europe",
+   "count": 6845
+  },
+  {
+   "tahun_koleksi": 2019,
+   "wilayah": "Africa",
+   "count": 2448
+  },
+  {
+   "tahun_koleksi": 2019,
+   "wilayah": "Oceania",
+   "count": 3749
+  },
+  {
+   "tahun_koleksi": 2019,
+   "wilayah": "North America",
+   "count": 74551
+  },
+  {
+   "tahun_koleksi": 2019,
+   "wilayah": "South America",
+   "count": 715
+  },
+  {
+   "tahun_koleksi": 2020,
+   "wilayah": "North America",
+   "count": 24020
+  },
+  {
+   "tahun_koleksi": 2020,
+   "wilayah": "Asia",
+   "count": 6205
+  },
+  {
+   "tahun_koleksi": 2020,
+   "wilayah": "South America",
+   "count": 504
+  },
+  {
+   "tahun_koleksi": 2020,
+   "wilayah": "Africa",
+   "count": 651
+  },
+  {
+   "tahun_koleksi": 2020,
+   "wilayah": "Oceania",
+   "count": 142
+  },
+  {
+   "tahun_koleksi": 2020,
+   "wilayah": "Europe",
+   "count": 3474
+  },
+  {
+   "tahun_koleksi": 2021,
+   "wilayah": "South America",
+   "count": 344
+  },
+  {
+   "tahun_koleksi": 2021,
+   "wilayah": "Asia",
+   "count": 10771
+  },
+  {
+   "tahun_koleksi": 2021,
+   "wilayah": "North America",
+   "count": 26076
+  },
+  {
+   "tahun_koleksi": 2021,
+   "wilayah": "Africa",
+   "count": 2550
+  },
+  {
+   "tahun_koleksi": 2021,
+   "wilayah": "Oceania",
+   "count": 136
+  },
+  {
+   "tahun_koleksi": 2021,
+   "wilayah": "Europe",
+   "count": 2244
+  },
+  {
+   "tahun_koleksi": 2021,
+   "wilayah": null,
+   "count": 8
+  },
+  {
+   "tahun_koleksi": 2022,
+   "wilayah": "Asia",
+   "count": 9169
+  },
+  {
+   "tahun_koleksi": 2022,
+   "wilayah": "Africa",
+   "count": 1361
+  },
+  {
+   "tahun_koleksi": 2022,
+   "wilayah": "South America",
+   "count": 1489
+  },
+  {
+   "tahun_koleksi": 2022,
+   "wilayah": "Oceania",
+   "count": 10753
+  },
+  {
+   "tahun_koleksi": 2022,
+   "wilayah": "Europe",
+   "count": 12482
+  },
+  {
+   "tahun_koleksi": 2022,
+   "wilayah": "North America",
+   "count": 134398
+  },
+  {
+   "tahun_koleksi": 2023,
+   "wilayah": "Oceania",
+   "count": 190
+  },
+  {
+   "tahun_koleksi": 2023,
+   "wilayah": "North America",
+   "count": 81464
+  },
+  {
+   "tahun_koleksi": 2023,
+   "wilayah": "Africa",
+   "count": 1456
+  },
+  {
+   "tahun_koleksi": 2023,
+   "wilayah": "Europe",
+   "count": 3225
+  },
+  {
+   "tahun_koleksi": 2023,
+   "wilayah": "Asia",
+   "count": 6468
+  },
+  {
+   "tahun_koleksi": 2023,
+   "wilayah": "Antarctica",
+   "count": 184
+  },
+  {
+   "tahun_koleksi": 2023,
+   "wilayah": "South America",
+   "count": 3742
+  },
+  {
+   "tahun_koleksi": 2024,
+   "wilayah": "South America",
+   "count": 1197
+  },
+  {
+   "tahun_koleksi": 2024,
+   "wilayah": "Oceania",
+   "count": 218
+  },
+  {
+   "tahun_koleksi": 2024,
+   "wilayah": "Europe",
+   "count": 8040
+  },
+  {
+   "tahun_koleksi": 2024,
+   "wilayah": "Africa",
+   "count": 934
+  },
+  {
+   "tahun_koleksi": 2024,
+   "wilayah": "Antarctica",
+   "count": 112
+  },
+  {
+   "tahun_koleksi": 2024,
+   "wilayah": "North America",
+   "count": 164389
+  },
+  {
+   "tahun_koleksi": 2024,
+   "wilayah": "Asia",
+   "count": 3615
+  },
+  {
+   "tahun_koleksi": 2025,
+   "wilayah": "Oceania",
+   "count": 16
+  },
+  {
+   "tahun_koleksi": 2025,
+   "wilayah": "Antarctica",
+   "count": 119
+  },
+  {
+   "tahun_koleksi": 2025,
+   "wilayah": "Europe",
+   "count": 17461
+  },
+  {
+   "tahun_koleksi": 2025,
+   "wilayah": "North America",
+   "count": 181528
+  },
+  {
+   "tahun_koleksi": 2025,
+   "wilayah": "South America",
+   "count": 1220
+  },
+  {
+   "tahun_koleksi": 2025,
+   "wilayah": "Asia",
+   "count": 2318
+  },
+  {
+   "tahun_koleksi": 2025,
+   "wilayah": "Africa",
+   "count": 126
+  },
+  {
+   "tahun_koleksi": 2026,
+   "wilayah": "Asia",
+   "count": 565
+  },
+  {
+   "tahun_koleksi": 2026,
+   "wilayah": "South America",
+   "count": 176
+  },
+  {
+   "tahun_koleksi": 2026,
+   "wilayah": "Europe",
+   "count": 2133
+  },
+  {
+   "tahun_koleksi": 2026,
+   "wilayah": "Africa",
+   "count": 191
+  },
+  {
+   "tahun_koleksi": 2026,
+   "wilayah": "North America",
+   "count": 33807
+  },
+  {
+   "tahun_koleksi": 2026,
+   "wilayah": "Oceania",
+   "count": 8
+  }
+ ],
+ "graf_per_segmen": [
+  {
+   "segmen": 1,
+   "tepi": 60436,
+   "kemiripan_rata": 0.9164,
+   "kemiripan_min": 0.88
+  },
+  {
+   "segmen": 2,
+   "tepi": 54814,
+   "kemiripan_rata": 0.9153,
+   "kemiripan_min": 0.88
+  },
+  {
+   "segmen": 3,
+   "tepi": 66933,
+   "kemiripan_rata": 0.9169,
+   "kemiripan_min": 0.88
+  },
+  {
+   "segmen": 4,
+   "tepi": 19233,
+   "kemiripan_rata": 0.9164,
+   "kemiripan_min": 0.88
+  },
+  {
+   "segmen": 5,
+   "tepi": 46045,
+   "kemiripan_rata": 0.9149,
+   "kemiripan_min": 0.88
+  },
+  {
+   "segmen": 6,
+   "tepi": 27749,
+   "kemiripan_rata": 0.9153,
+   "kemiripan_min": 0.88
+  },
+  {
+   "segmen": 7,
+   "tepi": 45264,
+   "kemiripan_rata": 0.9136,
+   "kemiripan_min": 0.88
+  },
+  {
+   "segmen": 8,
+   "tepi": 37738,
+   "kemiripan_rata": 0.9111,
+   "kemiripan_min": 0.88
+  }
+ ],
+ "graf_total_tepi": 358212,
+ "klaster_per_segmen": [
+  {
+   "segmen": 1,
+   "klaster": 131,
+   "simpul": 1797
+  },
+  {
+   "segmen": 2,
+   "klaster": 119,
+   "simpul": 1803
+  },
+  {
+   "segmen": 3,
+   "klaster": 124,
+   "simpul": 1862
+  },
+  {
+   "segmen": 4,
+   "klaster": 154,
+   "simpul": 1594
+  },
+  {
+   "segmen": 5,
+   "klaster": 140,
+   "simpul": 1741
+  },
+  {
+   "segmen": 6,
+   "klaster": 132,
+   "simpul": 1599
+  },
+  {
+   "segmen": 7,
+   "klaster": 140,
+   "simpul": 1850
+  },
+  {
+   "segmen": 8,
+   "klaster": 139,
+   "simpul": 1719
+  }
+ ],
+ "klaster_ukuran": [
+  {
+   "ember": "2 - 5",
+   "count": 905
+  },
+  {
+   "ember": "6 - 20",
+   "count": 109
+  },
+  {
+   "ember": "21 - 100",
+   "count": 36
+  },
+  {
+   "ember": "> 100",
+   "count": 29
+  }
+ ],
+ "klaster_terbesar": [
+  {
+   "lineage_id": "S_3_CY019832",
+   "count": 712
+  },
+  {
+   "lineage_id": "S_2_CY009938",
+   "count": 683
+  },
+  {
+   "lineage_id": "S_5_CY002909",
+   "count": 668
+  },
+  {
+   "lineage_id": "S_6_AB271710",
+   "count": 555
+  },
+  {
+   "lineage_id": "S_7_CY002225",
+   "count": 543
+  },
+  {
+   "lineage_id": "S_7_AB914511",
+   "count": 543
+  },
+  {
+   "lineage_id": "S_2_AB704436",
+   "count": 510
+  },
+  {
+   "lineage_id": "S_3_CY211129",
+   "count": 400
+  },
+  {
+   "lineage_id": "S_1_CY002479",
+   "count": 368
+  },
+  {
+   "lineage_id": "S_8_AB434129",
+   "count": 349
+  },
+  {
+   "lineage_id": "S_8_CY211062",
+   "count": 336
+  },
+  {
+   "lineage_id": "S_1_OP644967",
+   "count": 321
+  }
+ ],
+ "co_total": 100,
+ "co_pasangan_segmen": [
+  {
+   "seg_src": 2,
+   "seg_dst": 7,
+   "tepi": 6,
+   "galur": 20
+  },
+  {
+   "seg_src": 1,
+   "seg_dst": 3,
+   "tepi": 5,
+   "galur": 21
+  },
+  {
+   "seg_src": 4,
+   "seg_dst": 7,
+   "tepi": 5,
+   "galur": 14
+  },
+  {
+   "seg_src": 2,
+   "seg_dst": 8,
+   "tepi": 5,
+   "galur": 16
+  },
+  {
+   "seg_src": 3,
+   "seg_dst": 8,
+   "tepi": 5,
+   "galur": 18
+  },
+  {
+   "seg_src": 1,
+   "seg_dst": 5,
+   "tepi": 5,
+   "galur": 19
+  },
+  {
+   "seg_src": 1,
+   "seg_dst": 7,
+   "tepi": 4,
+   "galur": 11
+  },
+  {
+   "seg_src": 2,
+   "seg_dst": 3,
+   "tepi": 4,
+   "galur": 27
+  },
+  {
+   "seg_src": 5,
+   "seg_dst": 6,
+   "tepi": 4,
+   "galur": 15
+  },
+  {
+   "seg_src": 1,
+   "seg_dst": 2,
+   "tepi": 4,
+   "galur": 14
+  },
+  {
+   "seg_src": 1,
+   "seg_dst": 8,
+   "tepi": 4,
+   "galur": 9
+  },
+  {
+   "seg_src": 5,
+   "seg_dst": 8,
+   "tepi": 4,
+   "galur": 20
+  },
+  {
+   "seg_src": 5,
+   "seg_dst": 7,
+   "tepi": 4,
+   "galur": 14
+  },
+  {
+   "seg_src": 4,
+   "seg_dst": 8,
+   "tepi": 4,
+   "galur": 8
+  },
+  {
+   "seg_src": 1,
+   "seg_dst": 6,
+   "tepi": 4,
+   "galur": 13
+  },
+  {
+   "seg_src": 3,
+   "seg_dst": 7,
+   "tepi": 4,
+   "galur": 11
+  },
+  {
+   "seg_src": 7,
+   "seg_dst": 8,
+   "tepi": 4,
+   "galur": 21
+  },
+  {
+   "seg_src": 6,
+   "seg_dst": 8,
+   "tepi": 4,
+   "galur": 14
+  },
+  {
+   "seg_src": 3,
+   "seg_dst": 5,
+   "tepi": 3,
+   "galur": 20
+  },
+  {
+   "seg_src": 2,
+   "seg_dst": 6,
+   "tepi": 3,
+   "galur": 13
+  },
+  {
+   "seg_src": 2,
+   "seg_dst": 5,
+   "tepi": 3,
+   "galur": 13
+  },
+  {
+   "seg_src": 3,
+   "seg_dst": 4,
+   "tepi": 2,
+   "galur": 5
+  },
+  {
+   "seg_src": 3,
+   "seg_dst": 6,
+   "tepi": 2,
+   "galur": 11
+  },
+  {
+   "seg_src": 6,
+   "seg_dst": 7,
+   "tepi": 2,
+   "galur": 12
+  },
+  {
+   "seg_src": 4,
+   "seg_dst": 6,
+   "tepi": 2,
+   "galur": 5
+  },
+  {
+   "seg_src": 1,
+   "seg_dst": 4,
+   "tepi": 2,
+   "galur": 4
+  },
+  {
+   "seg_src": 2,
+   "seg_dst": 4,
+   "tepi": 2,
+   "galur": 8
+  }
+ ],
+ "co_teratas": [
+  {
+   "src": "S_2_CY009938",
+   "dst": "S_3_CY019832",
+   "seg_src": 2,
+   "seg_dst": 3,
+   "n_galur": 14
+  },
+  {
+   "src": "S_3_CY019832",
+   "dst": "S_5_CY002909",
+   "seg_src": 3,
+   "seg_dst": 5,
+   "n_galur": 12
+  },
+  {
+   "src": "S_1_CY002479",
+   "dst": "S_3_CY019832",
+   "seg_src": 1,
+   "seg_dst": 3,
+   "n_galur": 10
+  },
+  {
+   "src": "S_2_AB704436",
+   "dst": "S_3_CY211129",
+   "seg_src": 2,
+   "seg_dst": 3,
+   "n_galur": 9
+  },
+  {
+   "src": "S_1_CY002479",
+   "dst": "S_5_CY002909",
+   "seg_src": 1,
+   "seg_dst": 5,
+   "n_galur": 9
+  },
+  {
+   "src": "S_2_CY009938",
+   "dst": "S_6_AB271710",
+   "seg_src": 2,
+   "seg_dst": 6,
+   "n_galur": 9
+  },
+  {
+   "src": "S_5_CY002909",
+   "dst": "S_6_AB271710",
+   "seg_src": 5,
+   "seg_dst": 6,
+   "n_galur": 9
+  },
+  {
+   "src": "S_3_CY019832",
+   "dst": "S_6_AB271710",
+   "seg_src": 3,
+   "seg_dst": 6,
+   "n_galur": 9
+  },
+  {
+   "src": "S_7_CY002225",
+   "dst": "S_8_AB434129",
+   "seg_src": 7,
+   "seg_dst": 8,
+   "n_galur": 8
+  },
+  {
+   "src": "S_6_AB271710",
+   "dst": "S_7_CY002225",
+   "seg_src": 6,
+   "seg_dst": 7,
+   "n_galur": 8
+  },
+  {
+   "src": "S_7_AB914511",
+   "dst": "S_8_CY211062",
+   "seg_src": 7,
+   "seg_dst": 8,
+   "n_galur": 7
+  },
+  {
+   "src": "S_2_CY009938",
+   "dst": "S_5_CY002909",
+   "seg_src": 2,
+   "seg_dst": 5,
+   "n_galur": 7
+  },
+  {
+   "src": "S_3_CY019832",
+   "dst": "S_8_AB434129",
+   "seg_src": 3,
+   "seg_dst": 8,
+   "n_galur": 6
+  },
+  {
+   "src": "S_2_AB704436",
+   "dst": "S_7_AB914511",
+   "seg_src": 2,
+   "seg_dst": 7,
+   "n_galur": 6
+  },
+  {
+   "src": "S_6_AB271710",
+   "dst": "S_8_AB434129",
+   "seg_src": 6,
+   "seg_dst": 8,
+   "n_galur": 6
+  },
+  {
+   "src": "S_2_CY009938",
+   "dst": "S_4_CY114558",
+   "seg_src": 2,
+   "seg_dst": 4,
+   "n_galur": 6
+  },
+  {
+   "src": "S_5_CY002909",
+   "dst": "S_8_AB434129",
+   "seg_src": 5,
+   "seg_dst": 8,
+   "n_galur": 6
+  },
+  {
+   "src": "S_1_OP644967",
+   "dst": "S_2_CY009938",
+   "seg_src": 1,
+   "seg_dst": 2,
+   "n_galur": 6
+  },
+  {
+   "src": "S_4_AB558335",
+   "dst": "S_7_AB914511",
+   "seg_src": 4,
+   "seg_dst": 7,
+   "n_galur": 5
+  },
+  {
+   "src": "S_5_CY210924",
+   "dst": "S_7_AB914511",
+   "seg_src": 5,
+   "seg_dst": 7,
+   "n_galur": 5
+  }
+ ],
+ "kandidat_ringkas": {
+  "baris": 1990,
+  "galur": 1238,
+  "keyakinan_rata": 0.909
+ },
+ "kandidat_per_segmen": [
+  {
+   "segmen": 1,
+   "count": 400
+  },
+  {
+   "segmen": 2,
+   "count": 329
+  },
+  {
+   "segmen": 3,
+   "count": 340
+  },
+  {
+   "segmen": 5,
+   "count": 316
+  },
+  {
+   "segmen": 7,
+   "count": 295
+  },
+  {
+   "segmen": 8,
+   "count": 310
+  }
+ ],
+ "kandidat_per_wilayah": [
+  {
+   "wilayah": "North America",
+   "count": 790
+  },
+  {
+   "wilayah": "Asia",
+   "count": 599
+  },
+  {
+   "wilayah": "Europe",
+   "count": 446
+  },
+  {
+   "wilayah": "South America",
+   "count": 104
+  },
+  {
+   "wilayah": "Oceania",
+   "count": 27
+  },
+  {
+   "wilayah": null,
+   "count": 15
+  },
+  {
+   "wilayah": "Africa",
+   "count": 9
+  }
+ ],
+ "kandidat_per_tahun": [
+  {
+   "tahun_koleksi": 1991,
+   "count": 3
+  },
+  {
+   "tahun_koleksi": 1992,
+   "count": 3
+  },
+  {
+   "tahun_koleksi": 1994,
+   "count": 4
+  },
+  {
+   "tahun_koleksi": 1995,
+   "count": 2
+  },
+  {
+   "tahun_koleksi": 1996,
+   "count": 1
+  },
+  {
+   "tahun_koleksi": 1997,
+   "count": 2
+  },
+  {
+   "tahun_koleksi": 1999,
+   "count": 1
+  },
+  {
+   "tahun_koleksi": 2000,
+   "count": 7
+  },
+  {
+   "tahun_koleksi": 2001,
+   "count": 6
+  },
+  {
+   "tahun_koleksi": 2002,
+   "count": 11
+  },
+  {
+   "tahun_koleksi": 2003,
+   "count": 38
+  },
+  {
+   "tahun_koleksi": 2004,
+   "count": 23
+  },
+  {
+   "tahun_koleksi": 2005,
+   "count": 27
+  },
+  {
+   "tahun_koleksi": 2006,
+   "count": 30
+  },
+  {
+   "tahun_koleksi": 2007,
+   "count": 49
+  },
+  {
+   "tahun_koleksi": 2008,
+   "count": 32
+  },
+  {
+   "tahun_koleksi": 2009,
+   "count": 39
+  },
+  {
+   "tahun_koleksi": 2010,
+   "count": 75
+  },
+  {
+   "tahun_koleksi": 2011,
+   "count": 100
+  },
+  {
+   "tahun_koleksi": 2012,
+   "count": 121
+  },
+  {
+   "tahun_koleksi": 2013,
+   "count": 105
+  },
+  {
+   "tahun_koleksi": 2014,
+   "count": 99
+  },
+  {
+   "tahun_koleksi": 2015,
+   "count": 86
+  },
+  {
+   "tahun_koleksi": 2016,
+   "count": 98
+  },
+  {
+   "tahun_koleksi": 2017,
+   "count": 119
+  },
+  {
+   "tahun_koleksi": 2018,
+   "count": 131
+  },
+  {
+   "tahun_koleksi": 2019,
+   "count": 119
+  },
+  {
+   "tahun_koleksi": 2020,
+   "count": 107
+  },
+  {
+   "tahun_koleksi": 2021,
+   "count": 90
+  },
+  {
+   "tahun_koleksi": 2022,
+   "count": 106
+  },
+  {
+   "tahun_koleksi": 2023,
+   "count": 69
+  },
+  {
+   "tahun_koleksi": 2024,
+   "count": 101
+  },
+  {
+   "tahun_koleksi": 2025,
+   "count": 66
+  },
+  {
+   "tahun_koleksi": 2026,
+   "count": 14
+  }
+ ],
+ "kandidat_per_inang": [
+  {
+   "inang": "Sus scrofa",
+   "count": 1071
+  },
+  {
+   "inang": "Gallus gallus",
+   "count": 187
+  },
+  {
+   "inang": "Homo sapiens",
+   "count": 162
+  },
+  {
+   "inang": "Anas platyrhynchos",
+   "count": 102
+  },
+  {
+   "inang": null,
+   "count": 98
+  },
+  {
+   "inang": "Anatidae",
+   "count": 92
+  },
+  {
+   "inang": "Sus scrofa domesticus",
+   "count": 28
+  },
+  {
+   "inang": "Arenaria interpres",
+   "count": 26
+  },
+  {
+   "inang": "Aves",
+   "count": 22
+  },
+  {
+   "inang": "Sus scrofa scrofa",
+   "count": 21
+  },
+  {
+   "inang": "Anas carolinensis",
+   "count": 15
+  },
+  {
+   "inang": "Mustela lutreola",
+   "count": 14
+  }
+ ],
+ "kandidat_silang": [
+  {
+   "subtipe_kelas": "H1N2",
+   "prediksi_subtipe": "H1N1",
+   "count": 358
+  },
+  {
+   "subtipe_kelas": "H3N2",
+   "prediksi_subtipe": "H1N1",
+   "count": 306
+  },
+  {
+   "subtipe_kelas": "H1N1",
+   "prediksi_subtipe": "H1N2",
+   "count": 211
+  },
+  {
+   "subtipe_kelas": "H1N1",
+   "prediksi_subtipe": "H3N2",
+   "count": 165
+  },
+  {
+   "subtipe_kelas": "H1N2",
+   "prediksi_subtipe": "H3N2",
+   "count": 122
+  },
+  {
+   "subtipe_kelas": "H7N9",
+   "prediksi_subtipe": "H9N2",
+   "count": 98
+  },
+  {
+   "subtipe_kelas": "H3N2",
+   "prediksi_subtipe": "H1N2",
+   "count": 69
+  },
+  {
+   "subtipe_kelas": "LAINNYA",
+   "prediksi_subtipe": "H5N1",
+   "count": 40
+  },
+  {
+   "subtipe_kelas": "LAINNYA",
+   "prediksi_subtipe": "H9N2",
+   "count": 36
+  },
+  {
+   "subtipe_kelas": "H5N1",
+   "prediksi_subtipe": "H9N2",
+   "count": 30
+  },
+  {
+   "subtipe_kelas": "LAINNYA",
+   "prediksi_subtipe": "H1N1",
+   "count": 26
+  },
+  {
+   "subtipe_kelas": "H6N6",
+   "prediksi_subtipe": "H6N2",
+   "count": 24
+  },
+  {
+   "subtipe_kelas": "H4N6",
+   "prediksi_subtipe": "LAINNYA",
+   "count": 24
+  },
+  {
+   "subtipe_kelas": "LAINNYA",
+   "prediksi_subtipe": "H3N2",
+   "count": 23
+  },
+  {
+   "subtipe_kelas": "H3N8",
+   "prediksi_subtipe": "LAINNYA",
+   "count": 20
+  },
+  {
+   "subtipe_kelas": "H3N8",
+   "prediksi_subtipe": "H9N2",
+   "count": 17
+  },
+  {
+   "subtipe_kelas": "H5N2",
+   "prediksi_subtipe": "H5N1",
+   "count": 17
+  },
+  {
+   "subtipe_kelas": "H6N2",
+   "prediksi_subtipe": "H6N6",
+   "count": 15
+  },
+  {
+   "subtipe_kelas": "H6N2",
+   "prediksi_subtipe": "H9N2",
+   "count": 15
+  },
+  {
+   "subtipe_kelas": "H5N6",
+   "prediksi_subtipe": "H5N8",
+   "count": 14
+  },
+  {
+   "subtipe_kelas": "H11N9",
+   "prediksi_subtipe": "LAINNYA",
+   "count": 13
+  },
+  {
+   "subtipe_kelas": "H6N1",
+   "prediksi_subtipe": "LAINNYA",
+   "count": 12
+  },
+  {
+   "subtipe_kelas": "H10N7",
+   "prediksi_subtipe": "LAINNYA",
+   "count": 11
+  },
+  {
+   "subtipe_kelas": "H3N2",
+   "prediksi_subtipe": "H9N2",
+   "count": 10
+  },
+  {
+   "subtipe_kelas": "LAINNYA",
+   "prediksi_subtipe": "H3N8",
+   "count": 10
+  }
+ ],
+ "kandidat_keyakinan": [
+  {
+   "ember": "0,70 - 0,90",
+   "count": 875
+  },
+  {
+   "ember": ">= 0,90",
+   "count": 1115
+  }
+ ],
+ "kandidat_teratas": [
+  {
+   "accession": "KP098026",
+   "galur": "A/duck/Vietnam/NCVD-KA415/2012",
+   "segmen": 3,
+   "subtipe_kelas": "H5N2",
+   "prediksi_subtipe": "H5N1",
+   "keyakinan": 0.9999981176107497,
+   "negara": "Viet Nam",
+   "tahun_koleksi": 2012,
+   "inang": "Anatidae"
+  },
+  {
+   "accession": "OR079477",
+   "galur": "A/reassortant/ICL_TKY05_PPFP2(turkey/Turkey/1/2005 x Puerto Rico/8/1934)",
+   "segmen": 3,
+   "subtipe_kelas": "H3N2",
+   "prediksi_subtipe": "H5N1",
+   "keyakinan": 0.9999928063339386,
+   "negara": null,
+   "tahun_koleksi": null,
+   "inang": null
+  },
+  {
+   "accession": "OR079478",
+   "galur": "A/reassortant/ICL_TKY05_PPFP2(turkey/Turkey/1/2005 x Puerto Rico/8/1934)",
+   "segmen": 8,
+   "subtipe_kelas": "H3N2",
+   "prediksi_subtipe": "H5N1",
+   "keyakinan": 0.9999522658138984,
+   "negara": null,
+   "tahun_koleksi": null,
+   "inang": null
+  },
+  {
+   "accession": "PV388428",
+   "galur": "A/duck/Bangladesh/CE-115-09-DA-02-DU-O/2024",
+   "segmen": 8,
+   "subtipe_kelas": "LAINNYA",
+   "prediksi_subtipe": "H9N2",
+   "keyakinan": 0.9999448220910784,
+   "negara": "Bangladesh",
+   "tahun_koleksi": 2024,
+   "inang": "Anas platyrhynchos"
+  },
+  {
+   "accession": "KP098025",
+   "galur": "A/duck/Vietnam/NCVD-KA415/2012",
+   "segmen": 2,
+   "subtipe_kelas": "H5N2",
+   "prediksi_subtipe": "H5N1",
+   "keyakinan": 0.9999038049657889,
+   "negara": "Viet Nam",
+   "tahun_koleksi": 2012,
+   "inang": "Anatidae"
+  },
+  {
+   "accession": "CY004877",
+   "galur": "A/herring gull/DE/665/1988",
+   "segmen": 5,
+   "subtipe_kelas": "H4N6",
+   "prediksi_subtipe": "LAINNYA",
+   "keyakinan": 0.9998953793941417,
+   "negara": "USA",
+   "tahun_koleksi": 1988,
+   "inang": "Aves"
+  },
+  {
+   "accession": "KP098024",
+   "galur": "A/duck/Vietnam/NCVD-KA415/2012",
+   "segmen": 1,
+   "subtipe_kelas": "H5N2",
+   "prediksi_subtipe": "H5N1",
+   "keyakinan": 0.9998779745923266,
+   "negara": "Viet Nam",
+   "tahun_koleksi": 2012,
+   "inang": "Anatidae"
+  },
+  {
+   "accession": "PX908034",
+   "galur": "A/Human/CHL/PUC_MVL_0120_25/2025",
+   "segmen": 1,
+   "subtipe_kelas": "H3N2",
+   "prediksi_subtipe": "H1N1",
+   "keyakinan": 0.9998336800037315,
+   "negara": "Chile",
+   "tahun_koleksi": 2025,
+   "inang": "Homo sapiens"
+  },
+  {
+   "accession": "KY463810",
+   "galur": "A/blue winged teal/Missouri/14OS1960/2013",
+   "segmen": 7,
+   "subtipe_kelas": "LAINNYA",
+   "prediksi_subtipe": "H3N8",
+   "keyakinan": 0.9998220383773444,
+   "negara": "USA",
+   "tahun_koleksi": 2013,
+   "inang": "Spatula discors"
+  },
+  {
+   "accession": "PX529542",
+   "galur": "A/Massachusetts/USIP-001-057-012/2024",
+   "segmen": 7,
+   "subtipe_kelas": "H1N1",
+   "prediksi_subtipe": "H3N2",
+   "keyakinan": 0.9997772940222177,
+   "negara": "USA",
+   "tahun_koleksi": 2024,
+   "inang": "Homo sapiens"
+  },
+  {
+   "accession": "GQ907353",
+   "galur": "GQ907353",
+   "segmen": 5,
+   "subtipe_kelas": "LAINNYA",
+   "prediksi_subtipe": "H5N1",
+   "keyakinan": 0.9997770528140643,
+   "negara": "Mongolia",
+   "tahun_koleksi": 2005,
+   "inang": "Anas carolinensis"
+  },
+  {
+   "accession": "PQ014780",
+   "galur": "A/Multnomah County/OR-S25534/2024",
+   "segmen": 7,
+   "subtipe_kelas": "H1N1",
+   "prediksi_subtipe": "H3N2",
+   "keyakinan": 0.9997716811054114,
+   "negara": "USA",
+   "tahun_koleksi": 2024,
+   "inang": "Homo sapiens"
+  },
+  {
+   "accession": "PV212111",
+   "galur": "A/chicken/Bangladesh/CE-116-06-CB-25-BR-O/2023",
+   "segmen": 5,
+   "subtipe_kelas": "H5N1",
+   "prediksi_subtipe": "H9N2",
+   "keyakinan": 0.9997599237187006,
+   "negara": "Bangladesh",
+   "tahun_koleksi": 2023,
+   "inang": "Gallus gallus"
+  },
+  {
+   "accession": "GU086104",
+   "galur": "A/swine/Shandong/106/2007",
+   "segmen": 3,
+   "subtipe_kelas": "H3N2",
+   "prediksi_subtipe": "H9N2",
+   "keyakinan": 0.9997140780828406,
+   "negara": "China",
+   "tahun_koleksi": 2007,
+   "inang": "Sus scrofa"
+  },
+  {
+   "accession": "CY036195",
+   "galur": "A/little egret/Hong Kong/8550/2007(H5N1)",
+   "segmen": 2,
+   "subtipe_kelas": "H5N1",
+   "prediksi_subtipe": "H9N2",
+   "keyakinan": 0.9997124145587177,
+   "negara": "Hong Kong",
+   "tahun_koleksi": 2007,
+   "inang": "Egretta garzetta"
+  },
+  {
+   "accession": "AB766238",
+   "galur": "A/chicken/Vietnam/OIE-2215/2012",
+   "segmen": 3,
+   "subtipe_kelas": "H5N2",
+   "prediksi_subtipe": "H5N1",
+   "keyakinan": 0.9996667113105159,
+   "negara": "Viet Nam",
+   "tahun_koleksi": 2012,
+   "inang": "Gallus gallus"
+  },
+  {
+   "accession": "GU122043",
+   "galur": "A/pekin duck/Korea/LBM399/2007",
+   "segmen": 7,
+   "subtipe_kelas": "H6N2",
+   "prediksi_subtipe": "H9N2",
+   "keyakinan": 0.9996411025204536,
+   "negara": "South Korea",
+   "tahun_koleksi": 2007,
+   "inang": "Anas platyrhynchos"
+  },
+  {
+   "accession": "PX908032",
+   "galur": "A/Human/CHL/PUC_MVL_0120_25/2025",
+   "segmen": 5,
+   "subtipe_kelas": "H3N2",
+   "prediksi_subtipe": "H1N1",
+   "keyakinan": 0.9996354909703543,
+   "negara": "Chile",
+   "tahun_koleksi": 2025,
+   "inang": "Homo sapiens"
+  },
+  {
+   "accession": "PX908030",
+   "galur": "A/Human/CHL/PUC_MVL_0120_25/2025",
+   "segmen": 3,
+   "subtipe_kelas": "H3N2",
+   "prediksi_subtipe": "H1N1",
+   "keyakinan": 0.9996186724521864,
+   "negara": "Chile",
+   "tahun_koleksi": 2025,
+   "inang": "Homo sapiens"
+  },
+  {
+   "accession": "MK361640",
+   "galur": "A/swine/Sassenberg/3762/2004",
+   "segmen": 3,
+   "subtipe_kelas": "H3N2",
+   "prediksi_subtipe": "H1N2",
+   "keyakinan": 0.9995427781337065,
+   "negara": "Germany",
+   "tahun_koleksi": 2004,
+   "inang": "Sus scrofa"
+  },
+  {
+   "accession": "CY103877",
+   "galur": "A/little yellow-shouldered bat/Guatemala/153/2009",
+   "segmen": 5,
+   "subtipe_kelas": "LAINNYA",
+   "prediksi_subtipe": "H7N7",
+   "keyakinan": 0.9995411474895001,
+   "negara": "Guatemala",
+   "tahun_koleksi": 2009,
+   "inang": "Sturnira lilium"
+  },
+  {
+   "accession": "MK943238",
+   "galur": "A/chicken/Viet Nam/HN-2630/2016",
+   "segmen": 3,
+   "subtipe_kelas": "H6N6",
+   "prediksi_subtipe": "H9N2",
+   "keyakinan": 0.999538397266395,
+   "negara": "Viet Nam",
+   "tahun_koleksi": 2016,
+   "inang": "Gallus gallus"
+  },
+  {
+   "accession": "OR079475",
+   "galur": "A/reassortant/ICL_TKY05_PPFP2(turkey/Turkey/1/2005 x Puerto Rico/8/1934)",
+   "segmen": 1,
+   "subtipe_kelas": "H3N2",
+   "prediksi_subtipe": "H5N1",
+   "keyakinan": 0.9995027220137374,
+   "negara": null,
+   "tahun_koleksi": null,
+   "inang": null
+  },
+  {
+   "accession": "PZ450425",
+   "galur": "A/Snowy Owl/MA/26G05414-019-original/2026",
+   "segmen": 8,
+   "subtipe_kelas": "LAINNYA",
+   "prediksi_subtipe": "H5N1",
+   "keyakinan": 0.9994819289979642,
+   "negara": "USA",
+   "tahun_koleksi": 2026,
+   "inang": "Bubo scandiacus"
+  },
+  {
+   "accession": "MZ323836",
+   "galur": "A/canine/China/18006/2019",
+   "segmen": 1,
+   "subtipe_kelas": "LAINNYA",
+   "prediksi_subtipe": "H3N2",
+   "keyakinan": 0.999476007860185,
+   "negara": "China",
+   "tahun_koleksi": 2019,
+   "inang": "Canis lupus familiaris"
+  }
+ ]
+}

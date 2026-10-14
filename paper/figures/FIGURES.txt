@@ -1,0 +1,9 @@
+Figures for the manuscript
+==============================================
+
+fig1_archive_growth.png        Sequences released per year, 1990 onward
+fig2_reporting_lag.png         Mean collection-to-release lag by collection year
+fig3_scalability.png           Training time and throughput versus training-set size
+fig4_model_comparison.png      Macro F1 and training time by task and algorithm
+fig5_edges_per_segment.png     Similarity edges per genome segment
+fig6_host_enrichment.png       Host composition of the scored population versus flagged candidates, with enrichment ratios

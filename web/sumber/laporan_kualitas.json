@@ -1,0 +1,61 @@
+{
+  "run_id": "run_20260922T021119Z",
+  "masuk": 1627536,
+  "lolos": 1586912,
+  "wakil_unik": 893599,
+  "aturan": [
+    {
+      "aturan": "panjang >= 500 bp",
+      "gugur": 36388,
+      "sisa": 1591148,
+      "pct_gugur": 2.236,
+      "alasan": "vektor k-mer terlalu jarang di bawah ini"
+    },
+    {
+      "aturan": "panjang <= 2600 bp",
+      "gugur": 49,
+      "sisa": 1591099,
+      "pct_gugur": 0.003,
+      "alasan": "melebihi segmen terpanjang influenza A"
+    },
+    {
+      "aturan": "ambigu <= 5%",
+      "gugur": 4187,
+      "sisa": 1586912,
+      "pct_gugur": 0.257,
+      "alasan": "huruf non-ACGT merusak hitungan k-mer"
+    },
+    {
+      "aturan": "duplikat aksesi",
+      "gugur": 0,
+      "sisa": 1586912,
+      "pct_gugur": 0.0,
+      "alasan": "satu aksesi satu baris"
+    },
+    {
+      "aturan": "duplikat sekuens",
+      "gugur": 0,
+      "sisa": 1586912,
+      "pct_gugur": 0.0,
+      "alasan": "ditandai, tidak dibuang -- 893,599 wakil unik dari 1,586,912 baris"
+    }
+  ],
+  "kelengkapan_pct": {
+    "segmen": 99.81,
+    "subtipe": 96.92,
+    "inang": 96.23,
+    "negara": 98.1,
+    "tahun_koleksi": 97.07
+  },
+  "asal_segmen": {
+    "metadata": 1573329,
+    "tidak_diketahui": 30794,
+    "defline_gen": 22830,
+    "defline_segment": 583
+  },
+  "asal_subtipe": {
+    "metadata": 1540473,
+    "tidak_diketahui": 78661,
+    "defline": 8402
+  }
+}
