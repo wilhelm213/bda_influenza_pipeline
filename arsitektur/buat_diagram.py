@@ -73,7 +73,7 @@ def gambar1():
             (210, 638, "ResourceManager + 3 NodeManager · 12 vCore · 18.432 MB", None)]),
         ("PROCESSING", "Notebook 03", 332, 66, False, [
             (210, 312, "MapReduce — Hadoop Streaming", "mapper & reducer awk"),
-            (536, 312, "Apache Spark 3.5.9", "DataFrame · Spark SQL · MLlib")]),
+            (536, 312, "Apache Spark 3.5.9", "DataFrame · Spark SQL · ML")]),
         ("ANALYTICS", "Notebook 04–06", 412, 66, False, [
             (210, 203, "Fitur k-mer", "alignment-free"),
             (427, 203, "Machine learning", "segmen · subtipe"),
@@ -289,7 +289,7 @@ def gambar4():
     modul(466, 214, 274, 44, "Apache Spark 3.5.9",
           "DataFrame API · pengganti Pig dan Hive")
     modul(176, 268, 176, 44, "Spark SQL", "transformasi asli")
-    modul(368, 268, 176, 44, "Spark MLlib", "klasifikasi")
+    modul(368, 268, 176, 44, "Spark ML", "klasifikasi")
     modul(560, 268, 180, 44, "MinHash LSH", "graf kemiripan")
 
     band(768, 136, 232, 196, "Analytics Engines")

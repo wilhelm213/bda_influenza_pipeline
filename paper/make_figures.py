@@ -116,13 +116,13 @@ save(fig, "fig2_reporting_lag.png",
      "Mean collection-to-release lag by collection year")
 
 # ── Figure 3: scalability ────────────────────────────────────────────
-sp = [x for x in SCALE if x["jalur"] == "Spark MLlib"]
-sk = [x for x in SCALE if x["jalur"] != "Spark MLlib"]
+sp = [x for x in SCALE if x["jalur"] == "Spark ML"]
+sk = [x for x in SCALE if x["jalur"] != "Spark ML"]
 rows = [int(float(x["n_latih"])) for x in sp]
 fig, axes = plt.subplots(1, 2, figsize=(9.4, 3.3))
 ax = axes[0]
 ax.plot(rows, [float(x["detik"]) for x in sp], marker="o", color=D1,
-        linewidth=2.2, label="Spark MLlib")
+        linewidth=2.2, label="Spark ML")
 sk_rows = [int(float(x["n_latih"])) for x in sk if x["n_latih"]]
 sk_sec = [float(x["detik"]) for x in sk if x["detik"]]
 ax.plot(sk_rows, sk_sec, marker="o", color=D2, linewidth=2.2,
@@ -142,7 +142,7 @@ for t_ in lg.get_texts():
     t_.set_color(INK)
 ax = axes[1]
 ax.plot(rows, [float(x["throughput_baris_per_detik"]) for x in sp],
-        marker="o", color=D1, linewidth=2.2, label="Spark MLlib")
+        marker="o", color=D1, linewidth=2.2, label="Spark ML")
 ax.plot(sk_rows, [float(x["throughput_baris_per_detik"]) for x in sk
                   if x["throughput_baris_per_detik"]],
         marker="o", color=D2, linewidth=2.2, label="scikit-learn, single node")

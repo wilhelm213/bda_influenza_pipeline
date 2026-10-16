@@ -5,7 +5,7 @@ Graduate Program.
 
 Pipeline menyeluruh atas 1.586.912 sekuens genom Influenza A dari NCBI:
 dari pengambilan data, penyimpanan di HDFS, pemrosesan dengan MapReduce
-dan Spark di atas YARN, klasifikasi dengan Spark MLlib, sampai graph
+dan Spark di atas YARN, klasifikasi dengan Spark ML, sampai graph
 analytics di Neo4j.
 
 ## Isi

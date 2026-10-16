@@ -78,7 +78,7 @@ function pgArsip(m){
     {a:"HDFS",b:"3 DataNodes, replication 2, 128 MB blocks"},
     {a:"YARN",b:"1 ResourceManager, 3 NodeManagers, 12 vCores, 18,432 MB"},
     {a:"MapReduce",b:"Hadoop Streaming, awk mapper and reducer"},
-    {a:"Spark",b:"3.5.9 on YARN, Spark SQL and MLlib"},
+    {a:"Spark",b:"3.5.9 on YARN, Spark SQL and Spark ML"},
     {a:"Neo4j",b:"5.26 Community, Graph Data Science"},
     {a:"Feature zone",b:"38.7 GB of sparse k-mer vectors on HDFS"},
   ]);

@@ -213,17 +213,17 @@ hbar("05-tepi-per-segmen.png", "Tepi kemiripan per segmen",
      [x["tepi"] for x in gs], AKSEN)
 
 # 6-7 skalabilitas
-sp = [r for r in SKALA if r["jalur"] == "Spark MLlib"]
-sk = [r for r in SKALA if r["jalur"] != "Spark MLlib"]
+sp = [r for r in SKALA if r["jalur"] == "Spark ML"]
+sk = [r for r in SKALA if r["jalur"] != "Spark ML"]
 kat = [rb(float(r["fraksi"]) * 100) + "%" for r in sp]
 garis("06-skalabilitas-waktu.png",
       "Waktu pelatihan terhadap fraksi data",
-      kat, [("Spark MLlib", [r["detik"] for r in sp]),
+      kat, [("Spark ML", [r["detik"] for r in sp]),
             ("scikit-learn 1 node", [r["detik"] for r in sk])],
       "Fraksi data latih", "Detik", tandai_gagal=[2, 3, 4])
 garis("07-skalabilitas-throughput.png",
       "Throughput pelatihan dalam baris per detik",
-      kat, [("Spark MLlib", [r["throughput_baris_per_detik"] for r in sp]),
+      kat, [("Spark ML", [r["throughput_baris_per_detik"] for r in sp]),
             ("scikit-learn 1 node", [r["throughput_baris_per_detik"] for r in sk])],
       "Fraksi data latih", "Baris per detik")
 

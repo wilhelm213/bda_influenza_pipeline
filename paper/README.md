@@ -54,7 +54,7 @@ only the standard library, and none of them requires a running cluster.
 Nine Docker containers on a single physical host: HDFS with three DataNodes
 (replication 2, 128 MB blocks), YARN with three NodeManagers (12 vCores,
 18,432 MB), Hadoop Streaming for MapReduce, Spark 3.5.9 on YARN with Spark SQL
-and MLlib, and Neo4j 5.26 Community with the Graph Data Science library.
+and Spark ML, and Neo4j 5.26 Community with the Graph Data Science library.
 
 Because all containers share one host, inter-node traffic never crosses a
 network. The timing figures are therefore valid as relative comparisons
