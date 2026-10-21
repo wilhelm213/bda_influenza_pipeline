@@ -67,7 +67,7 @@ def rapi(ax, xl=None, yl=None, jdl=None):
 
 
 def ribu(v, p=None):
-    return format(int(round(v)), ",").replace(",", ".")
+    return format(int(round(v)), ",")
 
 
 def simpan(fig, nama, ket):
@@ -87,21 +87,21 @@ ax[0].fill_between([a for a, _ in r], [b for _, b in r], color=D1, alpha=.16)
 ax[0].plot([a for a, _ in r], [b for _, b in r], color=D1, linewidth=2.2)
 ax[0].yaxis.set_major_formatter(FuncFormatter(ribu))
 ax[0].set_ylim(bottom=0)
-rapi(ax[0], "Tahun rilis", "Sekuens", "(a) Pertumbuhan arsip")
+rapi(ax[0], "Release year", "Sequences", "(a) Archive growth")
 
 j = [(x["tahun_koleksi"], float(x["rata"])) for x in INS["jeda_per_tahun"]
      if 1995 <= x["tahun_koleksi"] <= 2025]
 ax[1].plot([a for a, _ in j], [b for _, b in j], color=D2, linewidth=2.2,
            marker="o", markersize=3.2)
-ax[1].annotate("0,40 tahun", xy=(2025, j[-1][1]), xytext=(2017, 3.2),
+ax[1].annotate("0.40 years", xy=(2025, j[-1][1]), xytext=(2017, 3.2),
                fontsize=8, color=D2, fontweight="bold",
                arrowprops=dict(arrowstyle="->", color=D2, lw=1.1))
 ax[1].set_ylim(bottom=0)
-rapi(ax[1], "Tahun koleksi", "Jeda rata-rata (tahun)",
-     "(b) Jeda koleksi ke rilis")
+rapi(ax[1], "Collection year", "Mean lag (years)",
+     "(b) Collection-to-release lag")
 fig.tight_layout()
 simpan(fig, "gambar2-arsip.png",
-       "Pertumbuhan arsip dan penyusutan jeda pelaporan")
+       "Archive growth and shrinking reporting lag")
 
 # ── Gambar 3: kinerja klasifikasi ────────────────────────────────────
 tugas, algo = [], []
@@ -130,14 +130,14 @@ for i, a in enumerate(algo):
 for i, a in enumerate(algo):
     for k, t in enumerate(tugas):
         v = ambil(t, a, "f1_makro")
-        ax[0].text(k + (i - 1) * w, v + .02, ("%.4f" % v).replace(".", ","),
+        ax[0].text(k + (i - 1) * w, v + .02, "%.4f" % v,
                    ha="center", fontsize=6.2, color=TINTA_2, rotation=90)
 ax[0].set_xticks(xs)
 ax[0].set_xticklabels([NAMA_T[t] for t in tugas])
 ax[0].set_ylim(0, 1.16)
 ax[0].grid(axis="x", visible=False)
 ax[0].legend(fontsize=7.6, ncol=1, loc="lower left")
-rapi(ax[0], None, "F1 makro", "(a) F1 makro per tugas dan algoritma")
+rapi(ax[0], None, "Macro F1", "(a) Macro F1 by task and algorithm")
 
 for i, a in enumerate(algo):
     ax[1].bar(xs + (i - 1) * w, [ambil(t, a, "log_loss") for t in tugas],
@@ -146,9 +146,9 @@ for k, t in enumerate(tugas):
     acak = ambil(t, algo[0], "log_loss_acak")
     ax[1].plot([k - .45, k + .45], [acak, acak], color=D8, linewidth=1.6,
                linestyle=(0, (4, 2)), zorder=5)
-ax[1].text(-0.42, 2.45, "tebakan acak", fontsize=7.4, color=D8,
+ax[1].text(-0.42, 2.45, "random guess", fontsize=7.4, color=D8,
            fontweight="bold", ha="left", va="bottom")
-ax[1].annotate("Naive Bayes B2\nmelebihi acak", xy=(2 + w, 3.3654),
+ax[1].annotate("Naive Bayes B2\nexceeds random", xy=(2 + w, 3.3654),
                xytext=(1.08, 7.4), fontsize=7.4, color=D8,
                fontweight="bold", ha="center",
                arrowprops=dict(arrowstyle="->", color=D8, lw=1.1,
@@ -158,10 +158,10 @@ ax[1].set_xticklabels([NAMA_T[t] for t in tugas])
 ax[1].set_ylim(0.0008, 14)
 ax[1].set_yscale("log")
 ax[1].grid(axis="x", visible=False)
-rapi(ax[1], None, "Log loss (skala log)", "(b) Log loss terhadap tebakan acak")
+rapi(ax[1], None, "Log loss (log scale)", "(b) Log loss against random guessing")
 fig.tight_layout()
 simpan(fig, "gambar3-klasifikasi.png",
-       "F1 makro dan log loss sembilan model")
+       "Macro F1 and log loss of nine models")
 
 # ── Gambar 4: penskalaan ─────────────────────────────────────────────
 sp = [x for x in SKALA if x["jalur"].startswith("Spark")]
@@ -174,37 +174,37 @@ fig, ax = plt.subplots(1, 2, figsize=(9.6, 3.3))
 ax[0].plot(baris, [float(x["detik"]) for x in sp], marker="o", color=D1,
            linewidth=2.2, label="Spark ML")
 ax[0].plot(sk_b, [float(x["detik"]) for x in sk if x["detik"]], marker="o",
-           color=D2, linewidth=2.2, label="Satu node")
+           color=D2, linewidth=2.2, label="Single node")
 for g in gagal:
     ax[0].plot(g, 18, marker="X", markersize=9, color=D8, zorder=6,
                clip_on=False)
-ax[0].annotate("gagal: Py4JJavaError", xy=(gagal[0], 18),
+ax[0].annotate("failed: Py4JJavaError", xy=(gagal[0], 18),
                xytext=(gagal[0] * .62, 300), fontsize=7.8, color=D8,
                fontweight="bold",
                arrowprops=dict(arrowstyle="->", color=D8, lw=1.1))
 ax[0].set_xscale("log")
 ax[0].set_ylim(bottom=0)
 ax[0].legend(fontsize=8)
-rapi(ax[0], "Baris latih", "Waktu latih (detik)", "(a) Waktu terhadap volume")
+rapi(ax[0], "Training rows", "Training time (s)", "(a) Time against volume")
 
 ax[1].plot(baris, [float(x["throughput_baris_per_detik"]) for x in sp],
            marker="o", color=D1, linewidth=2.2, label="Spark ML")
 ax[1].plot(sk_b, [float(x["throughput_baris_per_detik"]) for x in sk
                   if x["throughput_baris_per_detik"]], marker="o", color=D2,
-           linewidth=2.2, label="Satu node")
-ax[1].annotate("naik 15×", xy=(baris[-1], 1439), xytext=(60000, 1180),
+           linewidth=2.2, label="Single node")
+ax[1].annotate("15× increase", xy=(baris[-1], 1439), xytext=(60000, 1180),
                fontsize=8, color=D1, fontweight="bold",
                arrowprops=dict(arrowstyle="->", color=D1, lw=1.1))
-ax[1].annotate("turun", xy=(sk_b[-1], 169), xytext=(60000, 330),
+ax[1].annotate("decreasing", xy=(sk_b[-1], 169), xytext=(60000, 330),
                fontsize=8, color=D2, fontweight="bold",
                arrowprops=dict(arrowstyle="->", color=D2, lw=1.1))
 ax[1].set_xscale("log")
 ax[1].set_ylim(bottom=0)
 ax[1].yaxis.set_major_formatter(FuncFormatter(ribu))
-rapi(ax[1], "Baris latih", "Baris per detik", "(b) Throughput")
+rapi(ax[1], "Training rows", "Rows per second", "(b) Throughput")
 fig.tight_layout()
 simpan(fig, "gambar4-penskalaan.png",
-       "Waktu latih dan throughput terhadap volume data")
+       "Training time and throughput against data volume")
 
 # ── Gambar 5: struktur graf ──────────────────────────────────────────
 gs = sorted(INS["graf_per_segmen"], key=lambda x: x["segmen"])
@@ -224,11 +224,11 @@ ax[0].set_xticklabels(lab, fontsize=8)
 ax[0].set_ylim(0, max(nilai) * 1.2)
 ax[0].yaxis.set_major_formatter(FuncFormatter(ribu))
 ax[0].grid(axis="x", visible=False)
-ax[0].annotate("HA paling renggang:\nsasaran utama antibodi", xy=(3, 21800),
+ax[0].annotate("HA sparsest:\nprimary antibody target", xy=(3, 21800),
                xytext=(3.05, 40000), fontsize=7.4, color=TINTA,
                fontweight="bold", ha="center",
                arrowprops=dict(arrowstyle="->", color=TINTA, lw=1.1))
-rapi(ax[0], None, "Tepi kemiripan", "(a) Kerapatan graf per segmen")
+rapi(ax[0], None, "Similarity edges", "(a) Graph density by segment")
 
 uk = INS["klaster_ukuran"]
 urut = ["2 - 5", "6 - 20", "21 - 100", "> 100"]
@@ -242,27 +242,27 @@ ax[1].set_xticks(range(4))
 ax[1].set_xticklabels(nama2, fontsize=8)
 ax[1].set_ylim(0, max(nilai2) * 1.18)
 ax[1].grid(axis="x", visible=False)
-rapi(ax[1], "Simpul per klaster", "Jumlah klaster",
-     "(b) Sebaran ukuran klaster")
+rapi(ax[1], "Nodes per cluster", "Number of clusters",
+     "(b) Cluster size distribution")
 fig.tight_layout()
 simpan(fig, "gambar5-graf.png",
-       "Kerapatan graf per segmen dan sebaran ukuran klaster")
+       "Graph density by segment and cluster size distribution")
 
 # ── Gambar 6: pengayaan inang dan forest plot ────────────────────────
-NAMA_I = {"babi": "Babi", "unggas": "Unggas", "manusia": "Manusia",
-          "lain": "Lainnya"}
+NAMA_I = {"babi": "Swine", "unggas": "Avian", "manusia": "Human",
+          "lain": "Other"}
 ks = [x for x in STRAT["kasar"] if x["kelas_inang"] in NAMA_I]
 ks.sort(key=lambda x: -x["pengayaan"])
 
 fig, ax = plt.subplots(1, 2, figsize=(9.6, 3.5))
 xs = np.arange(len(ks))
 ax[0].bar(xs - .19, [x["pangsa_pop"] for x in ks], width=.36, color=D1,
-          label="Pangsa populasi terskor")
+          label="Share of scored population")
 ax[0].bar(xs + .19, [x["pangsa_kand"] for x in ks], width=.36, color=D8,
-          label="Pangsa kandidat")
+          label="Share of candidates")
 for i, x in enumerate(ks):
     ax[0].text(i, max(x["pangsa_pop"], x["pangsa_kand"]) + 3.4,
-               ("%.2f×" % x["pengayaan"]).replace(".", ","),
+               "%.2f×" % x["pengayaan"],
                ha="center", fontsize=8.4, color=TINTA, fontweight="bold")
 ax[0].set_xticks(xs)
 ax[0].set_xticklabels([NAMA_I[x["kelas_inang"]] for x in ks], fontsize=8.6)
@@ -271,7 +271,7 @@ ax[0].yaxis.set_major_formatter(FuncFormatter(lambda v, p: "%d%%" % v))
 ax[0].grid(axis="x", visible=False)
 ax[0].legend(fontsize=7.8, loc="upper center", ncol=2,
              bbox_to_anchor=(.5, 1.02))
-rapi(ax[0], None, "Pangsa", "(a) Pengayaan kandidat menurut inang")
+rapi(ax[0], None, "Share", "(a) Candidate enrichment by host")
 
 st = [s for s in STRAT["per_strata"] if s["or_strata"] and
       0 < float(s["or_strata"]) < 400]
@@ -290,22 +290,22 @@ ax[1].set_yticklabels(["%s %s" % (s["wil"], int(s["dekade"])) for s in st],
 ax[1].set_xscale("log")
 ax[1].set_xlim(.4, 400)
 ax[1].grid(axis="y", visible=False)
-ax[1].text(.02, .97, "OR Mantel-Haenszel gabungan\n10,86  (IK 95% 9,69–12,17)",
+ax[1].text(.02, .97, "Pooled Mantel–Haenszel OR\n10.86  (95% CI 9.69–12.17)",
            transform=ax[1].transAxes, fontsize=7.4, color=D8,
            fontweight="bold", va="top", ha="left",
            bbox=dict(boxstyle="round,pad=0.3", facecolor=PUTIH,
                      edgecolor="none", alpha=.92))
 ax[1].text(1.08, .2, "OR = 1", fontsize=7, color=TINTA_3, ha="left")
-rapi(ax[1], "Odds ratio per strata (skala log)", None,
-     "(b) Pengendalian konfonder, %d dari %d strata"
+rapi(ax[1], "Odds ratio per stratum (log scale)", None,
+     "(b) Confounder control, %d of %d strata"
      % (len(st), cmh["strata"]))
 fig.tight_layout()
 simpan(fig, "gambar6-pengayaan.png",
-       "Pengayaan inang dan odds ratio per strata")
+       "Host enrichment and per-stratum odds ratios")
 
 io.open(KELUARAN / "DAFTAR-GAMBAR.txt", "w", encoding="utf-8").write(
-    "Gambar untuk naskah artikel\n" + "=" * 52 + "\n\n"
-    + "Gambar 1  gambar1-metodologi.png   Alur metodologi delapan tahap\n"
-    + "".join("Gambar %d  %-26s %s\n" % (i + 2, n, k)
+    "Figures for the manuscript\n" + "=" * 52 + "\n\n"
+    + "Figure 1  gambar1-metodologi.png   Eight-stage methodology flow\n"
+    + "".join("Figure %d  %-26s %s\n" % (i + 2, n, k)
              for i, (n, k) in enumerate(dibuat)))
-print("\n%d gambar hasil ditulis ke %s" % (len(dibuat), KELUARAN))
+print("\n%d result figures written to %s" % (len(dibuat), KELUARAN))

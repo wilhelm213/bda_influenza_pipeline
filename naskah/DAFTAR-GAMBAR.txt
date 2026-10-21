@@ -1,9 +1,9 @@
-Gambar untuk naskah artikel
+Figures for the manuscript
 ====================================================
 
-Gambar 1  gambar1-metodologi.png   Alur metodologi delapan tahap
-Gambar 2  gambar2-arsip.png          Pertumbuhan arsip dan penyusutan jeda pelaporan
-Gambar 3  gambar3-klasifikasi.png    F1 makro dan log loss sembilan model
-Gambar 4  gambar4-penskalaan.png     Waktu latih dan throughput terhadap volume data
-Gambar 5  gambar5-graf.png           Kerapatan graf per segmen dan sebaran ukuran klaster
-Gambar 6  gambar6-pengayaan.png      Pengayaan inang dan odds ratio per strata
+Figure 1  gambar1-metodologi.png   Eight-stage methodology flow
+Figure 2  gambar2-arsip.png          Archive growth and shrinking reporting lag
+Figure 3  gambar3-klasifikasi.png    Macro F1 and log loss of nine models
+Figure 4  gambar4-penskalaan.png     Training time and throughput against data volume
+Figure 5  gambar5-graf.png           Graph density by segment and cluster size distribution
+Figure 6  gambar6-pengayaan.png      Host enrichment and per-stratum odds ratios

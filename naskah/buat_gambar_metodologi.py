@@ -107,17 +107,17 @@ def gambar():
     kotak(ax, PITA_X, 20, PITA_W, 770, isi=TANAH, tepi=GARIS,
           putus=(4, 3))
     rel = [
-        ("HDFS", ["3 datanode", "replikasi 2", "blok 128 MB"], BIRU),
-        ("YARN", ["1 RM + 3 NM", "12 vCore", "18.432 MB"], JINGGA),
+        ("HDFS", ["3 datanodes", "replication 2", "128 MB blocks"], BIRU),
+        ("YARN", ["1 RM + 3 NM", "12 vCores", "18,432 MB"], JINGGA),
         ("Spark 3.5.9", ["DataFrame API", "Spark ML", "MinHash LSH"], UNGU),
-        ("MapReduce", ["Hadoop Streaming", "mapper awk"], HIJAU),
+        ("MapReduce", ["Hadoop Streaming", "awk mapper"], HIJAU),
         ("Neo4j 5.26", ["property graph", "Cypher + GDS"], AMBER),
     ]
     bx, bw = PITA_X + 8, PITA_W - 16
     tinggi = [22 + len(b) * 11 for _, b, _w in rel]
     total = sum(tinggi) + 14 * (len(rel) - 1) + 34
     ty = 20 + (770 - total) / 2
-    teks(ax, bx + bw / 2, ty, "INFRASTRUKTUR", 7.4, AKSEN, "bold",
+    teks(ax, bx + bw / 2, ty, "INFRASTRUCTURE", 7.4, AKSEN, "bold",
          rata="center", muat=bw)
     ty += 16
     for (nama, baris, warna), t in zip(rel, tinggi):
@@ -141,41 +141,41 @@ def gambar():
     kotak(ax, L, y, R - L, h, isi=BIRU_BG, tepi=BIRU, tebal=1.2)
     kotak(ax, L, y, 30, h, isi=BIRU, tepi=BIRU)
     teks(ax, L + 15, y + h / 2 + 5, "1", 13, PUTIH, "bold", rata="center")
-    teks(ax, L + 46, y + 22, "Penarikan data", 12, TINTA, "bold")
-    teks(ax, R - 14, y + 22, "42 partisi · idempoten · gabung "
-         "menurut nomor aksesi", 8.5, TINTA_3, font=FM, rata="right")
+    teks(ax, L + 46, y + 22, "Data retrieval", 12, TINTA, "bold")
+    teks(ax, R - 14, y + 22, "42 partitions · idempotent · "
+         "joined on accession number", 8.5, TINTA_3, font=FM, rata="right")
     for dx, judul, ket in [
-            (0, "Jalur A — NCBI E-utilities",
+            (0, "Path A — NCBI E-utilities",
              "esearch + efetch · FASTA"),
-            (376, "Jalur B — NCBI Virus vvsearch2",
-             "metadata CSV · 12 kolom")]:
+            (376, "Path B — NCBI Virus vvsearch2",
+             "metadata CSV · 12 columns")]:
         kotak(ax, L + 46 + dx, y + 32, 352, 46, isi=PUTIH, tepi=BIRU)
         teks(ax, L + 60 + dx, y + 51, judul, 9, TINTA, "bold", muat=324)
         teks(ax, L + 60 + dx, y + 68, ket, 8, TINTA_3, font=FM, muat=324)
-    aliran(y + h, y + h + 34, "1.627.536 sekuens")
+    aliran(y + h, y + h + 34, "1,627,536 sequences")
 
     # ── 2. zona bronze ────────────────────────────────────────────────
     y = 146
-    tahap(ax, "2", "Zona bronze — HDFS", y, 48,
-          ["hasil unduh apa adanya, tidak pernah diubah · sumber "
-           "kebenaran untuk pengulangan"], rona=BIRU, isi=BIRU_BG)
+    tahap(ax, "2", "Bronze zone — HDFS", y, 48,
+          ["raw downloads, never modified · source of truth for "
+           "re-running the pipeline"], rona=BIRU, isi=BIRU_BG)
     aliran(y + 48, y + 48 + 26)
 
     # ── 3. gerbang mutu ───────────────────────────────────────────────
     y = 220
-    tahap(ax, "3", "Gerbang mutu dan deduplikasi", y, 76,
-          ["panjang ≥ 500 bp (gugur 36.388) · panjang ≤ "
-           "2.600 bp (gugur 49)",
-           "basa ambigu ≤ 5% (gugur 4.187) · deduplikasi cetakan "
-           "SHA-1"], rona=JINGGA, isi=JINGGA_BG)
+    tahap(ax, "3", "Quality gate and deduplication", y, 76,
+          ["length ≥ 500 bp (36,388 dropped) · length ≤ "
+           "2,600 bp (49 dropped)",
+           "ambiguous bases ≤ 5% (4,187 dropped) · SHA-1 "
+           "deduplication"], rona=JINGGA, isi=JINGGA_BG)
     aliran(y + 76, y + 76 + 34,
-           "1.586.912 lolos · 893.599 wakil unik")
+           "1,586,912 passed · 893,599 unique representatives")
 
     # ── 4. zona silver ────────────────────────────────────────────────
     y = 330
-    tahap(ax, "4", "Zona silver — Parquet berpartisi segmen", y, 48,
-          ["kolom asal + kolom turunan: hash, cacah duplikat, asal label, "
-           "presisi tanggal"], rona=BIRU, isi=BIRU_BG)
+    tahap(ax, "4", "Silver zone — Parquet partitioned by segment", y, 48,
+          ["source columns + derived: hash, duplicate count, label "
+           "provenance, date precision"], rona=BIRU, isi=BIRU_BG)
     aliran(y + 48, y + 48 + 26)
 
     # ── 5. rekayasa fitur ─────────────────────────────────────────────
@@ -183,7 +183,7 @@ def gambar():
     kotak(ax, L, y, R - L, h, isi=UNGU_BG, tepi=UNGU, tebal=1.6)
     kotak(ax, L, y, 30, h, isi=UNGU, tepi=UNGU)
     teks(ax, L + 15, y + h / 2 + 5, "5", 13, PUTIH, "bold", rata="center")
-    teks(ax, L + 46, y + 22, "Rekayasa fitur alignment-free", 12, TINTA,
+    teks(ax, L + 46, y + 22, "Alignment-free feature engineering", 12, TINTA,
          "bold")
     pipa = ["k-mer, k = 8", "CountVectorizer", "IDF", "Normalizer L2"]
     px, pw = L + 46, 160
@@ -194,8 +194,8 @@ def gambar():
         if i < len(pipa) - 1:
             panah(ax, px + pw + 3, y + 47, px + pw + 20, y + 47, UNGU, 1.4)
         px += pw + 23
-    teks(ax, L + 46, y + 78, "SparseVector 65.536 dimensi · 56.171 "
-         "k-mer teramati · kepadatan 2,49% · 38,7 GB pada HDFS",
+    teks(ax, L + 46, y + 78, "SparseVector, 65,536 dimensions · 56,171 "
+         "k-mers observed · 2.49% density · 38.7 GB on HDFS",
          8.5, TINTA_2, font=FM, muat=R - L - 60)
 
     # percabangan ke 6a dan 6b
@@ -209,18 +209,18 @@ def gambar():
     # ── 6a dan 6b ─────────────────────────────────────────────────────
     y, h = 522, 102
     for x0, no, rona, latar, judul, baris in [
-        (L, "6a", HIJAU, HIJAU_BG, "Klasifikasi", [
-            "Tugas A  segmen, 8 kelas",
-            "Tugas B1 subtipe dari HA + NA, 21 kelas",
-            "Tugas B2 subtipe dari segmen internal",
+        (L, "6a", HIJAU, HIJAU_BG, "Classification", [
+            "Task A  segment, 8 classes",
+            "Task B1 subtype from HA + NA, 21 classes",
+            "Task B2 subtype from internal segments",
             "LogReg · RandomForest · NaiveBayes",
-            "pembagian latih-uji menurut isolat"]),
-        (R - 370, "6b", AMBER, AMBER_BG, "Graf kemiripan", [
-            "MinHash LSH · ambang Jaccard 0,12",
-            "sampel ≤ 2.500 simpul per segmen",
-            "label propagation → komponen terhubung",
-            "PageRank → sentralitas klaster",
-            "358.212 tepi · delapan segmen"])]:
+            "train-test split by isolate"]),
+        (R - 370, "6b", AMBER, AMBER_BG, "Similarity graph", [
+            "MinHash LSH · Jaccard threshold 0.12",
+            "sample ≤ 2,500 nodes per segment",
+            "label propagation → connected components",
+            "PageRank → cluster centrality",
+            "358,212 edges · eight segments"])]:
         kotak(ax, x0, y, 370, h, isi=latar, tepi=rona, tebal=1.2)
         kotak(ax, x0, y, 30, h, isi=rona, tepi=rona)
         teks(ax, x0 + 15, y + h / 2 + 4, no, 10.5, PUTIH, "bold",
@@ -238,21 +238,21 @@ def gambar():
 
     # ── 7. penapisan ──────────────────────────────────────────────────
     y = 656
-    tahap(ax, "7", "Penapisan kandidat reassortment", y, 60,
-          ["subtipe terprediksi ≠ subtipe tercatat, pada keyakinan "
-           "tinggi",
-           "→ 1.990 kandidat dari 1.238 galur, keyakinan rata-rata "
-           "0,909"],
+    tahap(ax, "7", "Reassortment candidate screening", y, 60,
+          ["predicted subtype ≠ recorded subtype, at high "
+           "confidence",
+           "→ 1,990 candidates across 1,238 strains, mean "
+           "confidence 0.909"],
           rona=MERAH, isi=MERAH_BG, tebal=1.6)
     panah(ax, TENGAH, y + 60, TENGAH, y + 60 + 14)
 
     # ── 8. validasi ───────────────────────────────────────────────────
     y = 730
-    tahap(ax, "8", "Validasi independen", y, 60,
-          ["pengayaan inang — peubah yang tidak pernah menjadi fitur "
-           "model",
-           "OR Cochran-Mantel-Haenszel · 17 strata wilayah × "
-           "dekade"],
+    tahap(ax, "8", "Independent validation", y, 60,
+          ["host enrichment — a variable never used as a model "
+           "feature",
+           "Cochran–Mantel–Haenszel OR · 17 region × decade "
+           "strata"],
           rona=TOSCA, isi=TOSCA_BG, tebal=1.6)
 
     return fig
