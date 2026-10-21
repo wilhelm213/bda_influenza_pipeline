@@ -121,7 +121,7 @@ def ambil(t, a, k):
     return np.nan
 
 
-fig, ax = plt.subplots(1, 2, figsize=(9.6, 3.4))
+fig, ax = plt.subplots(1, 2, figsize=(9.6, 3.7))
 w = 0.78 / len(algo)
 xs = np.arange(len(tugas))
 for i, a in enumerate(algo):
@@ -134,9 +134,8 @@ for i, a in enumerate(algo):
                    ha="center", fontsize=6.2, color=TINTA_2, rotation=90)
 ax[0].set_xticks(xs)
 ax[0].set_xticklabels([NAMA_T[t] for t in tugas])
-ax[0].set_ylim(0, 1.16)
+ax[0].set_ylim(0, 1.18)
 ax[0].grid(axis="x", visible=False)
-ax[0].legend(fontsize=7.6, ncol=1, loc="lower left")
 rapi(ax[0], None, "Macro F1", "(a) Macro F1 by task and algorithm")
 
 for i, a in enumerate(algo):
@@ -159,7 +158,12 @@ ax[1].set_ylim(0.0008, 14)
 ax[1].set_yscale("log")
 ax[1].grid(axis="x", visible=False)
 rapi(ax[1], None, "Log loss (log scale)", "(b) Log loss against random guessing")
-fig.tight_layout()
+# satu legenda bersama di atas kedua panel, supaya tidak menimpa batang
+pegangan, label = ax[0].get_legend_handles_labels()
+fig.legend(pegangan, label, loc="upper center", ncol=len(algo), fontsize=8.4,
+           frameon=False, bbox_to_anchor=(.5, 1.0), handlelength=1.4,
+           columnspacing=2.2)
+fig.tight_layout(rect=[0, 0, 1, .915])
 simpan(fig, "gambar3-klasifikasi.png",
        "Macro F1 and log loss of nine models")
 
@@ -170,7 +174,7 @@ baris = [int(float(x["n_latih"])) for x in sp]
 sk_b = [int(float(x["n_latih"])) for x in sk if x["n_latih"]]
 gagal = [baris[i] for i, x in enumerate(sk) if not x["detik"]]
 
-fig, ax = plt.subplots(1, 2, figsize=(9.6, 3.3))
+fig, ax = plt.subplots(1, 2, figsize=(9.6, 3.6))
 ax[0].plot(baris, [float(x["detik"]) for x in sp], marker="o", color=D1,
            linewidth=2.2, label="Spark ML")
 ax[0].plot(sk_b, [float(x["detik"]) for x in sk if x["detik"]], marker="o",
@@ -184,7 +188,6 @@ ax[0].annotate("failed: Py4JJavaError", xy=(gagal[0], 18),
                arrowprops=dict(arrowstyle="->", color=D8, lw=1.1))
 ax[0].set_xscale("log")
 ax[0].set_ylim(bottom=0)
-ax[0].legend(fontsize=8)
 rapi(ax[0], "Training rows", "Training time (s)", "(a) Time against volume")
 
 ax[1].plot(baris, [float(x["throughput_baris_per_detik"]) for x in sp],
@@ -207,7 +210,11 @@ ax[1].set_xscale("log")
 ax[1].set_ylim(bottom=0)
 ax[1].yaxis.set_major_formatter(FuncFormatter(ribu))
 rapi(ax[1], "Training rows", "Rows per second", "(b) Throughput")
-fig.tight_layout()
+pegangan, label = ax[0].get_legend_handles_labels()
+fig.legend(pegangan, label, loc="upper center", ncol=2, fontsize=8.4,
+           frameon=False, bbox_to_anchor=(.5, 1.0), handlelength=1.8,
+           columnspacing=2.4)
+fig.tight_layout(rect=[0, 0, 1, .915])
 simpan(fig, "gambar4-penskalaan.png",
        "Training time and throughput against data volume")
 
@@ -298,9 +305,9 @@ ax[1].set_yticklabels(["%s %s" % (s["wil"], int(s["dekade"])) for s in st],
 ax[1].set_xscale("log")
 ax[1].set_xlim(.4, 400)
 ax[1].grid(axis="y", visible=False)
-ax[1].text(.02, .97, "Pooled Mantel-Haenszel OR\n10.86  (95% CI 9.69 to 12.17)",
+ax[1].text(.98, .05, "Pooled Mantel-Haenszel OR\n10.86  (95% CI 9.69 to 12.17)",
            transform=ax[1].transAxes, fontsize=7.4, color=D8,
-           fontweight="bold", va="top", ha="left",
+           fontweight="bold", va="bottom", ha="right",
            bbox=dict(boxstyle="round,pad=0.3", facecolor=PUTIH,
                      edgecolor="none", alpha=.92))
 ax[1].text(1.08, .2, "OR = 1", fontsize=7, color=TINTA_3, ha="left")
