@@ -16,6 +16,15 @@ DPI = 300
 
 AKSEN = "#1d5c3a"
 AKSEN_BG = "#dfeee5"
+
+# satu rona per jenis operasi; palet sudah lolos uji simulasi buta warna
+BIRU, BIRU_BG = "#2a78d6", "#e3edfb"       # akuisisi dan penyimpanan
+JINGGA, JINGGA_BG = "#eb6834", "#fdeae2"   # kendali mutu
+UNGU, UNGU_BG = "#4a3aa7", "#e8e6f6"       # representasi fitur
+HIJAU, HIJAU_BG = "#1baf7a", "#e0f5ee"     # pemodelan
+AMBER, AMBER_BG = "#c98500", "#fcf0d9"     # analitik graf
+MERAH, MERAH_BG = "#d6342f", "#fce4e3"     # penapisan
+TOSCA, TOSCA_BG = "#0f7b8a", "#def0f3"     # validasi statistik
 TANAH = "#f1f4ec"
 PUTIH = "#ffffff"
 TINTA = "#10140d"
@@ -76,11 +85,11 @@ def panah(ax, x1, y1, x2, y2, warna=TINTA_3, tebal=1.4):
         linewidth=tebal, color=warna, shrinkA=0, shrinkB=0, zorder=3))
 
 
-def tahap(ax, ax_no, judul, y, h, baris, isi=PUTIH, tepi=GARIS, tebal=1.0,
-          catatan=None):
+def tahap(ax, ax_no, judul, y, h, baris, rona=AKSEN, isi=PUTIH,
+          tebal=1.2, catatan=None):
     dalam = R - L - 46 - 14
-    kotak(ax, L, y, R - L, h, isi=isi, tepi=tepi, tebal=tebal)
-    kotak(ax, L, y, 30, h, isi=AKSEN, tepi=AKSEN)
+    kotak(ax, L, y, R - L, h, isi=isi, tepi=rona, tebal=tebal)
+    kotak(ax, L, y, 30, h, isi=rona, tepi=rona)
     teks(ax, L + 15, y + h / 2 + 5, ax_no, 13, PUTIH, "bold", rata="center")
     teks(ax, L + 46, y + 22, judul, 12, TINTA, "bold", muat=dalam * 0.62)
     if catatan:
@@ -98,25 +107,26 @@ def gambar():
     kotak(ax, PITA_X, 20, PITA_W, 770, isi=TANAH, tepi=GARIS,
           putus=(4, 3))
     rel = [
-        ("HDFS", ["3 datanode", "replikasi 2", "blok 128 MB"]),
-        ("YARN", ["1 RM + 3 NM", "12 vCore", "18.432 MB"]),
-        ("Spark 3.5.9", ["DataFrame API", "Spark ML", "MinHash LSH"]),
-        ("MapReduce", ["Hadoop Streaming", "mapper awk"]),
-        ("Neo4j 5.26", ["property graph", "Cypher + GDS"]),
+        ("HDFS", ["3 datanode", "replikasi 2", "blok 128 MB"], BIRU),
+        ("YARN", ["1 RM + 3 NM", "12 vCore", "18.432 MB"], JINGGA),
+        ("Spark 3.5.9", ["DataFrame API", "Spark ML", "MinHash LSH"], UNGU),
+        ("MapReduce", ["Hadoop Streaming", "mapper awk"], HIJAU),
+        ("Neo4j 5.26", ["property graph", "Cypher + GDS"], AMBER),
     ]
     bx, bw = PITA_X + 8, PITA_W - 16
-    tinggi = [22 + len(b) * 11 for _, b in rel]
+    tinggi = [22 + len(b) * 11 for _, b, _w in rel]
     total = sum(tinggi) + 14 * (len(rel) - 1) + 34
     ty = 20 + (770 - total) / 2
     teks(ax, bx + bw / 2, ty, "INFRASTRUKTUR", 7.4, AKSEN, "bold",
          rata="center", muat=bw)
     ty += 16
-    for (nama, baris), t in zip(rel, tinggi):
-        kotak(ax, bx, ty, bw, t, isi=PUTIH, tepi=GARIS_2)
-        teks(ax, bx + bw / 2, ty + 14, nama, 7.8, TINTA, "bold",
+    for (nama, baris, warna), t in zip(rel, tinggi):
+        kotak(ax, bx, ty, bw, t, isi=PUTIH, tepi=warna, tebal=1.2)
+        kotak(ax, bx, ty, bw, 3.5, isi=warna, tepi=warna, r=1)
+        teks(ax, bx + bw / 2, ty + 15, nama, 7.8, TINTA, "bold",
              rata="center", muat=bw - 6)
         for i, s in enumerate(baris):
-            teks(ax, bx + bw / 2, ty + 25 + i * 11, s, 6.4, TINTA_3, font=FM,
+            teks(ax, bx + bw / 2, ty + 26 + i * 11, s, 6.4, TINTA_3, font=FM,
                  rata="center", muat=bw - 6)
         ty += t + 14
 
@@ -128,8 +138,8 @@ def gambar():
 
     # ── 1. penarikan data ─────────────────────────────────────────────
     y, h = 20, 92
-    kotak(ax, L, y, R - L, h)
-    kotak(ax, L, y, 30, h, isi=AKSEN, tepi=AKSEN)
+    kotak(ax, L, y, R - L, h, isi=BIRU_BG, tepi=BIRU, tebal=1.2)
+    kotak(ax, L, y, 30, h, isi=BIRU, tepi=BIRU)
     teks(ax, L + 15, y + h / 2 + 5, "1", 13, PUTIH, "bold", rata="center")
     teks(ax, L + 46, y + 22, "Penarikan data", 12, TINTA, "bold")
     teks(ax, R - 14, y + 22, "42 partisi · idempoten · gabung "
@@ -139,7 +149,7 @@ def gambar():
              "esearch + efetch · FASTA"),
             (376, "Jalur B — NCBI Virus vvsearch2",
              "metadata CSV · 12 kolom")]:
-        kotak(ax, L + 46 + dx, y + 32, 352, 46, isi=TANAH, tepi=GARIS_2)
+        kotak(ax, L + 46 + dx, y + 32, 352, 46, isi=PUTIH, tepi=BIRU)
         teks(ax, L + 60 + dx, y + 51, judul, 9, TINTA, "bold", muat=324)
         teks(ax, L + 60 + dx, y + 68, ket, 8, TINTA_3, font=FM, muat=324)
     aliran(y + h, y + h + 34, "1.627.536 sekuens")
@@ -148,7 +158,7 @@ def gambar():
     y = 146
     tahap(ax, "2", "Zona bronze — HDFS", y, 48,
           ["hasil unduh apa adanya, tidak pernah diubah · sumber "
-           "kebenaran untuk pengulangan"])
+           "kebenaran untuk pengulangan"], rona=BIRU, isi=BIRU_BG)
     aliran(y + 48, y + 48 + 26)
 
     # ── 3. gerbang mutu ───────────────────────────────────────────────
@@ -157,7 +167,7 @@ def gambar():
           ["panjang ≥ 500 bp (gugur 36.388) · panjang ≤ "
            "2.600 bp (gugur 49)",
            "basa ambigu ≤ 5% (gugur 4.187) · deduplikasi cetakan "
-           "SHA-1"])
+           "SHA-1"], rona=JINGGA, isi=JINGGA_BG)
     aliran(y + 76, y + 76 + 34,
            "1.586.912 lolos · 893.599 wakil unik")
 
@@ -165,24 +175,24 @@ def gambar():
     y = 330
     tahap(ax, "4", "Zona silver — Parquet berpartisi segmen", y, 48,
           ["kolom asal + kolom turunan: hash, cacah duplikat, asal label, "
-           "presisi tanggal"])
+           "presisi tanggal"], rona=BIRU, isi=BIRU_BG)
     aliran(y + 48, y + 48 + 26)
 
     # ── 5. rekayasa fitur ─────────────────────────────────────────────
     y, h = 404, 88
-    kotak(ax, L, y, R - L, h, isi=AKSEN_BG, tepi=AKSEN, tebal=1.4)
-    kotak(ax, L, y, 30, h, isi=AKSEN, tepi=AKSEN)
+    kotak(ax, L, y, R - L, h, isi=UNGU_BG, tepi=UNGU, tebal=1.6)
+    kotak(ax, L, y, 30, h, isi=UNGU, tepi=UNGU)
     teks(ax, L + 15, y + h / 2 + 5, "5", 13, PUTIH, "bold", rata="center")
     teks(ax, L + 46, y + 22, "Rekayasa fitur alignment-free", 12, TINTA,
          "bold")
     pipa = ["k-mer, k = 8", "CountVectorizer", "IDF", "Normalizer L2"]
     px, pw = L + 46, 160
     for i, s in enumerate(pipa):
-        kotak(ax, px, y + 32, pw, 30, isi=PUTIH, tepi=AKSEN)
+        kotak(ax, px, y + 32, pw, 30, isi=PUTIH, tepi=UNGU)
         teks(ax, px + pw / 2, y + 51, s, 8.6, TINTA, "bold", font=FM,
              rata="center", muat=pw - 8)
         if i < len(pipa) - 1:
-            panah(ax, px + pw + 3, y + 47, px + pw + 20, y + 47, AKSEN, 1.2)
+            panah(ax, px + pw + 3, y + 47, px + pw + 20, y + 47, UNGU, 1.4)
         px += pw + 23
     teks(ax, L + 46, y + 78, "SparseVector 65.536 dimensi · 56.171 "
          "k-mer teramati · kepadatan 2,49% · 38,7 GB pada HDFS",
@@ -198,21 +208,21 @@ def gambar():
 
     # ── 6a dan 6b ─────────────────────────────────────────────────────
     y, h = 522, 102
-    for x0, no, judul, baris in [
-        (L, "6a", "Klasifikasi", [
+    for x0, no, rona, latar, judul, baris in [
+        (L, "6a", HIJAU, HIJAU_BG, "Klasifikasi", [
             "Tugas A  segmen, 8 kelas",
             "Tugas B1 subtipe dari HA + NA, 21 kelas",
             "Tugas B2 subtipe dari segmen internal",
             "LogReg · RandomForest · NaiveBayes",
             "pembagian latih-uji menurut isolat"]),
-        (R - 370, "6b", "Graf kemiripan", [
+        (R - 370, "6b", AMBER, AMBER_BG, "Graf kemiripan", [
             "MinHash LSH · ambang Jaccard 0,12",
             "sampel ≤ 2.500 simpul per segmen",
             "label propagation → komponen terhubung",
             "PageRank → sentralitas klaster",
             "358.212 tepi · delapan segmen"])]:
-        kotak(ax, x0, y, 370, h)
-        kotak(ax, x0, y, 30, h, isi=AKSEN, tepi=AKSEN)
+        kotak(ax, x0, y, 370, h, isi=latar, tepi=rona, tebal=1.2)
+        kotak(ax, x0, y, 30, h, isi=rona, tepi=rona)
         teks(ax, x0 + 15, y + h / 2 + 4, no, 10.5, PUTIH, "bold",
              rata="center")
         teks(ax, x0 + 44, y + 21, judul, 11, TINTA, "bold")
@@ -233,7 +243,7 @@ def gambar():
            "tinggi",
            "→ 1.990 kandidat dari 1.238 galur, keyakinan rata-rata "
            "0,909"],
-          isi=AKSEN_BG, tepi=AKSEN, tebal=1.4)
+          rona=MERAH, isi=MERAH_BG, tebal=1.6)
     panah(ax, TENGAH, y + 60, TENGAH, y + 60 + 14)
 
     # ── 8. validasi ───────────────────────────────────────────────────
@@ -243,7 +253,7 @@ def gambar():
            "model",
            "OR Cochran-Mantel-Haenszel · 17 strata wilayah × "
            "dekade"],
-          tepi=AKSEN, tebal=1.4)
+          rona=TOSCA, isi=TOSCA_BG, tebal=1.6)
 
     return fig
 
