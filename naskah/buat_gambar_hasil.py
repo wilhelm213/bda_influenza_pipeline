@@ -234,7 +234,7 @@ uk = INS["klaster_ukuran"]
 urut = ["2 - 5", "6 - 20", "21 - 100", "> 100"]
 pet = {u["ember"]: u["count"] for u in uk}
 nilai2 = [pet.get(u, 0) for u in urut]
-nama2 = ["2–5", "6–20", "21–100", "> 100"]
+nama2 = ["2-5", "6-20", "21-100", "> 100"]
 ax[1].bar(range(4), nilai2, color=[D3, D4, D2, D8], width=.6)
 for i, v in enumerate(nilai2):
     ax[1].text(i, v + 18, ribu(v), ha="center", fontsize=7.6, color=TINTA_2)
@@ -290,7 +290,7 @@ ax[1].set_yticklabels(["%s %s" % (s["wil"], int(s["dekade"])) for s in st],
 ax[1].set_xscale("log")
 ax[1].set_xlim(.4, 400)
 ax[1].grid(axis="y", visible=False)
-ax[1].text(.02, .97, "Pooled Mantel–Haenszel OR\n10.86  (95% CI 9.69–12.17)",
+ax[1].text(.02, .97, "Pooled Mantel-Haenszel OR\n10.86  (95% CI 9.69 to 12.17)",
            transform=ax[1].transAxes, fontsize=7.4, color=D8,
            fontweight="bold", va="top", ha="left",
            bbox=dict(boxstyle="round,pad=0.3", facecolor=PUTIH,

@@ -145,9 +145,9 @@ def gambar():
     teks(ax, R - 14, y + 22, "42 partitions · idempotent · "
          "joined on accession number", 8.5, TINTA_3, font=FM, rata="right")
     for dx, judul, ket in [
-            (0, "Path A — NCBI E-utilities",
+            (0, "Path A: NCBI E-utilities",
              "esearch + efetch · FASTA"),
-            (376, "Path B — NCBI Virus vvsearch2",
+            (376, "Path B: NCBI Virus vvsearch2",
              "metadata CSV · 12 columns")]:
         kotak(ax, L + 46 + dx, y + 32, 352, 46, isi=PUTIH, tepi=BIRU)
         teks(ax, L + 60 + dx, y + 51, judul, 9, TINTA, "bold", muat=324)
@@ -156,7 +156,7 @@ def gambar():
 
     # ── 2. zona bronze ────────────────────────────────────────────────
     y = 146
-    tahap(ax, "2", "Bronze zone — HDFS", y, 48,
+    tahap(ax, "2", "Bronze zone on HDFS", y, 48,
           ["raw downloads, never modified · source of truth for "
            "re-running the pipeline"], rona=BIRU, isi=BIRU_BG)
     aliran(y + 48, y + 48 + 26)
@@ -173,7 +173,7 @@ def gambar():
 
     # ── 4. zona silver ────────────────────────────────────────────────
     y = 330
-    tahap(ax, "4", "Silver zone — Parquet partitioned by segment", y, 48,
+    tahap(ax, "4", "Silver zone: Parquet partitioned by segment", y, 48,
           ["source columns + derived: hash, duplicate count, label "
            "provenance, date precision"], rona=BIRU, isi=BIRU_BG)
     aliran(y + 48, y + 48 + 26)
@@ -249,9 +249,9 @@ def gambar():
     # ── 8. validasi ───────────────────────────────────────────────────
     y = 730
     tahap(ax, "8", "Independent validation", y, 60,
-          ["host enrichment — a variable never used as a model "
+          ["host enrichment, a variable never used as a model "
            "feature",
-           "Cochran–Mantel–Haenszel OR · 17 region × decade "
+           "Cochran-Mantel-Haenszel OR · 17 region × decade "
            "strata"],
           rona=TOSCA, isi=TOSCA_BG, tebal=1.6)
 
