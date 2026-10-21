@@ -192,10 +192,15 @@ ax[1].plot(baris, [float(x["throughput_baris_per_detik"]) for x in sp],
 ax[1].plot(sk_b, [float(x["throughput_baris_per_detik"]) for x in sk
                   if x["throughput_baris_per_detik"]], marker="o", color=D2,
            linewidth=2.2, label="Single node")
-ax[1].annotate("15× increase", xy=(baris[-1], 1439), xytext=(60000, 1180),
+tp_sp = [float(x["throughput_baris_per_detik"]) for x in sp]
+tp_sk = [float(x["throughput_baris_per_detik"]) for x in sk
+         if x["throughput_baris_per_detik"]]
+ax[1].annotate("%.0f× increase" % (tp_sp[-1] / tp_sp[0]),
+               xy=(baris[-1], tp_sp[-1]), xytext=(60000, 1180),
                fontsize=8, color=D1, fontweight="bold",
                arrowprops=dict(arrowstyle="->", color=D1, lw=1.1))
-ax[1].annotate("decreasing", xy=(sk_b[-1], 169), xytext=(60000, 330),
+ax[1].annotate("falls to %.0f%%" % (100 * tp_sk[-1] / tp_sk[0]),
+               xy=(sk_b[-1], tp_sk[-1]), xytext=(60000, 330),
                fontsize=8, color=D2, fontweight="bold",
                arrowprops=dict(arrowstyle="->", color=D2, lw=1.1))
 ax[1].set_xscale("log")
@@ -215,8 +220,9 @@ fig, ax = plt.subplots(1, 2, figsize=(9.6, 3.3))
 lab = ["%d\n%s" % (x["segmen"], SEG[x["segmen"]]) for x in gs]
 nilai = [x["tepi"] for x in gs]
 bar = ax[0].bar(range(8), nilai, color=[PAL[i] for i in range(8)], width=.68)
-bar[3].set_edgecolor(TINTA)
-bar[3].set_linewidth(1.6)
+i_renggang = nilai.index(min(nilai))
+bar[i_renggang].set_edgecolor(TINTA)
+bar[i_renggang].set_linewidth(1.6)
 for i, v in enumerate(nilai):
     ax[0].text(i, v + 2200, ribu(v), ha="center", fontsize=7, color=TINTA_2)
 ax[0].set_xticks(range(8))
@@ -224,9 +230,11 @@ ax[0].set_xticklabels(lab, fontsize=8)
 ax[0].set_ylim(0, max(nilai) * 1.2)
 ax[0].yaxis.set_major_formatter(FuncFormatter(ribu))
 ax[0].grid(axis="x", visible=False)
-ax[0].annotate("HA sparsest:\nprimary antibody target", xy=(3, 21800),
-               xytext=(3.05, 40000), fontsize=7.4, color=TINTA,
-               fontweight="bold", ha="center",
+ax[0].annotate("%s sparsest:\nprimary antibody target"
+               % SEG[gs[i_renggang]["segmen"]],
+               xy=(i_renggang, nilai[i_renggang] * 1.13),
+               xytext=(i_renggang + .05, max(nilai) * .6), fontsize=7.4,
+               color=TINTA, fontweight="bold", ha="center",
                arrowprops=dict(arrowstyle="->", color=TINTA, lw=1.1))
 rapi(ax[0], None, "Similarity edges", "(a) Graph density by segment")
 
